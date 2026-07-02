@@ -66,9 +66,14 @@
     border: 1px solid #444;
   }
   .page-nav a:hover { background: #333; color: #fff; }
-  .page-nav a.gh-contribute { color: #1a7f37; border-color: #1a7f37; background: #e6f4ea; }
-  .page-nav a.gh-contribute:visited { color: #1a7f37; }
-  .page-nav a.gh-contribute:hover { background: #1a7f37; color: #fff; }
+  a.gh-contribute {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: #fff; background: #1a7f37; border: 1px solid #1a7f37;
+    text-decoration: none; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 4px;
+  }
+  a.gh-contribute:visited { color: #fff; }
+  a.gh-contribute:hover { background: #24a148; border-color: #24a148; color: #fff; }
   .page-content {
     max-width: 1148px;
     margin: 0 auto;
@@ -296,7 +301,7 @@
       </div>
     </div>
   </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-02 15:35 UTC</div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-02 15:51 UTC</div>
 </div>
 </div>
 <script>

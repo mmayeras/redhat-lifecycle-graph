@@ -235,6 +235,82 @@ _RHDH_FALLBACK: dict[str, dict] = {
     "1.10": {"ga": "2026-06-10", "fs_end": "2026-10-10", "mnt_end": "2027-02-11"},
 }
 
+_MTC_FALLBACK: dict[str, dict] = {
+    "1.7": {"ga": "2022-03-01", "fs_end": "2024-07-01", "mnt_end": "2025-07-01"},
+    "1.8": {"ga": "2023-10-02", "fs_end": "2026-07-31", "mnt_end": "2026-12-31"},
+}
+
+_WEBTERMINAL_FALLBACK: dict[str, dict] = {
+    "1.11": {"ga": "2024-08-13", "fs_end": "2025-01-01", "mnt_end": "2025-12-27"},
+    "1.12": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
+    "1.13": {"ga": "2025-06-02", "fs_end": "2025-09-17", "mnt_end": "2026-08-25"},
+    "1.14": {"ga": "2025-09-25", "fs_end": "2026-01-21", "mnt_end": "2026-12-17"},
+    "1.15": {"ga": "2025-11-27", "fs_end": "2026-05-03", "mnt_end": "2027-04-21"},
+}
+
+_MCE_FALLBACK: dict[str, dict] = {
+    "2.7":  {"ga": "2024-11-05", "fs_end": "2026-01-06", "mnt_end": "2026-06-02"},
+    "2.8":  {"ga": "2025-03-12", "fs_end": "2026-04-17", "mnt_end": "2026-09-18"},
+    "2.9":  {"ga": "2025-08-01", "fs_end": "2026-10-02", "mnt_end": "2027-02-24"},
+    "2.10": {"ga": "2025-12-03", "fs_end": "2027-01-08", "mnt_end": "2027-06-01"},
+    "2.11": {"ga": "2026-03-10", "fs_end": "2027-04-09", "mnt_end": "2027-09-10"},
+    "2.17": {"ga": "2026-06-18", "fs_end": "2026-12-31", "mnt_end": "2027-12-31"},
+}
+
+_KIALI_FALLBACK: dict[str, dict] = {
+    "2.4":  {"ga": "2025-03-12", "fs_end": "2025-09-12", "mnt_end": "2026-10-31"},
+    "2.11": {"ga": "2025-08-06", "fs_end": "2026-01-31", "mnt_end": "2027-07-27"},
+    "2.17": {"ga": "2025-11-14", "fs_end": "2026-05-14", "mnt_end": "2027-08-25"},
+    "2.22": {"ga": "2026-03-19", "fs_end": "2026-09-21", "mnt_end": "2028-02-25"},
+}
+
+_GATEKEEPER_FALLBACK: dict[str, dict] = {
+    "3.17": {"ga": "2024-11-19", "fs_end": "2025-08-01", "mnt_end": "2025-12-04"},
+    "3.18": {"ga": "2025-03-20", "fs_end": "2025-12-04", "mnt_end": "2026-04-23"},
+    "3.19": {"ga": "2025-08-01", "fs_end": "2026-04-23", "mnt_end": "2026-08-01"},
+    "3.20": {"ga": "2025-12-04", "fs_end": "2026-08-01", "mnt_end": "2026-12-01"},
+    "3.21": {"ga": "2026-04-23", "fs_end": "2026-12-01", "mnt_end": "2027-04-01"},
+}
+
+_SUBMARINER_FALLBACK: dict[str, dict] = {
+    "0.18": {"ga": "2024-07-18", "fs_end": "2025-08-15", "mnt_end": "2026-01-16"},
+    "0.19": {"ga": "2024-11-06", "fs_end": "2025-12-08", "mnt_end": "2026-06-09"},
+    "0.20": {"ga": "2025-03-19", "fs_end": "2026-04-17", "mnt_end": "2026-09-11"},
+    "0.22": {"ga": "2025-12-04", "fs_end": "2027-01-05", "mnt_end": "2027-09-10"},
+}
+
+_QUAY_FALLBACK: dict[str, dict] = {
+    "3.13": {"ga": "2025-01-22", "fs_end": "2025-07-07", "mnt_end": "2026-04-01"},
+    "3.14": {"ga": "2025-04-02", "fs_end": "2025-10-07", "mnt_end": "2026-08-25"},
+    "3.15": {"ga": "2025-07-07", "fs_end": "2026-03-18", "mnt_end": "2026-12-17"},
+    "3.16": {"ga": "2025-12-18", "fs_end": "2026-06-24", "mnt_end": "2027-04-21"},
+    "3.17": {"ga": "2026-03-24", "fs_end": "2026-10-01", "mnt_end": "2027-08-03"},
+}
+
+_ODF_MULTICLUSTER_FALLBACK: dict[str, dict] = {
+    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27"},
+    "4.17": {"ga": "2024-10-30", "fs_end": "2025-06-11", "mnt_end": "2026-04-01"},
+    "4.18": {"ga": "2025-03-11", "fs_end": "2025-10-28", "mnt_end": "2026-08-25"},
+    "4.19": {"ga": "2025-07-28", "fs_end": "2026-02-18", "mnt_end": "2026-12-17"},
+    "4.20": {"ga": "2025-11-18", "fs_end": "2026-06-09", "mnt_end": "2027-04-21"},
+}
+
+_DR_CLUSTER_FALLBACK: dict[str, dict] = _ODF_MULTICLUSTER_FALLBACK
+
+_CONNECTIVITY_LINK_FALLBACK: dict[str, dict] = {
+    "1.1": {"ga": "2025-05-26", "fs_end": "2025-10-01", "mnt_end": "2026-06-11"},
+    "1.2": {"ga": "2025-10-01", "fs_end": "2026-02-26", "mnt_end": "2026-10-01"},
+    "1.3": {"ga": "2026-02-26", "fs_end": "2026-06-11", "mnt_end": "2026-10-01"},
+    "1.4": {"ga": "2026-06-11", "fs_end": "2026-10-01", "mnt_end": "2027-02-01"},
+}
+
+_GLOBAL_HUB_FALLBACK: dict[str, dict] = {
+    "1.4": {"ga": "2025-03-20", "fs_end": "2026-04-17"},
+    "1.5": {"ga": "2025-07-21", "fs_end": "2026-10-02"},
+    "1.6": {"ga": "2025-12-04", "fs_end": "2027-02-12"},
+    "1.7": {"ga": "2026-03-10", "fs_end": "2027-04-09"},
+}
+
 # Ceph lifecycle uses single "sup" support tier (no fs/mnt split), then ELS add-on.
 _CEPH_FALLBACK: dict[str, dict] = {
     "4": {"ga": "2020-01-31", "sup_end": "2023-03-31",
@@ -572,6 +648,78 @@ OPERATOR_CONFIGS: dict[str, dict] = {
         "parse_ver": _parse_xy, "eus_check": None,
         "min_filter": lambda v: _parse_xy(v) >= (10, 14) and "." in v,
     },
+    "mtc": {
+        "api_name": "migration toolkit for containers", "title": "Migration Toolkit for Containers",
+        "phase_map": _OP_PHASE_MAP, "fallback": _MTC_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 7) and "." in v,
+    },
+    "web-terminal": {
+        "api_name": "OpenShift Web Terminal", "title": "Web Terminal",
+        "phase_map": _OP_PHASE_MAP, "fallback": _WEBTERMINAL_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 10) and "." in v,
+    },
+    "mce": {
+        "api_name": "Multicluster Engine for Kubernetes", "title": "Multicluster Engine",
+        "phase_map": _OP_PHASE_MAP, "fallback": _MCE_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (2, 7) and "." in v,
+    },
+    "kiali": {
+        "api_name": "Kiali", "title": "Kiali",
+        "phase_map": _OP_PHASE_MAP, "fallback": _KIALI_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (2, 4) and "." in v,
+    },
+    "gatekeeper": {
+        "api_name": "Gatekeeper operator", "title": "Gatekeeper",
+        "phase_map": _OP_PHASE_MAP, "fallback": _GATEKEEPER_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (3, 17) and "." in v,
+    },
+    "submariner": {
+        "api_name": "Submariner", "title": "Submariner",
+        "phase_map": _OP_PHASE_MAP, "fallback": _SUBMARINER_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (0, 17) and "." in v,
+    },
+    "ptp": {
+        "api_name": "PTP Operator", "title": "PTP Operator",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "quay": {
+        "api_name": "Red Hat Quay", "title": "Red Hat Quay",
+        "phase_map": _OP_PHASE_MAP, "fallback": _QUAY_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (3, 12) and "." in v,
+    },
+    "odf-multicluster": {
+        "api_name": "ODF Multicluster Orchestrator", "title": "ODF Multicluster Orchestrator",
+        "phase_map": _OP_PHASE_MAP, "fallback": _ODF_MULTICLUSTER_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": None,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 16,
+    },
+    "dr-cluster": {
+        "api_name": "Openshift DR Cluster Operator", "title": "OpenShift DR Cluster",
+        "phase_map": _OP_PHASE_MAP, "fallback": _DR_CLUSTER_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": None,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 16,
+    },
+    "global-hub": {
+        "api_name": "multicluster global hub", "title": "Multicluster Global Hub",
+        "phase_map": _OP_PHASE_MAP, "fallback": _GLOBAL_HUB_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 4) and "." in v,
+    },
+    "connectivity-link": {
+        "api_name": "Red Hat Connectivity Link", "title": "Red Hat Connectivity Link",
+        "phase_map": _OP_PHASE_MAP, "fallback": _CONNECTIVITY_LINK_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 1) and "." in v,
+    },
 }
 
 # ── Phase palette (PatternFly-aligned) ───────────────────────────────────────
@@ -767,9 +915,14 @@ _PAGE_CSS = """
     border: 1px solid #444;
   }
   .page-nav a:hover { background: #333; color: #fff; }
-  .page-nav a.gh-contribute { color: #1a7f37; border-color: #1a7f37; background: #e6f4ea; }
-  .page-nav a.gh-contribute:visited { color: #1a7f37; }
-  .page-nav a.gh-contribute:hover { background: #1a7f37; color: #fff; }
+  a.gh-contribute {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: #fff; background: #1a7f37; border: 1px solid #1a7f37;
+    text-decoration: none; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 4px;
+  }
+  a.gh-contribute:visited { color: #fff; }
+  a.gh-contribute:hover { background: #24a148; border-color: #24a148; color: #fff; }
   .page-content {
     max-width: 1148px;
     margin: 0 auto;
@@ -1043,7 +1196,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         elif v["days_left"] <= 30:
             _eol_date = v["last_end"].isoformat()
             _eol_days = v["days_left"]
-            _msg = f"EOL on {_eol_date} ({_eol_days} days) — Please plan an upgrade and/or contact Red Hat support for assistance about this version before due date."
+            _msg = f"EOL on {_eol_date} ({_eol_days} days) — Please plan an upgrade and/or contact your support representative for assistance about this version before due date."
             days_badge = (
                 f'<span class="eol-warn">'
                 f'<span style="color:#a30000;font-weight:700;font-size:13px">⚠️ {_eol_days}d</span>'
@@ -1545,6 +1698,7 @@ def _fetch_all(
         if versions:
             operators_data.append((op_cfg["title"], versions))
 
+    operators_data.sort(key=lambda t: t[0].lower())
     return product_list, operators_data
 
 
