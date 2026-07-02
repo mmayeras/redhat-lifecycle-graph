@@ -38,6 +38,7 @@
 <rect x="721.9" y="64" width="44" height="16" rx="3" fill="white" stroke="rgba(163,0,0,0.25)" stroke-width="1"/>
 <text x="743.9" y="76" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="700" fill="#a30000">Today</text>
 <text x="144" y="133.0" text-anchor="end" font-family="RedHatMono,'Red Hat Mono','Courier New',monospace" font-size="14" font-weight="700" fill="#151515">2.4</text>
+<text x="146" y="121.0" text-anchor="end" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="9" font-weight="700" fill="#40199a">EUS</text>
 <clipPath id="c0"><rect x="184.5" y="111.0" width="929.8" height="34" rx="3"/></clipPath>
 <g clip-path="url(#c0)">
 <rect x="184.5" y="111.0" width="234.7" height="34" fill="#bde5b8"/>
