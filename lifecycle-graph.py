@@ -1092,14 +1092,12 @@ def _fetch_all(
         cfg = PRODUCT_CONFIGS[product]
         lifecycle = fetch_lifecycle(cfg)
         label = cfg["title"]
-        # RHOAI has very short release cycles; show recent EOL versions to illustrate pattern
-        use_eol = args.include_eol or (product == "rhoai")
         versions = build_versions(
             lifecycle, cfg,
             versions_filter=args.versions,
             from_version=args.from_version,
             to_version=args.to_version,
-            include_eol=use_eol,
+            include_eol=args.include_eol,
         )
         if versions:
             product_list.append((label, versions))
