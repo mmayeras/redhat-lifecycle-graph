@@ -384,7 +384,7 @@ PRODUCT_CONFIGS: dict[str, dict] = {
     },
     "ceph": {
         "api_name": "Red Hat Ceph Storage",
-        "title":    "Ceph Storage Lifecycle",
+        "title":    "Ceph Lifecycle",
         "phase_map": {
             "General availability":                              "ga",
             "End of Life":                                       "sup_end",
@@ -580,8 +580,8 @@ PHASES: dict[str, dict] = {
     "eus1": {"label": "EUS-1",         "bg": "#bee1f4", "border": "#004080", "text": "#004080"},
     "eus2": {"label": "EUS-2",         "bg": "#e7d4ff", "border": "#40199a", "text": "#40199a"},
     "eus3": {"label": "EUS-3",         "bg": "#f2c4ff", "border": "#6a0080", "text": "#6a0080"},
-    "els":  {"label": "ELS",           "bg": "#faeae8", "border": "#c9190b", "text": "#a30000"},
-    "els2": {"label": "ELS-2",         "bg": "#ffd6d1", "border": "#8b0000", "text": "#7b0000"},
+    "els":  {"label": "ELS",           "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
+    "els2": {"label": "ELS-2",         "bg": "#e88080", "border": "#8b0000", "text": "#fff"},
     "elp":  {"label": "Ext. Life",     "bg": "#e4e4e4", "border": "#6a6e73", "text": "#3c3f42"},
 }
 
@@ -798,6 +798,7 @@ _PAGE_CSS = """
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
   }
   .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .legend span { font-size: 11px !important; }
