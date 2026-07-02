@@ -866,20 +866,35 @@ _PAGE_CSS = """
   }
   @media (max-width: 600px) {
     :root {
-      --card-px: 10px;
-      --label-w: 68px;
-      --days-col: 34px;
-      --chart-top: 52px;
-      --row-h: 40px;
-      --bar-h: 26px;
-      --ver-font: 11px;
+      --card-px: 8px;
+      --label-w: 56px;
+      --days-col: 32px;
+      --chart-top: 44px;
+      --row-h: 36px;
+      --bar-h: 24px;
+      --ver-font: 10px;
     }
-    .page-header { grid-template-columns: 1fr; gap: 6px; }
+    .page-header {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto;
+      gap: 4px;
+      padding: 8px 12px;
+    }
     .header-left { display: none; }
-    .page-nav { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
-    .page-nav a { flex-shrink: 0; }
+    .header-right { grid-column: 2; grid-row: 1; }
+    .page-nav {
+      grid-column: 1; grid-row: 1;
+      flex-wrap: nowrap; overflow-x: auto;
+      justify-content: flex-start;
+      scrollbar-width: none;
+    }
+    .page-nav::-webkit-scrollbar { display: none; }
+    .page-nav a { flex-shrink: 0; font-size: 11px; padding: 3px 8px; }
+    a.gh-contribute { font-size: 11px; padding: 3px 8px; }
     .chart-inner { min-width: var(--mobile-min-width, 480px); }
     .chart-row-bar span { display: none; }
+    .card-header-legend { flex-wrap: wrap; gap: 4px; }
+    .page-content { padding: 12px 8px 32px; gap: 14px; }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -1033,6 +1048,14 @@ _PAGE_CSS = """
   }
   .eol-warn:hover .eol-tip,
   .eol-warn.pinned .eol-tip { display: block; }
+  #phase-tooltip {
+    display: none; position: fixed; z-index: 400; pointer-events: none;
+    background: #151515; color: #fff;
+    font-size: 11px; line-height: 1.6;
+    padding: 6px 10px; border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+    white-space: nowrap;
+  }
   .ver-code {
     font-family: "Red Hat Mono","Courier New",monospace;
     font-size: var(--ver-font);
@@ -1134,18 +1157,23 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     used_phases = {seg["key"] for v in versions for seg in v["segments"]}
 
     # ── Year markers ────────────────────────────────────────────────────────
+    year_span = chart_end.year - chart_start.year + 1
+    year_step = 1 if year_span <= 10 else (2 if year_span <= 18 else 5)
     year_markers = []
     for y in range(chart_start.year, chart_end.year + 2):
         d = date(y, 1, 1)
         if chart_start <= d <= chart_end:
-            year_markers.append({"year": y, "pct": pct(d)})
+            year_markers.append({"year": y, "pct": pct(d), "label": y % year_step == 0})
 
     year_lines_html = "".join(
         f'<div style="position:absolute;left:{m["pct"]:.3f}%;top:0;bottom:0;'
         f'border-left:1px dashed #d2d2d2;z-index:0"></div>'
-        f'<div style="position:absolute;left:{m["pct"]:.3f}%;top:-20px;'
-        f'font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">'
-        f'{m["year"]}</div>'
+        + (
+            f'<div style="position:absolute;left:{m["pct"]:.3f}%;top:-20px;'
+            f'font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">'
+            f'{m["year"]}</div>'
+            if m["label"] else ""
+        )
         for m in year_markers
     )
 
@@ -1176,8 +1204,9 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
             br = f"1.5px solid {ph['border']}" if is_last else "none"
             show_label = w > 5
             inner = f'<span style="font-size:11px;color:{ph["text"]};font-weight:600;white-space:nowrap;padding:0 6px">{ph["label"]}</span>' if show_label else ""
+            _tip_text = f'{ph["label"]} | {seg["start"].isoformat()} → {seg["end"].isoformat()}'
             segs_html += (
-                f'<div title="{ph["label"]} — ends {seg["end"].isoformat()}" '
+                f'<div data-phase="{_tip_text}" '
                 f'style="width:{w:.3f}%;height:100%;background:{ph["bg"]};'
                 f'border-top:1.5px solid {ph["border"]};border-bottom:1.5px solid {ph["border"]};'
                 f'border-left:{bl};border-right:{br};border-radius:{r};'
@@ -1277,7 +1306,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
   </div>
   {controls_html}
   <div class="chart-area">
-    <div class="chart-inner" style="--mobile-min-width:{max(480, (chart_end.year - chart_start.year + 1) * 32)}px">
+    <div class="chart-inner" style="--mobile-min-width:{max(520, year_span * (24 if year_span > 18 else 40))}px">
       <div class="chart-grid">
         {year_lines_html}
         {today_html}
@@ -1383,6 +1412,27 @@ function filterCard(card) {{
 document.addEventListener('DOMContentLoaded', function() {{
   document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
 }});
+(function() {{
+  var tip = document.createElement('div');
+  tip.id = 'phase-tooltip';
+  document.body.appendChild(tip);
+  document.addEventListener('mouseover', function(e) {{
+    var el = e.target.closest('[data-phase]');
+    if (el) {{ tip.textContent = el.dataset.phase; tip.style.display = 'block'; }}
+    else {{ tip.style.display = 'none'; }}
+  }});
+  document.addEventListener('mousemove', function(e) {{
+    if (tip.style.display === 'block') {{
+      var x = e.clientX + 14, y = e.clientY + 14;
+      if (x + 220 > window.innerWidth) x = e.clientX - tip.offsetWidth - 8;
+      if (y + 60 > window.innerHeight) y = e.clientY - tip.offsetHeight - 8;
+      tip.style.left = x + 'px'; tip.style.top = y + 'px';
+    }}
+  }});
+  document.addEventListener('mouseout', function(e) {{
+    if (!e.relatedTarget || !e.relatedTarget.closest('[data-phase]')) tip.style.display = 'none';
+  }});
+}})();
 document.addEventListener('click', function(e) {{
   var warn = e.target.closest('.eol-warn');
   if (warn) {{ warn.classList.toggle('pinned'); e.stopPropagation(); }}
