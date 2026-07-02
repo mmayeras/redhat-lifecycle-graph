@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AAP Lifecycle</title>
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Red Hat Text","Red Hat Display","Open Sans",system-ui,sans-serif;
+    background: #f5f5f5;
+    color: #151515;
+    padding: 0;
+    margin: 0;
+  }
+  .page-header {
+    background: #151515;
+    color: #fff;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .page-header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .page-nav { display: flex; gap: 8px; }
+  .page-nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid #444;
+  }
+  .page-nav a:hover { background: #333; color: #fff; }
+  .page-content {
+    max-width: 1148px;
+    margin: 0 auto;
+    padding: 28px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #d2d2d2;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #151515;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .chart-area { padding: 64px 24px 20px; position: relative; background: #fff; }
+  .chart-grid {
+    position: absolute;
+    top: 64px; bottom: 20px;
+    left: calc(24px + 130px); right: calc(24px + 60px);
+    pointer-events: none;
+  }
+  .chart-rows {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .chart-rows > div:nth-child(even) { background: #fafafa; }
+  .footer {
+    padding: 8px 24px 12px;
+    font-size: 11px; color: #6a6e73;
+    border-top: 1px solid #d2d2d2; background: #f0f0f0;
+  }
+  .footer a { color: #0066cc; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  code { font-family: "Red Hat Mono","Courier New",monospace; }
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>AAP Lifecycle</h1>
+  
+</header>
+<div class="page-content">
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+      </svg>
+      AAP Lifecycle
+    </span>
+    <div class="legend">
+      <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f4b678;border:1.5px solid #8f4700"></span>Maintenance 2</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bee1f4;border:1.5px solid #004080"></span>EUS-1</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#e7d4ff;border:1.5px solid #40199a"></span>EUS-2</span>
+      <span style="font-size:11px;color:#a30000;opacity:0.75">┆ Today (2026-07-02)</span>
+    </div>
+  </div>
+  <div class="chart-area" style="height:294px">
+    <div class="chart-grid">
+      <div style="position:absolute;left:10.844%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:10.844%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2024</div><div style="position:absolute;left:26.847%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:26.847%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2025</div><div style="position:absolute;left:42.807%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:42.807%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2026</div><div style="position:absolute;left:58.767%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:58.767%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2027</div><div style="position:absolute;left:74.727%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:74.727%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2028</div><div style="position:absolute;left:90.730%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:90.730%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2029</div>
+      <div style="position:absolute;left:50.765%;top:0;bottom:0;border-left:1.5px dashed #a30000;opacity:0.7;z-index:2"></div><div style="position:absolute;left:50.765%;top:-52px;font-size:11px;color:#a30000;transform:translateX(-50%);font-weight:700;white-space:nowrap;background:rgba(255,255,255,0.9);padding:1px 4px;border-radius:2px;border:1px solid rgba(163,0,0,0.25)">Today</div>
+    </div>
+    <div class="chart-rows">
+      <div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">2.4</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:2.624%;width:80.017%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2024-10-01" style="width:25.246%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2025-10-01" style="width:19.945%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="Maintenance 2 — ends 2026-06-30" style="width:14.863%;height:100%;background:#f4b678;border-top:1.5px solid #8f4700;border-bottom:1.5px solid #8f4700;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#8f4700;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance 2</span></div><div title="EUS-1 — ends 2027-06-30" style="width:19.945%;height:100%;background:#bee1f4;border-top:1.5px solid #004080;border-bottom:1.5px solid #004080;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#004080;font-weight:600;white-space:nowrap;padding:0 6px">EUS-1</span></div><div title="EUS-2 — ends 2028-06-30" style="width:20.000%;height:100%;background:#e7d4ff;border-top:1.5px solid #40199a;border-bottom:1.5px solid #40199a;border-left:none;border-right:1.5px solid #40199a;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#40199a;font-weight:600;white-space:nowrap;padding:0 6px">EUS-2</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#004080;font-weight:600;font-size:13px" title="EUS-1 — 363 days remaining">363d</span></div></div><div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">2.5</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:22.781%;width:47.967%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2025-10-02" style="width:33.455%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2026-10-02" style="width:33.273%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="Maintenance 2 — ends 2027-10-02" style="width:33.273%;height:100%;background:#f4b678;border-top:1.5px solid #8f4700;border-bottom:1.5px solid #8f4700;border-left:none;border-right:1.5px solid #8f4700;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#8f4700;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance 2</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#795600;font-weight:600;font-size:13px" title="Maintenance — 92 days remaining">92d</span></div></div><div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">2.6</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:38.784%;width:47.923%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-10-01" style="width:33.303%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2027-10-01" style="width:33.303%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="Maintenance 2 — ends 2028-10-01" style="width:33.394%;height:100%;background:#f4b678;border-top:1.5px solid #8f4700;border-bottom:1.5px solid #8f4700;border-left:none;border-right:1.5px solid #8f4700;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#8f4700;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance 2</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 91 days remaining">91d</span></div></div><div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">2.7</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:49.453%;width:47.923%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2027-06-02" style="width:33.303%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2028-06-02" style="width:33.394%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="Maintenance 2 — ends 2029-06-02" style="width:33.303%;height:100%;background:#f4b678;border-top:1.5px solid #8f4700;border-bottom:1.5px solid #8f4700;border-left:none;border-right:1.5px solid #8f4700;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#8f4700;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance 2</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 335 days remaining">335d</span></div></div>
+    </div>
+  </div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-02</div>
+</div>
+</div>
+</body>
+</html>

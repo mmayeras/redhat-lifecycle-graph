@@ -1,0 +1,4 @@
+# Generated outputs — updated automatically by GitHub Actions workflow.
+# Local runs will regenerate these; ignore to avoid merge conflicts.
+generated/
+_lifecycle_png.html

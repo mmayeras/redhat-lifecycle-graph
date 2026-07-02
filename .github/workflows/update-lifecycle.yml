@@ -1,0 +1,44 @@
+name: Update Lifecycle Charts
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Every Monday at 06:00 UTC
+  workflow_dispatch:        # Manual trigger from GitHub UI
+  push:
+    branches: [main]
+    paths:
+      - lifecycle-graph.py  # Re-generate if script changes
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install rsvg-convert
+        run: sudo apt-get install -y librsvg2-bin
+
+      - name: Generate HTML + SVG + PNG (all products)
+        run: python3 lifecycle-graph.py --product all --png
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f generated/
+          if git diff --cached --quiet; then
+            echo "No changes — lifecycle data unchanged."
+          else
+            git commit -m "chore: update lifecycle charts ($(date -u +%Y-%m-%d))"
+            git push
+          fi
