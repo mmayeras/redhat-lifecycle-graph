@@ -48,6 +48,123 @@ _AAP_FALLBACK: dict[str, dict] = {
             "mnt2_end": "2029-10-01"},
 }
 
+_RHOAI_FALLBACK: dict[str, dict] = {
+    "2.19": {"ga": "2025-04-16", "fs_end": "2025-11-17"},
+    "2.20": {"ga": "2025-05-14", "fs_end": "2025-06-19"},
+    "2.21": {"ga": "2025-06-17", "fs_end": "2025-12-17"},
+    "2.22": {"ga": "2025-07-21", "fs_end": "2026-02-16"},
+    "2.23": {"ga": "2025-08-14", "fs_end": "2025-09-18"},
+    "2.24": {"ga": "2025-10-07", "fs_end": "2025-10-23"},
+    "2.25": {"ga": "2025-10-23", "fs_end": "2026-05-25", "eus1_end": "2027-04-26"},
+    "3.0":  {"ga": "2025-11-13", "fs_end": "2026-01-15"},
+    "3.2":  {"ga": "2026-01-22", "fs_end": "2026-03-05"},
+    "3.3":  {"ga": "2026-03-05", "fs_end": "2026-10-05"},
+    "3.4":  {"ga": "2026-05-14", "fs_end": "2026-11-16"},
+}
+
+_PIPELINES_FALLBACK: dict[str, dict] = {
+    "1.15": {"ga": "2024-06-21", "fs_end": "2024-11-09", "mnt_end": "2026-10-31"},
+    "1.16": {"ga": "2024-10-09", "fs_end": "2025-01-12", "mnt_end": "2025-03-17"},
+    "1.17": {"ga": "2024-12-12", "fs_end": "2025-04-17", "mnt_end": "2025-07-15"},
+    "1.18": {"ga": "2025-03-17", "fs_end": "2025-08-15", "mnt_end": "2025-09-25"},
+    "1.19": {"ga": "2025-07-15", "fs_end": "2025-10-25", "mnt_end": "2026-01-22"},
+    "1.20": {"ga": "2025-09-25", "fs_end": "2026-02-22", "mnt_end": "2026-04-27"},
+    "1.21": {"ga": "2026-01-22", "fs_end": "2026-05-27"},
+    "1.22": {"ga": "2026-04-27"},
+}
+
+_GITOPS_FALLBACK: dict[str, dict] = {
+    "1.14": {"ga": "2024-09-19", "fs_end": "2025-01-12", "mnt_end": "2025-08-07"},
+    "1.15": {"ga": "2024-12-12", "fs_end": "2025-05-31", "mnt_end": "2025-09-25"},
+    "1.16": {"ga": "2025-03-31", "fs_end": "2025-09-07", "mnt_end": "2025-12-18"},
+    "1.17": {"ga": "2025-08-07", "fs_end": "2025-10-25", "mnt_end": "2026-03-25"},
+    "1.18": {"ga": "2025-09-25", "fs_end": "2026-01-18", "mnt_end": "2026-06-24"},
+    "1.19": {"ga": "2025-12-18", "fs_end": "2026-04-25"},
+    "1.20": {"ga": "2026-03-25", "fs_end": "2026-07-24"},
+    "1.21": {"ga": "2026-06-24", "fs_end": "2026-10-25"},
+}
+
+_SERVICE_MESH_FALLBACK: dict[str, dict] = {
+    "3.0": {"ga": "2024-05-15", "fs_end": "2024-11-15", "mnt_end": "2026-05-15"},
+    "3.1": {"ga": "2025-08-06", "fs_end": "2026-01-31", "mnt_end": "2027-07-27"},
+    "3.2": {"ga": "2025-11-14", "fs_end": "2026-05-14", "mnt_end": "2027-08-25"},
+    "3.3": {"ga": "2026-03-19", "fs_end": "2026-09-21", "mnt_end": "2028-02-25"},
+}
+
+_VIRT_FALLBACK: dict[str, dict] = {
+    "4.15": {"ga": "2024-02-27", "fs_end": "2024-09-27", "mnt_end": "2025-08-27"},
+    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27",
+             "eus1_end": "2026-06-27", "eus2_end": "2027-06-27"},
+    "4.17": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
+    "4.18": {"ga": "2025-02-25", "fs_end": "2025-09-17", "mnt_end": "2026-08-25",
+             "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
+    "4.19": {"ga": "2025-06-17", "fs_end": "2026-01-21", "mnt_end": "2026-12-17"},
+    "4.20": {"ga": "2025-10-21", "fs_end": "2026-05-03", "mnt_end": "2027-04-21",
+             "eus1_end": "2027-10-21", "eus2_end": "2028-10-21"},
+    "4.21": {"ga": "2026-02-12", "fs_end": "2026-09-09", "mnt_end": "2027-08-03"},
+    "4.22": {"ga": "2026-06-16", "fs_end": "2026-12-31", "mnt_end": "2027-12-31",
+             "eus1_end": "2028-06-30", "eus2_end": "2029-06-30"},
+}
+
+_ODF_FALLBACK: dict[str, dict] = {
+    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27",
+             "eus1_end": "2026-06-27", "eus2_end": "2027-06-27"},
+    "4.17": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
+    "4.18": {"ga": "2025-02-25", "fs_end": "2025-09-17", "mnt_end": "2026-08-25",
+             "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
+    "4.19": {"ga": "2025-07-28", "fs_end": "2026-02-18", "mnt_end": "2026-12-17"},
+    "4.20": {"ga": "2025-11-18", "fs_end": "2026-06-09", "mnt_end": "2027-04-21",
+             "eus1_end": "2027-10-21", "eus2_end": "2028-11-21"},
+    "4.21": {"ga": "2026-03-09", "fs_end": "2027-01-09", "mnt_end": "2027-08-23"},
+}
+
+_LOGGING_FALLBACK: dict[str, dict] = {
+    "6.1": {"ga": "2024-10-01", "fs_end": "2025-05-01", "mnt_end": "2025-11-13"},
+    "6.2": {"ga": "2025-03-01", "fs_end": "2025-08-16", "mnt_end": "2026-01-30"},
+    "6.3": {"ga": "2025-07-16", "fs_end": "2025-12-13", "mnt_end": "2026-04-01"},
+    "6.4": {"ga": "2025-11-13", "fs_end": "2026-05-01"},
+    "6.5": {"ga": "2026-04-01"},
+}
+
+_OADP_FALLBACK: dict[str, dict] = {
+    "1.3": {"ga": "2024-03-01", "fs_end": "2024-10-21", "mnt_end": "2025-06-17",
+            "eus1_end": "2025-12-27", "eus2_end": "2026-12-27"},
+    "1.4": {"ga": "2024-07-10", "fs_end": "2025-06-17", "mnt_end": "2026-06-09",
+            "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
+    "1.5": {"ga": "2025-06-17", "fs_end": "2026-05-03", "mnt_end": "2027-04-21",
+            "eus1_end": "2027-10-21", "eus2_end": "2028-10-21"},
+    "1.6": {"ga": "2026-06-09", "fs_end": "2026-12-31", "mnt_end": "2027-12-31",
+            "eus1_end": "2028-06-30", "eus2_end": "2029-06-30"},
+}
+
+_BUILDS_FALLBACK: dict[str, dict] = {
+    "1.4": {"ga": "2024-04-01", "fs_end": "2024-11-01", "mnt_end": "2025-01-30"},
+    "1.5": {"ga": "2024-10-01", "fs_end": "2025-05-01", "mnt_end": "2025-10-10"},
+    "1.6": {"ga": "2025-10-10", "fs_end": "2026-03-10", "mnt_end": "2026-05-18"},
+    "1.7": {"ga": "2026-02-10", "fs_end": "2026-06-18"},
+    "1.8": {"ga": "2026-05-18"},
+}
+
+_DR_HUB_FALLBACK: dict[str, dict] = {
+    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27",
+             "eus1_end": "2026-06-27", "eus2_end": "2027-06-27"},
+    "4.17": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
+    "4.18": {"ga": "2025-03-11", "fs_end": "2025-10-28", "mnt_end": "2026-08-25",
+             "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
+    "4.19": {"ga": "2025-07-28", "fs_end": "2026-02-18", "mnt_end": "2026-12-17"},
+    "4.20": {"ga": "2025-11-18", "fs_end": "2026-06-09", "mnt_end": "2027-04-21",
+             "eus1_end": "2027-10-21", "eus2_end": "2028-11-21"},
+}
+
+_CERTMGR_FALLBACK: dict[str, dict] = {
+    "1.14": {"ga": "2024-06-01", "fs_end": "2024-09-30", "mnt_end": "2024-12-31"},
+    "1.15": {"ga": "2024-09-01", "fs_end": "2024-12-31", "mnt_end": "2025-03-31"},
+    "1.16": {"ga": "2024-12-01", "fs_end": "2025-03-31", "mnt_end": "2025-06-30"},
+    "1.17": {"ga": "2025-03-01", "fs_end": "2025-06-30", "mnt_end": "2025-09-30"},
+    "1.18": {"ga": "2025-06-01", "fs_end": "2025-09-30", "mnt_end": "2025-12-31"},
+    "1.19": {"ga": "2026-04-20", "eus1_end": "2028-02-25"},
+}
+
 
 def _parse_ocp(v: str) -> tuple:
     return (4, int(v.split(".")[1]))
@@ -59,6 +176,24 @@ def _parse_rhel(v: str) -> tuple:
 
 def _parse_aap(v: str) -> tuple:
     return tuple(int(x) for x in v.split("."))
+
+
+def _parse_rhoai(v: str) -> tuple:
+    """Parse RHOAI version like '2.25', '3.4', '2.21*' → (major, minor)."""
+    parts = v.rstrip("*").strip().split(".")
+    try:
+        return tuple(int(x) for x in parts[:2])
+    except ValueError:
+        return (0, 0)
+
+
+def _parse_xy(v: str) -> tuple:
+    """Parse X.Y version string → (X, Y) int tuple."""
+    parts = v.split(".")
+    try:
+        return tuple(int(x) for x in parts[:2])
+    except ValueError:
+        return (0, 0)
 
 
 PRODUCT_CONFIGS: dict[str, dict] = {
@@ -116,6 +251,91 @@ PRODUCT_CONFIGS: dict[str, dict] = {
         ),
         "eus_check":  None,
     },
+    "rhoai": {
+        "api_name": "Red Hat OpenShift AI Self-Managed",
+        "title":    "RHOAI Lifecycle",
+        "phase_map": {
+            "General availability":           "ga",
+            "Full support":                   "fs_end",
+            "Extended update support":        "eus1_end",
+            "Extended update support Term 2": "eus2_end",
+        },
+        "fallback":   _RHOAI_FALLBACK,
+        "parse_ver":  _parse_rhoai,
+        "min_filter": lambda v: _parse_rhoai(v) >= (2, 19) and "." in v.rstrip("*"),
+        "eus_check":  None,
+    },
+}
+
+_OP_PHASE_MAP: dict[str, str] = {
+    "General availability":           "ga",
+    "Full support":                   "fs_end",
+    "Maintenance support":            "mnt_end",
+    "Extended update support":        "eus1_end",
+    "Extended update support Term 2": "eus2_end",
+}
+
+OPERATOR_CONFIGS: dict[str, dict] = {
+    "pipelines": {
+        "api_name": "Red Hat OpenShift Pipelines", "title": "OpenShift Pipelines",
+        "phase_map": _OP_PHASE_MAP, "fallback": _PIPELINES_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 14) and "." in v,
+    },
+    "gitops": {
+        "api_name": "Red Hat OpenShift GitOps", "title": "OpenShift GitOps",
+        "phase_map": _OP_PHASE_MAP, "fallback": _GITOPS_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 12) and "." in v,
+    },
+    "service-mesh": {
+        "api_name": "Red Hat OpenShift Service Mesh", "title": "OpenShift Service Mesh",
+        "phase_map": _OP_PHASE_MAP, "fallback": _SERVICE_MESH_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (2, 4) and "." in v,
+    },
+    "virtualization": {
+        "api_name": "Red Hat OpenShift Virtualization", "title": "OpenShift Virtualization",
+        "phase_map": _OP_PHASE_MAP, "fallback": _VIRT_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "odf": {
+        "api_name": "Red Hat OpenShift Data Foundation", "title": "OpenShift Data Foundation",
+        "phase_map": _OP_PHASE_MAP, "fallback": _ODF_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "logging": {
+        "api_name": "logging for Red Hat OpenShift", "title": "Logging for OpenShift",
+        "phase_map": _OP_PHASE_MAP, "fallback": _LOGGING_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (6, 0) and "." in v,
+    },
+    "oadp": {
+        "api_name": "OpenShift APIs for Data Protection", "title": "OADP",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OADP_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 3) and "." in v,
+    },
+    "builds": {
+        "api_name": "builds for Red Hat OpenShift", "title": "Builds for OpenShift",
+        "phase_map": _OP_PHASE_MAP, "fallback": _BUILDS_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 3) and "." in v,
+    },
+    "dr-hub": {
+        "api_name": "Openshift DR Hub Operator", "title": "OpenShift DR Hub",
+        "phase_map": _OP_PHASE_MAP, "fallback": _DR_HUB_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "cert-manager": {
+        "api_name": "cert-manager operator for Red Hat OpenShift", "title": "cert-manager",
+        "phase_map": _OP_PHASE_MAP, "fallback": _CERTMGR_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 12) and "." in v,
+    },
 }
 
 # ── Phase palette (PatternFly-aligned) ───────────────────────────────────────
@@ -170,7 +390,7 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
                     dates[key] = end[:10]
             if "fs_end" not in dates and name in fallback and "fs_end" in fallback[name]:
                 dates["fs_end"] = fallback[name]["fs_end"]
-            if "ga" in dates and "mnt_end" in dates:
+            if "ga" in dates and ("mnt_end" in dates or "fs_end" in dates):
                 result[name] = dates
         if result:
             print(f"Fetched {len(result)} {cfg['title']} versions from Red Hat API.", file=sys.stderr)
@@ -216,7 +436,7 @@ def build_versions(
                 segments.append({"key": key, "start": prev, "end": end})
                 prev = end
         last_end = prev
-        is_eus = bool(eus_check and eus_check(ver))
+        is_eus = bool(eus_check(ver)) if eus_check else bool(lc.get("eus1_end"))
         phase_key = "eol"
         days_left = 0
         for key, field in PHASE_KEYS:
@@ -391,6 +611,48 @@ _PAGE_CSS = """
   }
   .footer a { color: #0066cc; text-decoration: none; }
   .footer a:hover { text-decoration: underline; }
+  .section-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #151515;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d2d2d2;
+    margin-bottom: 4px;
+  }
+  .op-section { display: flex; flex-direction: column; gap: 8px; }
+  .op-details {
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .op-summary {
+    cursor: pointer;
+    padding: 10px var(--card-px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #f0f0f0;
+    list-style: none;
+    user-select: none;
+  }
+  .op-summary::-webkit-details-marker { display: none; }
+  .op-summary::marker { display: none; }
+  .op-details[open] > .op-summary { border-bottom: 1px solid #d2d2d2; }
+  .op-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #151515;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .op-name::before { content: "▶"; font-size: 9px; color: #6a6e73; transition: transform 0.15s; }
+  .op-details[open] .op-name::before { transform: rotate(90deg); }
+  .op-meta { font-size: 11px; color: #6a6e73; white-space: nowrap; }
+  .op-details .card { border: none; border-radius: 0; box-shadow: none; }
 """
 
 
@@ -535,6 +797,36 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 </div>"""
 
 
+def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> str:
+    if not operators_data:
+        return ""
+    items = []
+    for label, versions in operators_data:
+        if not versions:
+            continue
+        n_active = sum(1 for v in versions if not v["is_eol"])
+        meta = f"{len(versions)} version{'s' if len(versions) != 1 else ''}"
+        if n_active:
+            meta += f" · {n_active} active"
+        card = _render_card(versions, label, show_footer=False)
+        items.append(
+            f'<details class="op-details">'
+            f'<summary class="op-summary">'
+            f'<span class="op-name">{label}</span>'
+            f'<span class="op-meta">{meta}</span>'
+            f'</summary>'
+            f'{card}'
+            f'</details>'
+        )
+    return (
+        f'<div id="operators">'
+        f'<div class="section-heading">OpenShift Operators</div>'
+        f'<div class="op-section">'
+        + "\n".join(items)
+        + "</div></div>"
+    )
+
+
 def _page_wrap(title: str, body: str, nav_links: str = "") -> str:
     nav_html = f'<nav class="page-nav">{nav_links}</nav>' if nav_links else ""
     return f"""<!DOCTYPE html>
@@ -567,16 +859,20 @@ def render_html(versions: list[dict], chart_label: str, show_footer: bool = True
 def render_combined_html(
     product_list: list[tuple[str, list[dict]]],
     title: str = "Red Hat Product Lifecycle",
+    operators_data: list[tuple[str, list[dict]]] | None = None,
 ) -> str:
     nav_links = "".join(
         f'<a href="#{label.lower().replace(" ", "-")}">{label}</a>'
         for label, _ in product_list
     )
+    if operators_data:
+        nav_links += '<a href="#operators">Operators</a>'
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     cards = "\n".join(
         _render_card(versions, label, anchor=label.lower().replace(" ", "-"), show_footer=False)
         for label, versions in product_list
     )
+    operators_section = _render_operator_section(operators_data or [])
     footer = (
         f'<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:4px">'
         f'Source: <a href="https://access.redhat.com/product-life-cycles/" '
@@ -596,7 +892,8 @@ def render_combined_html(
         f'</svg>View source on GitHub</a>'
         f' &nbsp;·&nbsp; Mickael Mayeras</p>'
     )
-    return _page_wrap(title, cards + "\n" + footer, nav_links)
+    body = cards + ("\n" + operators_section if operators_section else "") + "\n" + footer
+    return _page_wrap(title, body, nav_links)
 
 
 def render_svg(versions: list[dict], chart_label: str, width: int = 1400,
@@ -787,24 +1084,36 @@ def export_png(svg_path: Path, png_path: Path) -> bool:
     return True
 
 
-def _fetch_all(args: argparse.Namespace) -> list[tuple[str, list[dict]]]:
-    result = []
-    for product in ["ocp", "rhel", "aap"]:
+def _fetch_all(
+    args: argparse.Namespace,
+) -> tuple[list[tuple[str, list[dict]]], list[tuple[str, list[dict]]]]:
+    product_list: list[tuple[str, list[dict]]] = []
+    for product in ["ocp", "rhel", "aap", "rhoai"]:
         cfg = PRODUCT_CONFIGS[product]
         lifecycle = fetch_lifecycle(cfg)
         label = cfg["title"]
+        # RHOAI has very short release cycles; show recent EOL versions to illustrate pattern
+        use_eol = args.include_eol or (product == "rhoai")
         versions = build_versions(
             lifecycle, cfg,
             versions_filter=args.versions,
             from_version=args.from_version,
             to_version=args.to_version,
-            include_eol=args.include_eol,
+            include_eol=use_eol,
         )
         if versions:
-            result.append((label, versions))
+            product_list.append((label, versions))
         else:
             print(f"No versions matched for {product}.", file=sys.stderr)
-    return result
+
+    operators_data: list[tuple[str, list[dict]]] = []
+    for op_cfg in OPERATOR_CONFIGS.values():
+        lifecycle = fetch_lifecycle(op_cfg)
+        versions = build_versions(lifecycle, op_cfg, include_eol=args.include_eol)
+        if versions:
+            operators_data.append((op_cfg["title"], versions))
+
+    return product_list, operators_data
 
 
 def _generate_product(
@@ -848,8 +1157,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="Generate Red Hat product lifecycle Gantt charts as HTML + PNG")
     ap.add_argument("-o", "--output", default=None,
                     help="Output HTML file (default: lifecycle-{product}.html; all: lifecycle.html + index.html)")
-    ap.add_argument("--product", default="ocp", choices=["ocp", "rhel", "aap", "all"],
-                    help="Product to chart: ocp, rhel, aap, or all (default: ocp)")
+    ap.add_argument("--product", default="ocp", choices=["ocp", "rhel", "aap", "rhoai", "all"],
+                    help="Product to chart: ocp, rhel, aap, rhoai, or all (default: ocp)")
     ap.add_argument("-v", "--versions", nargs="*", help="Explicit versions to include (e.g. 4.19 4.20)")
     ap.add_argument("--from", dest="from_version", metavar="VER", help="Start of version range, inclusive (e.g. 4.18)")
     ap.add_argument("--to", dest="to_version", metavar="VER", help="End of version range, inclusive (e.g. 4.22)")
@@ -866,9 +1175,9 @@ def main() -> None:
     out_dir.mkdir(exist_ok=True)
 
     if args.product == "all":
-        product_list = _fetch_all(args)
+        product_list, operators_data = _fetch_all(args)
         page_title = args.title or "Red Hat Product Lifecycle"
-        combined = render_combined_html(product_list, title=page_title)
+        combined = render_combined_html(product_list, title=page_title, operators_data=operators_data)
         lifecycle_out = (out_dir / "lifecycle.html").resolve()
         index_out = (out_dir / "index.html").resolve()
         lifecycle_out.write_text(combined, encoding="utf-8")
@@ -883,7 +1192,7 @@ def main() -> None:
             ok = export_png(svg_combined, png_combined)
             if ok:
                 print(f"PNG:  {png_combined}  (combined)")
-        for cfg_key, (label, versions) in zip(["ocp", "rhel", "aap"], product_list):
+        for cfg_key, (label, versions) in zip(["ocp", "rhel", "aap", "rhoai"], product_list):
             out = (out_dir / f"lifecycle-{cfg_key}.html").resolve()
             html = render_html(versions, label)
             out.write_text(html, encoding="utf-8")
