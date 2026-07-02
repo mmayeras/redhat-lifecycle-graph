@@ -1231,7 +1231,17 @@ def render_combined_html(
         f' 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2'
         f' 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>'
         f'</svg>View source on GitHub</a>'
-        f' &nbsp;·&nbsp; Mickael Mayeras</p>'
+        f' &nbsp;·&nbsp; '
+        f'<a href="https://www.linkedin.com/in/mickaelmayeras/" style="color:#0066cc;display:inline-flex;align-items:center;gap:4px;vertical-align:middle" target="_blank">'
+        f'<svg height="13" width="13" viewBox="0 0 24 24" fill="#0066cc" xmlns="http://www.w3.org/2000/svg">'
+        f'<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>'
+        f'</svg>Mickael Mayeras</a></p>'
+        f'<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:6px">'
+        f'📣 If you find this useful and want to contribute: '
+        f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new" style="color:#0066cc" target="_blank">Open an Issue</a>'
+        f'&nbsp;·&nbsp;'
+        f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph/compare" style="color:#0066cc" target="_blank">Open a Pull Request</a>'
+        f'</p>'
     )
     body = cards + ("\n" + operators_section if operators_section else "") + "\n" + footer
     return _page_wrap(title, body, nav_links)
