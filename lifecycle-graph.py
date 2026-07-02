@@ -6,7 +6,7 @@ import json
 import subprocess
 import sys
 import urllib.request
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 # ── Fallback data (used when API is unreachable) ─────────────────────────────
@@ -432,7 +432,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         if k in used_phases
     )
 
-    today_str = today.isoformat()
+    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     n = len(versions)
     rows_px = n * 48 + (n - 1) * 6
     chart_area_h = 64 + rows_px + 20
@@ -442,7 +442,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         f'<div class="footer">'
         f'Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">'
         f'Red Hat Product Life Cycles</a>'
-        f' &nbsp;·&nbsp; Generated {today_str}'
+        f' &nbsp;·&nbsp; Generated {now_str}'
         f'</div>'
     ) if show_footer else ""
 
@@ -509,7 +509,7 @@ def render_combined_html(
         f'<a href="#{label.lower().replace(" ", "-")}">{label}</a>'
         for label, _ in product_list
     )
-    today_str = date.today().isoformat()
+    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     cards = "\n".join(
         _render_card(versions, label, anchor=label.lower().replace(" ", "-"), show_footer=False)
         for label, versions in product_list
@@ -518,7 +518,7 @@ def render_combined_html(
         f'<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:4px">'
         f'Source: <a href="https://access.redhat.com/product-life-cycles/" '
         f'style="color:#0066cc" target="_blank">Red Hat Product Life Cycles</a>'
-        f' &nbsp;·&nbsp; Generated {today_str}'
+        f' &nbsp;·&nbsp; Generated {now_str}'
         f' &nbsp;·&nbsp; '
         f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph" style="color:#0066cc;display:inline-flex;align-items:center;gap:4px;vertical-align:middle" target="_blank">'
         f'<svg height="13" width="13" viewBox="0 0 16 16" fill="#0066cc" xmlns="http://www.w3.org/2000/svg">'
