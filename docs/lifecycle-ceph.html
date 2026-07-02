@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ceph Lifecycle</title>
+<style>
+
+  :root {
+    --card-px: 24px;
+    --label-w: 130px;
+    --days-col: 48px;
+    --chart-top: 64px;
+    --row-h: 48px;
+    --bar-h: 34px;
+    --ver-font: 15px;
+  }
+  @media (max-width: 600px) {
+    :root {
+      --card-px: 8px;
+      --label-w: 56px;
+      --days-col: 32px;
+      --chart-top: 44px;
+      --row-h: 36px;
+      --bar-h: 24px;
+      --ver-font: 10px;
+    }
+    .page-header {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto;
+      gap: 4px;
+      padding: 8px 12px;
+    }
+    .header-left { display: none; }
+    .header-right { grid-column: 2; grid-row: 1; }
+    .page-nav {
+      grid-column: 1; grid-row: 1;
+      flex-wrap: nowrap; overflow-x: auto;
+      justify-content: flex-start;
+      scrollbar-width: none;
+    }
+    .page-nav::-webkit-scrollbar { display: none; }
+    .page-nav a { flex-shrink: 0; font-size: 11px; padding: 3px 8px; }
+    a.gh-contribute { font-size: 11px; padding: 3px 8px; }
+    .chart-inner { min-width: var(--mobile-min-width, 480px); }
+    .chart-row-bar span { display: none; }
+    .card-header-legend { flex-wrap: wrap; gap: 4px; }
+    .page-content { padding: 12px 8px 32px; gap: 14px; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Red Hat Text","Red Hat Display","Open Sans",system-ui,sans-serif;
+    background: #f5f5f5;
+    color: #151515;
+    padding: 0;
+    margin: 0;
+  }
+  .page-header {
+    background: #151515;
+    color: #fff;
+    padding: 14px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-left { display: flex; align-items: center; justify-content: flex-start; }
+  .header-right { display: flex; align-items: center; justify-content: flex-end; }
+  .header-title { font-size: 13px; font-weight: 700; color: #e0e0e0; letter-spacing: -0.01em; white-space: nowrap; }
+  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .page-nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid #444;
+  }
+  .page-nav a:hover { background: #333; color: #fff; }
+  a.gh-contribute {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: #fff; background: #1a7f37; border: 1px solid #1a7f37;
+    text-decoration: none; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 4px;
+  }
+  a.gh-contribute:visited { color: #fff; }
+  a.gh-contribute:hover { background: #24a148; border-color: #24a148; color: #fff; }
+  .page-content {
+    max-width: 1148px;
+    margin: 0 auto;
+    padding: 20px 12px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  @media (min-width: 700px) {
+    .page-header { padding: 14px 32px; }
+    .header-title { font-size: 15px; }
+    .page-nav a { font-size: 13px; padding: 4px 12px; }
+    .page-content { padding: 28px 24px 48px; gap: 28px; }
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px var(--card-px);
+    background: #f0f0f0;
+    border-bottom: 1px solid #d2d2d2;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #151515;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .legend span { font-size: 11px !important; }
+  .chart-area {
+    background: #fff;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chart-inner {
+    position: relative;
+    padding: var(--chart-top) var(--card-px) 20px;
+    min-width: 100%;
+  }
+  .chart-grid {
+    position: absolute;
+    top: var(--chart-top);
+    bottom: 20px;
+    left: calc(var(--card-px) + var(--label-w));
+    right: calc(var(--card-px) + var(--days-col) + 8px);
+    pointer-events: none;
+  }
+  .chart-rows {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .chart-rows > div:nth-child(even) { background: #fafafa; }
+  .chart-row {
+    display: flex;
+    align-items: center;
+    height: var(--row-h);
+  }
+  .chart-row-label {
+    width: var(--label-w);
+    flex-shrink: 0;
+    padding-right: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .chart-row-bar {
+    flex: 1;
+    position: relative;
+    height: var(--bar-h);
+  }
+  .chart-row-days {
+    width: var(--days-col);
+    flex-shrink: 0;
+    text-align: right;
+    padding-left: 4px;
+  }
+  .eol-warn { position: relative; cursor: pointer; display: inline-block; }
+  .eol-tip {
+    display: none;
+    position: absolute;
+    right: 0; top: calc(100% + 4px);
+    background: #151515; color: #fff;
+    font-size: 11px; font-weight: 400; line-height: 1.4;
+    padding: 7px 10px; border-radius: 5px;
+    white-space: normal; width: 280px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+    z-index: 300;
+  }
+  .eol-tip::before {
+    content: ""; position: absolute;
+    right: 8px; top: -5px;
+    border: 5px solid transparent;
+    border-top: 0; border-bottom-color: #151515;
+  }
+  .eol-warn:hover .eol-tip,
+  .eol-warn.pinned .eol-tip { display: block; }
+  #phase-tooltip {
+    display: none; position: fixed; z-index: 400; pointer-events: none;
+    background: #151515; color: #fff;
+    font-size: 11px; line-height: 1.6;
+    padding: 6px 10px; border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+    white-space: nowrap;
+  }
+  .ver-code {
+    font-family: "Red Hat Mono","Courier New",monospace;
+    font-size: var(--ver-font);
+    color: #151515;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px var(--card-px);
+    background: #f8f8f8;
+    border-bottom: 1px solid #e8e8e8;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #3c3f42;
+  }
+  .card-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; }
+  .card-controls select {
+    font-size: 12px;
+    padding: 2px 4px;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    background: #fff;
+    color: #151515;
+    font-family: inherit;
+    max-width: 90px;
+  }
+  .card-controls .ctrl-label { color: #6a6e73; margin-right: -4px; }
+  .footer {
+    padding: 8px var(--card-px) 12px;
+    font-size: 11px; color: #6a6e73;
+    border-top: 1px solid #d2d2d2; background: #f0f0f0;
+    word-break: break-word;
+  }
+  .footer a { color: #0066cc; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .section-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #151515;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d2d2d2;
+    margin-bottom: 4px;
+  }
+  .op-section { display: flex; flex-direction: column; gap: 8px; }
+  .op-details {
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .op-summary {
+    cursor: pointer;
+    padding: 10px var(--card-px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #f0f0f0;
+    list-style: none;
+    user-select: none;
+  }
+  .op-summary::-webkit-details-marker { display: none; }
+  .op-summary::marker { display: none; }
+  .op-details[open] > .op-summary { border-bottom: 1px solid #d2d2d2; }
+  .op-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #151515;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .op-name::before { content: "▶"; font-size: 9px; color: #6a6e73; transition: transform 0.15s; }
+  .op-details[open] .op-name::before { transform: rotate(90deg); }
+  .op-meta { font-size: 11px; color: #6a6e73; white-space: nowrap; }
+  .op-details .card { border: none; border-radius: 0; box-shadow: none; }
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <div class="header-left"><span class="header-title">Ceph Lifecycle</span></div>
+  
+  <div class="header-right"><span></span></div>
+</header>
+<div class="page-content">
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+      </svg>
+      Ceph Lifecycle
+    </span>
+    <div class="legend">
+      <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f5b8b4;border:1.5px solid #c9190b"></span>ELS</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#e88080;border:1.5px solid #8b0000"></span>ELS-2</span>
+      <span style="font-size:11px;color:#a30000;opacity:0.75">┆ Today (2026-07-02)</span>
+    </div>
+  </div>
+  <div class="card-controls"><span class="ctrl-label">Range:</span><select class="ctrl-from" onchange="filterCard(this.closest('.card'))"><option value="">All from</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select><span class="ctrl-label">→</span><select class="ctrl-to" onchange="filterCard(this.closest('.card'))"><option value="">All to</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select><label><input type="checkbox" class="ctrl-eol" onchange="filterCard(this.closest('.card'))"> Include EOL</label></div>
+  <div class="chart-area">
+    <div class="chart-inner" style="--mobile-min-width:520px">
+      <div class="chart-grid">
+        <div style="position:absolute;left:0.726%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:0.726%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2020</div><div style="position:absolute;left:9.577%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:18.404%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:18.404%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2022</div><div style="position:absolute;left:27.231%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:36.058%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:36.058%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2024</div><div style="position:absolute;left:44.909%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:53.736%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:53.736%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2026</div><div style="position:absolute;left:62.563%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:71.391%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:71.391%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2028</div><div style="position:absolute;left:80.242%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:89.069%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:89.069%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2030</div><div style="position:absolute;left:97.896%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div>
+        <div style="position:absolute;left:58.138%;top:0;bottom:0;border-left:1.5px dashed #a30000;opacity:0.7;z-index:2"></div><div style="position:absolute;left:58.138%;top:calc(-1 * var(--chart-top) + 12px);font-size:11px;color:#a30000;transform:translateX(-50%);font-weight:700;white-space:nowrap;background:rgba(255,255,255,0.9);padding:1px 4px;border-radius:2px;border:1px solid rgba(163,0,0,0.25)">Today</div>
+      </div>
+      <div class="chart-rows">
+        <div class="chart-row" data-ver="4" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">4</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:1.451%;width:63.990%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Support | 2020-01-31 → 2023-03-31" style="width:43.651%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Support</span></div><div data-phase="ELS | 2023-03-31 → 2025-04-30" style="width:28.760%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div><div data-phase="ELS-2 | 2025-04-30 → 2027-04-30" style="width:27.589%;height:100%;background:#e88080;border-top:1.5px solid #8b0000;border-bottom:1.5px solid #8b0000;border-left:none;border-right:1.5px solid #8b0000;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#fff;font-weight:600;white-space:nowrap;padding:0 6px">ELS-2</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#fff;font-weight:600;font-size:13px" title="ELS-2 — 302 days remaining">302d</span></div></div><div class="chart-row" data-ver="5" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">5</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:15.429%;width:52.237%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Support | 2021-08-31 → 2024-08-31" style="width:50.741%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Support</span></div><div data-phase="ELS | 2024-08-31 → 2027-07-31" style="width:49.259%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:600;font-size:13px" title="ELS — 394 days remaining">394d</span></div></div><div class="chart-row" data-ver="6" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">6</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:29.141%;width:44.160%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Support | 2023-03-21 → 2026-03-20" style="width:59.967%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Support</span></div><div data-phase="ELS | 2026-03-20 → 2028-03-20" style="width:40.033%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:600;font-size:13px" title="ELS — 627 days remaining">627d</span></div></div><div class="chart-row" data-ver="7" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:35.599%;width:50.496%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Support | 2023-12-13 → 2026-12-12" style="width:52.443%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Support</span></div><div data-phase="ELS | 2026-12-12 → 2029-08-31" style="width:47.557%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Support — 163 days remaining">163d</span></div></div><div class="chart-row" data-ver="8" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">8</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:44.015%;width:44.135%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Support | 2024-11-25 → 2027-11-24" style="width:59.945%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Support</span></div><div data-phase="ELS | 2027-11-24 → 2029-11-24" style="width:40.055%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Support — 510 days remaining">510d</span></div></div><div class="chart-row" data-ver="9" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:54.414%;width:44.135%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Support | 2026-01-29 → 2029-01-28" style="width:60.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Support</span></div><div data-phase="ELS | 2029-01-28 → 2031-01-28" style="width:40.000%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Support — 941 days remaining">941d</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-02 17:46 UTC</div>
+</div>
+</div>
+<script>
+function filterCard(card) {
+  var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
+  if (!rows.length) return;
+  var fromSel = card.querySelector('.ctrl-from');
+  var toSel   = card.querySelector('.ctrl-to');
+  var eolCk   = card.querySelector('.ctrl-eol');
+  var showEol = eolCk ? eolCk.checked : false;
+  var fromIdx = 0, toIdx = rows.length - 1;
+  if (fromSel && fromSel.value) {
+    var fi = rows.findIndex(function(r) { return r.dataset.ver === fromSel.value; });
+    if (fi >= 0) fromIdx = fi;
+  }
+  if (toSel && toSel.value) {
+    var ti = rows.findIndex(function(r) { return r.dataset.ver === toSel.value; });
+    if (ti >= 0) toIdx = ti;
+  }
+  rows.forEach(function(row, i) {
+    var eol = row.dataset.eol === 'true';
+    row.style.display = (i >= fromIdx && i <= toIdx && (showEol || !eol)) ? '' : 'none';
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.card').forEach(function(card) { filterCard(card); });
+});
+(function() {
+  var tip = document.createElement('div');
+  tip.id = 'phase-tooltip';
+  document.body.appendChild(tip);
+  document.addEventListener('mouseover', function(e) {
+    var el = e.target.closest('[data-phase]');
+    if (el) { tip.textContent = el.dataset.phase; tip.style.display = 'block'; }
+    else { tip.style.display = 'none'; }
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (tip.style.display === 'block') {
+      var x = e.clientX + 14, y = e.clientY + 14;
+      if (x + 220 > window.innerWidth) x = e.clientX - tip.offsetWidth - 8;
+      if (y + 60 > window.innerHeight) y = e.clientY - tip.offsetHeight - 8;
+      tip.style.left = x + 'px'; tip.style.top = y + 'px';
+    }
+  });
+  document.addEventListener('mouseout', function(e) {
+    if (!e.relatedTarget || !e.relatedTarget.closest('[data-phase]')) tip.style.display = 'none';
+  });
+})();
+document.addEventListener('click', function(e) {
+  var warn = e.target.closest('.eol-warn');
+  if (warn) { warn.classList.toggle('pinned'); e.stopPropagation(); }
+  else { document.querySelectorAll('.eol-warn.pinned').forEach(function(w) { w.classList.remove('pinned'); }); }
+});
+</script>
+</body>
+</html>
