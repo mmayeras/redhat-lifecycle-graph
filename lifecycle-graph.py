@@ -165,6 +165,72 @@ _CERTMGR_FALLBACK: dict[str, dict] = {
     "1.19": {"ga": "2026-04-20", "eus1_end": "2028-02-25"},
 }
 
+# OCP-aligned operators share identical lifecycle dates with OCP itself.
+_OCP_ALIGNED_OP_FALLBACK = _OCP_FALLBACK
+
+_WINC_FALLBACK: dict[str, dict] = {
+    "10.17": {"ga": "2024-10-30", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
+    "10.18": {"ga": "2025-03-20", "fs_end": "2025-10-17", "mnt_end": "2026-08-25"},
+    "10.19": {"ga": "2025-07-17", "mnt_end": "2026-12-17"},
+    "10.20": {"ga": "2025-10-22", "mnt_end": "2027-04-21"},
+    "10.21": {"ga": "2026-02-03", "mnt_end": "2027-08-03"},
+}
+
+_RHACM_FALLBACK: dict[str, dict] = {
+    "2.12": {"ga": "2025-04-02", "fs_end": "2026-01-01", "mnt_end": "2026-10-02"},
+    "2.13": {"ga": "2025-06-18", "fs_end": "2026-04-24", "mnt_end": "2026-12-24"},
+    "2.14": {"ga": "2025-08-01", "fs_end": "2026-10-02", "mnt_end": "2027-02-24"},
+    "2.15": {"ga": "2025-12-03", "fs_end": "2027-01-08", "mnt_end": "2027-06-01",
+             "eus1_end": "2027-11-12", "eus2_end": "2028-11-13"},
+    "2.16": {"ga": "2026-03-10", "fs_end": "2027-04-09", "mnt_end": "2027-09-10"},
+    "2.17": {"ga": "2026-06-18", "fs_end": "2026-12-31", "mnt_end": "2027-12-31",
+             "eus1_end": "2028-06-30", "eus2_end": "2029-06-30"},
+}
+
+_RHACS_FALLBACK: dict[str, dict] = {
+    "4.7":  {"ga": "2025-01-29", "fs_end": "2025-07-29", "mnt_end": "2025-11-29"},
+    "4.8":  {"ga": "2025-07-09", "fs_end": "2026-01-09", "mnt_end": "2026-05-09"},
+    "4.9":  {"ga": "2025-10-30", "fs_end": "2026-04-30", "mnt_end": "2026-08-31"},
+    "4.10": {"ga": "2026-03-03", "fs_end": "2026-09-03", "mnt_end": "2027-01-04"},
+    "4.11": {"ga": "2026-06-15", "fs_end": "2026-12-15", "mnt_end": "2027-04-15"},
+}
+
+_SERVERLESS_FALLBACK: dict[str, dict] = {
+    "1.34": {"ga": "2024-10-10", "fs_end": "2025-02-22", "mnt_end": "2025-05-22"},
+    "1.35": {"ga": "2025-01-22", "fs_end": "2025-08-17", "mnt_end": "2025-11-17"},
+    "1.36": {"ga": "2025-07-17", "fs_end": "2025-12-24", "mnt_end": "2026-03-24"},
+    "1.37": {"ga": "2025-11-24", "fs_end": "2026-04-24"},
+}
+
+_MTV_FALLBACK: dict[str, dict] = {
+    "2.7":  {"ga": "2025-01-21", "fs_end": "2025-07-21", "mnt_end": "2025-11-21"},
+    "2.8":  {"ga": "2025-02-24", "fs_end": "2025-08-24", "mnt_end": "2025-12-24"},
+    "2.9":  {"ga": "2025-07-10", "fs_end": "2026-02-23", "mnt_end": "2026-07-16"},
+    "2.10": {"ga": "2025-11-04", "fs_end": "2026-06-16"},
+}
+
+_LOKI_FALLBACK: dict[str, dict] = {
+    "6.1": {"ga": "2024-10-01", "fs_end": "2025-05-01", "mnt_end": "2025-11-13"},
+    "6.2": {"ga": "2025-03-12", "fs_end": "2025-08-16", "mnt_end": "2026-08-25",
+            "eus1_end": "2028-10-21"},
+    "6.3": {"ga": "2025-07-16", "fs_end": "2025-12-13", "mnt_end": "2026-04-01"},
+    "6.4": {"ga": "2025-11-13", "fs_end": "2026-05-01"},
+}
+
+_KMM_FALLBACK: dict[str, dict] = {
+    "2.3": {"ga": "2025-03-06", "fs_end": "2025-08-06", "mnt_end": "2026-03-06"},
+    "2.4": {"ga": "2025-06-26", "fs_end": "2025-11-26", "mnt_end": "2026-06-26"},
+    "2.5": {"ga": "2025-12-08", "fs_end": "2026-05-03", "mnt_end": "2027-04-21"},
+    "2.6": {"ga": "2026-03-24", "fs_end": "2026-06-24", "mnt_end": "2026-10-24"},
+}
+
+_RHDH_FALLBACK: dict[str, dict] = {
+    "1.7":  {"ga": "2025-08-20", "fs_end": "2025-11-11", "mnt_end": "2026-03-04"},
+    "1.8":  {"ga": "2025-11-11", "fs_end": "2026-03-04", "mnt_end": "2026-06-10"},
+    "1.9":  {"ga": "2026-03-04", "fs_end": "2026-06-10", "mnt_end": "2026-10-10"},
+    "1.10": {"ga": "2026-06-10", "fs_end": "2026-10-10", "mnt_end": "2027-02-11"},
+}
+
 
 def _parse_ocp(v: str) -> tuple:
     return (4, int(v.split(".")[1]))
@@ -335,6 +401,97 @@ OPERATOR_CONFIGS: dict[str, dict] = {
         "phase_map": _OP_PHASE_MAP, "fallback": _CERTMGR_FALLBACK,
         "parse_ver": _parse_xy, "eus_check": None,
         "min_filter": lambda v: _parse_xy(v) >= (1, 12) and "." in v,
+    },
+    # ── Additional operators ──────────────────────────────────────────────────
+    "rhacm": {
+        "api_name": "Red Hat Advanced Cluster Management for Kubernetes", "title": "RHACM",
+        "phase_map": _OP_PHASE_MAP, "fallback": _RHACM_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (2, 10) and "." in v,
+    },
+    "rhacs": {
+        "api_name": "Red Hat Advanced Cluster Security for Kubernetes", "title": "RHACS",
+        "phase_map": _OP_PHASE_MAP, "fallback": _RHACS_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (4, 5) and "." in v,
+    },
+    "serverless": {
+        "api_name": "Red Hat OpenShift Serverless", "title": "OpenShift Serverless",
+        "phase_map": _OP_PHASE_MAP, "fallback": _SERVERLESS_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 30) and "." in v,
+    },
+    "mtv": {
+        "api_name": "migration toolkit for virtualization", "title": "Migration Toolkit for Virtualization",
+        "phase_map": _OP_PHASE_MAP, "fallback": _MTV_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (2, 6) and "." in v,
+    },
+    "loki": {
+        "api_name": "Loki operator", "title": "Loki Operator",
+        "phase_map": _OP_PHASE_MAP, "fallback": _LOKI_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (6, 0) and "." in v,
+    },
+    "kmm": {
+        "api_name": "Kernel Module Management operator for Red Hat OpenShift (Hub)", "title": "KMM",
+        "phase_map": _OP_PHASE_MAP, "fallback": _KMM_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (2, 1) and "." in v,
+    },
+    "rhdh": {
+        "api_name": "Red Hat Developer Hub", "title": "Red Hat Developer Hub",
+        "phase_map": _OP_PHASE_MAP, "fallback": _RHDH_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (1, 5) and "." in v,
+    },
+    "sriov": {
+        "api_name": "SR-IOV network operator", "title": "SR-IOV Network Operator",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "nfd": {
+        "api_name": "node feature discovery operator", "title": "Node Feature Discovery",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "nmstate": {
+        "api_name": "Kubernetes NMState Operator", "title": "Kubernetes NMState",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "lso": {
+        "api_name": "local storage operator", "title": "Local Storage Operator",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "metallb": {
+        "api_name": "MetalLB operator", "title": "MetalLB Operator",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "vpa": {
+        "api_name": "vertical pod autoscaler operator", "title": "Vertical Pod Autoscaler",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "numaresources": {
+        "api_name": "numaresources-operator", "title": "NUMAresources Operator",
+        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
+        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
+        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
+    },
+    "winc": {
+        "api_name": "Red Hat OpenShift support for Windows Containers", "title": "Windows Containers",
+        "phase_map": _OP_PHASE_MAP, "fallback": _WINC_FALLBACK,
+        "parse_ver": _parse_xy, "eus_check": None,
+        "min_filter": lambda v: _parse_xy(v) >= (10, 14) and "." in v,
     },
 }
 

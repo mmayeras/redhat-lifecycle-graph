@@ -9,7 +9,11 @@ PNG export requires `rsvg-convert` (`brew install librsvg` / `apt install librsv
 
 ![Red Hat Product Lifecycle](docs/lifecycle.png)
 
-Per-product: [lifecycle-ocp.png](docs/lifecycle-ocp.png) · [lifecycle-rhel.png](docs/lifecycle-rhel.png) · [lifecycle-aap.png](docs/lifecycle-aap.png)
+Per-product: [lifecycle-ocp.png](docs/lifecycle-ocp.png) · [lifecycle-rhel.png](docs/lifecycle-rhel.png) · [lifecycle-aap.png](docs/lifecycle-aap.png) · [lifecycle-rhoai.png](docs/lifecycle-rhoai.png)
+
+The combined chart (`--product all`) also includes **29 OpenShift operator lifecycle charts** — collapsed by default — sourced from the [Red Hat Product Life Cycles API](https://access.redhat.com/product-life-cycles/) and aligned with the [OpenShift Operator Life Cycles policy](https://access.redhat.com/support/policy/updates/openshift_operators).
+
+Operators included: OpenShift Pipelines, GitOps, Service Mesh, Virtualization, ODF, Logging, OADP, Builds, DR Hub, cert-manager, RHACM, RHACS, OpenShift Serverless, Migration Toolkit for Virtualization, Loki, KMM, Red Hat Developer Hub, SR-IOV, Node Feature Discovery, Kubernetes NMState, Local Storage, MetalLB, VPA, NUMAresources, Windows Containers.
 
 ## Usage
 
@@ -42,7 +46,7 @@ python3 lifecycle-graph.py --product rhel --png --open
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--product PROD` | `ocp` | Product: `ocp`, `rhel`, `aap`, or `all` |
+| `--product PROD` | `ocp` | Product: `ocp`, `rhel`, `aap`, `rhoai`, or `all` |
 | `-o FILE` | `lifecycle-{product}.html` | Output HTML file |
 | `--from VER` | — | Start of version range, inclusive |
 | `--to VER` | — | End of version range, inclusive |
