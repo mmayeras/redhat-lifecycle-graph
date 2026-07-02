@@ -2,3 +2,4 @@
 # Local runs will regenerate these; ignore to avoid merge conflicts.
 docs/
 _lifecycle_png.html
+__pycache__/
