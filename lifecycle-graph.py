@@ -237,6 +237,26 @@ def build_versions(
 
 
 _PAGE_CSS = """
+  :root {
+    --card-px: 24px;
+    --label-w: 130px;
+    --days-col: 48px;
+    --chart-top: 64px;
+    --row-h: 48px;
+    --bar-h: 34px;
+    --ver-font: 15px;
+  }
+  @media (max-width: 600px) {
+    :root {
+      --card-px: 10px;
+      --label-w: 68px;
+      --days-col: 34px;
+      --chart-top: 52px;
+      --row-h: 40px;
+      --bar-h: 26px;
+      --ver-font: 11px;
+    }
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: "Red Hat Text","Red Hat Display","Open Sans",system-ui,sans-serif;
@@ -248,24 +268,24 @@ _PAGE_CSS = """
   .page-header {
     background: #151515;
     color: #fff;
-    padding: 18px 32px;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  .page-header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
-  .page-nav { display: flex; gap: 8px; }
+  .page-header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; }
   .page-nav a {
     color: #e0e0e0;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 4px;
     border: 1px solid #444;
   }
@@ -273,10 +293,16 @@ _PAGE_CSS = """
   .page-content {
     max-width: 1148px;
     margin: 0 auto;
-    padding: 28px 24px 48px;
+    padding: 20px 12px 48px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 20px;
+  }
+  @media (min-width: 700px) {
+    .page-header { padding: 18px 32px; }
+    .page-header h1 { font-size: 17px; }
+    .page-nav a { font-size: 13px; padding: 4px 12px; }
+    .page-content { padding: 28px 24px 48px; gap: 28px; }
   }
   .card {
     background: #fff;
@@ -290,26 +316,33 @@ _PAGE_CSS = """
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 24px;
+    padding: 10px var(--card-px);
     background: #f0f0f0;
     border-bottom: 1px solid #d2d2d2;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
   }
   .card-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: #151515;
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  .legend { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-  .chart-area { padding: 64px 24px 20px; position: relative; background: #fff; }
+  .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .legend span { font-size: 11px !important; }
+  .chart-area {
+    padding: var(--chart-top) var(--card-px) 20px;
+    position: relative;
+    background: #fff;
+  }
   .chart-grid {
     position: absolute;
-    top: 64px; bottom: 20px;
-    left: calc(24px + 130px); right: calc(24px + 60px);
+    top: var(--chart-top);
+    bottom: 20px;
+    left: calc(var(--card-px) + var(--label-w));
+    right: calc(var(--card-px) + var(--days-col) + 8px);
     pointer-events: none;
   }
   .chart-rows {
@@ -317,14 +350,47 @@ _PAGE_CSS = """
     display: flex; flex-direction: column; gap: 6px;
   }
   .chart-rows > div:nth-child(even) { background: #fafafa; }
+  .chart-row {
+    display: flex;
+    align-items: center;
+    height: var(--row-h);
+  }
+  .chart-row-label {
+    width: var(--label-w);
+    flex-shrink: 0;
+    padding-right: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .chart-row-bar {
+    flex: 1;
+    position: relative;
+    height: var(--bar-h);
+  }
+  .chart-row-days {
+    width: var(--days-col);
+    flex-shrink: 0;
+    text-align: right;
+    padding-left: 4px;
+  }
+  .ver-code {
+    font-family: "Red Hat Mono","Courier New",monospace;
+    font-size: var(--ver-font);
+    color: #151515;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .footer {
-    padding: 8px 24px 12px;
+    padding: 8px var(--card-px) 12px;
     font-size: 11px; color: #6a6e73;
     border-top: 1px solid #d2d2d2; background: #f0f0f0;
+    word-break: break-word;
   }
   .footer a { color: #0066cc; text-decoration: none; }
   .footer a:hover { text-decoration: underline; }
-  code { font-family: "Red Hat Mono","Courier New",monospace; }
 """
 
 
@@ -362,7 +428,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     today_html = (
         f'<div style="position:absolute;left:{today_pct:.3f}%;top:0;bottom:0;'
         f'border-left:1.5px dashed #a30000;opacity:0.7;z-index:2"></div>'
-        f'<div style="position:absolute;left:{today_pct:.3f}%;top:-52px;'
+        f'<div style="position:absolute;left:{today_pct:.3f}%;top:calc(-1 * var(--chart-top) + 12px);'
         f'font-size:11px;color:#a30000;transform:translateX(-50%);'
         f'font-weight:700;white-space:nowrap;background:rgba(255,255,255,0.9);'
         f'padding:1px 4px;border-radius:2px;border:1px solid rgba(163,0,0,0.25)">Today</div>'
@@ -410,15 +476,15 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         eus_badge = '<span style="font-size:9px;color:#40199a;font-weight:700;margin-left:4px;vertical-align:middle">EUS</span>' if v["is_eus"] else ""
 
         rows_html += (
-            f'<div style="display:flex;align-items:center;height:48px">'
-            f'  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">'
-            f'    <code style="font-size:15px;color:#151515;font-weight:700">{v["version"]}</code>{eus_badge}'
+            f'<div class="chart-row">'
+            f'  <div class="chart-row-label">'
+            f'    <code class="ver-code">{v["version"]}</code>{eus_badge}'
             f'  </div>'
-            f'  <div style="flex:1;position:relative;height:34px">'
+            f'  <div class="chart-row-bar">'
             f'    <div style="position:absolute;left:{bar_left:.3f}%;width:{bar_width:.3f}%;height:100%;'
             f'border-radius:4px;overflow:hidden;display:flex">{segs_html}{eol_overlay}</div>'
             f'  </div>'
-            f'  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px">{days_badge}</div>'
+            f'  <div class="chart-row-days">{days_badge}</div>'
             f'</div>'
         )
 
@@ -433,9 +499,6 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     )
 
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    n = len(versions)
-    rows_px = n * 48 + (n - 1) * 6
-    chart_area_h = 64 + rows_px + 20
     anchor_attr = f' id="{anchor}"' if anchor else ""
 
     footer_html = (
@@ -459,7 +522,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
       <span style="font-size:11px;color:#a30000;opacity:0.75">┆ Today ({today.isoformat()})</span>
     </div>
   </div>
-  <div class="chart-area" style="height:{chart_area_h}px">
+  <div class="chart-area">
     <div class="chart-grid">
       {year_lines_html}
       {today_html}
