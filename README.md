@@ -9,7 +9,7 @@ PNG export requires `rsvg-convert` (`brew install librsvg` / `apt install librsv
 
 ![Red Hat Product Lifecycle](docs/lifecycle.png)
 
-Per-product: [lifecycle-ocp.png](docs/lifecycle-ocp.png) · [lifecycle-rhel.png](docs/lifecycle-rhel.png) · [lifecycle-aap.png](docs/lifecycle-aap.png) · [lifecycle-rhoai.png](docs/lifecycle-rhoai.png)
+Per-product: [lifecycle-ocp.png](docs/lifecycle-ocp.png) · [lifecycle-rhel.png](docs/lifecycle-rhel.png) · [lifecycle-aap.png](docs/lifecycle-aap.png) · [lifecycle-rhoai.png](docs/lifecycle-rhoai.png) · [lifecycle-ceph.png](docs/lifecycle-ceph.png)
 
 The combined chart (`--product all`) also includes **29 OpenShift operator lifecycle charts** — collapsed by default — sourced from the [Red Hat Product Life Cycles API](https://access.redhat.com/product-life-cycles/) and aligned with the [OpenShift Operator Life Cycles policy](https://access.redhat.com/support/policy/updates/openshift_operators).
 
@@ -27,7 +27,10 @@ python3 lifecycle-graph.py --product rhel --png
 # AAP
 python3 lifecycle-graph.py --product aap --png
 
-# All products at once → lifecycle-ocp.*, lifecycle-rhel.*, lifecycle-aap.*
+# Ceph Storage
+python3 lifecycle-graph.py --product ceph --png
+
+# All products at once → lifecycle-ocp.*, lifecycle-rhel.*, lifecycle-aap.*, lifecycle-ceph.*
 python3 lifecycle-graph.py --product all --png
 
 # Version range (per product format)
@@ -46,7 +49,7 @@ python3 lifecycle-graph.py --product rhel --png --open
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--product PROD` | `ocp` | Product: `ocp`, `rhel`, `aap`, `rhoai`, or `all` |
+| `--product PROD` | `ocp` | Product: `ocp`, `rhel`, `aap`, `rhoai`, `ceph`, or `all` |
 | `-o FILE` | `lifecycle-{product}.html` | Output HTML file |
 | `--from VER` | — | Start of version range, inclusive |
 | `--to VER` | — | End of version range, inclusive |
@@ -67,15 +70,19 @@ python3 lifecycle-graph.py --product rhel --png --open
 
 | Color | Phase | Products |
 |-------|-------|---------|
+| Green | Support | Ceph (single-tier) |
 | Green | Full Support | OCP, RHEL, AAP |
 | Orange | Maintenance | OCP, RHEL, AAP |
 | Dark Orange | Maintenance 2 | AAP |
-| Blue | EUS-1 | OCP |
-| Purple | EUS-2 | OCP |
-| Pink/Red | ELS | RHEL |
+| Blue | EUS-1 | OCP, ODF |
+| Purple | EUS-2 | OCP, ODF |
+| Violet | EUS-3 | ODF (future) |
+| Pink/Red | ELS | RHEL, Ceph |
+| Dark Red | ELS-2 | Ceph (ELS Term 2 add-on) |
 | Gray | Ext. Life | OCP, RHEL |
 
-EUS phases (Extended Update Support) only appear on even OCP releases (4.12, 4.14, …).
+EUS phases (Extended Update Support) only appear on even OCP/ODF releases (4.12, 4.14, …).  
+Ceph uses a single "Support" tier ending at EOL, followed by optional ELS / ELS Term 2 add-on periods.
 
 ## Data source
 

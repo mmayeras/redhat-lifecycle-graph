@@ -25,6 +25,10 @@
       --bar-h: 26px;
       --ver-font: 11px;
     }
+    .page-nav { flex-wrap: nowrap; overflow-x: auto; }
+    .page-nav a { flex-shrink: 0; }
+    .chart-inner { min-width: 480px; }
+    .chart-row-bar span { display: none; }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -102,9 +106,14 @@
   .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .legend span { font-size: 11px !important; }
   .chart-area {
-    padding: var(--chart-top) var(--card-px) 20px;
-    position: relative;
     background: #fff;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chart-inner {
+    position: relative;
+    padding: var(--chart-top) var(--card-px) 20px;
+    min-width: 100%;
   }
   .chart-grid {
     position: absolute;
@@ -152,6 +161,29 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .card-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px var(--card-px);
+    background: #f8f8f8;
+    border-bottom: 1px solid #e8e8e8;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #3c3f42;
+  }
+  .card-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; }
+  .card-controls select {
+    font-size: 12px;
+    padding: 2px 4px;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    background: #fff;
+    color: #151515;
+    font-family: inherit;
+    max-width: 90px;
+  }
+  .card-controls .ctrl-label { color: #6a6e73; margin-right: -4px; }
   .footer {
     padding: 8px var(--card-px) 12px;
     font-size: 11px; color: #6a6e73;
@@ -224,17 +256,46 @@
       <span style="font-size:11px;color:#a30000;opacity:0.75">┆ Today (2026-07-02)</span>
     </div>
   </div>
+  <div class="card-controls"><span class="ctrl-label">Range:</span><select class="ctrl-from" onchange="filterCard(this.closest('.card'))"><option value="">All from</option><option value="2.19">2.19</option><option value="2.20">2.20</option><option value="2.21*">2.21*</option><option value="2.22">2.22</option><option value="2.23">2.23</option><option value="2.24">2.24</option><option value="2.25">2.25</option><option value="3.0">3.0</option><option value="3.2">3.2</option><option value="3.3">3.3</option><option value="3.4">3.4</option></select><span class="ctrl-label">→</span><select class="ctrl-to" onchange="filterCard(this.closest('.card'))"><option value="">All to</option><option value="2.19">2.19</option><option value="2.20">2.20</option><option value="2.21*">2.21*</option><option value="2.22">2.22</option><option value="2.23">2.23</option><option value="2.24">2.24</option><option value="2.25">2.25</option><option value="3.0">3.0</option><option value="3.2">3.2</option><option value="3.3">3.3</option><option value="3.4">3.4</option></select><label><input type="checkbox" class="ctrl-eol" onchange="filterCard(this.closest('.card'))"> Include EOL</label></div>
   <div class="chart-area">
-    <div class="chart-grid">
-      <div style="position:absolute;left:19.403%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:19.403%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2026</div><div style="position:absolute;left:73.881%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:73.881%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2027</div>
-      <div style="position:absolute;left:46.567%;top:0;bottom:0;border-left:1.5px dashed #a30000;opacity:0.7;z-index:2"></div><div style="position:absolute;left:46.567%;top:calc(-1 * var(--chart-top) + 12px);font-size:11px;color:#a30000;transform:translateX(-50%);font-weight:700;white-space:nowrap;background:rgba(255,255,255,0.9);padding:1px 4px;border-radius:2px;border:1px solid rgba(163,0,0,0.25)">Today</div>
-    </div>
-    <div class="chart-rows">
-      <div class="chart-row">  <div class="chart-row-label">    <code class="ver-code">2.25</code><span style="font-size:9px;color:#40199a;font-weight:700;margin-left:4px;vertical-align:middle">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:8.955%;width:82.090%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-05-25" style="width:38.909%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="EUS-1 — ends 2027-04-26" style="width:61.091%;height:100%;background:#bee1f4;border-top:1.5px solid #004080;border-bottom:1.5px solid #004080;border-left:none;border-right:1.5px solid #004080;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#004080;font-weight:600;white-space:nowrap;padding:0 6px">EUS-1</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#004080;font-weight:600;font-size:13px" title="EUS-1 — 298 days remaining">298d</span></div></div><div class="chart-row">  <div class="chart-row-label">    <code class="ver-code">3.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:28.806%;width:31.940%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-10-05" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 95 days remaining">95d</span></div></div><div class="chart-row">  <div class="chart-row-label">    <code class="ver-code">3.4</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:39.254%;width:27.761%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-11-16" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 137 days remaining">137d</span></div></div>
+    <div class="chart-inner">
+      <div class="chart-grid">
+        <div style="position:absolute;left:37.209%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:37.209%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2026</div><div style="position:absolute;left:79.651%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:79.651%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2027</div>
+        <div style="position:absolute;left:58.372%;top:0;bottom:0;border-left:1.5px dashed #a30000;opacity:0.7;z-index:2"></div><div style="position:absolute;left:58.372%;top:calc(-1 * var(--chart-top) + 12px);font-size:11px;color:#a30000;transform:translateX(-50%);font-weight:700;white-space:nowrap;background:rgba(255,255,255,0.9);padding:1px 4px;border-radius:2px;border:1px solid rgba(163,0,0,0.25)">Today</div>
+      </div>
+      <div class="chart-rows">
+        <div class="chart-row" data-ver="2.19" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">2.19</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:6.977%;width:25.000%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2025-11-17" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="2.20" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">2.20</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:10.233%;width:4.186%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2025-06-19" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="2.21*" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">2.21*</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:14.186%;width:21.279%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2025-12-17" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="2.22" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">2.22</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:18.140%;width:24.419%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-02-16" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="2.23" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">2.23</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:20.930%;width:4.070%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2025-09-18" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="2.24" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">2.24</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:27.209%;width:1.860%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2025-10-23" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="2.25" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">2.25</code><span style="font-size:9px;color:#40199a;font-weight:700;margin-left:4px;vertical-align:middle">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:29.070%;width:63.953%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-05-25" style="width:38.909%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="EUS-1 — ends 2027-04-26" style="width:61.091%;height:100%;background:#bee1f4;border-top:1.5px solid #004080;border-bottom:1.5px solid #004080;border-left:none;border-right:1.5px solid #004080;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#004080;font-weight:600;white-space:nowrap;padding:0 6px">EUS-1</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#004080;font-weight:600;font-size:13px" title="EUS-1 — 298 days remaining">298d</span></div></div><div class="chart-row" data-ver="3.0" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">3.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:31.512%;width:7.326%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-01-15" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="3.2" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">3.2</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:39.651%;width:4.884%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-03-05" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(163,0,0,0.1) 3px,rgba(163,0,0,0.1) 6px);border-radius:3px;pointer-events:none"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:700;font-size:13px">EOL</span></div></div><div class="chart-row" data-ver="3.3" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">3.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:44.535%;width:24.884%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-10-05" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 95 days remaining">95d</span></div></div><div class="chart-row" data-ver="3.4" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">3.4</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:52.674%;width:21.628%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2026-11-16" style="width:100.000%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:1.5px solid #1e4f18;border-radius:4px 4px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 137 days remaining">137d</span></div></div>
+      </div>
     </div>
   </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-02 11:34 UTC</div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-02 14:21 UTC</div>
 </div>
 </div>
+<script>
+function filterCard(card) {
+  var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
+  if (!rows.length) return;
+  var fromSel = card.querySelector('.ctrl-from');
+  var toSel   = card.querySelector('.ctrl-to');
+  var eolCk   = card.querySelector('.ctrl-eol');
+  var showEol = eolCk ? eolCk.checked : false;
+  var fromIdx = 0, toIdx = rows.length - 1;
+  if (fromSel && fromSel.value) {
+    var fi = rows.findIndex(function(r) { return r.dataset.ver === fromSel.value; });
+    if (fi >= 0) fromIdx = fi;
+  }
+  if (toSel && toSel.value) {
+    var ti = rows.findIndex(function(r) { return r.dataset.ver === toSel.value; });
+    if (ti >= 0) toIdx = ti;
+  }
+  rows.forEach(function(row, i) {
+    var eol = row.dataset.eol === 'true';
+    row.style.display = (i >= fromIdx && i <= toIdx && (showEol || !eol)) ? '' : 'none';
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.card').forEach(function(card) { filterCard(card); });
+});
+</script>
 </body>
 </html>

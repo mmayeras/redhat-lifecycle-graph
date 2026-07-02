@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import urllib.request
@@ -231,6 +232,56 @@ _RHDH_FALLBACK: dict[str, dict] = {
     "1.10": {"ga": "2026-06-10", "fs_end": "2026-10-10", "mnt_end": "2027-02-11"},
 }
 
+# Ceph lifecycle uses single "sup" support tier (no fs/mnt split), then ELS add-on.
+_CEPH_FALLBACK: dict[str, dict] = {
+    "4": {"ga": "2020-01-31", "sup_end": "2023-03-31",
+          "els_end": "2025-04-30", "els2_end": "2027-04-30"},
+    "5": {"ga": "2021-08-31", "sup_end": "2024-08-31", "els_end": "2027-07-31"},
+    "6": {"ga": "2023-03-21", "sup_end": "2026-03-20", "els_end": "2028-03-20"},
+    "7": {"ga": "2023-12-13", "sup_end": "2026-12-12", "els_end": "2029-08-31"},
+    "8": {"ga": "2024-11-25", "sup_end": "2027-11-24", "els_end": "2029-11-24"},
+    "9": {"ga": "2026-01-29", "sup_end": "2029-01-28", "els_end": "2031-01-28"},
+}
+
+# ── Date parsing ─────────────────────────────────────────────────────────────
+
+_MONTHS: dict[str, str] = {
+    "January": "01", "February": "02", "March": "03", "April": "04",
+    "May": "05", "June": "06", "July": "07", "August": "08",
+    "September": "09", "October": "10", "November": "11", "December": "12",
+}
+
+
+def _parse_api_date(s: str) -> str | None:
+    """Parse date strings from the Red Hat Product Life Cycles API.
+
+    Handles ISO datetimes, ISO dates with trailing text, and "Month D, YYYY" format.
+    Returns YYYY-MM-DD string or None for unparseable/N/A values.
+    """
+    if not s or not isinstance(s, str):
+        return None
+    s = s.strip()
+    if s in ("N/A", "Available on request"):
+        return None
+    # ISO datetime "2026-01-29T00:00:00.000Z" or ISO date "2026-01-29"
+    if len(s) >= 10 and s[4:5] == "-" and s[7:8] == "-":
+        try:
+            date.fromisoformat(s[:10])
+            return s[:10]
+        except ValueError:
+            pass
+    # "YYYY-MM-DD (extended from ...)"
+    m = re.match(r"(\d{4}-\d{2}-\d{2})", s)
+    if m:
+        return m.group(1)
+    # "Month Day, Year" or "Month Day, Year (extra text)"
+    m = re.match(r"(\w+)\s+(\d{1,2}),\s+(\d{4})", s)
+    if m:
+        month = _MONTHS.get(m.group(1))
+        if month:
+            return f"{m.group(3)}-{month}-{int(m.group(2)):02d}"
+    return None
+
 
 def _parse_ocp(v: str) -> tuple:
     return (4, int(v.split(".")[1]))
@@ -331,6 +382,21 @@ PRODUCT_CONFIGS: dict[str, dict] = {
         "min_filter": lambda v: _parse_rhoai(v) >= (2, 19) and "." in v.rstrip("*"),
         "eus_check":  None,
     },
+    "ceph": {
+        "api_name": "Red Hat Ceph Storage",
+        "title":    "Ceph Storage Lifecycle",
+        "phase_map": {
+            "General availability":                              "ga",
+            "End of Life":                                       "sup_end",
+            "Extended life cycle support (ELS) add-on":         "els_end",
+            "Extended life cycle support (ELS) Term 2 add-on":  "els2_end",
+        },
+        "fallback":        _CEPH_FALLBACK,
+        "parse_ver":       lambda v: int(v) if v.isdigit() else 0,
+        "name_transform":  lambda n: n.replace("Red Hat Ceph Storage ", "").replace("Inktank Ceph Enterprise ", "").strip(),
+        "min_filter":      lambda v: v.isdigit() and int(v) >= 4,
+        "eus_check":       None,
+    },
 }
 
 _OP_PHASE_MAP: dict[str, str] = {
@@ -339,6 +405,16 @@ _OP_PHASE_MAP: dict[str, str] = {
     "Maintenance support":            "mnt_end",
     "Extended update support":        "eus1_end",
     "Extended update support Term 2": "eus2_end",
+}
+
+# ODF has a 3rd EUS tier and slightly different GA dates from OCP.
+_ODF_PHASE_MAP: dict[str, str] = {
+    "General availability":           "ga",
+    "Full support":                   "fs_end",
+    "Maintenance support":            "mnt_end",
+    "Extended update support":        "eus1_end",
+    "Extended update support Term 2": "eus2_end",
+    "Extended update support Term 3": "eus3_end",
 }
 
 OPERATOR_CONFIGS: dict[str, dict] = {
@@ -368,7 +444,7 @@ OPERATOR_CONFIGS: dict[str, dict] = {
     },
     "odf": {
         "api_name": "Red Hat OpenShift Data Foundation", "title": "OpenShift Data Foundation",
-        "phase_map": _OP_PHASE_MAP, "fallback": _ODF_FALLBACK,
+        "phase_map": _ODF_PHASE_MAP, "fallback": _ODF_FALLBACK,
         "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
         "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
     },
@@ -497,23 +573,30 @@ OPERATOR_CONFIGS: dict[str, dict] = {
 
 # ── Phase palette (PatternFly-aligned) ───────────────────────────────────────
 PHASES: dict[str, dict] = {
+    "sup":  {"label": "Support",       "bg": "#bde5b8", "border": "#1e4f18", "text": "#1e4f18"},
     "fs":   {"label": "Full Support",  "bg": "#bde5b8", "border": "#1e4f18", "text": "#1e4f18"},
     "mnt":  {"label": "Maintenance",   "bg": "#f9e0a2", "border": "#795600", "text": "#795600"},
     "mnt2": {"label": "Maintenance 2", "bg": "#f4b678", "border": "#8f4700", "text": "#8f4700"},
     "eus1": {"label": "EUS-1",         "bg": "#bee1f4", "border": "#004080", "text": "#004080"},
     "eus2": {"label": "EUS-2",         "bg": "#e7d4ff", "border": "#40199a", "text": "#40199a"},
+    "eus3": {"label": "EUS-3",         "bg": "#f2c4ff", "border": "#6a0080", "text": "#6a0080"},
     "els":  {"label": "ELS",           "bg": "#faeae8", "border": "#c9190b", "text": "#a30000"},
+    "els2": {"label": "ELS-2",         "bg": "#ffd6d1", "border": "#8b0000", "text": "#7b0000"},
     "elp":  {"label": "Ext. Life",     "bg": "#e4e4e4", "border": "#6a6e73", "text": "#3c3f42"},
 }
 
-# Chronological order — segments built and phase status detected in this order
+# Chronological order — segments built and phase status detected in this order.
+# sup/els/els2 are Ceph-specific; eus3 is ODF-specific. Other products skip these keys.
 PHASE_KEYS = [
+    ("sup",  "sup_end"),   # Ceph: single-tier support (no fs/mnt split)
     ("fs",   "fs_end"),
     ("mnt",  "mnt_end"),
     ("mnt2", "mnt2_end"),
     ("eus1", "eus1_end"),
     ("eus2", "eus2_end"),
+    ("eus3", "eus3_end"),  # ODF: Extended Update Support Term 3
     ("els",  "els_end"),
+    ("els2", "els2_end"),  # Ceph: ELS Term 2 add-on
     ("elp",  "elp_end"),
 ]
 
@@ -529,6 +612,7 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
     phase_map = cfg["phase_map"]
     min_filter = cfg["min_filter"]
     fallback = cfg["fallback"]
+    name_transform = cfg.get("name_transform")
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "lifecycle-graph/1.0"})
         with urllib.request.urlopen(req, timeout=10) as resp:
@@ -536,18 +620,22 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
         product = data["data"][0]
         result: dict[str, dict] = {}
         for ver_data in product["versions"]:
-            name = ver_data["name"]
-            if " " in name or not min_filter(name):
+            raw = ver_data["name"]
+            name = name_transform(raw) if name_transform else raw
+            if not name_transform and " " in raw:
+                continue
+            if not min_filter(name):
                 continue
             dates: dict[str, str] = {}
             for phase in ver_data["phases"]:
                 key = phase_map.get(phase["name"])
-                end = phase.get("end_date", "")
-                if key and isinstance(end, str) and end.startswith("20"):
-                    dates[key] = end[:10]
+                if key:
+                    parsed = _parse_api_date(phase.get("end_date", ""))
+                    if parsed:
+                        dates[key] = parsed
             if "fs_end" not in dates and name in fallback and "fs_end" in fallback[name]:
                 dates["fs_end"] = fallback[name]["fs_end"]
-            if "ga" in dates and ("mnt_end" in dates or "fs_end" in dates):
+            if "ga" in dates and any(k in dates for k in ("fs_end", "mnt_end", "sup_end")):
                 result[name] = dates
         if result:
             print(f"Fetched {len(result)} {cfg['title']} versions from Red Hat API.", file=sys.stderr)
@@ -769,6 +857,29 @@ _PAGE_CSS = """
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .card-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px var(--card-px);
+    background: #f8f8f8;
+    border-bottom: 1px solid #e8e8e8;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #3c3f42;
+  }
+  .card-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; }
+  .card-controls select {
+    font-size: 12px;
+    padding: 2px 4px;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    background: #fff;
+    color: #151515;
+    font-family: inherit;
+    max-width: 90px;
+  }
+  .card-controls .ctrl-label { color: #6a6e73; margin-right: -4px; }
   .footer {
     padding: 8px var(--card-px) 12px;
     font-size: 11px; color: #6a6e73;
@@ -823,7 +934,7 @@ _PAGE_CSS = """
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
-                 show_footer: bool = True) -> str:
+                 show_footer: bool = True, show_controls: bool = False) -> str:
     today = date.today()
     pad = timedelta(days=60)
     all_dates = [v["ga"] for v in versions] + [v["last_end"] for v in versions] + [today]
@@ -904,7 +1015,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         eus_badge = '<span style="font-size:9px;color:#40199a;font-weight:700;margin-left:4px;vertical-align:middle">EUS</span>' if v["is_eus"] else ""
 
         rows_html += (
-            f'<div class="chart-row">'
+            f'<div class="chart-row" data-ver="{v["version"]}" data-eol="{str(v["is_eol"]).lower()}">'
             f'  <div class="chart-row-label">'
             f'    <code class="ver-code">{v["version"]}</code>{eus_badge}'
             f'  </div>'
@@ -937,6 +1048,25 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         f'</div>'
     ) if show_footer else ""
 
+    if show_controls:
+        ver_names = [v["version"] for v in versions]
+        from_opts = "".join(f'<option value="{v}">{v}</option>' for v in ver_names)
+        to_opts   = "".join(f'<option value="{v}">{v}</option>' for v in ver_names)
+        controls_html = (
+            f'<div class="card-controls">'
+            f'<span class="ctrl-label">Range:</span>'
+            f'<select class="ctrl-from" onchange="filterCard(this.closest(\'.card\'))">'
+            f'<option value="">All from</option>{from_opts}</select>'
+            f'<span class="ctrl-label">→</span>'
+            f'<select class="ctrl-to" onchange="filterCard(this.closest(\'.card\'))">'
+            f'<option value="">All to</option>{to_opts}</select>'
+            f'<label><input type="checkbox" class="ctrl-eol" onchange="filterCard(this.closest(\'.card\'))"> '
+            f'Include EOL</label>'
+            f'</div>'
+        )
+    else:
+        controls_html = ""
+
     return f"""<div class="card"{anchor_attr}>
   <div class="card-header">
     <span class="card-title">
@@ -950,6 +1080,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
       <span style="font-size:11px;color:#a30000;opacity:0.75">┆ Today ({today.isoformat()})</span>
     </div>
   </div>
+  {controls_html}
   <div class="chart-area">
     <div class="chart-inner">
       <div class="chart-grid">
@@ -986,9 +1117,23 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
             f'{card}'
             f'</details>'
         )
+    search = (
+        '<div style="margin:12px 0 8px">'
+        '<input type="search" id="op-search" placeholder="Filter operators…" autocomplete="off" '
+        'style="width:100%;max-width:340px;padding:6px 10px;border:1px solid #d2d2d2;'
+        'border-radius:4px;font-size:13px;font-family:inherit;outline:none;'
+        'background:#fff;color:#151515" '
+        'oninput="(function(q){var all=document.querySelectorAll(\'#operators .op-details\');'
+        'q=q.toLowerCase();all.forEach(function(el){'
+        'var n=el.querySelector(\'.op-name\').textContent.toLowerCase();'
+        'el.style.display=n.includes(q)?\'\':\''
+        'none\'});})(this.value)">'
+        '</div>'
+    )
     return (
         f'<div id="operators">'
         f'<div class="section-heading">OpenShift Operators</div>'
+        f'{search}'
         f'<div class="op-section">'
         + "\n".join(items)
         + "</div></div>"
@@ -1015,12 +1160,38 @@ def _page_wrap(title: str, body: str, nav_links: str = "") -> str:
 <div class="page-content">
 {body}
 </div>
+<script>
+function filterCard(card) {{
+  var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
+  if (!rows.length) return;
+  var fromSel = card.querySelector('.ctrl-from');
+  var toSel   = card.querySelector('.ctrl-to');
+  var eolCk   = card.querySelector('.ctrl-eol');
+  var showEol = eolCk ? eolCk.checked : false;
+  var fromIdx = 0, toIdx = rows.length - 1;
+  if (fromSel && fromSel.value) {{
+    var fi = rows.findIndex(function(r) {{ return r.dataset.ver === fromSel.value; }});
+    if (fi >= 0) fromIdx = fi;
+  }}
+  if (toSel && toSel.value) {{
+    var ti = rows.findIndex(function(r) {{ return r.dataset.ver === toSel.value; }});
+    if (ti >= 0) toIdx = ti;
+  }}
+  rows.forEach(function(row, i) {{
+    var eol = row.dataset.eol === 'true';
+    row.style.display = (i >= fromIdx && i <= toIdx && (showEol || !eol)) ? '' : 'none';
+  }});
+}}
+document.addEventListener('DOMContentLoaded', function() {{
+  document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
+}});
+</script>
 </body>
 </html>"""
 
 
 def render_html(versions: list[dict], chart_label: str, show_footer: bool = True) -> str:
-    card = _render_card(versions, chart_label, show_footer=show_footer)
+    card = _render_card(versions, chart_label, show_footer=show_footer, show_controls=True)
     return _page_wrap(chart_label, card)
 
 
@@ -1037,7 +1208,8 @@ def render_combined_html(
         nav_links += '<a href="#operators">Operators</a>'
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     cards = "\n".join(
-        _render_card(versions, label, anchor=label.lower().replace(" ", "-"), show_footer=False)
+        _render_card(versions, label, anchor=label.lower().replace(" ", "-"),
+                     show_footer=False, show_controls=True)
         for label, versions in product_list
     )
     operators_section = _render_operator_section(operators_data or [])
@@ -1255,8 +1427,12 @@ def export_png(svg_path: Path, png_path: Path) -> bool:
 def _fetch_all(
     args: argparse.Namespace,
 ) -> tuple[list[tuple[str, list[dict]]], list[tuple[str, list[dict]]]]:
+    """Return (product_list, operators_data) with ALL versions (incl. EOL) for HTML.
+
+    Callers must filter by is_eol themselves when generating SVG/PNG.
+    """
     product_list: list[tuple[str, list[dict]]] = []
-    for product in ["ocp", "rhel", "aap", "rhoai"]:
+    for product in ["ocp", "rhel", "aap", "rhoai", "ceph"]:
         cfg = PRODUCT_CONFIGS[product]
         lifecycle = fetch_lifecycle(cfg)
         label = cfg["title"]
@@ -1265,7 +1441,7 @@ def _fetch_all(
             versions_filter=args.versions,
             from_version=args.from_version,
             to_version=args.to_version,
-            include_eol=args.include_eol,
+            include_eol=True,  # always; HTML controls filter via JS
         )
         if versions:
             product_list.append((label, versions))
@@ -1275,11 +1451,16 @@ def _fetch_all(
     operators_data: list[tuple[str, list[dict]]] = []
     for op_cfg in OPERATOR_CONFIGS.values():
         lifecycle = fetch_lifecycle(op_cfg)
-        versions = build_versions(lifecycle, op_cfg, include_eol=args.include_eol)
+        versions = build_versions(lifecycle, op_cfg, include_eol=True)
         if versions:
             operators_data.append((op_cfg["title"], versions))
 
     return product_list, operators_data
+
+
+def _svg_versions(versions: list[dict], include_eol: bool) -> list[dict]:
+    """Filter version list for SVG/PNG output (EOL hidden unless explicitly requested)."""
+    return versions if include_eol else [v for v in versions if not v["is_eol"]]
 
 
 def _generate_product(
@@ -1291,25 +1472,26 @@ def _generate_product(
     lifecycle = fetch_lifecycle(cfg)
     chart_label = args.title if args.title else cfg["title"]
 
-    versions = build_versions(
+    versions_html = build_versions(
         lifecycle, cfg,
         versions_filter=args.versions,
         from_version=args.from_version,
         to_version=args.to_version,
-        include_eol=args.include_eol,
+        include_eol=True,  # always; JS controls visibility
     )
-    if not versions:
+    if not versions_html:
         print(f"No versions matched for {product}.", file=sys.stderr)
         return
 
-    html = render_html(versions, chart_label)
+    html = render_html(versions_html, chart_label)
     out_html.write_text(html, encoding="utf-8")
-    print(f"HTML: {out_html}  ({len(versions)} versions)")
+    print(f"HTML: {out_html}  ({len(versions_html)} versions)")
 
     if args.png:
+        versions_svg = _svg_versions(versions_html, args.include_eol)
         svg_out = out_html.with_suffix(".svg")
         png_out = out_html.with_suffix(".png")
-        svg_out.write_text(render_svg(versions, chart_label, args.width), encoding="utf-8")
+        svg_out.write_text(render_svg(versions_svg, chart_label, args.width), encoding="utf-8")
         print(f"SVG:  {svg_out}")
         ok = export_png(svg_out, png_out)
         if ok:
@@ -1323,8 +1505,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="Generate Red Hat product lifecycle Gantt charts as HTML + PNG")
     ap.add_argument("-o", "--output", default=None,
                     help="Output HTML file (default: lifecycle-{product}.html; all: lifecycle.html + index.html)")
-    ap.add_argument("--product", default="ocp", choices=["ocp", "rhel", "aap", "rhoai", "all"],
-                    help="Product to chart: ocp, rhel, aap, rhoai, or all (default: ocp)")
+    ap.add_argument("--product", default="ocp", choices=["ocp", "rhel", "aap", "rhoai", "ceph", "all"],
+                    help="Product to chart: ocp, rhel, aap, rhoai, ceph, or all (default: ocp)")
     ap.add_argument("-v", "--versions", nargs="*", help="Explicit versions to include (e.g. 4.19 4.20)")
     ap.add_argument("--from", dest="from_version", metavar="VER", help="Start of version range, inclusive (e.g. 4.18)")
     ap.add_argument("--to", dest="to_version", metavar="VER", help="End of version range, inclusive (e.g. 4.22)")
@@ -1353,12 +1535,13 @@ def main() -> None:
         if args.png:
             svg_combined = (out_dir / "lifecycle.svg").resolve()
             png_combined = (out_dir / "lifecycle.png").resolve()
-            svg_combined.write_text(render_combined_svg(product_list, args.width), encoding="utf-8")
+            svg_list = [(lbl, _svg_versions(vers, args.include_eol)) for lbl, vers in product_list]
+            svg_combined.write_text(render_combined_svg(svg_list, args.width), encoding="utf-8")
             print(f"SVG:  {svg_combined}  (combined)")
             ok = export_png(svg_combined, png_combined)
             if ok:
                 print(f"PNG:  {png_combined}  (combined)")
-        for cfg_key, (label, versions) in zip(["ocp", "rhel", "aap", "rhoai"], product_list):
+        for cfg_key, (label, versions) in zip(["ocp", "rhel", "aap", "rhoai", "ceph"], product_list):
             out = (out_dir / f"lifecycle-{cfg_key}.html").resolve()
             html = render_html(versions, label)
             out.write_text(html, encoding="utf-8")
@@ -1366,7 +1549,7 @@ def main() -> None:
             if args.png:
                 svg_out = out.with_suffix(".svg")
                 png_out = out.with_suffix(".png")
-                svg_out.write_text(render_svg(versions, label, args.width), encoding="utf-8")
+                svg_out.write_text(render_svg(_svg_versions(versions, args.include_eol), label, args.width), encoding="utf-8")
                 print(f"SVG:  {svg_out}")
                 ok = export_png(svg_out, png_out)
                 if ok:
