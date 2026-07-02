@@ -799,7 +799,7 @@ def main() -> None:
     ap.add_argument("--width", type=int, default=1400, help="SVG/PNG width in pixels (default: 1400)")
     args = ap.parse_args()
 
-    out_dir = Path("generated")
+    out_dir = Path("docs")
     out_dir.mkdir(exist_ok=True)
 
     if args.product == "all":

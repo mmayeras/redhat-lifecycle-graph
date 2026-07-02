@@ -7,9 +7,9 @@ PNG export requires `rsvg-convert` (`brew install librsvg` / `apt install librsv
 
 ## Preview
 
-![Red Hat Product Lifecycle](generated/lifecycle.png)
+![Red Hat Product Lifecycle](docs/lifecycle.png)
 
-Per-product: [lifecycle-ocp.png](generated/lifecycle-ocp.png) · [lifecycle-rhel.png](generated/lifecycle-rhel.png) · [lifecycle-aap.png](generated/lifecycle-aap.png)
+Per-product: [lifecycle-ocp.png](docs/lifecycle-ocp.png) · [lifecycle-rhel.png](docs/lifecycle-rhel.png) · [lifecycle-aap.png](docs/lifecycle-aap.png)
 
 ## Usage
 

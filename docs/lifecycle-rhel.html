@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RHEL Lifecycle</title>
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Red Hat Text","Red Hat Display","Open Sans",system-ui,sans-serif;
+    background: #f5f5f5;
+    color: #151515;
+    padding: 0;
+    margin: 0;
+  }
+  .page-header {
+    background: #151515;
+    color: #fff;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .page-header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .page-nav { display: flex; gap: 8px; }
+  .page-nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid #444;
+  }
+  .page-nav a:hover { background: #333; color: #fff; }
+  .page-content {
+    max-width: 1148px;
+    margin: 0 auto;
+    padding: 28px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #d2d2d2;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #151515;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .chart-area { padding: 64px 24px 20px; position: relative; background: #fff; }
+  .chart-grid {
+    position: absolute;
+    top: 64px; bottom: 20px;
+    left: calc(24px + 130px); right: calc(24px + 60px);
+    pointer-events: none;
+  }
+  .chart-rows {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .chart-rows > div:nth-child(even) { background: #fafafa; }
+  .footer {
+    padding: 8px 24px 12px;
+    font-size: 11px; color: #6a6e73;
+    border-top: 1px solid #d2d2d2; background: #f0f0f0;
+  }
+  .footer a { color: #0066cc; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  code { font-family: "Red Hat Mono","Courier New",monospace; }
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>RHEL Lifecycle</h1>
+  
+</header>
+<div class="page-content">
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+      </svg>
+      RHEL Lifecycle
+    </span>
+    <div class="legend">
+      <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#faeae8;border:1.5px solid #c9190b"></span>ELS</span>
+      <span style="font-size:11px;color:#a30000;opacity:0.75">┆ Today (2026-07-02)</span>
+    </div>
+  </div>
+  <div class="chart-area" style="height:294px">
+    <div class="chart-grid">
+      <div style="position:absolute;left:2.986%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:2.986%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2015</div><div style="position:absolute;left:7.098%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:7.098%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2016</div><div style="position:absolute;left:11.221%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:11.221%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2017</div><div style="position:absolute;left:15.333%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:15.333%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2018</div><div style="position:absolute;left:19.446%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:19.446%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2019</div><div style="position:absolute;left:23.558%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:23.558%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2020</div><div style="position:absolute;left:27.681%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:27.681%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2021</div><div style="position:absolute;left:31.794%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:31.794%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2022</div><div style="position:absolute;left:35.906%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:35.906%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2023</div><div style="position:absolute;left:40.018%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:40.018%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2024</div><div style="position:absolute;left:44.142%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:44.142%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2025</div><div style="position:absolute;left:48.254%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:48.254%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2026</div><div style="position:absolute;left:52.366%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:52.366%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2027</div><div style="position:absolute;left:56.478%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:56.478%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2028</div><div style="position:absolute;left:60.602%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:60.602%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2029</div><div style="position:absolute;left:64.714%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:64.714%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2030</div><div style="position:absolute;left:68.826%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:68.826%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2031</div><div style="position:absolute;left:72.938%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:72.938%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2032</div><div style="position:absolute;left:77.062%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:77.062%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2033</div><div style="position:absolute;left:81.174%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:81.174%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2034</div><div style="position:absolute;left:85.286%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:85.286%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2035</div><div style="position:absolute;left:89.398%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:89.398%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2036</div><div style="position:absolute;left:93.522%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:93.522%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2037</div><div style="position:absolute;left:97.634%;top:0;bottom:0;border-left:1px dashed #d2d2d2;z-index:0"></div><div style="position:absolute;left:97.634%;top:-20px;font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">2038</div>
+      <div style="position:absolute;left:50.304%;top:0;bottom:0;border-left:1.5px dashed #a30000;opacity:0.7;z-index:2"></div><div style="position:absolute;left:50.304%;top:-52px;font-size:11px;color:#a30000;transform:translateX(-50%);font-weight:700;white-space:nowrap;background:rgba(255,255,255,0.9);padding:1px 4px;border-radius:2px;border:1px solid rgba(163,0,0,0.25)">Today</div>
+    </div>
+    <div class="chart-rows">
+      <div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">7</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:0.676%;width:61.616%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2019-08-06" style="width:34.430%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2024-06-30" style="width:32.730%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="ELS — ends 2029-05-31" style="width:32.840%;height:100%;background:#faeae8;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#a30000;font-weight:600;font-size:13px" title="ELS — 1064 days remaining">1064d</span></div></div><div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">8</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:20.865%;width:53.774%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2024-05-31" style="width:38.781%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2029-05-31" style="width:38.257%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="ELS — ends 2032-05-31" style="width:22.962%;height:100%;background:#faeae8;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#795600;font-weight:600;font-size:13px" title="Maintenance — 1064 days remaining">1064d</span></div></div><div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">9</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:33.337%;width:53.639%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2027-05-31" style="width:38.626%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2032-05-31" style="width:38.374%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="ELS — ends 2035-05-31" style="width:22.999%;height:100%;background:#faeae8;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 333 days remaining">333d</span></div></div><div style="display:flex;align-items:center;height:48px">  <div style="width:130px;flex-shrink:0;padding-right:10px;overflow:hidden;display:flex;align-items:center">    <code style="font-size:15px;color:#151515;font-weight:700">10</code>  </div>  <div style="flex:1;position:relative;height:34px">    <div style="position:absolute;left:45.708%;width:53.616%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div title="Full Support — ends 2030-05-31" style="width:38.601%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div title="Maintenance — ends 2035-05-31" style="width:38.369%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div title="ELS — ends 2038-05-31" style="width:23.030%;height:100%;background:#faeae8;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div style="width:48px;flex-shrink:0;text-align:right;padding-left:8px"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 1429 days remaining">1429d</span></div></div>
+    </div>
+  </div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-02</div>
+</div>
+</div>
+</body>
+</html>
