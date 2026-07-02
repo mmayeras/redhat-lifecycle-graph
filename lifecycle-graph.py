@@ -1107,7 +1107,7 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
         meta = f"{len(versions)} version{'s' if len(versions) != 1 else ''}"
         if n_active:
             meta += f" · {n_active} active"
-        card = _render_card(versions, label, show_footer=False)
+        card = _render_card(versions, label, show_footer=False, show_controls=True)
         items.append(
             f'<details class="op-details">'
             f'<summary class="op-summary">'
