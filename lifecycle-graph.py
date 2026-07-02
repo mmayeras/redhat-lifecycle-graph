@@ -633,6 +633,10 @@ _PAGE_CSS = """
       --bar-h: 26px;
       --ver-font: 11px;
     }
+    .page-nav { flex-wrap: nowrap; overflow-x: auto; }
+    .page-nav a { flex-shrink: 0; }
+    .chart-inner { min-width: 480px; }
+    .chart-row-bar span { display: none; }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -710,9 +714,14 @@ _PAGE_CSS = """
   .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .legend span { font-size: 11px !important; }
   .chart-area {
-    padding: var(--chart-top) var(--card-px) 20px;
-    position: relative;
     background: #fff;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chart-inner {
+    position: relative;
+    padding: var(--chart-top) var(--card-px) 20px;
+    min-width: 100%;
   }
   .chart-grid {
     position: absolute;
@@ -942,12 +951,14 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     </div>
   </div>
   <div class="chart-area">
-    <div class="chart-grid">
-      {year_lines_html}
-      {today_html}
-    </div>
-    <div class="chart-rows">
-      {rows_html}
+    <div class="chart-inner">
+      <div class="chart-grid">
+        {year_lines_html}
+        {today_html}
+      </div>
+      <div class="chart-rows">
+        {rows_html}
+      </div>
     </div>
   </div>
   {footer_html}
