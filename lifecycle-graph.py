@@ -70,8 +70,8 @@ _PIPELINES_FALLBACK: dict[str, dict] = {
     "1.18": {"ga": "2025-03-17", "fs_end": "2025-08-15", "mnt_end": "2025-09-25"},
     "1.19": {"ga": "2025-07-15", "fs_end": "2025-10-25", "mnt_end": "2026-01-22"},
     "1.20": {"ga": "2025-09-25", "fs_end": "2026-02-22", "mnt_end": "2026-04-27"},
-    "1.21": {"ga": "2026-01-22", "fs_end": "2026-05-27"},
-    "1.22": {"ga": "2026-04-27"},
+    "1.21": {"ga": "2026-01-22", "fs_end": "2026-05-27", "mnt_end": "2026-08-01"},
+    "1.22": {"ga": "2026-04-27", "fs_end": "2026-08-27", "mnt_end": "2026-11-01"},
 }
 
 _GITOPS_FALLBACK: dict[str, dict] = {
@@ -124,7 +124,7 @@ _LOGGING_FALLBACK: dict[str, dict] = {
     "6.2": {"ga": "2025-03-01", "fs_end": "2025-08-16", "mnt_end": "2026-01-30"},
     "6.3": {"ga": "2025-07-16", "fs_end": "2025-12-13", "mnt_end": "2026-04-01"},
     "6.4": {"ga": "2025-11-13", "fs_end": "2026-05-01"},
-    "6.5": {"ga": "2026-04-01"},
+    "6.5": {"ga": "2026-04-01", "fs_end": "2026-10-01"},
 }
 
 _OADP_FALLBACK: dict[str, dict] = {
@@ -139,11 +139,11 @@ _OADP_FALLBACK: dict[str, dict] = {
 }
 
 _BUILDS_FALLBACK: dict[str, dict] = {
-    "1.4": {"ga": "2024-04-01", "fs_end": "2024-11-01", "mnt_end": "2025-01-30"},
-    "1.5": {"ga": "2024-10-01", "fs_end": "2025-05-01", "mnt_end": "2025-10-10"},
+    "1.4": {"ga": "2025-04-17", "fs_end": "2025-08-17", "mnt_end": "2025-10-10"},
+    "1.5": {"ga": "2025-07-17", "fs_end": "2025-11-10", "mnt_end": "2026-02-10"},
     "1.6": {"ga": "2025-10-10", "fs_end": "2026-03-10", "mnt_end": "2026-05-18"},
-    "1.7": {"ga": "2026-02-10", "fs_end": "2026-06-18"},
-    "1.8": {"ga": "2026-05-18"},
+    "1.7": {"ga": "2026-02-10", "fs_end": "2026-06-18", "mnt_end": "2026-09-01"},
+    "1.8": {"ga": "2026-05-18", "fs_end": "2026-09-18", "mnt_end": "2026-12-18"},
 }
 
 _DR_HUB_FALLBACK: dict[str, dict] = {
@@ -163,7 +163,7 @@ _CERTMGR_FALLBACK: dict[str, dict] = {
     "1.16": {"ga": "2024-12-01", "fs_end": "2025-03-31", "mnt_end": "2025-06-30"},
     "1.17": {"ga": "2025-03-01", "fs_end": "2025-06-30", "mnt_end": "2025-09-30"},
     "1.18": {"ga": "2025-06-01", "fs_end": "2025-09-30", "mnt_end": "2025-12-31"},
-    "1.19": {"ga": "2026-04-20", "eus1_end": "2028-02-25"},
+    "1.19": {"ga": "2026-04-20", "fs_end": "2026-11-20", "mnt_end": "2027-05-20", "eus1_end": "2028-02-25"},
 }
 
 # OCP-aligned operators share identical lifecycle dates with OCP itself.
@@ -200,14 +200,16 @@ _SERVERLESS_FALLBACK: dict[str, dict] = {
     "1.34": {"ga": "2024-10-10", "fs_end": "2025-02-22", "mnt_end": "2025-05-22"},
     "1.35": {"ga": "2025-01-22", "fs_end": "2025-08-17", "mnt_end": "2025-11-17"},
     "1.36": {"ga": "2025-07-17", "fs_end": "2025-12-24", "mnt_end": "2026-03-24"},
-    "1.37": {"ga": "2025-11-24", "fs_end": "2026-04-24"},
+    "1.37": {"ga": "2025-11-24", "fs_end": "2026-05-24", "mnt_end": "2026-08-24"},
 }
 
 _MTV_FALLBACK: dict[str, dict] = {
-    "2.7":  {"ga": "2025-01-21", "fs_end": "2025-07-21", "mnt_end": "2025-11-21"},
-    "2.8":  {"ga": "2025-02-24", "fs_end": "2025-08-24", "mnt_end": "2025-12-24"},
+    "2.7":  {"ga": "2024-09-22", "fs_end": "2025-07-10", "mnt_end": "2025-12-04"},
+    "2.8":  {"ga": "2025-03-31", "fs_end": "2025-11-04", "mnt_end": "2026-03-23"},
     "2.9":  {"ga": "2025-07-10", "fs_end": "2026-02-23", "mnt_end": "2026-07-16"},
-    "2.10": {"ga": "2025-11-04", "fs_end": "2026-06-16"},
+    "2.10": {"ga": "2025-11-04", "fs_end": "2026-06-16", "mnt_end": "2026-11-01"},
+    "2.11": {"ga": "2026-02-23", "fs_end": "2026-10-01", "mnt_end": "2027-02-01"},
+    "2.12": {"ga": "2026-06-16", "fs_end": "2027-01-15"},
 }
 
 _LOKI_FALLBACK: dict[str, dict] = {
@@ -216,6 +218,7 @@ _LOKI_FALLBACK: dict[str, dict] = {
             "eus1_end": "2028-10-21"},
     "6.3": {"ga": "2025-07-16", "fs_end": "2025-12-13", "mnt_end": "2026-04-01"},
     "6.4": {"ga": "2025-11-13", "fs_end": "2026-05-01"},
+    "6.5": {"ga": "2026-04-01", "fs_end": "2026-10-01"},
 }
 
 _KMM_FALLBACK: dict[str, dict] = {
@@ -633,8 +636,10 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
                     parsed = _parse_api_date(phase.get("end_date", ""))
                     if parsed:
                         dates[key] = parsed
-            if "fs_end" not in dates and name in fallback and "fs_end" in fallback[name]:
-                dates["fs_end"] = fallback[name]["fs_end"]
+            if name in fallback:
+                for _k in ("fs_end", "mnt_end", "eus1_end", "eus2_end", "sup_end", "els_end"):
+                    if _k not in dates and _k in fallback[name]:
+                        dates[_k] = fallback[name][_k]
             if "ga" in dates and any(k in dates for k in ("fs_end", "mnt_end", "sup_end")):
                 result[name] = dates
         if result:
@@ -721,9 +726,11 @@ _PAGE_CSS = """
       --bar-h: 26px;
       --ver-font: 11px;
     }
-    .page-nav { flex-wrap: nowrap; overflow-x: auto; }
+    .page-header { grid-template-columns: 1fr; gap: 6px; }
+    .header-left { display: none; }
+    .page-nav { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
     .page-nav a { flex-shrink: 0; }
-    .chart-inner { min-width: 480px; }
+    .chart-inner { min-width: var(--mobile-min-width, 480px); }
     .chart-row-bar span { display: none; }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -738,17 +745,18 @@ _PAGE_CSS = """
     background: #151515;
     color: #fff;
     padding: 14px 20px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
     gap: 8px;
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  .page-header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
-  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+  .header-left { display: flex; align-items: center; justify-content: flex-start; }
+  .header-right { display: flex; align-items: center; justify-content: flex-end; }
+  .header-title { font-size: 13px; font-weight: 700; color: #e0e0e0; letter-spacing: -0.01em; white-space: nowrap; }
+  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
   .page-nav a {
     color: #e0e0e0;
     text-decoration: none;
@@ -759,6 +767,9 @@ _PAGE_CSS = """
     border: 1px solid #444;
   }
   .page-nav a:hover { background: #333; color: #fff; }
+  .page-nav a.gh-contribute { color: #1a7f37; border-color: #1a7f37; background: #e6f4ea; }
+  .page-nav a.gh-contribute:visited { color: #1a7f37; }
+  .page-nav a.gh-contribute:hover { background: #1a7f37; color: #fff; }
   .page-content {
     max-width: 1148px;
     margin: 0 auto;
@@ -768,8 +779,8 @@ _PAGE_CSS = """
     gap: 20px;
   }
   @media (min-width: 700px) {
-    .page-header { padding: 18px 32px; }
-    .page-header h1 { font-size: 17px; }
+    .page-header { padding: 14px 32px; }
+    .header-title { font-size: 15px; }
     .page-nav a { font-size: 13px; padding: 4px 12px; }
     .page-content { padding: 28px 24px 48px; gap: 28px; }
   }
@@ -849,6 +860,26 @@ _PAGE_CSS = """
     text-align: right;
     padding-left: 4px;
   }
+  .eol-warn { position: relative; cursor: pointer; display: inline-block; }
+  .eol-tip {
+    display: none;
+    position: absolute;
+    right: 0; top: calc(100% + 4px);
+    background: #151515; color: #fff;
+    font-size: 11px; font-weight: 400; line-height: 1.4;
+    padding: 7px 10px; border-radius: 5px;
+    white-space: normal; width: 280px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+    z-index: 300;
+  }
+  .eol-tip::before {
+    content: ""; position: absolute;
+    right: 8px; top: -5px;
+    border: 5px solid transparent;
+    border-top: 0; border-bottom-color: #151515;
+  }
+  .eol-warn:hover .eol-tip,
+  .eol-warn.pinned .eol-tip { display: block; }
   .ver-code {
     font-family: "Red Hat Mono","Courier New",monospace;
     font-size: var(--ver-font);
@@ -1009,6 +1040,16 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 
         if v["is_eol"]:
             days_badge = '<span style="color:#a30000;font-weight:700;font-size:13px">EOL</span>'
+        elif v["days_left"] <= 30:
+            _eol_date = v["last_end"].isoformat()
+            _eol_days = v["days_left"]
+            _msg = f"EOL on {_eol_date} ({_eol_days} days) — Please plan an upgrade and/or contact Red Hat support for assistance about this version before due date."
+            days_badge = (
+                f'<span class="eol-warn">'
+                f'<span style="color:#a30000;font-weight:700;font-size:13px">⚠️ {_eol_days}d</span>'
+                f'<span class="eol-tip">{_msg}</span>'
+                f'</span>'
+            )
         else:
             ph = PHASES[v["phase_key"]]
             days_badge = f'<span style="color:{ph["text"]};font-weight:600;font-size:13px" title="{ph["label"]} — {v["days_left"]} days remaining">{v["days_left"]}d</span>'
@@ -1083,7 +1124,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
   </div>
   {controls_html}
   <div class="chart-area">
-    <div class="chart-inner">
+    <div class="chart-inner" style="--mobile-min-width:{max(480, (chart_end.year - chart_start.year + 1) * 32)}px">
       <div class="chart-grid">
         {year_lines_html}
         {today_html}
@@ -1141,8 +1182,10 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
     )
 
 
-def _page_wrap(title: str, body: str, nav_links: str = "") -> str:
+def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "") -> str:
     nav_html = f'<nav class="page-nav">{nav_links}</nav>' if nav_links else ""
+    left_html = f'<span class="header-title">{title}</span>'
+    right_html = contribute_html if contribute_html else '<span></span>'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1155,8 +1198,9 @@ def _page_wrap(title: str, body: str, nav_links: str = "") -> str:
 </head>
 <body>
 <header class="page-header">
-  <h1>{title}</h1>
+  <div class="header-left">{left_html}</div>
   {nav_html}
+  <div class="header-right">{right_html}</div>
 </header>
 <div class="page-content">
 {body}
@@ -1186,6 +1230,11 @@ function filterCard(card) {{
 document.addEventListener('DOMContentLoaded', function() {{
   document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
 }});
+document.addEventListener('click', function(e) {{
+  var warn = e.target.closest('.eol-warn');
+  if (warn) {{ warn.classList.toggle('pinned'); e.stopPropagation(); }}
+  else {{ document.querySelectorAll('.eol-warn.pinned').forEach(function(w) {{ w.classList.remove('pinned'); }}); }}
+}});
 </script>
 </body>
 </html>"""
@@ -1207,6 +1256,36 @@ def render_combined_html(
     )
     if operators_data:
         nav_links += '<a href="#operators">Operators</a>'
+    _gh_svg = (
+        '<svg height="11" width="11" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;margin-right:4px">'
+        '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38'
+        ' 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13'
+        '-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66'
+        '.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15'
+        '-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09'
+        ' 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15'
+        ' 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2'
+        ' 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>'
+        '</svg>'
+    )
+    _issue_body = (
+        "%23%23%23%20%F0%9F%9A%80%20Contribution%20Proposal%0A%0A"
+        "%2A%2AWhat%20kind%20of%20contribution%20is%20this%3F%2A%2A%0A"
+        "-%20%5B%20%5D%20Bug%20Fix%0A"
+        "-%20%5B%20%5D%20Feature%20%2F%20Enhancement%0A"
+        "-%20%5B%20%5D%20Life-cycle%20Data%20Update%20%28e.g.%2C%20adding%20missing%20product%20timelines%29%0A"
+        "-%20%5B%20%5D%20Documentation%20Improvement%0A%0A"
+        "---%0A%0A"
+        "%23%23%23%20%F0%9F%93%9D%20Description%0A%0A"
+        "%23%23%23%20%F0%9F%9B%A0%EF%B8%8F%20Proposed%20Implementation%20%2F%20Changes%0A%0A"
+        "%23%23%23%20%F0%9F%8E%A8%20Visuals%20%28if%20applicable%29%0A%0A"
+        "%23%23%23%20%F0%9F%99%8B%E2%80%8D%E2%99%82%EF%B8%8F%20Assignee%0A"
+        "-%20%5B%20%5D%20I%20would%20like%20to%20work%20on%20this%20myself%21"
+    )
+    contribute_html = (
+        f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new?body={_issue_body}" '
+        f'class="gh-contribute" target="_blank">{_gh_svg}Contribute</a>'
+    )
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     cards = "\n".join(
         _render_card(versions, label, anchor=label.lower().replace(" ", "-"),
@@ -1238,13 +1317,13 @@ def render_combined_html(
         f'</svg>Mickael Mayeras</a></p>'
         f'<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:6px">'
         f'📣 If you find this useful and want to contribute: '
-        f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new" style="color:#0066cc" target="_blank">Open an Issue</a>'
+        f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new?body={_issue_body}" style="color:#0066cc" target="_blank">Open an Issue</a>'
         f'&nbsp;·&nbsp;'
         f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph/compare" style="color:#0066cc" target="_blank">Open a Pull Request</a>'
         f'</p>'
     )
     body = cards + ("\n" + operators_section if operators_section else "") + "\n" + footer
-    return _page_wrap(title, body, nav_links)
+    return _page_wrap(title, body, nav_links, contribute_html)
 
 
 def render_svg(versions: list[dict], chart_label: str, width: int = 1400,
