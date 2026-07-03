@@ -863,6 +863,61 @@ _PAGE_CSS = """
     --row-h: 48px;
     --bar-h: 34px;
     --ver-font: 15px;
+    /* theme – light defaults */
+    --bg-page: #f5f5f5;
+    --bg-card: #fff;
+    --bg-card-header: #f0f0f0;
+    --bg-controls: #f8f8f8;
+    --bg-row-alt: #fafafa;
+    --border-base: #d2d2d2;
+    --border-controls: #e8e8e8;
+    --text-primary: #151515;
+    --text-secondary: #6a6e73;
+    --text-controls: #3c3f42;
+    --link-color: #0066cc;
+    --grid-line: #d2d2d2;
+    --today-label-bg: rgba(255,255,255,0.9);
+    --today-label-border: rgba(163,0,0,0.25);
+    --input-bg: #fff;
+    --red: #a30000;
+  }
+  [data-theme="dark"] {
+    --bg-page: #111;
+    --bg-card: #1e1e1e;
+    --bg-card-header: #252525;
+    --bg-controls: #1a1a1a;
+    --bg-row-alt: #191919;
+    --border-base: #383838;
+    --border-controls: #383838;
+    --text-primary: #e8e8e8;
+    --text-secondary: #8a8e93;
+    --text-controls: #c8cacc;
+    --link-color: #5b9bd5;
+    --grid-line: #333;
+    --today-label-bg: rgba(30,30,30,0.95);
+    --today-label-border: rgba(220,80,80,0.5);
+    --input-bg: #1e1e1e;
+    --red: #e05050;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg-page: #111;
+      --bg-card: #1e1e1e;
+      --bg-card-header: #252525;
+      --bg-controls: #1a1a1a;
+      --bg-row-alt: #191919;
+      --border-base: #383838;
+      --border-controls: #383838;
+      --text-primary: #e8e8e8;
+      --text-secondary: #8a8e93;
+      --text-controls: #c8cacc;
+      --link-color: #5b9bd5;
+      --grid-line: #333;
+      --today-label-bg: rgba(30,30,30,0.95);
+      --today-label-border: rgba(220,80,80,0.5);
+      --input-bg: #1e1e1e;
+      --red: #e05050;
+    }
   }
   @media (max-width: 600px) {
     :root {
@@ -899,8 +954,8 @@ _PAGE_CSS = """
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: "Red Hat Text","Red Hat Display","Open Sans",system-ui,sans-serif;
-    background: #f5f5f5;
-    color: #151515;
+    background: var(--bg-page);
+    color: var(--text-primary);
     padding: 0;
     margin: 0;
   }
@@ -953,8 +1008,8 @@ _PAGE_CSS = """
     .page-content { padding: 28px 24px 48px; gap: 28px; }
   }
   .card {
-    background: #fff;
-    border: 1px solid #d2d2d2;
+    background: var(--bg-card);
+    border: 1px solid var(--border-base);
     border-radius: 8px;
     width: 100%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -965,15 +1020,15 @@ _PAGE_CSS = """
     align-items: center;
     justify-content: space-between;
     padding: 10px var(--card-px);
-    background: #f0f0f0;
-    border-bottom: 1px solid #d2d2d2;
+    background: var(--bg-card-header);
+    border-bottom: 1px solid var(--border-base);
     flex-wrap: wrap;
     gap: 8px;
   }
   .card-title {
     font-size: 14px;
     font-weight: 700;
-    color: #151515;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -982,7 +1037,7 @@ _PAGE_CSS = """
   .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .legend span { font-size: 11px !important; }
   .chart-area {
-    background: #fff;
+    background: var(--bg-card);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1003,7 +1058,7 @@ _PAGE_CSS = """
     position: relative; z-index: 1;
     display: flex; flex-direction: column; gap: 6px;
   }
-  .chart-rows > div:nth-child(even) { background: #fafafa; }
+  .chart-rows > div:nth-child(even) { background: var(--bg-row-alt); }
   .chart-row {
     display: flex;
     align-items: center;
@@ -1059,7 +1114,7 @@ _PAGE_CSS = """
   .ver-code {
     font-family: "Red Hat Mono","Courier New",monospace;
     font-size: var(--ver-font);
-    color: #151515;
+    color: var(--text-primary);
     font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
@@ -1070,44 +1125,44 @@ _PAGE_CSS = """
     align-items: center;
     gap: 12px;
     padding: 6px var(--card-px);
-    background: #f8f8f8;
-    border-bottom: 1px solid #e8e8e8;
+    background: var(--bg-controls);
+    border-bottom: 1px solid var(--border-controls);
     flex-wrap: wrap;
     font-size: 12px;
-    color: #3c3f42;
+    color: var(--text-controls);
   }
   .card-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; }
   .card-controls select {
     font-size: 12px;
     padding: 2px 4px;
-    border: 1px solid #d2d2d2;
+    border: 1px solid var(--border-base);
     border-radius: 3px;
-    background: #fff;
-    color: #151515;
+    background: var(--input-bg);
+    color: var(--text-primary);
     font-family: inherit;
     max-width: 90px;
   }
-  .card-controls .ctrl-label { color: #6a6e73; margin-right: -4px; }
+  .card-controls .ctrl-label { color: var(--text-secondary); margin-right: -4px; }
   .footer {
     padding: 8px var(--card-px) 12px;
-    font-size: 11px; color: #6a6e73;
-    border-top: 1px solid #d2d2d2; background: #f0f0f0;
+    font-size: 11px; color: var(--text-secondary);
+    border-top: 1px solid var(--border-base); background: var(--bg-card-header);
     word-break: break-word;
   }
-  .footer a { color: #0066cc; text-decoration: none; }
+  .footer a { color: var(--link-color); text-decoration: none; }
   .footer a:hover { text-decoration: underline; }
   .section-heading {
     font-size: 16px;
     font-weight: 700;
-    color: #151515;
+    color: var(--text-primary);
     padding-bottom: 10px;
-    border-bottom: 2px solid #d2d2d2;
+    border-bottom: 2px solid var(--border-base);
     margin-bottom: 4px;
   }
   .op-section { display: flex; flex-direction: column; gap: 8px; }
   .op-details {
-    background: #fff;
-    border: 1px solid #d2d2d2;
+    background: var(--bg-card);
+    border: 1px solid var(--border-base);
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     overflow: hidden;
@@ -1119,24 +1174,35 @@ _PAGE_CSS = """
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    background: #f0f0f0;
+    background: var(--bg-card-header);
     list-style: none;
     user-select: none;
   }
   .op-summary::-webkit-details-marker { display: none; }
   .op-summary::marker { display: none; }
-  .op-details[open] > .op-summary { border-bottom: 1px solid #d2d2d2; }
+  .op-details[open] > .op-summary { border-bottom: 1px solid var(--border-base); }
   .op-name {
     font-size: 13px;
     font-weight: 700;
-    color: #151515;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  .op-name::before { content: "▶"; font-size: 9px; color: #6a6e73; transition: transform 0.15s; }
+  .op-name::before { content: "▶"; font-size: 9px; color: var(--text-secondary); transition: transform 0.15s; }
   .op-details[open] .op-name::before { transform: rotate(90deg); }
-  .op-meta { font-size: 11px; color: #6a6e73; white-space: nowrap; }
+  .op-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+  .theme-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+  .theme-btn:hover { background: #333; }
   .op-details .card { border: none; border-radius: 0; box-shadow: none; }
 """
 
@@ -1167,10 +1233,10 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 
     year_lines_html = "".join(
         f'<div style="position:absolute;left:{m["pct"]:.3f}%;top:0;bottom:0;'
-        f'border-left:1px dashed #d2d2d2;z-index:0"></div>'
+        f'border-left:1px dashed var(--grid-line);z-index:0"></div>'
         + (
             f'<div style="position:absolute;left:{m["pct"]:.3f}%;top:-20px;'
-            f'font-size:11px;color:#6a6e73;transform:translateX(-50%);font-weight:600;white-space:nowrap">'
+            f'font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">'
             f'{m["year"]}</div>'
             if m["label"] else ""
         )
@@ -1179,11 +1245,11 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 
     today_html = (
         f'<div style="position:absolute;left:{today_pct:.3f}%;top:0;bottom:0;'
-        f'border-left:1.5px dashed #a30000;opacity:0.7;z-index:2"></div>'
+        f'border-left:1.5px dashed var(--red);opacity:0.7;z-index:2"></div>'
         f'<div style="position:absolute;left:{today_pct:.3f}%;top:calc(-1 * var(--chart-top) + 12px);'
-        f'font-size:11px;color:#a30000;transform:translateX(-50%);'
-        f'font-weight:700;white-space:nowrap;background:rgba(255,255,255,0.9);'
-        f'padding:1px 4px;border-radius:2px;border:1px solid rgba(163,0,0,0.25)">Today</div>'
+        f'font-size:11px;color:var(--red);transform:translateX(-50%);'
+        f'font-weight:700;white-space:nowrap;background:var(--today-label-bg);'
+        f'padding:1px 4px;border-radius:2px;border:1px solid var(--today-label-border)">Today</div>'
     )
 
     # ── Rows ────────────────────────────────────────────────────────────────
@@ -1221,14 +1287,14 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         ) if v["is_eol"] else ""
 
         if v["is_eol"]:
-            days_badge = '<span style="color:#a30000;font-weight:700;font-size:13px">EOL</span>'
+            days_badge = '<span style="color:var(--red);font-weight:700;font-size:13px">EOL</span>'
         elif v["days_left"] <= 30:
             _eol_date = v["last_end"].isoformat()
             _eol_days = v["days_left"]
             _msg = f"EOL on {_eol_date} ({_eol_days} days) — Please plan an upgrade and/or contact your support representative for assistance about this version before due date."
             days_badge = (
                 f'<span class="eol-warn">'
-                f'<span style="color:#a30000;font-weight:700;font-size:13px">⚠️ {_eol_days}d</span>'
+                f'<span style="color:var(--red);font-weight:700;font-size:13px">⚠️ {_eol_days}d</span>'
                 f'<span class="eol-tip">{_msg}</span>'
                 f'</span>'
             )
@@ -1253,7 +1319,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 
     # ── Legend ───────────────────────────────────────────────────────────────
     legend_html = " ".join(
-        f'<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#151515">'
+        f'<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)">'
         f'<span style="display:inline-block;width:14px;height:12px;border-radius:2px;'
         f'background:{PHASES[k]["bg"]};border:1.5px solid {PHASES[k]["border"]}"></span>'
         f'{PHASES[k]["label"]}</span>'
@@ -1294,14 +1360,14 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     return f"""<div class="card"{anchor_attr}>
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
       </svg>
       {chart_label}
     </span>
     <div class="legend">
       {legend_html}
-      <span style="font-size:11px;color:#a30000;opacity:0.75">┆ Today ({today.isoformat()})</span>
+      <span style="font-size:11px;color:var(--red);opacity:0.85">┆ Today ({today.isoformat()})</span>
     </div>
   </div>
   {controls_html}
@@ -1344,9 +1410,9 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
     search = (
         '<div style="margin:12px 0 8px">'
         '<input type="search" id="op-search" placeholder="Filter operators…" autocomplete="off" '
-        'style="width:100%;max-width:340px;padding:6px 10px;border:1px solid #d2d2d2;'
+        'style="width:100%;max-width:340px;padding:6px 10px;border:1px solid var(--border-base);'
         'border-radius:4px;font-size:13px;font-family:inherit;outline:none;'
-        'background:#fff;color:#151515" '
+        'background:var(--input-bg);color:var(--text-primary)" '
         'oninput="(function(q){var all=document.querySelectorAll(\'#operators .op-details\');'
         'q=q.toLowerCase();all.forEach(function(el){'
         'var n=el.querySelector(\'.op-name\').textContent.toLowerCase();'
@@ -1367,7 +1433,9 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
 def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "") -> str:
     nav_html = f'<nav class="page-nav">{nav_links}</nav>' if nav_links else ""
     left_html = f'<span class="header-title">{title}</span>'
-    right_html = contribute_html if contribute_html else '<span></span>'
+    _theme_btn = '<button id="theme-toggle" class="theme-btn" title="Toggle dark/light mode"></button>'
+    _right_content = contribute_html if contribute_html else ""
+    right_html = f'<div style="display:flex;align-items:center;gap:8px">{_theme_btn}{_right_content}</div>'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1377,6 +1445,13 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
 <style>
 {_PAGE_CSS}
 </style>
+<script>
+(function(){{
+  var s=localStorage.getItem('lifecycle-theme');
+  var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',d?'dark':'light');
+}})();
+</script>
 </head>
 <body>
 <header class="page-header">
@@ -1438,6 +1513,27 @@ document.addEventListener('click', function(e) {{
   if (warn) {{ warn.classList.toggle('pinned'); e.stopPropagation(); }}
   else {{ document.querySelectorAll('.eol-warn.pinned').forEach(function(w) {{ w.classList.remove('pinned'); }}); }}
 }});
+(function() {{
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var stored = localStorage.getItem('lifecycle-theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var isDark = stored !== null ? stored === 'dark' : prefersDark;
+  function apply(dark) {{
+    root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.textContent = dark ? '☀' : '🌙';
+    btn.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  }}
+  apply(isDark);
+  btn.addEventListener('click', function() {{
+    isDark = !isDark;
+    localStorage.setItem('lifecycle-theme', isDark ? 'dark' : 'light');
+    apply(isDark);
+  }});
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {{
+    if (localStorage.getItem('lifecycle-theme') === null) {{ isDark = e.matches; apply(isDark); }}
+  }});
+}})();
 </script>
 </body>
 </html>"""
