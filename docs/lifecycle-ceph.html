@@ -202,7 +202,7 @@
     top: var(--chart-top);
     bottom: 20px;
     left: calc(var(--card-px) + var(--label-w));
-    right: calc(var(--card-px) + var(--days-col) + 8px);
+    right: calc(var(--card-px) + var(--days-col));
     pointer-events: none;
   }
   .chart-rows {
@@ -355,6 +355,57 @@
   }
   .theme-btn:hover { background: #333; }
   .op-details .card { border: none; border-radius: 0; box-shadow: none; }
+  .card-info-block {
+    border-top: 1px solid var(--border-controls);
+    background: var(--bg-controls);
+    padding: 0 var(--card-px);
+    font-size: 12px;
+    color: var(--text-controls);
+  }
+  .card-info-block summary {
+    cursor: pointer; padding: 6px 0; font-weight: 600;
+    list-style: none; user-select: none;
+  }
+  .card-info-block summary::-webkit-details-marker { display: none; }
+  .card-info-block summary::before { content: "▶ "; font-size: 9px; color: var(--text-secondary); }
+  .card-info-block[open] summary::before { content: "▼ "; }
+  .card-info-body { padding: 6px 0 10px; line-height: 1.5; }
+  .card-info-body a { color: var(--link-color); }
+  .minor-group { display: none; flex-direction: column; gap: 2px; }
+  .minor-group.visible { display: flex; }
+  .minor-row {
+    display: flex; align-items: center;
+    height: 28px;
+    padding-left: 16px;
+    background: var(--bg-row-alt);
+    border-left: 2px solid var(--border-base);
+    margin-left: 2px;
+  }
+  .minor-row .chart-row-label {
+    width: calc(var(--label-w) - 16px);
+    flex-shrink: 0; padding-right: 6px;
+    overflow: hidden; display: flex; align-items: center;
+  }
+  .minor-row .ver-code { font-size: 11px; font-weight: 600; }
+  .minor-row .chart-row-bar { flex: 1; position: relative; height: 18px; }
+  .minor-row .chart-row-days { width: var(--days-col); flex-shrink: 0; text-align: right; padding-left: 4px; font-size: 11px; }
+  .nav-toggle {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 12px 4px 8px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: 1.5px solid var(--border-color); background: var(--card-bg);
+    color: var(--text-secondary); transition: background 0.15s, color 0.15s, opacity 0.15s;
+    text-decoration: none; user-select: none;
+  }
+  .nav-toggle .nav-check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 700;
+    border: 1.5px solid currentColor; flex-shrink: 0; transition: background 0.15s;
+  }
+  .nav-toggle .nav-check::after { content: "✕"; }
+  .nav-toggle.nav-on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .nav-toggle.nav-on .nav-check { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
+  .nav-toggle.nav-on .nav-check::after { content: "✓"; }
+  .nav-toggle:hover { opacity: 0.85; }
 
 </style>
 <script>
@@ -378,7 +429,7 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
       </svg>
-      Ceph Lifecycle
+      Ceph Lifecycle <a href="https://access.redhat.com/support/policy/updates/ceph-storage" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f5b8b4;border:1.5px solid #c9190b"></span>ELS</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#e88080;border:1.5px solid #8b0000"></span>ELS-2</span>
@@ -386,6 +437,7 @@
     </div>
   </div>
   <div class="card-controls"><span class="ctrl-label">Range:</span><select class="ctrl-from" onchange="filterCard(this.closest('.card'))"><option value="">All from</option><option value="9">9</option><option value="8">8</option><option value="7">7</option><option value="6">6</option><option value="5">5</option><option value="4">4</option></select><span class="ctrl-label">→</span><select class="ctrl-to" onchange="filterCard(this.closest('.card'))"><option value="">All to</option><option value="9">9</option><option value="8">8</option><option value="7">7</option><option value="6">6</option><option value="5">5</option><option value="4">4</option></select><label><input type="checkbox" class="ctrl-eol" onchange="filterCard(this.closest('.card'))"> Include EOL</label></div>
+  
   <div class="chart-area">
     <div class="chart-inner" style="--mobile-min-width:520px">
       <div class="chart-grid">
@@ -397,7 +449,7 @@
       </div>
     </div>
   </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-03 09:29 UTC</div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-03 11:03 UTC</div>
 </div>
 </div>
 <script>
@@ -419,8 +471,27 @@ function filterCard(card) {
   }
   rows.forEach(function(row, i) {
     var eol = row.dataset.eol === 'true';
-    row.style.display = (i >= fromIdx && i <= toIdx && (showEol || !eol)) ? '' : 'none';
+    var visible = i >= fromIdx && i <= toIdx && (showEol || !eol);
+    row.style.display = visible ? '' : 'none';
+    var group = row.nextElementSibling;
+    if (group && group.classList.contains('minor-group')) {
+      if (!visible) {
+        group.style.display = 'none';
+      } else {
+        group.style.display = group.classList.contains('visible') ? 'flex' : 'none';
+        group.querySelectorAll('.minor-row').forEach(function(mr) {
+          mr.style.display = (showEol || mr.dataset.eol !== 'true') ? '' : 'none';
+        });
+      }
+    }
   });
+}
+function toggleMinorRows(card) {
+  var show = card.querySelector('.ctrl-minor') && card.querySelector('.ctrl-minor').checked;
+  card.querySelectorAll('.minor-group').forEach(function(g) {
+    g.classList.toggle('visible', show);
+  });
+  filterCard(card);
 }
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.card').forEach(function(card) { filterCard(card); });
@@ -472,6 +543,20 @@ document.addEventListener('click', function(e) {
     if (localStorage.getItem('lifecycle-theme') === null) { isDark = e.matches; apply(isDark); }
   });
 })();
+function toggleProductCard(btn) {
+  var target = btn.getAttribute('data-target');
+  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
+  if (!section) return;
+  var hidden = section.style.display === 'none';
+  if (hidden) {
+    section.style.display = '';
+    btn.classList.add('nav-on');
+    setTimeout(function() { section.scrollIntoView({behavior: 'smooth', block: 'start'}); }, 30);
+  } else {
+    section.style.display = 'none';
+    btn.classList.remove('nav-on');
+  }
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How it works — lifecycle-graph</title>
+<style>
+:root {
+  --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --border:#30363d;
+  --text:#c9d1d9; --dim:#8b949e; --accent:#58a6ff; --green:#3fb950;
+  --orange:#f0883e; --purple:#d2a8ff; --link:#58a6ff;
+  --code-bg:#161b22; --th:#1c2128;
+}
+[data-theme="light"] {
+  --bg:#f6f8fa; --bg2:#ffffff; --bg3:#f0f3f6; --border:#d0d7de;
+  --text:#1f2328; --dim:#57606a; --accent:#0969da; --green:#1a7f37;
+  --orange:#bc4c00; --purple:#6639ba; --link:#0969da;
+  --code-bg:#f6f8fa; --th:#f0f3f6;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.65}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:99;height:52px;
+  display:flex;align-items:center;gap:12px;padding:0 28px;
+  background:var(--bg2);border-bottom:1px solid var(--border)}
+.nav-back{display:inline-flex;align-items:center;gap:5px;
+  color:var(--accent);text-decoration:none;font-size:13px;
+  padding:5px 12px;border:1px solid var(--border);border-radius:6px;
+  transition:.15s}
+.nav-back:hover{border-color:var(--accent)}
+.nav-title{font-size:14px;font-weight:600}
+.nav-spacer{flex:1}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:6px;
+  color:var(--dim);cursor:pointer;padding:4px 10px;font-size:14px;line-height:1}
+
+/* hero */
+.hero{padding:56px 28px 44px;text-align:center;
+  background:linear-gradient(175deg,var(--bg2) 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--border)}
+.hero h1{margin:0 0 10px;font-size:2.1rem;font-weight:700;letter-spacing:-.5px}
+.hero p{margin:0 auto;max-width:520px;color:var(--dim);font-size:1rem}
+.badges{display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;padding:3px 12px;
+  border-radius:20px;font-size:12px;font-weight:500;border:1px solid;cursor:default}
+.b-blue  {color:var(--accent);border-color:#58a6ff44;background:#58a6ff0d}
+.b-green {color:var(--green);border-color:#3fb95044;background:#3fb9500d}
+.b-orange{color:var(--orange);border-color:#f0883e44;background:#f0883e0d}
+.b-purple{color:var(--purple);border-color:#d2a8ff44;background:#d2a8ff0d}
+
+/* pipeline strip */
+.pipeline{display:flex;align-items:center;justify-content:center;
+  gap:0;padding:32px 28px;flex-wrap:wrap;
+  border-bottom:1px solid var(--border);background:var(--bg2)}
+.pipe-step{display:flex;flex-direction:column;align-items:center;
+  padding:14px 18px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;min-width:130px;text-align:center;gap:4px}
+.pipe-step .ps-icon{font-size:22px}
+.pipe-step .ps-label{font-size:12px;font-weight:600;color:var(--text)}
+.pipe-step .ps-sub{font-size:11px;color:var(--dim)}
+.pipe-arrow{font-size:20px;color:var(--border);padding:0 6px;flex-shrink:0}
+.pipe-step.c-orange{border-color:#f0883e66}
+.pipe-step.c-blue  {border-color:#58a6ff66}
+.pipe-step.c-green {border-color:#3fb95066}
+.pipe-step.c-purple{border-color:#d2a8ff66}
+.pipe-step.c-gray  {border-color:#8b949e66}
+
+/* layout */
+.layout{display:grid;grid-template-columns:210px 1fr;
+  max-width:1160px;margin:0 auto;padding:0 28px 80px}
+
+/* toc */
+.toc{position:sticky;top:52px;align-self:start;
+  height:calc(100vh - 52px);overflow-y:auto;
+  padding:28px 18px 28px 0;border-right:1px solid var(--border)}
+.toc-hd{font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--dim);margin:0 0 10px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:1px 0}
+.toc a{display:block;padding:4px 8px;font-size:13px;color:var(--dim);
+  text-decoration:none;border-radius:5px;border-left:2px solid transparent;
+  transition:.12s}
+.toc a:hover{color:var(--text);background:var(--bg2)}
+.toc a.on{color:var(--accent);border-left-color:var(--accent);background:var(--bg2)}
+.toc .h3 a{padding-left:18px;font-size:12px}
+
+/* article */
+.art{padding:32px 0 0 32px;min-width:0}
+.art h1{font-size:1.8rem;margin:0 0 6px}
+.art h2{font-size:1.15rem;font-weight:600;margin:38px 0 10px;
+  padding-bottom:6px;border-bottom:1px solid var(--border);scroll-margin-top:68px}
+.art h3{font-size:.98rem;font-weight:600;margin:22px 0 6px;scroll-margin-top:68px}
+.art h4{font-size:.88rem;font-weight:600;margin:14px 0 4px;color:var(--dim)}
+.art p{margin:8px 0}
+.art ul,.art ol{margin:6px 0 6px 22px}
+.art li{margin:3px 0}
+.art hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.art a{color:var(--link)}
+.art code{background:var(--code-bg);border:1px solid var(--border);
+  border-radius:4px;padding:1px 6px;font-size:.83em;
+  font-family:"SF Mono",Menlo,Consolas,monospace}
+.art pre{background:var(--code-bg);border:1px solid var(--border);
+  border-radius:8px;padding:14px 18px;overflow-x:auto;margin:12px 0}
+.art pre code{background:none;border:none;padding:0;font-size:.84em}
+.art table{border-collapse:collapse;margin:12px 0;font-size:.87em;
+  display:block;overflow-x:auto;width:100%}
+.art th,.art td{border:1px solid var(--border);padding:6px 14px;
+  text-align:left;white-space:nowrap}
+.art th{background:var(--th);font-weight:600}
+.art tr:nth-child(even) td{background:var(--bg2)}
+.art blockquote{margin:16px 0;padding:12px 16px 12px 20px;
+  border-left:3px solid var(--accent);border-radius:0 6px 6px 0;
+  background:var(--bg2)}
+.art blockquote p{margin:4px 0;font-size:.9em}
+.art blockquote table{font-size:.84em}
+
+/* footer */
+.foot{text-align:center;padding:24px;font-size:12px;color:var(--dim);
+  border-top:1px solid var(--border)}
+.foot a{color:var(--link);text-decoration:none}
+.foot a:hover{text-decoration:underline}
+
+@media(max-width:720px){
+  .layout{grid-template-columns:1fr}
+  .toc{display:none}
+  .art{padding:24px 0 0}
+  .pipeline{gap:4px}
+  .pipe-arrow{display:none}
+}
+</style>
+<script>(function(){
+  var s=localStorage.getItem('lifecycle-theme');
+  var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',d?'dark':'light');
+})();</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="lifecycle.html">← Charts</a>
+  <span class="nav-title">How it works</span>
+  <span class="nav-spacer"></span>
+  <button class="theme-btn" id="tbtn">☀</button>
+</nav>
+
+<div class="hero">
+  <h1>How it works</h1>
+  <p>lifecycle-graph fetches Red Hat product support data, models it as phase timelines, and renders interactive Gantt charts — updated daily.</p>
+  <div class="badges">
+    <span class="badge b-orange">lifecycle-config.yaml</span>
+    <span class="badge b-blue">Red Hat Lifecycle API</span>
+    <span class="badge b-green">GitHub Pages</span>
+    <span class="badge b-blue">5 products</span>
+    <span class="badge b-purple">43 operators</span>
+  </div>
+</div>
+
+<div class="pipeline">
+  <div class="pipe-step c-orange">
+    <span class="ps-icon">📄</span>
+    <span class="ps-label">lifecycle-config.yaml</span>
+    <span class="ps-sub">sole source of truth</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-blue">
+    <span class="ps-icon">🔗</span>
+    <span class="ps-label">Red Hat API</span>
+    <span class="ps-sub">live lifecycle dates</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-blue">
+    <span class="ps-icon">⚙</span>
+    <span class="ps-label">build_versions()</span>
+    <span class="ps-sub">filter · EUS · segments</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-purple">
+    <span class="ps-icon">📊</span>
+    <span class="ps-label">render_card()</span>
+    <span class="ps-sub">Gantt HTML per version</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-green">
+    <span class="ps-icon">🌐</span>
+    <span class="ps-label">GitHub Pages</span>
+    <span class="ps-sub">published daily</span>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="toc">
+    <p class="toc-hd">Contents</p>
+    <ul class="toc-list"><li class=""><a href="#how-it-works-the-basics">How it works — the basics</a></li><li class=""><a href="#configuration-lifecycle-config-yaml">Configuration (lifecycle-config.yaml)</a></li><li class=" toc-h3"><a href="#requirements">Requirements</a></li><li class=" toc-h3"><a href="#field-reference">Field reference</a></li><li class=" toc-h3"><a href="#version-strategy-values">version_strategy values</a></li><li class=" toc-h3"><a href="#phase-map-preset-values">phase_map_preset values</a></li><li class=" toc-h3"><a href="#add-a-new-operator-in-3-lines-of-yaml">Add a new operator in 3 lines of YAML</a></li><li class=""><a href="#openshift-container-platform-ocp">OpenShift Container Platform (OCP)</a></li><li class=""><a href="#rhel-major-versions">RHEL (major versions)</a></li><li class=" toc-h3"><a href="#rhel-minor-versions-the-show-minor-releases-toggle">RHEL minor versions (the &quot;Show minor releases&quot; toggle)</a></li><li class=""><a href="#aap-ansible-automation-platform">AAP — Ansible Automation Platform</a></li><li class=""><a href="#rhoai-red-hat-openshift-ai">RHOAI — Red Hat OpenShift AI</a></li><li class=""><a href="#ceph-storage">Ceph Storage</a></li><li class=""><a href="#openshift-operators">OpenShift Operators</a></li><li class=" toc-h3"><a href="#platform-aligned-operators">Platform-Aligned operators</a></li><li class=" toc-h3"><a href="#platform-agnostic-operators">Platform-Agnostic operators</a></li><li class=" toc-h3"><a href="#rolling-stream-operators">Rolling-Stream operators</a></li><li class=""><a href="#middleware-application-services">Middleware &amp; Application Services</a></li><li class=""><a href="#phase-palette">Phase palette</a></li><li class=""><a href="#data-sources-and-fallbacks">Data sources and fallbacks</a></li><li class=""><a href="#adding-a-new-product-category">Adding a new product category</a></li></ul>
+  </aside>
+  <article class="art">
+    <h1>Lifecycle Methodology</h1>
+<p>This document explains how each product's lifecycle is modelled in <code>lifecycle-graph.py</code> and how to extend or correct the data. It is aimed at contributors.</p>
+<hr>
+<h2 id="how-it-works-the-basics">How it works — the basics</h2>
+<p>Every product goes through the same pipeline:</p>
+<pre><code>fetch_lifecycle(cfg)      →  raw dict  {version: {ga, fs_end, mnt_end, ...}}
+       ↓
+build_versions(raw, cfg)  →  version list  [{version, ga, last_end, segments, is_eol, ...}]
+       ↓
+_render_card(versions)    →  HTML Gantt chart
+</code></pre>
+<p><strong><code>PHASES</code></strong> maps phase keys (e.g. <code>&quot;fs&quot;</code>, <code>&quot;eus1&quot;</code>) to display label and colours.   <strong><code>PHASE_KEYS</code></strong> defines the order phases are checked when building segments.   <strong><code>PRODUCT_CONFIGS</code> / <code>OPERATOR_CONFIGS</code> / <code>MIDDLEWARE_CONFIGS</code></strong> are populated at startup from <code>lifecycle-config.yaml</code>.</p>
+<hr>
+<h2 id="configuration-lifecycle-config-yaml">Configuration (<code>lifecycle-config.yaml</code>)</h2>
+<p>All product, operator, and middleware data lives in <code>lifecycle-config.yaml</code>, alongside <code>lifecycle-graph.py</code>. The Python script starts with empty dicts and loads everything from this file at startup. <strong>To change lifecycle data or add new entries, edit only the YAML — no Python changes are needed.</strong></p>
+<h3 id="requirements">Requirements</h3>
+<p>PyYAML must be installed:</p>
+<pre><code class="language-bash">pip install pyyaml
+</code></pre>
+<p>If the file is missing or PyYAML is not installed, the script prints a warning and generates empty charts.</p>
+<h3 id="field-reference">Field reference</h3>
+<h4><code>products</code></h4>
+<pre><code class="language-yaml">products:
+  &lt;key&gt;:
+    api_name: &quot;Exact Red Hat API product name&quot;   # required
+    title: &quot;Display title in the chart&quot;          # required
+    page_url: &quot;https://...&quot;                      # optional — linked from chart header
+    info_html: &quot;&lt;b&gt;HTML&lt;/b&gt; snippet...&quot;          # optional — tooltip / legend footnote
+    version_strategy: ocp-minor                  # required — see table below
+    min_version: &quot;4.12&quot;                          # required — versions below this are skipped
+    phase_map:                                   # required
+      &quot;API phase string&quot;: phase_key
+    fallback:                                    # recommended — used when API is unreachable
+      &quot;4.16&quot;: { ga: &quot;2024-10-28&quot;, fs_end: &quot;2025-05-19&quot;, mnt_end: &quot;2026-05-19&quot; }
+</code></pre>
+<h4><code>rhel_minors</code></h4>
+<pre><code class="language-yaml">rhel_minors:
+  &quot;9&quot;:
+    &quot;9.4&quot;: { ga: &quot;2024-04-30&quot;, std_end: &quot;2024-11-12&quot;, eus_end: &quot;2026-05-31&quot;, elc_end: &quot;2030-04-30&quot; }
+    &quot;9.6&quot;: { ga: &quot;2025-05-13&quot;, std_end: &quot;2025-11-12&quot;, eus_end: &quot;2027-05-31&quot;, elc_end: &quot;2031-05-13&quot; }
+  &quot;8&quot;:
+    &quot;8.10&quot;: { ga: &quot;2024-05-22&quot;, std_end: &quot;2029-05-31&quot;, eus_end: &quot;2026-05-31&quot;, elc_end: &quot;2030-05-22&quot;, elcp_end: &quot;2032-06-30&quot; }
+</code></pre>
+<p>Fields per entry:</p>
+<table><thead><tr><th>Field</th><th>Required</th><th>Meaning</th></tr></thead><tbody><tr><td><code>ga</code></td><td>yes</td><td>GA date</td></tr><tr><td><code>std_end</code></td><td>yes</td><td>End of Standard subscription window</td></tr><tr><td><code>eus_end</code></td><td>no</td><td>End of Premium/EUS (even minors)</td></tr><tr><td><code>elc_end</code></td><td>no</td><td>End of ELC, Premium (even minors ≥ 9.2, and 8.10)</td></tr><tr><td><code>elcp_end</code></td><td>no</td><td>End of Long Life (last minor of each major: 8.10, 9.10, 10.10)</td></tr></tbody></table>
+<p>> <strong>Date format</strong>: always quote dates as strings — <code>&quot;2024-05-18&quot;</code> not <code>2024-05-18</code>. Bare dates are auto-converted to Python <code>datetime.date</code> objects by PyYAML, which breaks string comparisons.</p>
+<h4><code>operators</code></h4>
+<pre><code class="language-yaml">operators:
+  &lt;key&gt;:
+    api_name: &quot;Red Hat OpenShift Pipelines&quot;   # required
+    title: &quot;OpenShift Pipelines&quot;              # optional — defaults to api_name
+    version_strategy: xy                      # required — see table below
+    min_version: &quot;1.14&quot;                       # required
+    phase_map_preset: op-standard             # use preset OR inline phase_map
+    phase_map:                                # inline overrides preset
+      &quot;General availability&quot;: ga
+      &quot;End of Life&quot;: fs_end
+    fallback:                                 # recommended
+      &quot;1.16&quot;: { ga: &quot;2024-10-09&quot;, fs_end: &quot;2025-01-12&quot;, mnt_end: &quot;2025-03-17&quot; }
+</code></pre>
+<h4><code>middleware</code></h4>
+<p>Same structure as <code>operators</code>, using <code>phase_map_preset: els2</code> for JBoss products.</p>
+<h3 id="version-strategy-values"><code>version_strategy</code> values</h3>
+<table><thead><tr><th>Value</th><th>Parser</th><th>EUS check</th><th>Use for</th></tr></thead><tbody><tr><td><code>ocp-minor</code></td><td><code>X.Y</code> OCP format</td><td>even Y</td><td>OCP</td></tr><tr><td><code>xy</code></td><td><code>X.Y</code></td><td>none</td><td>most operators, AAP, Quarkus</td></tr><tr><td><code>xy-exact</code></td><td><code>X.Y</code> exact (no <code>X.x</code>)</td><td>none</td><td>Keycloak</td></tr><tr><td><code>xy-eus-even</code></td><td><code>X.Y</code></td><td>even Y</td><td>ODF</td></tr><tr><td><code>x-dotx</code></td><td><code>X.x</code> dotx format</td><td>none</td><td>JBoss EAP, JWS</td></tr><tr><td><code>rhel-major</code></td><td>integer major</td><td>none</td><td>RHEL</td></tr><tr><td><code>aap</code></td><td>AAP <code>X.Y</code></td><td>none</td><td>AAP</td></tr><tr><td><code>rhoai</code></td><td>RHOAI <code>X.Y</code></td><td>none</td><td>RHOAI</td></tr><tr><td><code>ceph</code></td><td>integer</td><td>none</td><td>Ceph</td></tr><tr><td><code>rolling-eol</code></td><td><code>X.Y</code></td><td>none</td><td>VolSync, Dev Spaces</td></tr></tbody></table>
+<h3 id="phase-map-preset-values"><code>phase_map_preset</code> values</h3>
+<table><thead><tr><th>Preset</th><th>Phases</th></tr></thead><tbody><tr><td><code>op-standard</code></td><td>Full Support / Maintenance / EUS-1 / EUS-2</td></tr><tr><td><code>op-odf</code></td><td>Full Support / Maintenance / EUS-1 / EUS-2 / EUS-3</td></tr><tr><td><code>els2</code></td><td>Full Support / Maintenance / ELS-1 / ELS-2</td></tr><tr><td><code>keycloak</code></td><td>General availability / Full support / Maintenance support</td></tr><tr><td><code>rolling-ga-eol</code></td><td>General availability / End of Life</td></tr></tbody></table>
+<h3 id="add-a-new-operator-in-3-lines-of-yaml">Add a new operator in 3 lines of YAML</h3>
+<pre><code class="language-yaml">operators:
+  my-op:
+    api_name: &quot;Red Hat My Operator&quot;   # exact string from the lifecycle API
+    version_strategy: xy
+    min_version: &quot;1.0&quot;
+    phase_map_preset: op-standard
+</code></pre>
+<p>To find the exact API name:</p>
+<pre><code class="language-bash">curl &quot;https://access.redhat.com/product-life-cycles/api/v1/products?name=My+Operator&quot;
+</code></pre>
+<p>Add a <code>fallback:</code> block with known dates to protect against API downtime (see other operators in the YAML for examples).</p>
+<hr>
+<h2 id="openshift-container-platform-ocp">OpenShift Container Platform (OCP)</h2>
+<p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/openshift</p>
+<table><thead><tr><th>Phase</th><th>Key</th><th>Who gets it</th></tr></thead><tbody><tr><td>Full Support</td><td><code>fs</code></td><td>all versions</td></tr><tr><td>Maintenance</td><td><code>mnt</code></td><td>all versions</td></tr><tr><td>EUS-1</td><td><code>eus1</code></td><td><strong>even</strong> minor only (4.14, 4.16 …)</td></tr><tr><td>EUS-2</td><td><code>eus2</code></td><td>even minor, requires EUS add-on</td></tr><tr><td>Extended Life</td><td><code>elp</code></td><td>all versions</td></tr></tbody></table>
+<p><code>eus_check</code> returns <code>True</code> for even minors → <code>build_versions</code> adds <code>eus1_end</code>/<code>eus2_end</code> segments only for those. <code>min_filter</code> skips versions below 4.12 and any non-<code>4.X</code> strings from the API.</p>
+<p><strong>To add a future minor</strong>: nothing to do — the API returns it automatically once Red Hat publishes dates.</p>
+<hr>
+<h2 id="rhel-major-versions">RHEL (major versions)</h2>
+<p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/errata</p>
+<table><thead><tr><th>Phase</th><th>Key</th><th>Notes</th></tr></thead><tbody><tr><td>Full Support</td><td><code>fs</code></td><td>5 years from GA</td></tr><tr><td>Maintenance</td><td><code>mnt</code></td><td>up to year 10</td></tr><tr><td>ELS add-on</td><td><code>els</code></td><td>optional paid add-on</td></tr><tr><td>Extended Life</td><td><code>elp</code></td><td></td></tr></tbody></table>
+<p>RHEL major versions (7, 8, 9, 10) are fetched from the API. The <code>min_filter</code> accepts only integer version strings ≥ 7.</p>
+<p>> <strong>ELS vs ELC — terminology note</strong> > > These are two different programs that share similar names. This chart uses both: ></p>
+<p>> | Abbreviation | Full name | Applies to | Source |</p>
+<p>> |---|---|---|---|</p>
+<p>> | <strong>ELS</strong> | Extended Life Cycle Support add-on | RHEL <strong>major</strong> versions (7, 8, 9, 10) | Red Hat lifecycle API returns <code>&quot;Extended life cycle support (ELS) add-on&quot;</code> as the exact phase name |</p>
+<p>> | <strong>ELC</strong> | Extended Life Cycle | RHEL <strong>minor</strong> versions (even minors ≥ 9.2, 8.10) | Not in the API — dates sourced manually from the errata page; field key <code>elc_end</code> in <code>lifecycle-config.yaml</code> | > > The API does <strong>not</strong> expose ELC data for minor versions. Minor release dates (including ELC end dates) must be maintained manually in the <code>rhel_minors</code> block of <code>lifecycle-config.yaml</code>.</p>
+<h3 id="rhel-minor-versions-the-show-minor-releases-toggle">RHEL minor versions (the "Show minor releases" toggle)</h3>
+<p>Minor release dates are <strong>not</strong> available from any Red Hat API — they are embedded as images on the errata page. They are stored in the <code>rhel_minors</code> block of <code>lifecycle-config.yaml</code>.</p>
+<table><thead><tr><th>Phase</th><th>Key</th><th>Who gets it</th></tr></thead><tbody><tr><td>Standard</td><td><code>rhel_std</code></td><td>all minors</td></tr><tr><td>Premium (EUS)</td><td><code>rhel_prem</code></td><td><strong>even</strong> minors</td></tr><tr><td>ELC, Premium</td><td><code>rhel_elcp</code></td><td>even minors from 9.2+ and 8.10</td></tr><tr><td>Long Life</td><td><code>rhel_ll</code></td><td>last minor of a major (8.10, 9.10, 10.10)</td></tr></tbody></table>
+<p><strong>ELC rule</strong>: 6 years from minor GA, available for even minors ≥ 9.2 and for 8.10.   <strong>Long Life rule</strong>: extends beyond major year-10, only for the last minor release.</p>
+<p><code>build_rhel_minor_versions(major_ver)</code> reads <code>_RHEL_MINOR_DATA[major_ver]</code> (populated from YAML at startup) and builds segments using the four <code>rhel_*</code> phase keys.</p>
+<p><strong>To update minor version dates</strong>: edit the <code>rhel_minors</code> block in <code>lifecycle-config.yaml</code>. See the <a href="#field-reference" target="_blank">Field reference</a> above for key names.</p>
+<hr>
+<h2 id="aap-ansible-automation-platform">AAP — Ansible Automation Platform</h2>
+<p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/ansible-automation-platform</p>
+<table><thead><tr><th>Phase</th><th>Key</th></tr></thead><tbody><tr><td>Full Support</td><td><code>fs</code></td></tr><tr><td>Maintenance 1</td><td><code>mnt</code></td></tr><tr><td>Maintenance 2</td><td><code>mnt2</code></td></tr></tbody></table>
+<p>AAP versions follow a <code>X.Y</code> scheme. No EUS. <code>min_filter</code> accepts versions ≥ 2.0.</p>
+<hr>
+<h2 id="rhoai-red-hat-openshift-ai">RHOAI — Red Hat OpenShift AI</h2>
+<p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/rhoai</p>
+<table><thead><tr><th>Phase</th><th>Key</th></tr></thead><tbody><tr><td>Full Support</td><td><code>fs</code></td></tr><tr><td>EUS-1</td><td><code>eus1</code></td></tr><tr><td>EUS-2</td><td><code>eus2</code></td></tr></tbody></table>
+<p><code>eus_check</code> is <code>None</code> (no EUS for RHOAI currently). <code>min_filter</code> accepts versions ≥ 2.19.</p>
+<hr>
+<h2 id="ceph-storage">Ceph Storage</h2>
+<p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/ceph-storage</p>
+<table><thead><tr><th>Phase</th><th>Key</th></tr></thead><tbody><tr><td>Support</td><td><code>sup</code> (→ mapped to <code>fs_end</code> in API)</td></tr><tr><td>ELS</td><td><code>els</code></td></tr><tr><td>ELS Term 2</td><td><code>els2</code></td></tr></tbody></table>
+<p>Ceph uses integer version strings (4, 5, 6, 7). The API returns "End of Life" as the single support end; this is mapped to <code>fs_end</code> and displayed with the <code>sup</code> phase key. <code>min_filter</code> accepts ≥ 4.</p>
+<hr>
+<h2 id="openshift-operators">OpenShift Operators</h2>
+<p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/openshift_operators</p>
+<p>Three tiers with different lifecycle models:</p>
+<h3 id="platform-aligned-operators">Platform-Aligned operators</h3>
+<p>Track OCP minor releases 1:1. Examples: Virtualization, Pipelines, GitOps, ODF, RHACS.</p>
+<ul>
+<li>Version strings are <code>4.X</code> (same as OCP).</li>
+<li><code>eus_check</code> mirrors OCP even-minor rule where applicable.</li>
+<li><code>min_filter</code> typically starts at 4.14.</li>
+<li>Use <code>phase_map_preset: op-standard</code> (or <code>op-odf</code> for ODF).</li>
+</ul>
+<h3 id="platform-agnostic-operators">Platform-Agnostic operators</h3>
+<p>Follow their own <code>X.Y</code> versioning. Examples: RHACM, cert-manager, OADP, MTC, RHDH, Keycloak.</p>
+<ul>
+<li><code>version_strategy: xy</code> → <code>(X, Y)</code> tuple for version ordering.</li>
+<li>No <code>eus_check</code>.</li>
+<li><code>min_filter</code> sets a floor version to avoid historical noise.</li>
+</ul>
+<h3 id="rolling-stream-operators">Rolling-Stream operators</h3>
+<p>Rapid release cadence; lifecycle tied to next release, not absolute dates. Examples: VolSync, Dev Spaces, Serverless Logic.</p>
+<ul>
+<li>API often returns relative dates ("Release of X+1 + 3 months") which cannot be resolved → those versions render with GA only.</li>
+<li><code>fallback:</code> blocks in <code>lifecycle-config.yaml</code> provide static GA dates for recent versions.</li>
+<li>Use <code>version_strategy: rolling-eol</code> and <code>phase_map_preset: rolling-ga-eol</code>.</li>
+</ul>
+<p><strong>To add a new operator</strong>: see <a href="#add-a-new-operator-in-3-lines-of-yaml" target="_blank">Add a new operator in 3 lines of YAML</a> above.</p>
+<p><strong>ODF</strong> uses <code>phase_map_preset: op-odf</code> which adds a third EUS tier (<code>eus3</code>).</p>
+<hr>
+<h2 id="middleware-application-services">Middleware & Application Services</h2>
+<p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/jboss_notes</p>
+<table><thead><tr><th>Phase</th><th>Key</th></tr></thead><tbody><tr><td>Full Support</td><td><code>fs</code></td></tr><tr><td>Maintenance</td><td><code>mnt</code></td></tr><tr><td>ELS-1</td><td><code>els</code></td></tr><tr><td>ELS-2</td><td><code>els2</code></td></tr></tbody></table>
+<p>Versions are <code>X.x</code> strings (e.g. <code>8.x</code>, <code>7.x</code>). <code>version_strategy: x-dotx</code> extracts the major number for sorting. Use <code>phase_map_preset: els2</code>.</p>
+<p><strong>To add a new middleware product</strong>: add an entry under <code>middleware:</code> in <code>lifecycle-config.yaml</code> with the same structure as existing entries (see <code>eap</code>, <code>jws</code>, <code>quarkus</code>).</p>
+<hr>
+<h2 id="phase-palette">Phase palette</h2>
+<p>All phases are defined in the <code>PHASES</code> dict in <code>lifecycle-graph.py</code>. Each entry:</p>
+<pre><code class="language-python">&quot;key&quot;: {&quot;label&quot;: &quot;Display Name&quot;, &quot;bg&quot;: &quot;#hex&quot;, &quot;border&quot;: &quot;#hex&quot;, &quot;text&quot;: &quot;#hex&quot;}
+</code></pre>
+<p>The <code>PHASE_KEYS</code> list defines the chronological order phases are checked when building version segments. New phase keys must be added there too. This is the one part that still requires a Python edit when introducing a completely new phase type.</p>
+<hr>
+<h2 id="data-sources-and-fallbacks">Data sources and fallbacks</h2>
+<table><thead><tr><th>Priority</th><th>Source</th><th>When used</th></tr></thead><tbody><tr><td>1st</td><td>Red Hat Product Life Cycles API</td><td>Always attempted first</td></tr><tr><td>2nd</td><td><code>fallback:</code> blocks in <code>lifecycle-config.yaml</code></td><td>API unreachable or returns 0 results</td></tr></tbody></table>
+<p>The API is queried with <code>Accept-Language: en-US</code> to prevent localised responses.</p>
+<p><code>_parse_api_date</code> handles ISO datetimes, ISO dates with trailing text, and <code>&quot;Month D, YYYY&quot;</code> format. Returns <code>None</code> for relative strings like <code>&quot;Release of X+1&quot;</code> or <code>&quot;N/A&quot;</code>.</p>
+<hr>
+<h2 id="adding-a-new-product-category">Adding a new product category</h2>
+<ol>
+<li>Add phase keys to <code>PHASES</code> and <code>PHASE_KEYS</code> in <code>lifecycle-graph.py</code> if needed.</li>
+<li>Add a <code>*_CONFIGS</code> dict and populate it from YAML via a new <code>_apply_*_overrides()</code> function called from <code>_load_external_config()</code>.</li>
+<li>Add a <code>_fetch_*</code> block in <code>_fetch_all()</code>.</li>
+<li>Add a <code>_render_*_section()</code> renderer or reuse <code>_render_operator_section()</code>.</li>
+<li>Wire into <code>render_combined_html()</code>: add nav button and include section in <code>body</code>.</li>
+<li>Write a per-product HTML file in <code>main()</code> under <code>--product all</code>.</li>
+<li>Add the new top-level key to <code>lifecycle-config.yaml</code>.</li>
+</ol>
+  </article>
+</div>
+
+<div class="foot">
+  <a href="lifecycle.html">← Back to charts</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/mmayeras/redhat-lifecycle-graph" target="_blank">GitHub</a>
+  &nbsp;·&nbsp;
+  Data from <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a>
+</div>
+
+<script>
+document.getElementById('tbtn').addEventListener('click',function(){
+  var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('lifecycle-theme',t);
+});
+var hs=Array.from(document.querySelectorAll('.art h2,.art h3'));
+var ls=Array.from(document.querySelectorAll('.toc a'));
+window.addEventListener('scroll',function(){
+  var pos=window.scrollY+80;
+  var cur=hs.filter(function(h){return h.offsetTop<=pos;}).pop();
+  ls.forEach(function(l){l.classList.remove('on');});
+  if(cur){var l=document.querySelector('.toc a[href="#'+cur.id+'"]');if(l)l.classList.add('on');}
+},{passive:true});
+</script>
+</body>
+</html>
