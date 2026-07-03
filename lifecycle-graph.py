@@ -322,6 +322,21 @@ _CEPH_FALLBACK: dict[str, dict] = {
     "9": {"ga": "2026-01-29", "fs_end": "2029-01-28", "els_end": "2031-01-28"},
 }
 
+_SATELLITE_FALLBACK: dict[str, dict] = {
+    "6.10": {"ga": "2021-11-16", "fs_end": "2022-06-30", "mnt_end": "2023-05-31"},
+    "6.11": {"ga": "2022-07-05", "fs_end": "2022-11-30", "mnt_end": "2024-01-31"},
+    "6.12": {"ga": "2022-11-16", "fs_end": "2023-05-31", "mnt_end": "2024-05-31"},
+    "6.13": {"ga": "2023-05-03", "fs_end": "2023-11-30", "mnt_end": "2024-11-30"},
+    "6.14": {"ga": "2023-11-08", "fs_end": "2024-05-31", "mnt_end": "2025-05-30"},
+    "6.15": {"ga": "2024-04-23", "fs_end": "2024-11-30", "mnt_end": "2025-11-30"},
+    "6.16": {"ga": "2024-11-05", "fs_end": "2025-05-31", "mnt_end": "2026-05-31",
+             "eus1_end": "2027-05-31"},
+    "6.17": {"ga": "2025-05-06", "fs_end": "2025-11-30", "mnt_end": "2026-11-28"},
+    "6.18": {"ga": "2025-11-04", "fs_end": "2026-05-06", "mnt_end": "2027-05-01"},
+    "6.19": {"ga": "2026-05-06", "fs_end": "2026-11-01", "mnt_end": "2027-11-01",
+             "eus1_end": "2028-11-01"},
+}
+
 # ── Date parsing ─────────────────────────────────────────────────────────────
 
 _MONTHS: dict[str, str] = {
@@ -475,6 +490,25 @@ PRODUCT_CONFIGS: dict[str, dict] = {
         "name_transform":  lambda n: n.replace("Red Hat Ceph Storage ", "").replace("Inktank Ceph Enterprise ", "").strip(),
         "min_filter":      lambda v: v.isdigit() and int(v) >= 4,
         "eus_check":       None,
+    },
+    "satellite": {
+        "api_name": "Red Hat Satellite Server",
+        "title":    "Satellite Lifecycle",
+        "phase_map": {
+            "General availability":    "ga",
+            "Full support":            "fs_end",
+            "Maintenance support":     "mnt_end",
+            "Extended update support": "eus1_end",
+        },
+        "fallback":   _SATELLITE_FALLBACK,
+        "parse_ver":  _parse_xy,
+        "min_filter": lambda v: (
+            "." in v and v.startswith("6.")
+            and len(v.split(".")) == 2
+            and all(p.isdigit() for p in v.split(".")[:2])
+            and _parse_xy(v) >= (6, 10)
+        ),
+        "eus_check":  None,
     },
 }
 
@@ -1821,7 +1855,7 @@ def _fetch_all(
     Callers must filter by is_eol themselves when generating SVG/PNG.
     """
     product_list: list[tuple[str, list[dict]]] = []
-    for product in ["ocp", "rhel", "aap", "rhoai", "ceph"]:
+    for product in ["ocp", "rhel", "aap", "rhoai", "ceph", "satellite"]:
         cfg = PRODUCT_CONFIGS[product]
         lifecycle = fetch_lifecycle(cfg)
         label = cfg["title"]
@@ -1895,8 +1929,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="Generate Red Hat product lifecycle Gantt charts as HTML + PNG")
     ap.add_argument("-o", "--output", default=None,
                     help="Output HTML file (default: lifecycle-{product}.html; all: lifecycle.html + index.html)")
-    ap.add_argument("--product", default="ocp", choices=["ocp", "rhel", "aap", "rhoai", "ceph", "all"],
-                    help="Product to chart: ocp, rhel, aap, rhoai, ceph, or all (default: ocp)")
+    ap.add_argument("--product", default="ocp", choices=["ocp", "rhel", "aap", "rhoai", "ceph", "satellite", "all"],
+                    help="Product to chart: ocp, rhel, aap, rhoai, ceph, satellite, or all (default: ocp)")
     ap.add_argument("-v", "--versions", nargs="*", help="Explicit versions to include (e.g. 4.19 4.20)")
     ap.add_argument("--from", dest="from_version", metavar="VER", help="Start of version range, inclusive (e.g. 4.18)")
     ap.add_argument("--to", dest="to_version", metavar="VER", help="End of version range, inclusive (e.g. 4.22)")
@@ -1933,7 +1967,9 @@ def main() -> None:
             ok = export_png(svg_combined, png_combined)
             if ok:
                 print(f"PNG:  {png_combined}  (combined)")
-        for cfg_key, (label, versions) in zip(["ocp", "rhel", "aap", "rhoai", "ceph"], product_list):
+        for cfg_key, (label, versions) in zip(
+            ["ocp", "rhel", "aap", "rhoai", "ceph", "satellite"], product_list
+        ):
             out = (out_dir / f"lifecycle-{cfg_key}.html").resolve()
             html = render_html(versions, label)
             out.write_text(html, encoding="utf-8")

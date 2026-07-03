@@ -7,6 +7,7 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 ## [Unreleased] — 2026-07-03
 
 ### Added
+- **Satellite** (`Red Hat Satellite Server`) chart — GA, Full Support, Maintenance, and optional EUS (6.16+) phases
 - **Dark / light mode toggle** — button in header (☀/🌙); defaults to OS `prefers-color-scheme`; manual choice persisted in `localStorage`; no flash of wrong theme (blocking `<head>` script applies theme before paint)
 - **Versions sorted descending** — newest version shown at top in all charts
 - **Daily CI pipeline** — GitHub Actions now runs every day at 06:00 UTC (was weekly)
