@@ -241,7 +241,7 @@ _render_card(versions)    →  HTML Gantt chart
 </code></pre>
 <p>Fields per entry:</p>
 <table><thead><tr><th>Field</th><th>Required</th><th>Meaning</th></tr></thead><tbody><tr><td><code>ga</code></td><td>yes</td><td>GA date</td></tr><tr><td><code>std_end</code></td><td>yes</td><td>End of Standard subscription window</td></tr><tr><td><code>eus_end</code></td><td>no</td><td>End of Premium/EUS (even minors)</td></tr><tr><td><code>elc_end</code></td><td>no</td><td>End of ELC, Premium (even minors ≥ 9.2, and 8.10)</td></tr><tr><td><code>elcp_end</code></td><td>no</td><td>End of Long Life (last minor of each major: 8.10, 9.10, 10.10)</td></tr></tbody></table>
-<p>> <strong>Date format</strong>: always quote dates as strings — <code>&quot;2024-05-18&quot;</code> not <code>2024-05-18</code>. Bare dates are auto-converted to Python <code>datetime.date</code> objects by PyYAML, which breaks string comparisons.</p>
+<blockquote><p><strong>Date format</strong>: always quote dates as strings — <code>&quot;2024-05-18&quot;</code> not <code>2024-05-18</code>. Bare dates are auto-converted to Python <code>datetime.date</code> objects by PyYAML, which breaks string comparisons.</p></blockquote>
 <h4><code>operators</code></h4>
 <pre><code class="language-yaml">operators:
   &lt;key&gt;:
@@ -285,11 +285,10 @@ _render_card(versions)    →  HTML Gantt chart
 <p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/errata</p>
 <table><thead><tr><th>Phase</th><th>Key</th><th>Notes</th></tr></thead><tbody><tr><td>Full Support</td><td><code>fs</code></td><td>5 years from GA</td></tr><tr><td>Maintenance</td><td><code>mnt</code></td><td>up to year 10</td></tr><tr><td>ELS add-on</td><td><code>els</code></td><td>optional paid add-on</td></tr><tr><td>Extended Life</td><td><code>elp</code></td><td></td></tr></tbody></table>
 <p>RHEL major versions (7, 8, 9, 10) are fetched from the API. The <code>min_filter</code> accepts only integer version strings ≥ 7.</p>
-<p>> <strong>ELS vs ELC — terminology note</strong> > > These are two different programs that share similar names. This chart uses both: ></p>
-<p>> | Abbreviation | Full name | Applies to | Source |</p>
-<p>> |---|---|---|---|</p>
-<p>> | <strong>ELS</strong> | Extended Life Cycle Support add-on | RHEL <strong>major</strong> versions (7, 8, 9, 10) | Red Hat lifecycle API returns <code>&quot;Extended life cycle support (ELS) add-on&quot;</code> as the exact phase name |</p>
-<p>> | <strong>ELC</strong> | Extended Life Cycle | RHEL <strong>minor</strong> versions (even minors ≥ 9.2, 8.10) | Not in the API — dates sourced manually from the errata page; field key <code>elc_end</code> in <code>lifecycle-config.yaml</code> | > > The API does <strong>not</strong> expose ELC data for minor versions. Minor release dates (including ELC end dates) must be maintained manually in the <code>rhel_minors</code> block of <code>lifecycle-config.yaml</code>.</p>
+<blockquote><p><strong>ELS vs ELC — terminology note</strong></p>
+<p>These are two different programs that share similar names. This chart uses both:</p>
+<table><thead><tr><th>Abbreviation</th><th>Full name</th><th>Applies to</th><th>Source</th></tr></thead><tbody><tr><td><strong>ELS</strong></td><td>Extended Life Cycle Support add-on</td><td>RHEL <strong>major</strong> versions (7, 8, 9, 10)</td><td>Red Hat lifecycle API returns <code>&quot;Extended life cycle support (ELS) add-on&quot;</code> as the exact phase name</td></tr><tr><td><strong>ELC</strong></td><td>Extended Life Cycle</td><td>RHEL <strong>minor</strong> versions (even minors ≥ 9.2, 8.10)</td><td>Not in the API — dates sourced manually from the errata page; field key <code>elc_end</code> in <code>lifecycle-config.yaml</code></td></tr></tbody></table>
+<p>The API does <strong>not</strong> expose ELC data for minor versions. Minor release dates (including ELC end dates) must be maintained manually in the <code>rhel_minors</code> block of <code>lifecycle-config.yaml</code>.</p></blockquote>
 <h3 id="rhel-minor-versions-the-show-minor-releases-toggle">RHEL minor versions (the "Show minor releases" toggle)</h3>
 <p>Minor release dates are <strong>not</strong> available from any Red Hat API — they are embedded as images on the errata page. They are stored in the <code>rhel_minors</code> block of <code>lifecycle-config.yaml</code>.</p>
 <table><thead><tr><th>Phase</th><th>Key</th><th>Who gets it</th></tr></thead><tbody><tr><td>Standard</td><td><code>rhel_std</code></td><td>all minors</td></tr><tr><td>Premium (EUS)</td><td><code>rhel_prem</code></td><td><strong>even</strong> minors</td></tr><tr><td>ELC, Premium</td><td><code>rhel_elcp</code></td><td>even minors from 9.2+ and 8.10</td></tr><tr><td>Long Life</td><td><code>rhel_ll</code></td><td>last minor of a major (8.10, 9.10, 10.10)</td></tr></tbody></table>
