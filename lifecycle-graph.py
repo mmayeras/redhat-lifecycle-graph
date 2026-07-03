@@ -1145,6 +1145,18 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         f'title="Official lifecycle policy">↗ policy</a>'
     ) if page_url else ""
 
+    anchor_link_html = (
+        f' <a href="#{anchor}" '
+        f'onclick="var u=location.href.split(\'#\')[0]+\'#{anchor}\';navigator.clipboard.writeText(u);event.preventDefault()" '
+        f'style="font-size:10px;color:var(--muted);font-weight:400;'
+        f'text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" '
+        f'title="Copy link to this chart">'
+        f'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">'
+        f'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>'
+        f'<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'
+        f'</svg></a>'
+    ) if anchor else ""
+
     info_block_html = (
         f'<details class="card-info-block">'
         f'<summary>ℹ More info</summary>'
@@ -1158,7 +1170,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
       </svg>
-      {chart_label}{page_link_html}
+      {chart_label}{page_link_html}{anchor_link_html}
     </span>
     <div class="legend">
       {legend_html}
@@ -1185,19 +1197,33 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> str:
     if not operators_data:
         return ""
+    _anchor_icon = (
+        '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">'
+        '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>'
+        '<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'
+        '</svg>'
+    )
     items = []
     for label, versions in operators_data:
         if not versions:
             continue
+        slug = "op-" + label.lower().replace(" ", "-")
         n_active = sum(1 for v in versions if not v["is_eol"])
         meta = f"{len(versions)} version{'s' if len(versions) != 1 else ''}"
         if n_active:
             meta += f" · {n_active} active"
+        anchor_link = (
+            f' <a href="#{slug}" '
+            f'onclick="var u=location.href.split(\'#\')[0]+\'#{slug}\';navigator.clipboard.writeText(u);event.preventDefault()" '
+            f'style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;'
+            f'white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" '
+            f'title="Copy link to this chart">{_anchor_icon}</a>'
+        )
         card = _render_card(versions, label, show_footer=False, show_controls=True)
         items.append(
-            f'<details class="op-details">'
+            f'<details id="{slug}" class="op-details">'
             f'<summary class="op-summary">'
-            f'<span class="op-name">{label}</span>'
+            f'<span class="op-name">{label}{anchor_link}</span>'
             f'<span class="op-meta">{meta}</span>'
             f'</summary>'
             f'{card}'
@@ -1229,10 +1255,17 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
 def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict]]) -> str:
     if not middleware_data:
         return ""
+    _anchor_icon = (
+        '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">'
+        '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>'
+        '<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'
+        '</svg>'
+    )
     items = []
     for label, versions, cfg in middleware_data:
         if not versions:
             continue
+        slug = "mw-" + label.lower().replace(" ", "-")
         n_active = sum(1 for v in versions if not v["is_eol"])
         meta = f"{len(versions)} version{'s' if len(versions) != 1 else ''}"
         if n_active:
@@ -1242,11 +1275,18 @@ def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict
             f' <a href="{page_url}" target="_blank" rel="noopener" '
             f'style="font-size:10px;color:var(--link-color)" title="Lifecycle policy">↗ policy</a>'
         ) if page_url else ""
+        anchor_link = (
+            f' <a href="#{slug}" '
+            f'onclick="var u=location.href.split(\'#\')[0]+\'#{slug}\';navigator.clipboard.writeText(u);event.preventDefault()" '
+            f'style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;'
+            f'white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" '
+            f'title="Copy link to this chart">{_anchor_icon}</a>'
+        )
         card = _render_card(versions, label, show_footer=False, show_controls=True)
         items.append(
-            f'<details class="op-details">'
+            f'<details id="{slug}" class="op-details">'
             f'<summary class="op-summary">'
-            f'<span class="op-name">{label}{page_link}</span>'
+            f'<span class="op-name">{label}{page_link}{anchor_link}</span>'
             f'<span class="op-meta">{meta}</span>'
             f'</summary>'
             f'{card}'
@@ -1256,7 +1296,7 @@ def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict
         f'<div id="middleware">'
         f'<div class="section-heading">Middleware &amp; Application Services '
         f'<a href="https://access.redhat.com/support/policy/updates/jboss_notes" '
-        f'target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ lifecycle policy</a>'
+        f'target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ policy</a>'
         f'</div>'
         f'<div class="op-section">'
         + "\n".join(items)
