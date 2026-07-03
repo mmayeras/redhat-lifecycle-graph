@@ -165,6 +165,7 @@
     width: 100%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     overflow: hidden;
+    scroll-margin-top: 70px;
   }
   .card-header {
     display: flex;
@@ -317,6 +318,7 @@
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     overflow: hidden;
+    scroll-margin-top: 70px;
   }
   .op-summary {
     cursor: pointer;
@@ -449,7 +451,7 @@
       </div>
     </div>
   </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-03 12:53 UTC</div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-03 13:03 UTC</div>
 </div>
 </div>
 <script>
@@ -493,9 +495,23 @@ function toggleMinorRows(card) {
   });
   filterCard(card);
 }
+function navigateToHash(hash) {
+  if (!hash) return;
+  var id = hash.replace(/^#/, '');
+  var el = document.getElementById(id);
+  if (!el) return;
+  var node = el;
+  while (node) {
+    if (node.tagName === 'DETAILS') node.open = true;
+    node = node.parentElement;
+  }
+  setTimeout(function() { el.scrollIntoView({behavior: 'smooth', block: 'start'}); }, 50);
+}
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.card').forEach(function(card) { filterCard(card); });
+  navigateToHash(window.location.hash);
 });
+window.addEventListener('hashchange', function() { navigateToHash(window.location.hash); });
 (function() {
   var tip = document.createElement('div');
   tip.id = 'phase-tooltip';
