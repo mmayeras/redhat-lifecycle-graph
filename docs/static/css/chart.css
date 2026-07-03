@@ -394,24 +394,19 @@ html.pf-v6-theme-dark {
   max-width: 110px;
 }
 
-/* ── Nav toggle buttons (product visibility controls) ────────────────── */
-.nav-toggle {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 12px 4px 8px; border-radius: 20px; font-size: 13px; font-weight: 500;
-  cursor: pointer; border: 1.5px solid var(--border-color); background: var(--card-bg);
-  color: var(--text-secondary); transition: background 0.15s, color 0.15s, opacity 0.15s;
-  text-decoration: none; user-select: none;
+/* ── Nav toggle buttons: standard PF6 secondary button ────────────────── */
+.nav-toggle.pf-m-secondary {
+  font-size: var(--pf-t--global--font--size--sm, 14px);
+  white-space: nowrap;
 }
-.nav-toggle .nav-check {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 700;
-  border: 1.5px solid currentColor; flex-shrink: 0; transition: background 0.15s;
+.nav-toggle.pf-m-secondary[aria-pressed="false"] {
+  color: var(--pf-t--global--text--color--subtle);
+  border-color: var(--pf-t--global--border--color--default);
+  opacity: 0.6;
 }
-.nav-toggle .nav-check::after { content: "\2715"; }
-.nav-toggle.nav-on { background: var(--accent); color: #fff; border-color: var(--accent); }
-.nav-toggle.nav-on .nav-check { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
-.nav-toggle.nav-on .nav-check::after { content: "\2713"; }
-.nav-toggle:hover { opacity: 0.85; }
+.nav-toggle.pf-m-secondary[aria-pressed="false"]:hover {
+  opacity: 1;
+}
 
 /* ── Masthead: brand left, controls right ─────────────────────────────── */
 .pf-v6-c-masthead {

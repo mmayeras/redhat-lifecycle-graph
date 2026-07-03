@@ -1083,11 +1083,11 @@ function toggleProductCard(btn) {{
   var hidden = section.style.display === 'none';
   if (hidden) {{
     section.style.display = '';
-    btn.classList.add('nav-on');
+    btn.setAttribute('aria-pressed', 'true');
     setTimeout(function() {{ section.scrollIntoView({{behavior: 'smooth', block: 'start'}}); }}, 30);
   }} else {{
     section.style.display = 'none';
-    btn.classList.remove('nav-on');
+    btn.setAttribute('aria-pressed', 'false');
   }}
 }}
 </script>
@@ -1118,16 +1118,23 @@ def render_combined_html(
     operators_data: list[tuple[str, list[dict]]] | None = None,
     middleware_data: list[tuple[str, list[dict], dict]] | None = None,
 ) -> str:
-    _chk = '<span class="nav-check"></span>'
+    _btn_cls = "pf-v6-c-button pf-m-secondary nav-toggle"
     nav_links = "".join(
-        f'<button class="nav-toggle nav-on" data-target="{label.lower().replace(" ", "-")}"'
-        f' onclick="toggleProductCard(this)">{_chk}{label}</button>'
+        f'<button class="{_btn_cls}" aria-pressed="true"'
+        f' data-target="{label.lower().replace(" ", "-")}"'
+        f' onclick="toggleProductCard(this)">{label}</button>'
         for label, _, _ in product_list
     )
     if middleware_data:
-        nav_links += f'<button class="nav-toggle nav-on" data-target="middleware" onclick="toggleProductCard(this)">{_chk}Middleware</button>'
+        nav_links += (
+            f'<button class="{_btn_cls}" aria-pressed="true" data-target="middleware"'
+            f' onclick="toggleProductCard(this)">Middleware</button>'
+        )
     if operators_data:
-        nav_links += f'<button class="nav-toggle nav-on" data-target="operators" onclick="toggleProductCard(this)">{_chk}Operators</button>'
+        nav_links += (
+            f'<button class="{_btn_cls}" aria-pressed="true" data-target="operators"'
+            f' onclick="toggleProductCard(this)">Operators</button>'
+        )
     # Guide link lives in the footer, not the nav
     _gh_svg = (
         '<svg height="11" width="11" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;margin-right:4px">'
