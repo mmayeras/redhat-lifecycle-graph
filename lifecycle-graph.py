@@ -809,7 +809,7 @@ def build_versions(
     parse_ver = cfg["parse_ver"]
     eus_check = cfg.get("eus_check")
 
-    keys = sorted(lifecycle.keys(), key=parse_ver)
+    keys = sorted(lifecycle.keys(), key=parse_ver, reverse=True)
     if versions_filter:
         keys = [k for k in keys if k in versions_filter]
     if from_version:
@@ -1811,9 +1811,11 @@ def main() -> None:
     ap.add_argument("--png", action="store_true",
                     help="Also export per-product SVG + PNG via rsvg-convert")
     ap.add_argument("--width", type=int, default=1400, help="SVG/PNG width in pixels (default: 1400)")
+    ap.add_argument("--output-dir", dest="output_dir", default=".",
+                    help="Output directory (default: current dir; CI uses docs/)")
     args = ap.parse_args()
 
-    out_dir = Path("docs")
+    out_dir = Path(args.output_dir)
     out_dir.mkdir(exist_ok=True)
 
     if args.product == "all":

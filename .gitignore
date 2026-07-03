@@ -1,5 +1,11 @@
-# Generated outputs — updated automatically by GitHub Actions workflow.
-# Local runs will regenerate these; ignore to avoid merge conflicts.
-docs/
+# Local script outputs (default output-dir is current dir, not docs/).
+# Run with --output-dir docs only in CI — see .github/workflows/update-lifecycle.yml.
+lifecycle-*.html
+lifecycle-*.svg
+lifecycle-*.png
+lifecycle.html
+lifecycle.svg
+lifecycle.png
+index.html
 _lifecycle_png.html
 __pycache__/

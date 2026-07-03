@@ -2,7 +2,7 @@ name: Update Lifecycle Charts
 
 on:
   schedule:
-    - cron: "0 6 * * 1"   # Every Monday at 06:00 UTC
+    - cron: "0 6 * * *"   # Every day at 06:00 UTC
   workflow_dispatch:        # Manual trigger from GitHub UI
   push:
     branches: [main]
@@ -29,7 +29,7 @@ jobs:
         run: sudo apt-get install -y librsvg2-bin
 
       - name: Generate HTML + SVG + PNG (all products)
-        run: python3 lifecycle-graph.py --product all --png
+        run: python3 lifecycle-graph.py --product all --png --output-dir docs
 
       - name: Commit if changed
         run: |
