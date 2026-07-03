@@ -1080,15 +1080,11 @@ function toggleProductCard(btn) {{
   var target = btn.getAttribute('data-target');
   var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
   if (!section) return;
-  var hidden = section.style.display === 'none';
-  if (hidden) {{
+  if (section.style.display === 'none') {{
     section.style.display = '';
-    btn.setAttribute('aria-pressed', 'true');
-    setTimeout(function() {{ section.scrollIntoView({{behavior: 'smooth', block: 'start'}}); }}, 30);
-  }} else {{
-    section.style.display = 'none';
-    btn.setAttribute('aria-pressed', 'false');
   }}
+  btn.setAttribute('aria-pressed', 'true');
+  section.scrollIntoView({{behavior: 'smooth', block: 'start'}});
 }}
 </script>
 </body>
