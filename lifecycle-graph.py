@@ -311,15 +311,15 @@ _GLOBAL_HUB_FALLBACK: dict[str, dict] = {
     "1.7": {"ga": "2026-03-10", "fs_end": "2027-04-09"},
 }
 
-# Ceph lifecycle uses single "sup" support tier (no fs/mnt split), then ELS add-on.
+# Ceph lifecycle: single support tier mapped to fs_end (same label/colors as Full Support).
 _CEPH_FALLBACK: dict[str, dict] = {
-    "4": {"ga": "2020-01-31", "sup_end": "2023-03-31",
+    "4": {"ga": "2020-01-31", "fs_end": "2023-03-31",
           "els_end": "2025-04-30", "els2_end": "2027-04-30"},
-    "5": {"ga": "2021-08-31", "sup_end": "2024-08-31", "els_end": "2027-07-31"},
-    "6": {"ga": "2023-03-21", "sup_end": "2026-03-20", "els_end": "2028-03-20"},
-    "7": {"ga": "2023-12-13", "sup_end": "2026-12-12", "els_end": "2029-08-31"},
-    "8": {"ga": "2024-11-25", "sup_end": "2027-11-24", "els_end": "2029-11-24"},
-    "9": {"ga": "2026-01-29", "sup_end": "2029-01-28", "els_end": "2031-01-28"},
+    "5": {"ga": "2021-08-31", "fs_end": "2024-08-31", "els_end": "2027-07-31"},
+    "6": {"ga": "2023-03-21", "fs_end": "2026-03-20", "els_end": "2028-03-20"},
+    "7": {"ga": "2023-12-13", "fs_end": "2026-12-12", "els_end": "2029-08-31"},
+    "8": {"ga": "2024-11-25", "fs_end": "2027-11-24", "els_end": "2029-11-24"},
+    "9": {"ga": "2026-01-29", "fs_end": "2029-01-28", "els_end": "2031-01-28"},
 }
 
 # ── Date parsing ─────────────────────────────────────────────────────────────
@@ -466,7 +466,7 @@ PRODUCT_CONFIGS: dict[str, dict] = {
         "title":    "Ceph Lifecycle",
         "phase_map": {
             "General availability":                              "ga",
-            "End of Life":                                       "sup_end",
+            "End of Life":                                       "fs_end",
             "Extended life cycle support (ELS) add-on":         "els_end",
             "Extended life cycle support (ELS) Term 2 add-on":  "els2_end",
         },
