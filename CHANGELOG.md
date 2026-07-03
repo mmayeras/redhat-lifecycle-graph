@@ -4,12 +4,28 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
-## [Unreleased] — 2026-07-03
+## [0.1.0] — 2026-07-03
 
 ### Added
 - **Dark / light mode toggle** — button in header (☀/🌙); defaults to OS `prefers-color-scheme`; manual choice persisted in `localStorage`; no flash of wrong theme (blocking `<head>` script applies theme before paint)
 - **Versions sorted descending** — newest version shown at top in all charts
 - **Daily CI pipeline** — GitHub Actions now runs every day at 06:00 UTC (was weekly)
+- **`lifecycle-config.yaml` — YAML as sole source of truth** — all product/operator/middleware data (dates, fallbacks, phase maps, version strategies) moved out of Python into a declarative YAML config file; Python script starts with empty dicts and loads everything at startup; no hardcoded data remains in the script
+- **`lifecycle-about.html`** — LIFECYCLE.md rendered as an HTML page within the generated site; linked from the nav bar and footer
+- **`LIFECYCLE.md` contributor guide** — documents YAML schema, `version_strategy` and `phase_map_preset` reference tables, field definitions, and "Add a new operator in 3 lines of YAML" example
+- **`CLAUDE.md` instructions file** — guidance for AI-assisted edits; explains architecture, what lives in YAML vs Python, and what must not change in the script
+- **`xy-exact` version strategy** — strict 2-part numeric filter for Keycloak; rejects API aliases like `"26.x"` and 3-part version strings
+- **`name_transform` on Ceph strategy** — strips "Red Hat Ceph Storage " prefix from API version names before display
+- **43 operator fallback blocks in YAML** — all operator version date data migrated from Python dicts to YAML; `fallback:` blocks used when the API is unreachable
+- **`lifecycle-about.html` redesign** — clean static page with hero, visual pipeline strip, and TOC sidebar; no external JS dependencies; replaces earlier diagram-based approach
+- **ELS vs ELC terminology note in LIFECYCLE.md** — clarifies that ELS (major versions, from API) and ELC (minor versions, manually maintained) are distinct programs; explains why ELC data is not in the API
+- **PyYAML missing → clear error + exit** — script now prints actionable message and exits instead of silently producing empty charts
+
+### Fixed
+- RHEL 8.10 missing `eus_end` date (2026-05-31) — even minor was incorrectly omitting the EUS add-on end date
+- RHEL 9.8 `std_end` incorrect — was set to RHEL 9 major EOM date (2032-05-31) instead of projected next minor GA (~Nov 2026)
+- Added `elc_end` for RHEL 8.10 (2030-05-22 = GA + 6 years per ELC policy)
+- `lifecycle-about.html` stale in repo — script now outputs to `docs/` via CI; local runs require explicit `--output-dir .`
 
 ---
 
@@ -41,7 +57,7 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
-## 2026-07-02 — Initial release (`608f687`)
+## [0.0.1] — 2026-07-02 — Initial release (`608f687`)
 
 ### Added
 - Standalone Python script — no pip dependencies (stdlib only: `urllib`, `json`, `argparse`)

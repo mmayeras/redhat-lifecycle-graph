@@ -1,0 +1,848 @@
+# lifecycle-config.yaml — Declarative configuration for lifecycle-graph.py
+#
+# This file is the single source of truth for all product/operator/middleware data.
+# Requires: pip install pyyaml
+#
+# Schema mirrors LIFECYCLE.md sections. See that file for field descriptions,
+# phase key meanings, and version_strategy/phase_map_preset reference tables.
+#
+# Tip: dates must be quoted ("2024-05-18") so YAML does not auto-convert them.
+# Unquoted bare dates like 2024-05-18 would be parsed as datetime objects.
+#
+# ── version_strategy values ──────────────────────────────────────────────────
+#   ocp-minor    → 4.X OCP releases, EUS on even minors
+#   xy           → X.Y versions, no EUS
+#   xy-exact     → X.Y versions with strict 2-part numeric filter (e.g. Keycloak)
+#   xy-eus-even  → X.Y versions, EUS on even Y
+#   x-dotx       → "X.x" middleware versions — the API returns literal strings like "8.x"
+#                   or "7.x"; only the major integer X is used for sorting and filtering.
+#                   Use this for JBoss EAP / JWS where versions are "7.x", "8.x", not "7.3".
+#   xy           → "X.Y" versions where both parts are real integers (e.g. "1.16", "4.14").
+#                   Use this for operators and products that publish distinct minor releases.
+#   rhel-major   → integer RHEL major versions (7, 8, 9, 10)
+#   aap          → X.Y AAP versions
+#   rhoai        → X.Y RHOAI versions (handles trailing *)
+#   ceph         → integer Ceph versions
+#   rolling-eol  → X.Y rolling-stream operators (GA + End of Life only)
+#
+# ── phase_map_preset values ──────────────────────────────────────────────────
+#   op-standard    → Full Support / Maintenance / EUS-1 / EUS-2
+#   op-odf         → Full Support / Maintenance / EUS-1 / EUS-2 / EUS-3
+#   els2           → Full Support / Maintenance / ELS-1 / ELS-2
+#   keycloak       → Full Support / Maintenance (no EUS)
+#   rolling-ga-eol → General availability / End of Life only
+
+# ── RHEL minor release dates ─────────────────────────────────────────────────
+# Most frequently updated section.
+# std_end: next minor GA (end of standard update window for this minor)
+# eus_end: EUS add-on end (even minors only, RHEL 8+)
+# elc_end: ELC, Premium end (GA + 6 years, even minors ≥ 9.2 and 8.10)
+# elcp_end: Long Life end (last minor of each major only)
+
+rhel_minors:
+  "7":
+    "7.0":  { ga: "2014-06-10", std_end: "2015-03-05" }
+    "7.1":  { ga: "2015-03-05", std_end: "2015-11-19" }
+    "7.2":  { ga: "2015-11-19", std_end: "2016-11-03" }
+    "7.3":  { ga: "2016-11-03", std_end: "2017-07-31" }
+    "7.4":  { ga: "2017-07-31", std_end: "2018-04-10", eus_end: "2019-08-31" }
+    "7.5":  { ga: "2018-04-10", std_end: "2018-10-30" }
+    "7.6":  { ga: "2018-10-30", std_end: "2019-08-06", eus_end: "2020-10-31" }
+    "7.7":  { ga: "2019-08-06", std_end: "2020-03-31" }
+    "7.8":  { ga: "2020-03-31", std_end: "2020-09-29" }
+    "7.9":  { ga: "2020-09-29", std_end: "2024-06-30" }
+  "8":
+    "8.0":  { ga: "2019-05-07", std_end: "2019-11-05" }
+    "8.1":  { ga: "2019-11-05", std_end: "2020-04-28" }
+    "8.2":  { ga: "2020-04-28", std_end: "2020-11-03", eus_end: "2022-04-28" }
+    "8.3":  { ga: "2020-11-03", std_end: "2021-05-18" }
+    "8.4":  { ga: "2021-05-18", std_end: "2021-11-09", eus_end: "2023-05-31" }
+    "8.5":  { ga: "2021-11-09", std_end: "2022-05-10" }
+    "8.6":  { ga: "2022-05-10", std_end: "2022-11-08", eus_end: "2024-05-31" }
+    "8.7":  { ga: "2022-11-08", std_end: "2023-05-16" }
+    "8.8":  { ga: "2023-05-16", std_end: "2023-11-14", eus_end: "2025-05-31" }
+    "8.9":  { ga: "2023-11-14", std_end: "2024-05-22" }
+    # 8.10: final minor; eus_end aligns with RHEL 8 Maintenance end; Long Life extends to 2033-05-31
+    "8.10": { ga: "2024-05-22", std_end: "2029-05-31", eus_end: "2026-05-31", elc_end: "2030-05-22", elcp_end: "2033-05-31" }
+  "9":
+    "9.0":  { ga: "2022-05-18", std_end: "2022-11-15" }
+    "9.1":  { ga: "2022-11-15", std_end: "2023-05-10" }
+    # ELC = GA + 6 years; even minors from 9.2 per Red Hat ELC policy
+    "9.2":  { ga: "2023-05-10", std_end: "2023-11-07", eus_end: "2025-05-31", elc_end: "2029-05-10" }
+    "9.3":  { ga: "2023-11-07", std_end: "2024-04-30" }
+    "9.4":  { ga: "2024-04-30", std_end: "2024-11-12", eus_end: "2026-05-31", elc_end: "2030-04-30" }
+    "9.5":  { ga: "2024-11-12", std_end: "2025-04-29" }
+    "9.6":  { ga: "2025-04-29", std_end: "2025-11-04", eus_end: "2027-05-31", elc_end: "2031-04-29" }
+    "9.7":  { ga: "2025-11-04", std_end: "2026-05-19" }
+    # 9.8: future minor (projected ~May 2026); std_end = projected 9.9 GA; elc_end = GA + 6 years
+    "9.8":  { ga: "2026-05-19", std_end: "2026-11-10", eus_end: "2028-05-31", elc_end: "2032-05-19" }
+  "10":
+    "10.0": { ga: "2025-05-20", std_end: "2026-01-06" }
+    "10.1": { ga: "2026-01-06", std_end: "2026-06-01", eus_end: "2028-01-06", elc_end: "2032-01-06" }
+
+# ── Main products ─────────────────────────────────────────────────────────────
+# These entries define PRODUCT_CONFIGS — all data lives here, Python has no defaults.
+
+products:
+  ocp:
+    api_name: "OpenShift Container Platform 4"
+    title: "OCP Lifecycle"
+    page_url: "https://access.redhat.com/support/policy/updates/openshift"
+    info_html: "<b>EUS-1</b> (Extended Update Support, Term 1) is included in OpenShift Premium and Self-Managed Premium subscriptions at no extra cost. <b>EUS-2</b> (Term 2) requires an additional EUS add-on subscription. See the <a href=\"https://access.redhat.com/support/policy/updates/openshift\" target=\"_blank\">OCP lifecycle policy</a> for full details."
+    version_strategy: ocp-minor
+    min_version: "4.12"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Maintenance support": mnt_end
+      "Extended update support": eus1_end
+      "Extended update support Term 2": eus2_end
+      "Extended life phase": elp_end
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  rhel:
+    api_name: "Red Hat Enterprise Linux"
+    title: "RHEL Lifecycle"
+    page_url: "https://access.redhat.com/support/policy/updates/errata"
+    info_html: "<b>Standard</b> subscription covers the active support window for each minor release. <b>Premium</b> subscription provides additional maintenance for even minor releases (EUS). <b>ELC, Premium</b> (Extended Life Cycle) extends support 6 years from GA for even minors starting with RHEL 9.2+ and 8.10. <b>Long Life</b> provides up to 4 additional years beyond RHEL major year 10 (RHEL 8.10, 9.10, 10.10) via a Long Life add-on subscription. See the <a href=\"https://access.redhat.com/support/policy/updates/errata\" target=\"_blank\">RHEL errata policy</a> for details."
+    version_strategy: rhel-major
+    min_version: "7"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Maintenance support": mnt_end
+      "Extended life cycle support (ELS) add-on": els_end
+      "Extended life phase": elp_end
+    fallback:
+      "7":  { ga: "2014-06-10", fs_end: "2019-08-06", mnt_end: "2024-06-30", els_end: "2028-06-30" }
+      "8":  { ga: "2019-05-07", fs_end: "2024-05-31", mnt_end: "2029-05-31" }
+      "9":  { ga: "2022-05-18", fs_end: "2027-05-31", mnt_end: "2032-05-31" }
+      "10": { ga: "2025-05-01", fs_end: "2030-05-31", mnt_end: "2035-05-31" }
+
+  aap:
+    api_name: "Red Hat Ansible Automation Platform"
+    title: "AAP Lifecycle"
+    page_url: "https://access.redhat.com/support/policy/updates/ansible-automation-platform"
+    version_strategy: aap
+    min_version: "2.0"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Maintenance Support 1": mnt_end
+      "Maintenance support 2": mnt2_end
+      "Extended update support": eus1_end
+      "Extended update support Term 2": eus2_end
+    fallback:
+      "2.4": { ga: "2023-09-27", fs_end: "2024-09-27", mnt_end: "2025-09-27", mnt2_end: "2026-09-27" }
+      "2.5": { ga: "2024-10-01", fs_end: "2025-10-01", mnt_end: "2026-10-01", mnt2_end: "2027-10-01" }
+      "2.6": { ga: "2025-10-01", fs_end: "2026-10-01", mnt_end: "2027-10-01", mnt2_end: "2028-10-01" }
+      "2.7": { ga: "2026-10-01", fs_end: "2027-10-01", mnt_end: "2028-10-01", mnt2_end: "2029-10-01" }
+
+  rhoai:
+    api_name: "Red Hat OpenShift AI Self-Managed"
+    title: "RHOAI Lifecycle"
+    page_url: "https://access.redhat.com/support/policy/updates/rhoai"
+    version_strategy: rhoai
+    min_version: "2.19"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Extended update support": eus1_end
+      "Extended update support Term 2": eus2_end
+    fallback:
+      "2.19": { ga: "2025-04-16", fs_end: "2025-11-17" }
+      "2.20": { ga: "2025-05-14", fs_end: "2025-06-19" }
+      "2.21": { ga: "2025-06-17", fs_end: "2025-12-17" }
+      "2.22": { ga: "2025-07-21", fs_end: "2026-02-16" }
+      "2.23": { ga: "2025-08-14", fs_end: "2025-09-18" }
+      "2.24": { ga: "2025-10-07", fs_end: "2025-10-23" }
+      "2.25": { ga: "2025-10-23", fs_end: "2026-05-25", eus1_end: "2027-04-26" }
+      "3.0":  { ga: "2025-11-13", fs_end: "2026-01-15" }
+      "3.2":  { ga: "2026-01-22", fs_end: "2026-03-05" }
+      "3.3":  { ga: "2026-03-05", fs_end: "2026-10-05" }
+      "3.4":  { ga: "2026-05-14", fs_end: "2026-11-16" }
+
+  ceph:
+    api_name: "Red Hat Ceph Storage"
+    title: "Ceph Lifecycle"
+    page_url: "https://access.redhat.com/support/policy/updates/ceph-storage"
+    version_strategy: ceph
+    min_version: "4"
+    phase_map:
+      "General availability": ga
+      "End of Life": fs_end
+      "Extended life cycle support (ELS) add-on": els_end
+      "Extended life cycle support (ELS) Term 2 add-on": els2_end
+    fallback:
+      "4": { ga: "2020-01-31", fs_end: "2023-03-31", els_end: "2025-04-30", els2_end: "2027-04-30" }
+      "5": { ga: "2021-08-31", fs_end: "2024-08-31", els_end: "2027-07-31" }
+      "6": { ga: "2023-03-21", fs_end: "2026-03-20", els_end: "2028-03-20" }
+      "7": { ga: "2023-12-13", fs_end: "2026-12-12", els_end: "2029-08-31" }
+      "8": { ga: "2024-11-25", fs_end: "2027-11-24", els_end: "2029-11-24" }
+      "9": { ga: "2026-01-29", fs_end: "2029-01-28", els_end: "2031-01-28" }
+
+# ── Operators ─────────────────────────────────────────────────────────────────
+# To add a new operator, add an entry here. Minimal example:
+#
+#   my-new-op:
+#     api_name: "Exact API Name (from lifecycle API)"
+#     title: "Display Title"
+#     version_strategy: xy
+#     min_version: "1.0"
+#     phase_map_preset: op-standard
+#
+# Find the API name: curl "https://access.redhat.com/product-life-cycles/api/v1/products?name=<name>"
+
+operators:
+  pipelines:
+    api_name: "Red Hat OpenShift Pipelines"
+    title: "OpenShift Pipelines"
+    version_strategy: xy
+    min_version: "1.14"
+    phase_map_preset: op-standard
+    fallback:
+      "1.15": { ga: "2024-06-21", fs_end: "2024-11-09", mnt_end: "2026-10-31" }
+      "1.16": { ga: "2024-10-09", fs_end: "2025-01-12", mnt_end: "2025-03-17" }
+      "1.17": { ga: "2024-12-12", fs_end: "2025-04-17", mnt_end: "2025-07-15" }
+      "1.18": { ga: "2025-03-17", fs_end: "2025-08-15", mnt_end: "2025-09-25" }
+      "1.19": { ga: "2025-07-15", fs_end: "2025-10-25", mnt_end: "2026-01-22" }
+      "1.20": { ga: "2025-09-25", fs_end: "2026-02-22", mnt_end: "2026-04-27" }
+      "1.21": { ga: "2026-01-22", fs_end: "2026-05-27", mnt_end: "2026-08-01" }
+      "1.22": { ga: "2026-04-27", fs_end: "2026-08-27", mnt_end: "2026-11-01" }
+
+  gitops:
+    api_name: "Red Hat OpenShift GitOps"
+    title: "OpenShift GitOps"
+    version_strategy: xy
+    min_version: "1.12"
+    phase_map_preset: op-standard
+    fallback:
+      "1.14": { ga: "2024-09-19", fs_end: "2025-01-12", mnt_end: "2025-08-07" }
+      "1.15": { ga: "2024-12-12", fs_end: "2025-05-31", mnt_end: "2025-09-25" }
+      "1.16": { ga: "2025-03-31", fs_end: "2025-09-07", mnt_end: "2025-12-18" }
+      "1.17": { ga: "2025-08-07", fs_end: "2025-10-25", mnt_end: "2026-03-25" }
+      "1.18": { ga: "2025-09-25", fs_end: "2026-01-18", mnt_end: "2026-06-24" }
+      "1.19": { ga: "2025-12-18", fs_end: "2026-04-25" }
+      "1.20": { ga: "2026-03-25", fs_end: "2026-07-24" }
+      "1.21": { ga: "2026-06-24", fs_end: "2026-10-25" }
+
+  service-mesh:
+    api_name: "Red Hat OpenShift Service Mesh"
+    title: "OpenShift Service Mesh"
+    version_strategy: xy
+    min_version: "2.4"
+    phase_map_preset: op-standard
+    fallback:
+      "3.0": { ga: "2024-05-15", fs_end: "2024-11-15", mnt_end: "2026-05-15" }
+      "3.1": { ga: "2025-08-06", fs_end: "2026-01-31", mnt_end: "2027-07-27" }
+      "3.2": { ga: "2025-11-14", fs_end: "2026-05-14", mnt_end: "2027-08-25" }
+      "3.3": { ga: "2026-03-19", fs_end: "2026-09-21", mnt_end: "2028-02-25" }
+
+  virtualization:
+    api_name: "Red Hat OpenShift Virtualization"
+    title: "OpenShift Virtualization"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-12", fs_end: "2026-09-09", mnt_end: "2027-08-03" }
+      "4.22": { ga: "2026-06-16", fs_end: "2026-12-31", mnt_end: "2027-12-31", eus1_end: "2028-06-30", eus2_end: "2029-06-30" }
+
+  odf:
+    api_name: "Red Hat OpenShift Data Foundation"
+    title: "OpenShift Data Foundation"
+    version_strategy: xy-eus-even
+    min_version: "4.14"
+    phase_map_preset: op-odf
+    fallback:
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-07-28", fs_end: "2026-02-18", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-11-18", fs_end: "2026-06-09", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-11-21" }
+      "4.21": { ga: "2026-03-09", fs_end: "2027-01-09", mnt_end: "2027-08-23" }
+
+  logging:
+    api_name: "logging for Red Hat OpenShift"
+    title: "Logging for OpenShift"
+    version_strategy: xy
+    min_version: "6.0"
+    phase_map_preset: op-standard
+    fallback:
+      "6.1": { ga: "2024-10-01", fs_end: "2025-05-01", mnt_end: "2025-11-13" }
+      "6.2": { ga: "2025-03-01", fs_end: "2025-08-16", mnt_end: "2026-01-30" }
+      "6.3": { ga: "2025-07-16", fs_end: "2025-12-13", mnt_end: "2026-04-01" }
+      "6.4": { ga: "2025-11-13", fs_end: "2026-05-01" }
+      "6.5": { ga: "2026-04-01", fs_end: "2026-10-01" }
+
+  oadp:
+    api_name: "OpenShift APIs for Data Protection"
+    title: "OADP"
+    version_strategy: xy
+    min_version: "1.3"
+    phase_map_preset: op-standard
+    fallback:
+      "1.3": { ga: "2024-03-01", fs_end: "2024-10-21", mnt_end: "2025-06-17", eus1_end: "2025-12-27", eus2_end: "2026-12-27" }
+      "1.4": { ga: "2024-07-10", fs_end: "2025-06-17", mnt_end: "2026-06-09", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "1.5": { ga: "2025-06-17", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "1.6": { ga: "2026-06-09", fs_end: "2026-12-31", mnt_end: "2027-12-31", eus1_end: "2028-06-30", eus2_end: "2029-06-30" }
+
+  builds:
+    api_name: "builds for Red Hat OpenShift"
+    title: "Builds for OpenShift"
+    version_strategy: xy
+    min_version: "1.3"
+    phase_map_preset: op-standard
+    fallback:
+      "1.4": { ga: "2025-04-17", fs_end: "2025-08-17", mnt_end: "2025-10-10" }
+      "1.5": { ga: "2025-07-17", fs_end: "2025-11-10", mnt_end: "2026-02-10" }
+      "1.6": { ga: "2025-10-10", fs_end: "2026-03-10", mnt_end: "2026-05-18" }
+      "1.7": { ga: "2026-02-10", fs_end: "2026-06-18", mnt_end: "2026-09-01" }
+      "1.8": { ga: "2026-05-18", fs_end: "2026-09-18", mnt_end: "2026-12-18" }
+
+  dr-hub:
+    api_name: "Openshift DR Hub Operator"
+    title: "OpenShift DR Hub"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-03-11", fs_end: "2025-10-28", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-07-28", fs_end: "2026-02-18", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-11-18", fs_end: "2026-06-09", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-11-21" }
+
+  cert-manager:
+    api_name: "cert-manager operator for Red Hat OpenShift"
+    title: "cert-manager"
+    version_strategy: xy
+    min_version: "1.12"
+    phase_map_preset: op-standard
+    fallback:
+      "1.14": { ga: "2024-06-01", fs_end: "2024-09-30", mnt_end: "2024-12-31" }
+      "1.15": { ga: "2024-09-01", fs_end: "2024-12-31", mnt_end: "2025-03-31" }
+      "1.16": { ga: "2024-12-01", fs_end: "2025-03-31", mnt_end: "2025-06-30" }
+      "1.17": { ga: "2025-03-01", fs_end: "2025-06-30", mnt_end: "2025-09-30" }
+      "1.18": { ga: "2025-06-01", fs_end: "2025-09-30", mnt_end: "2025-12-31" }
+      "1.19": { ga: "2026-04-20", fs_end: "2026-11-20", mnt_end: "2027-05-20", eus1_end: "2028-02-25" }
+
+  rhacm:
+    api_name: "Red Hat Advanced Cluster Management for Kubernetes"
+    title: "RHACM"
+    version_strategy: xy
+    min_version: "2.10"
+    phase_map_preset: op-standard
+    fallback:
+      "2.12": { ga: "2025-04-02", fs_end: "2026-01-01", mnt_end: "2026-10-02" }
+      "2.13": { ga: "2025-06-18", fs_end: "2026-04-24", mnt_end: "2026-12-24" }
+      "2.14": { ga: "2025-08-01", fs_end: "2026-10-02", mnt_end: "2027-02-24" }
+      "2.15": { ga: "2025-12-03", fs_end: "2027-01-08", mnt_end: "2027-06-01", eus1_end: "2027-11-12", eus2_end: "2028-11-13" }
+      "2.16": { ga: "2026-03-10", fs_end: "2027-04-09", mnt_end: "2027-09-10" }
+      "2.17": { ga: "2026-06-18", fs_end: "2026-12-31", mnt_end: "2027-12-31", eus1_end: "2028-06-30", eus2_end: "2029-06-30" }
+
+  rhacs:
+    api_name: "Red Hat Advanced Cluster Security for Kubernetes"
+    title: "RHACS"
+    version_strategy: xy
+    min_version: "4.5"
+    phase_map_preset: op-standard
+    fallback:
+      "4.7":  { ga: "2025-01-29", fs_end: "2025-07-29", mnt_end: "2025-11-29" }
+      "4.8":  { ga: "2025-07-09", fs_end: "2026-01-09", mnt_end: "2026-05-09" }
+      "4.9":  { ga: "2025-10-30", fs_end: "2026-04-30", mnt_end: "2026-08-31" }
+      "4.10": { ga: "2026-03-03", fs_end: "2026-09-03", mnt_end: "2027-01-04" }
+      "4.11": { ga: "2026-06-15", fs_end: "2026-12-15", mnt_end: "2027-04-15" }
+
+  serverless:
+    api_name: "Red Hat OpenShift Serverless"
+    title: "OpenShift Serverless"
+    version_strategy: xy
+    min_version: "1.30"
+    phase_map_preset: op-standard
+    fallback:
+      "1.34": { ga: "2024-10-10", fs_end: "2025-02-22", mnt_end: "2025-05-22" }
+      "1.35": { ga: "2025-01-22", fs_end: "2025-08-17", mnt_end: "2025-11-17" }
+      "1.36": { ga: "2025-07-17", fs_end: "2025-12-24", mnt_end: "2026-03-24" }
+      "1.37": { ga: "2025-11-24", fs_end: "2026-05-24", mnt_end: "2026-08-24" }
+
+  mtv:
+    api_name: "migration toolkit for virtualization"
+    title: "Migration Toolkit for Virtualization"
+    version_strategy: xy
+    min_version: "2.6"
+    phase_map_preset: op-standard
+    fallback:
+      "2.7":  { ga: "2024-09-22", fs_end: "2025-07-10", mnt_end: "2025-12-04" }
+      "2.8":  { ga: "2025-03-31", fs_end: "2025-11-04", mnt_end: "2026-03-23" }
+      "2.9":  { ga: "2025-07-10", fs_end: "2026-02-23", mnt_end: "2026-07-16" }
+      "2.10": { ga: "2025-11-04", fs_end: "2026-06-16", mnt_end: "2026-11-01" }
+      "2.11": { ga: "2026-02-23", fs_end: "2026-10-01", mnt_end: "2027-02-01" }
+      "2.12": { ga: "2026-06-16", fs_end: "2027-01-15" }
+
+  loki:
+    api_name: "Loki operator"
+    title: "Loki Operator"
+    version_strategy: xy
+    min_version: "6.0"
+    phase_map_preset: op-standard
+    fallback:
+      "6.1": { ga: "2024-10-01", fs_end: "2025-05-01", mnt_end: "2025-11-13" }
+      "6.2": { ga: "2025-03-12", fs_end: "2025-08-16", mnt_end: "2026-08-25", eus1_end: "2028-10-21" }
+      "6.3": { ga: "2025-07-16", fs_end: "2025-12-13", mnt_end: "2026-04-01" }
+      "6.4": { ga: "2025-11-13", fs_end: "2026-05-01" }
+      "6.5": { ga: "2026-04-01", fs_end: "2026-10-01" }
+
+  kmm:
+    api_name: "Kernel Module Management operator for Red Hat OpenShift (Hub)"
+    title: "KMM"
+    version_strategy: xy
+    min_version: "2.1"
+    phase_map_preset: op-standard
+    fallback:
+      "2.3": { ga: "2025-03-06", fs_end: "2025-08-06", mnt_end: "2026-03-06" }
+      "2.4": { ga: "2025-06-26", fs_end: "2025-11-26", mnt_end: "2026-06-26" }
+      "2.5": { ga: "2025-12-08", fs_end: "2026-05-03", mnt_end: "2027-04-21" }
+      "2.6": { ga: "2026-03-24", fs_end: "2026-06-24", mnt_end: "2026-10-24" }
+
+  rhdh:
+    api_name: "Red Hat Developer Hub"
+    title: "Red Hat Developer Hub"
+    version_strategy: xy
+    min_version: "1.5"
+    phase_map_preset: op-standard
+    fallback:
+      "1.7":  { ga: "2025-08-20", fs_end: "2025-11-11", mnt_end: "2026-03-04" }
+      "1.8":  { ga: "2025-11-11", fs_end: "2026-03-04", mnt_end: "2026-06-10" }
+      "1.9":  { ga: "2026-03-04", fs_end: "2026-06-10", mnt_end: "2026-10-10" }
+      "1.10": { ga: "2026-06-10", fs_end: "2026-10-10", mnt_end: "2027-02-11" }
+
+  sriov:
+    api_name: "SR-IOV network operator"
+    title: "SR-IOV Network Operator"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  nfd:
+    api_name: "node feature discovery operator"
+    title: "Node Feature Discovery"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  nmstate:
+    api_name: "Kubernetes NMState Operator"
+    title: "Kubernetes NMState"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  lso:
+    api_name: "local storage operator"
+    title: "Local Storage Operator"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  metallb:
+    api_name: "MetalLB operator"
+    title: "MetalLB Operator"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  vpa:
+    api_name: "vertical pod autoscaler operator"
+    title: "Vertical Pod Autoscaler"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  numaresources:
+    api_name: "numaresources-operator"
+    title: "NUMAresources Operator"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  winc:
+    api_name: "Red Hat OpenShift support for Windows Containers"
+    title: "Windows Containers"
+    version_strategy: xy
+    min_version: "10.14"
+    phase_map_preset: op-standard
+    fallback:
+      "10.17": { ga: "2024-10-30", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "10.18": { ga: "2025-03-20", fs_end: "2025-10-17", mnt_end: "2026-08-25" }
+      "10.19": { ga: "2025-07-17", mnt_end: "2026-12-17" }
+      "10.20": { ga: "2025-10-22", mnt_end: "2027-04-21" }
+      "10.21": { ga: "2026-02-03", mnt_end: "2027-08-03" }
+
+  mtc:
+    api_name: "migration toolkit for containers"
+    title: "Migration Toolkit for Containers"
+    version_strategy: xy
+    min_version: "1.7"
+    phase_map_preset: op-standard
+    fallback:
+      "1.7": { ga: "2022-03-01", fs_end: "2024-07-01", mnt_end: "2025-07-01" }
+      "1.8": { ga: "2023-10-02", fs_end: "2026-07-31", mnt_end: "2026-12-31" }
+
+  web-terminal:
+    api_name: "OpenShift Web Terminal"
+    title: "Web Terminal"
+    version_strategy: xy
+    min_version: "1.10"
+    phase_map_preset: op-standard
+    fallback:
+      "1.11": { ga: "2024-08-13", fs_end: "2025-01-01", mnt_end: "2025-12-27" }
+      "1.12": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "1.13": { ga: "2025-06-02", fs_end: "2025-09-17", mnt_end: "2026-08-25" }
+      "1.14": { ga: "2025-09-25", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "1.15": { ga: "2025-11-27", fs_end: "2026-05-03", mnt_end: "2027-04-21" }
+
+  mce:
+    api_name: "Multicluster Engine for Kubernetes"
+    title: "Multicluster Engine"
+    version_strategy: xy
+    min_version: "2.7"
+    phase_map_preset: op-standard
+    fallback:
+      "2.7":  { ga: "2024-11-05", fs_end: "2026-01-06", mnt_end: "2026-06-02" }
+      "2.8":  { ga: "2025-03-12", fs_end: "2026-04-17", mnt_end: "2026-09-18" }
+      "2.9":  { ga: "2025-08-01", fs_end: "2026-10-02", mnt_end: "2027-02-24" }
+      "2.10": { ga: "2025-12-03", fs_end: "2027-01-08", mnt_end: "2027-06-01" }
+      "2.11": { ga: "2026-03-10", fs_end: "2027-04-09", mnt_end: "2027-09-10" }
+      "2.17": { ga: "2026-06-18", fs_end: "2026-12-31", mnt_end: "2027-12-31" }
+
+  kiali:
+    api_name: "Kiali"
+    title: "Kiali"
+    version_strategy: xy
+    min_version: "2.4"
+    phase_map_preset: op-standard
+    fallback:
+      "2.4":  { ga: "2025-03-12", fs_end: "2025-09-12", mnt_end: "2026-10-31" }
+      "2.11": { ga: "2025-08-06", fs_end: "2026-01-31", mnt_end: "2027-07-27" }
+      "2.17": { ga: "2025-11-14", fs_end: "2026-05-14", mnt_end: "2027-08-25" }
+      "2.22": { ga: "2026-03-19", fs_end: "2026-09-21", mnt_end: "2028-02-25" }
+
+  gatekeeper:
+    api_name: "Gatekeeper operator"
+    title: "Gatekeeper"
+    version_strategy: xy
+    min_version: "3.17"
+    phase_map_preset: op-standard
+    fallback:
+      "3.17": { ga: "2024-11-19", fs_end: "2025-08-01", mnt_end: "2025-12-04" }
+      "3.18": { ga: "2025-03-20", fs_end: "2025-12-04", mnt_end: "2026-04-23" }
+      "3.19": { ga: "2025-08-01", fs_end: "2026-04-23", mnt_end: "2026-08-01" }
+      "3.20": { ga: "2025-12-04", fs_end: "2026-08-01", mnt_end: "2026-12-01" }
+      "3.21": { ga: "2026-04-23", fs_end: "2026-12-01", mnt_end: "2027-04-01" }
+
+  submariner:
+    api_name: "Submariner"
+    title: "Submariner"
+    version_strategy: xy
+    min_version: "0.17"
+    phase_map_preset: op-standard
+    fallback:
+      "0.18": { ga: "2024-07-18", fs_end: "2025-08-15", mnt_end: "2026-01-16" }
+      "0.19": { ga: "2024-11-06", fs_end: "2025-12-08", mnt_end: "2026-06-09" }
+      "0.20": { ga: "2025-03-19", fs_end: "2026-04-17", mnt_end: "2026-09-11" }
+      "0.22": { ga: "2025-12-04", fs_end: "2027-01-05", mnt_end: "2027-09-10" }
+
+  ptp:
+    api_name: "PTP Operator"
+    title: "PTP Operator"
+    version_strategy: ocp-minor
+    min_version: "4.14"
+    phase_map_preset: op-standard
+    fallback:
+      "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
+      "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
+      "4.14": { ga: "2023-10-31", fs_end: "2024-05-27", mnt_end: "2025-05-01", eus1_end: "2025-10-31", eus2_end: "2026-10-31" }
+      "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
+      "4.17": { ga: "2024-10-01", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-02-25", fs_end: "2025-09-17", mnt_end: "2026-08-25", eus1_end: "2027-02-25", eus2_end: "2028-02-25" }
+      "4.19": { ga: "2025-06-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-10-21", fs_end: "2026-05-03", mnt_end: "2027-04-21", eus1_end: "2027-10-21", eus2_end: "2028-10-21" }
+      "4.21": { ga: "2026-02-03", fs_end: "2026-08-03", mnt_end: "2027-08-03" }
+
+  quay:
+    api_name: "Red Hat Quay"
+    title: "Red Hat Quay"
+    version_strategy: xy
+    min_version: "3.12"
+    phase_map_preset: op-standard
+    fallback:
+      "3.13": { ga: "2025-01-22", fs_end: "2025-07-07", mnt_end: "2026-04-01" }
+      "3.14": { ga: "2025-04-02", fs_end: "2025-10-07", mnt_end: "2026-08-25" }
+      "3.15": { ga: "2025-07-07", fs_end: "2026-03-18", mnt_end: "2026-12-17" }
+      "3.16": { ga: "2025-12-18", fs_end: "2026-06-24", mnt_end: "2027-04-21" }
+      "3.17": { ga: "2026-03-24", fs_end: "2026-10-01", mnt_end: "2027-08-03" }
+
+  odf-multicluster:
+    api_name: "ODF Multicluster Orchestrator"
+    title: "ODF Multicluster Orchestrator"
+    version_strategy: ocp-minor
+    min_version: "4.16"
+    phase_map_preset: op-standard
+    fallback:
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27" }
+      "4.17": { ga: "2024-10-30", fs_end: "2025-06-11", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-03-11", fs_end: "2025-10-28", mnt_end: "2026-08-25" }
+      "4.19": { ga: "2025-07-28", fs_end: "2026-02-18", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-11-18", fs_end: "2026-06-09", mnt_end: "2027-04-21" }
+
+  dr-cluster:
+    api_name: "Openshift DR Cluster Operator"
+    title: "OpenShift DR Cluster"
+    version_strategy: ocp-minor
+    min_version: "4.16"
+    phase_map_preset: op-standard
+    fallback:
+      "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27" }
+      "4.17": { ga: "2024-10-30", fs_end: "2025-06-11", mnt_end: "2026-04-01" }
+      "4.18": { ga: "2025-03-11", fs_end: "2025-10-28", mnt_end: "2026-08-25" }
+      "4.19": { ga: "2025-07-28", fs_end: "2026-02-18", mnt_end: "2026-12-17" }
+      "4.20": { ga: "2025-11-18", fs_end: "2026-06-09", mnt_end: "2027-04-21" }
+
+  global-hub:
+    api_name: "multicluster global hub"
+    title: "Multicluster Global Hub"
+    version_strategy: xy
+    min_version: "1.4"
+    phase_map_preset: op-standard
+    fallback:
+      "1.4": { ga: "2025-03-20", fs_end: "2026-04-17" }
+      "1.5": { ga: "2025-07-21", fs_end: "2026-10-02" }
+      "1.6": { ga: "2025-12-04", fs_end: "2027-02-12" }
+      "1.7": { ga: "2026-03-10", fs_end: "2027-04-09" }
+
+  connectivity-link:
+    api_name: "Red Hat Connectivity Link"
+    title: "Red Hat Connectivity Link"
+    version_strategy: xy
+    min_version: "1.1"
+    phase_map_preset: op-standard
+    fallback:
+      "1.1": { ga: "2025-05-26", fs_end: "2025-10-01", mnt_end: "2026-06-11" }
+      "1.2": { ga: "2025-10-01", fs_end: "2026-02-26", mnt_end: "2026-10-01" }
+      "1.3": { ga: "2026-02-26", fs_end: "2026-06-11", mnt_end: "2026-10-01" }
+      "1.4": { ga: "2026-06-11", fs_end: "2026-10-01", mnt_end: "2027-02-01" }
+
+  keycloak:
+    api_name: "Red Hat build of Keycloak"
+    title: "Red Hat Build of Keycloak"
+    version_strategy: xy-exact
+    min_version: "26.0"
+    phase_map_preset: keycloak
+    fallback:
+      "26.0": { ga: "2024-11-13", fs_end: "2025-05-13", mnt_end: "2025-11-13" }
+      "26.2": { ga: "2025-05-13", fs_end: "2025-10-30", mnt_end: "2026-06-03" }
+      "26.4": { ga: "2025-10-30", fs_end: "2026-06-03", mnt_end: "2026-12-03" }
+      "26.6": { ga: "2026-06-03", fs_end: "2026-11-15", mnt_end: "2027-05-15" }
+
+  quay-security:
+    api_name: "Red Hat Quay Container Security Operator"
+    title: "Quay Container Security Operator"
+    version_strategy: xy
+    min_version: "3.12"
+    phase_map_preset: op-standard
+    fallback:
+      "3.13": { ga: "2024-06-04", fs_end: "2024-09-04", mnt_end: "2025-12-31" }
+      "3.14": { ga: "2024-09-04", fs_end: "2024-12-04", mnt_end: "2026-03-31" }
+      "3.15": { ga: "2024-12-04", fs_end: "2025-03-24", mnt_end: "2026-09-30" }
+      "3.16": { ga: "2025-03-24", fs_end: "2026-03-24", mnt_end: "2027-08-03" }
+      "3.17": { ga: "2026-03-24", fs_end: "2026-06-24", mnt_end: "2027-08-03" }
+
+  quay-bridge:
+    api_name: "Red Hat Quay bridge operator"
+    title: "Quay Bridge Operator"
+    version_strategy: xy
+    min_version: "3.5"
+    phase_map_preset: op-standard
+    fallback:
+      "3.7":  { ga: "2022-10-19", fs_end: "2023-04-19", mnt_end: "2024-10-31" }
+      "3.8":  { ga: "2023-03-29", fs_end: "2023-09-29", mnt_end: "2024-12-31" }
+      "3.11": { ga: "2024-12-04", fs_end: "2025-06-04", mnt_end: "2026-06-04" }
+
+  volsync:
+    api_name: "VolSync"
+    title: "VolSync"
+    version_strategy: rolling-eol
+    min_version: "0.12"
+    phase_map_preset: rolling-ga-eol
+    fallback:
+      "0.12": { ga: "2024-12-09" }
+      "0.13": { ga: "2025-02-10" }
+      "0.14": { ga: "2025-04-07" }
+      "0.15": { ga: "2025-06-09" }
+      "0.16": { ga: "2026-06-09" }
+
+  serverless-logic:
+    api_name: "Red Hat OpenShift Serverless Logic Operator"
+    title: "OpenShift Serverless Logic"
+    version_strategy: xy
+    min_version: "1.33"
+    phase_map_preset: op-standard
+    fallback:
+      "1.33": { ga: "2024-11-04", fs_end: "2025-03-04", mnt_end: "2025-07-04" }
+      "1.34": { ga: "2025-01-27", fs_end: "2025-05-27", mnt_end: "2025-09-27" }
+      "1.35": { ga: "2025-03-31", fs_end: "2025-08-31", mnt_end: "2025-12-31" }
+      "1.36": { ga: "2025-07-22", fs_end: "2025-12-22", mnt_end: "2026-04-22" }
+      "1.37": { ga: "2025-11-24", fs_end: "2026-04-24", mnt_end: "2026-08-24" }
+
+  dev-spaces:
+    api_name: "Red Hat OpenShift Dev Spaces"
+    title: "OpenShift Dev Spaces"
+    version_strategy: rolling-eol
+    min_version: "3.24"
+    phase_map_preset: rolling-ga-eol
+    fallback:
+      "3.24": { ga: "2024-09-24" }
+      "3.25": { ga: "2024-11-14" }
+      "3.26": { ga: "2025-01-16" }
+      "3.27": { ga: "2025-03-27" }
+      "3.28": { ga: "2026-05-29" }
+
+# ── Middleware ────────────────────────────────────────────────────────────────
+# To add a new middleware product:
+#   1. Find the API name at https://access.redhat.com/product-life-cycles/api/v1/products
+#   2. Add an entry below (x-dotx strategy for X.x versions, xy for X.Y)
+
+middleware:
+  eap:
+    api_name: "Red Hat JBoss Enterprise Application Platform"
+    title: "JBoss EAP"
+    page_url: "https://access.redhat.com/support/policy/updates/jboss_notes"
+    version_strategy: x-dotx
+    min_version: "5"
+    phase_map_preset: els2
+    fallback:
+      "5.x": { ga: "2009-11-01", fs_end: "2013-11-30", mnt_end: "2016-11-30", els_end: "2019-11-30", els2_end: "2022-11-30" }
+      "6.x": { ga: "2012-06-01", fs_end: "2016-06-30", mnt_end: "2019-06-30", els_end: "2022-06-30", els2_end: "2028-12-30" }
+      "7.x": { ga: "2016-05-01", fs_end: "2023-12-31", mnt_end: "2025-06-30", els_end: "2027-10-31", els2_end: "2030-10-31" }
+      "8.x": { ga: "2024-02-05", fs_end: "2028-02-05", mnt_end: "2031-02-05", els_end: "2033-02-05", els2_end: "2034-02-05" }
+
+  jws:
+    api_name: "Red Hat JBoss Web Server"
+    title: "JBoss Web Server (JWS)"
+    page_url: "https://access.redhat.com/support/policy/updates/jboss_notes"
+    version_strategy: x-dotx
+    min_version: "2"
+    phase_map_preset: els2
+    fallback:
+      "3.x": { ga: "2015-05-01", fs_end: "2018-05-31", mnt_end: "2021-05-31", els_end: "2023-05-31", els2_end: "2028-12-30" }
+      "5.x": { ga: "2018-07-12", fs_end: "2024-07-31", mnt_end: "2025-07-31", els_end: "2027-07-31", els2_end: "2030-12-31" }
+      "6.x": { ga: "2023-10-31", fs_end: "2026-11-30", mnt_end: "2028-11-30", els_end: "2031-11-30" }
+
+  quarkus:
+    api_name: "Red Hat build of Quarkus"
+    title: "Red Hat build of Quarkus"
+    page_url: "https://access.redhat.com/support/policy/updates/jboss_notes"
+    version_strategy: x-dotx
+    min_version: "3"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Maintenance support": mnt_end
+    fallback:
+      "2.13.x": { ga: "2022-07-12", fs_end: "2023-05-31", mnt_end: "2024-07-31" }
+      "3.x":    { ga: "2023-04-26", fs_end: "2025-06-30", mnt_end: "2026-06-30" }

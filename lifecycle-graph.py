@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-"""Red Hat product lifecycle Gantt chart generator — standalone, no dependencies."""
+"""Red Hat product lifecycle Gantt chart generator.
+
+Standalone by default (stdlib only). Install pyyaml to enable lifecycle-config.yaml
+for declarative configuration of products, operators, middleware, and RHEL minor dates.
+"""
 
 import argparse
+import html as _html
 import json
 import re
 import subprocess
@@ -10,317 +15,14 @@ import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-# ── Fallback data (used when API is unreachable) ─────────────────────────────
+try:
+    import yaml as _yaml
+    _HAS_YAML = True
+except ImportError:
+    _HAS_YAML = False
 
-_OCP_FALLBACK: dict[str, dict] = {
-    "4.12": {"ga": "2023-01-17", "fs_end": "2023-08-17", "mnt_end": "2024-07-17",
-             "eus1_end": "2025-01-17", "eus2_end": "2026-01-17"},
-    "4.13": {"ga": "2023-05-17", "fs_end": "2024-01-31", "mnt_end": "2024-11-17"},
-    "4.14": {"ga": "2023-10-31", "fs_end": "2024-05-27", "mnt_end": "2025-05-01",
-             "eus1_end": "2025-10-31", "eus2_end": "2026-10-31"},
-    "4.15": {"ga": "2024-02-27", "fs_end": "2024-09-27", "mnt_end": "2025-08-27"},
-    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27",
-             "eus1_end": "2026-06-27", "eus2_end": "2027-06-27"},
-    "4.17": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
-    "4.18": {"ga": "2025-02-25", "fs_end": "2025-09-17", "mnt_end": "2026-08-25",
-             "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
-    "4.19": {"ga": "2025-06-17", "fs_end": "2026-01-21", "mnt_end": "2026-12-17"},
-    "4.20": {"ga": "2025-10-21", "fs_end": "2026-05-03", "mnt_end": "2027-04-21",
-             "eus1_end": "2027-10-21", "eus2_end": "2028-10-21"},
-    "4.21": {"ga": "2026-02-03", "fs_end": "2026-08-03", "mnt_end": "2027-08-03"},
-}
-
-_RHEL_FALLBACK: dict[str, dict] = {
-    "7":  {"ga": "2014-06-10", "fs_end": "2019-08-06", "mnt_end": "2024-06-30",
-           "els_end": "2028-06-30"},
-    "8":  {"ga": "2019-05-07", "fs_end": "2024-05-31", "mnt_end": "2029-05-31"},
-    "9":  {"ga": "2022-05-18", "fs_end": "2027-05-31", "mnt_end": "2032-05-31"},
-    "10": {"ga": "2025-05-01", "fs_end": "2030-05-31", "mnt_end": "2035-05-31"},
-}
-
-_AAP_FALLBACK: dict[str, dict] = {
-    "2.4": {"ga": "2023-09-27", "fs_end": "2024-09-27", "mnt_end": "2025-09-27",
-            "mnt2_end": "2026-09-27"},
-    "2.5": {"ga": "2024-10-01", "fs_end": "2025-10-01", "mnt_end": "2026-10-01",
-            "mnt2_end": "2027-10-01"},
-    "2.6": {"ga": "2025-10-01", "fs_end": "2026-10-01", "mnt_end": "2027-10-01",
-            "mnt2_end": "2028-10-01"},
-    "2.7": {"ga": "2026-10-01", "fs_end": "2027-10-01", "mnt_end": "2028-10-01",
-            "mnt2_end": "2029-10-01"},
-}
-
-_RHOAI_FALLBACK: dict[str, dict] = {
-    "2.19": {"ga": "2025-04-16", "fs_end": "2025-11-17"},
-    "2.20": {"ga": "2025-05-14", "fs_end": "2025-06-19"},
-    "2.21": {"ga": "2025-06-17", "fs_end": "2025-12-17"},
-    "2.22": {"ga": "2025-07-21", "fs_end": "2026-02-16"},
-    "2.23": {"ga": "2025-08-14", "fs_end": "2025-09-18"},
-    "2.24": {"ga": "2025-10-07", "fs_end": "2025-10-23"},
-    "2.25": {"ga": "2025-10-23", "fs_end": "2026-05-25", "eus1_end": "2027-04-26"},
-    "3.0":  {"ga": "2025-11-13", "fs_end": "2026-01-15"},
-    "3.2":  {"ga": "2026-01-22", "fs_end": "2026-03-05"},
-    "3.3":  {"ga": "2026-03-05", "fs_end": "2026-10-05"},
-    "3.4":  {"ga": "2026-05-14", "fs_end": "2026-11-16"},
-}
-
-_PIPELINES_FALLBACK: dict[str, dict] = {
-    "1.15": {"ga": "2024-06-21", "fs_end": "2024-11-09", "mnt_end": "2026-10-31"},
-    "1.16": {"ga": "2024-10-09", "fs_end": "2025-01-12", "mnt_end": "2025-03-17"},
-    "1.17": {"ga": "2024-12-12", "fs_end": "2025-04-17", "mnt_end": "2025-07-15"},
-    "1.18": {"ga": "2025-03-17", "fs_end": "2025-08-15", "mnt_end": "2025-09-25"},
-    "1.19": {"ga": "2025-07-15", "fs_end": "2025-10-25", "mnt_end": "2026-01-22"},
-    "1.20": {"ga": "2025-09-25", "fs_end": "2026-02-22", "mnt_end": "2026-04-27"},
-    "1.21": {"ga": "2026-01-22", "fs_end": "2026-05-27", "mnt_end": "2026-08-01"},
-    "1.22": {"ga": "2026-04-27", "fs_end": "2026-08-27", "mnt_end": "2026-11-01"},
-}
-
-_GITOPS_FALLBACK: dict[str, dict] = {
-    "1.14": {"ga": "2024-09-19", "fs_end": "2025-01-12", "mnt_end": "2025-08-07"},
-    "1.15": {"ga": "2024-12-12", "fs_end": "2025-05-31", "mnt_end": "2025-09-25"},
-    "1.16": {"ga": "2025-03-31", "fs_end": "2025-09-07", "mnt_end": "2025-12-18"},
-    "1.17": {"ga": "2025-08-07", "fs_end": "2025-10-25", "mnt_end": "2026-03-25"},
-    "1.18": {"ga": "2025-09-25", "fs_end": "2026-01-18", "mnt_end": "2026-06-24"},
-    "1.19": {"ga": "2025-12-18", "fs_end": "2026-04-25"},
-    "1.20": {"ga": "2026-03-25", "fs_end": "2026-07-24"},
-    "1.21": {"ga": "2026-06-24", "fs_end": "2026-10-25"},
-}
-
-_SERVICE_MESH_FALLBACK: dict[str, dict] = {
-    "3.0": {"ga": "2024-05-15", "fs_end": "2024-11-15", "mnt_end": "2026-05-15"},
-    "3.1": {"ga": "2025-08-06", "fs_end": "2026-01-31", "mnt_end": "2027-07-27"},
-    "3.2": {"ga": "2025-11-14", "fs_end": "2026-05-14", "mnt_end": "2027-08-25"},
-    "3.3": {"ga": "2026-03-19", "fs_end": "2026-09-21", "mnt_end": "2028-02-25"},
-}
-
-_VIRT_FALLBACK: dict[str, dict] = {
-    "4.15": {"ga": "2024-02-27", "fs_end": "2024-09-27", "mnt_end": "2025-08-27"},
-    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27",
-             "eus1_end": "2026-06-27", "eus2_end": "2027-06-27"},
-    "4.17": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
-    "4.18": {"ga": "2025-02-25", "fs_end": "2025-09-17", "mnt_end": "2026-08-25",
-             "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
-    "4.19": {"ga": "2025-06-17", "fs_end": "2026-01-21", "mnt_end": "2026-12-17"},
-    "4.20": {"ga": "2025-10-21", "fs_end": "2026-05-03", "mnt_end": "2027-04-21",
-             "eus1_end": "2027-10-21", "eus2_end": "2028-10-21"},
-    "4.21": {"ga": "2026-02-12", "fs_end": "2026-09-09", "mnt_end": "2027-08-03"},
-    "4.22": {"ga": "2026-06-16", "fs_end": "2026-12-31", "mnt_end": "2027-12-31",
-             "eus1_end": "2028-06-30", "eus2_end": "2029-06-30"},
-}
-
-_ODF_FALLBACK: dict[str, dict] = {
-    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27",
-             "eus1_end": "2026-06-27", "eus2_end": "2027-06-27"},
-    "4.17": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
-    "4.18": {"ga": "2025-02-25", "fs_end": "2025-09-17", "mnt_end": "2026-08-25",
-             "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
-    "4.19": {"ga": "2025-07-28", "fs_end": "2026-02-18", "mnt_end": "2026-12-17"},
-    "4.20": {"ga": "2025-11-18", "fs_end": "2026-06-09", "mnt_end": "2027-04-21",
-             "eus1_end": "2027-10-21", "eus2_end": "2028-11-21"},
-    "4.21": {"ga": "2026-03-09", "fs_end": "2027-01-09", "mnt_end": "2027-08-23"},
-}
-
-_LOGGING_FALLBACK: dict[str, dict] = {
-    "6.1": {"ga": "2024-10-01", "fs_end": "2025-05-01", "mnt_end": "2025-11-13"},
-    "6.2": {"ga": "2025-03-01", "fs_end": "2025-08-16", "mnt_end": "2026-01-30"},
-    "6.3": {"ga": "2025-07-16", "fs_end": "2025-12-13", "mnt_end": "2026-04-01"},
-    "6.4": {"ga": "2025-11-13", "fs_end": "2026-05-01"},
-    "6.5": {"ga": "2026-04-01", "fs_end": "2026-10-01"},
-}
-
-_OADP_FALLBACK: dict[str, dict] = {
-    "1.3": {"ga": "2024-03-01", "fs_end": "2024-10-21", "mnt_end": "2025-06-17",
-            "eus1_end": "2025-12-27", "eus2_end": "2026-12-27"},
-    "1.4": {"ga": "2024-07-10", "fs_end": "2025-06-17", "mnt_end": "2026-06-09",
-            "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
-    "1.5": {"ga": "2025-06-17", "fs_end": "2026-05-03", "mnt_end": "2027-04-21",
-            "eus1_end": "2027-10-21", "eus2_end": "2028-10-21"},
-    "1.6": {"ga": "2026-06-09", "fs_end": "2026-12-31", "mnt_end": "2027-12-31",
-            "eus1_end": "2028-06-30", "eus2_end": "2029-06-30"},
-}
-
-_BUILDS_FALLBACK: dict[str, dict] = {
-    "1.4": {"ga": "2025-04-17", "fs_end": "2025-08-17", "mnt_end": "2025-10-10"},
-    "1.5": {"ga": "2025-07-17", "fs_end": "2025-11-10", "mnt_end": "2026-02-10"},
-    "1.6": {"ga": "2025-10-10", "fs_end": "2026-03-10", "mnt_end": "2026-05-18"},
-    "1.7": {"ga": "2026-02-10", "fs_end": "2026-06-18", "mnt_end": "2026-09-01"},
-    "1.8": {"ga": "2026-05-18", "fs_end": "2026-09-18", "mnt_end": "2026-12-18"},
-}
-
-_DR_HUB_FALLBACK: dict[str, dict] = {
-    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27",
-             "eus1_end": "2026-06-27", "eus2_end": "2027-06-27"},
-    "4.17": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
-    "4.18": {"ga": "2025-03-11", "fs_end": "2025-10-28", "mnt_end": "2026-08-25",
-             "eus1_end": "2027-02-25", "eus2_end": "2028-02-25"},
-    "4.19": {"ga": "2025-07-28", "fs_end": "2026-02-18", "mnt_end": "2026-12-17"},
-    "4.20": {"ga": "2025-11-18", "fs_end": "2026-06-09", "mnt_end": "2027-04-21",
-             "eus1_end": "2027-10-21", "eus2_end": "2028-11-21"},
-}
-
-_CERTMGR_FALLBACK: dict[str, dict] = {
-    "1.14": {"ga": "2024-06-01", "fs_end": "2024-09-30", "mnt_end": "2024-12-31"},
-    "1.15": {"ga": "2024-09-01", "fs_end": "2024-12-31", "mnt_end": "2025-03-31"},
-    "1.16": {"ga": "2024-12-01", "fs_end": "2025-03-31", "mnt_end": "2025-06-30"},
-    "1.17": {"ga": "2025-03-01", "fs_end": "2025-06-30", "mnt_end": "2025-09-30"},
-    "1.18": {"ga": "2025-06-01", "fs_end": "2025-09-30", "mnt_end": "2025-12-31"},
-    "1.19": {"ga": "2026-04-20", "fs_end": "2026-11-20", "mnt_end": "2027-05-20", "eus1_end": "2028-02-25"},
-}
-
-# OCP-aligned operators share identical lifecycle dates with OCP itself.
-_OCP_ALIGNED_OP_FALLBACK = _OCP_FALLBACK
-
-_WINC_FALLBACK: dict[str, dict] = {
-    "10.17": {"ga": "2024-10-30", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
-    "10.18": {"ga": "2025-03-20", "fs_end": "2025-10-17", "mnt_end": "2026-08-25"},
-    "10.19": {"ga": "2025-07-17", "mnt_end": "2026-12-17"},
-    "10.20": {"ga": "2025-10-22", "mnt_end": "2027-04-21"},
-    "10.21": {"ga": "2026-02-03", "mnt_end": "2027-08-03"},
-}
-
-_RHACM_FALLBACK: dict[str, dict] = {
-    "2.12": {"ga": "2025-04-02", "fs_end": "2026-01-01", "mnt_end": "2026-10-02"},
-    "2.13": {"ga": "2025-06-18", "fs_end": "2026-04-24", "mnt_end": "2026-12-24"},
-    "2.14": {"ga": "2025-08-01", "fs_end": "2026-10-02", "mnt_end": "2027-02-24"},
-    "2.15": {"ga": "2025-12-03", "fs_end": "2027-01-08", "mnt_end": "2027-06-01",
-             "eus1_end": "2027-11-12", "eus2_end": "2028-11-13"},
-    "2.16": {"ga": "2026-03-10", "fs_end": "2027-04-09", "mnt_end": "2027-09-10"},
-    "2.17": {"ga": "2026-06-18", "fs_end": "2026-12-31", "mnt_end": "2027-12-31",
-             "eus1_end": "2028-06-30", "eus2_end": "2029-06-30"},
-}
-
-_RHACS_FALLBACK: dict[str, dict] = {
-    "4.7":  {"ga": "2025-01-29", "fs_end": "2025-07-29", "mnt_end": "2025-11-29"},
-    "4.8":  {"ga": "2025-07-09", "fs_end": "2026-01-09", "mnt_end": "2026-05-09"},
-    "4.9":  {"ga": "2025-10-30", "fs_end": "2026-04-30", "mnt_end": "2026-08-31"},
-    "4.10": {"ga": "2026-03-03", "fs_end": "2026-09-03", "mnt_end": "2027-01-04"},
-    "4.11": {"ga": "2026-06-15", "fs_end": "2026-12-15", "mnt_end": "2027-04-15"},
-}
-
-_SERVERLESS_FALLBACK: dict[str, dict] = {
-    "1.34": {"ga": "2024-10-10", "fs_end": "2025-02-22", "mnt_end": "2025-05-22"},
-    "1.35": {"ga": "2025-01-22", "fs_end": "2025-08-17", "mnt_end": "2025-11-17"},
-    "1.36": {"ga": "2025-07-17", "fs_end": "2025-12-24", "mnt_end": "2026-03-24"},
-    "1.37": {"ga": "2025-11-24", "fs_end": "2026-05-24", "mnt_end": "2026-08-24"},
-}
-
-_MTV_FALLBACK: dict[str, dict] = {
-    "2.7":  {"ga": "2024-09-22", "fs_end": "2025-07-10", "mnt_end": "2025-12-04"},
-    "2.8":  {"ga": "2025-03-31", "fs_end": "2025-11-04", "mnt_end": "2026-03-23"},
-    "2.9":  {"ga": "2025-07-10", "fs_end": "2026-02-23", "mnt_end": "2026-07-16"},
-    "2.10": {"ga": "2025-11-04", "fs_end": "2026-06-16", "mnt_end": "2026-11-01"},
-    "2.11": {"ga": "2026-02-23", "fs_end": "2026-10-01", "mnt_end": "2027-02-01"},
-    "2.12": {"ga": "2026-06-16", "fs_end": "2027-01-15"},
-}
-
-_LOKI_FALLBACK: dict[str, dict] = {
-    "6.1": {"ga": "2024-10-01", "fs_end": "2025-05-01", "mnt_end": "2025-11-13"},
-    "6.2": {"ga": "2025-03-12", "fs_end": "2025-08-16", "mnt_end": "2026-08-25",
-            "eus1_end": "2028-10-21"},
-    "6.3": {"ga": "2025-07-16", "fs_end": "2025-12-13", "mnt_end": "2026-04-01"},
-    "6.4": {"ga": "2025-11-13", "fs_end": "2026-05-01"},
-    "6.5": {"ga": "2026-04-01", "fs_end": "2026-10-01"},
-}
-
-_KMM_FALLBACK: dict[str, dict] = {
-    "2.3": {"ga": "2025-03-06", "fs_end": "2025-08-06", "mnt_end": "2026-03-06"},
-    "2.4": {"ga": "2025-06-26", "fs_end": "2025-11-26", "mnt_end": "2026-06-26"},
-    "2.5": {"ga": "2025-12-08", "fs_end": "2026-05-03", "mnt_end": "2027-04-21"},
-    "2.6": {"ga": "2026-03-24", "fs_end": "2026-06-24", "mnt_end": "2026-10-24"},
-}
-
-_RHDH_FALLBACK: dict[str, dict] = {
-    "1.7":  {"ga": "2025-08-20", "fs_end": "2025-11-11", "mnt_end": "2026-03-04"},
-    "1.8":  {"ga": "2025-11-11", "fs_end": "2026-03-04", "mnt_end": "2026-06-10"},
-    "1.9":  {"ga": "2026-03-04", "fs_end": "2026-06-10", "mnt_end": "2026-10-10"},
-    "1.10": {"ga": "2026-06-10", "fs_end": "2026-10-10", "mnt_end": "2027-02-11"},
-}
-
-_MTC_FALLBACK: dict[str, dict] = {
-    "1.7": {"ga": "2022-03-01", "fs_end": "2024-07-01", "mnt_end": "2025-07-01"},
-    "1.8": {"ga": "2023-10-02", "fs_end": "2026-07-31", "mnt_end": "2026-12-31"},
-}
-
-_WEBTERMINAL_FALLBACK: dict[str, dict] = {
-    "1.11": {"ga": "2024-08-13", "fs_end": "2025-01-01", "mnt_end": "2025-12-27"},
-    "1.12": {"ga": "2024-10-01", "fs_end": "2025-05-25", "mnt_end": "2026-04-01"},
-    "1.13": {"ga": "2025-06-02", "fs_end": "2025-09-17", "mnt_end": "2026-08-25"},
-    "1.14": {"ga": "2025-09-25", "fs_end": "2026-01-21", "mnt_end": "2026-12-17"},
-    "1.15": {"ga": "2025-11-27", "fs_end": "2026-05-03", "mnt_end": "2027-04-21"},
-}
-
-_MCE_FALLBACK: dict[str, dict] = {
-    "2.7":  {"ga": "2024-11-05", "fs_end": "2026-01-06", "mnt_end": "2026-06-02"},
-    "2.8":  {"ga": "2025-03-12", "fs_end": "2026-04-17", "mnt_end": "2026-09-18"},
-    "2.9":  {"ga": "2025-08-01", "fs_end": "2026-10-02", "mnt_end": "2027-02-24"},
-    "2.10": {"ga": "2025-12-03", "fs_end": "2027-01-08", "mnt_end": "2027-06-01"},
-    "2.11": {"ga": "2026-03-10", "fs_end": "2027-04-09", "mnt_end": "2027-09-10"},
-    "2.17": {"ga": "2026-06-18", "fs_end": "2026-12-31", "mnt_end": "2027-12-31"},
-}
-
-_KIALI_FALLBACK: dict[str, dict] = {
-    "2.4":  {"ga": "2025-03-12", "fs_end": "2025-09-12", "mnt_end": "2026-10-31"},
-    "2.11": {"ga": "2025-08-06", "fs_end": "2026-01-31", "mnt_end": "2027-07-27"},
-    "2.17": {"ga": "2025-11-14", "fs_end": "2026-05-14", "mnt_end": "2027-08-25"},
-    "2.22": {"ga": "2026-03-19", "fs_end": "2026-09-21", "mnt_end": "2028-02-25"},
-}
-
-_GATEKEEPER_FALLBACK: dict[str, dict] = {
-    "3.17": {"ga": "2024-11-19", "fs_end": "2025-08-01", "mnt_end": "2025-12-04"},
-    "3.18": {"ga": "2025-03-20", "fs_end": "2025-12-04", "mnt_end": "2026-04-23"},
-    "3.19": {"ga": "2025-08-01", "fs_end": "2026-04-23", "mnt_end": "2026-08-01"},
-    "3.20": {"ga": "2025-12-04", "fs_end": "2026-08-01", "mnt_end": "2026-12-01"},
-    "3.21": {"ga": "2026-04-23", "fs_end": "2026-12-01", "mnt_end": "2027-04-01"},
-}
-
-_SUBMARINER_FALLBACK: dict[str, dict] = {
-    "0.18": {"ga": "2024-07-18", "fs_end": "2025-08-15", "mnt_end": "2026-01-16"},
-    "0.19": {"ga": "2024-11-06", "fs_end": "2025-12-08", "mnt_end": "2026-06-09"},
-    "0.20": {"ga": "2025-03-19", "fs_end": "2026-04-17", "mnt_end": "2026-09-11"},
-    "0.22": {"ga": "2025-12-04", "fs_end": "2027-01-05", "mnt_end": "2027-09-10"},
-}
-
-_QUAY_FALLBACK: dict[str, dict] = {
-    "3.13": {"ga": "2025-01-22", "fs_end": "2025-07-07", "mnt_end": "2026-04-01"},
-    "3.14": {"ga": "2025-04-02", "fs_end": "2025-10-07", "mnt_end": "2026-08-25"},
-    "3.15": {"ga": "2025-07-07", "fs_end": "2026-03-18", "mnt_end": "2026-12-17"},
-    "3.16": {"ga": "2025-12-18", "fs_end": "2026-06-24", "mnt_end": "2027-04-21"},
-    "3.17": {"ga": "2026-03-24", "fs_end": "2026-10-01", "mnt_end": "2027-08-03"},
-}
-
-_ODF_MULTICLUSTER_FALLBACK: dict[str, dict] = {
-    "4.16": {"ga": "2024-06-27", "fs_end": "2025-01-01", "mnt_end": "2025-12-27"},
-    "4.17": {"ga": "2024-10-30", "fs_end": "2025-06-11", "mnt_end": "2026-04-01"},
-    "4.18": {"ga": "2025-03-11", "fs_end": "2025-10-28", "mnt_end": "2026-08-25"},
-    "4.19": {"ga": "2025-07-28", "fs_end": "2026-02-18", "mnt_end": "2026-12-17"},
-    "4.20": {"ga": "2025-11-18", "fs_end": "2026-06-09", "mnt_end": "2027-04-21"},
-}
-
-_DR_CLUSTER_FALLBACK: dict[str, dict] = _ODF_MULTICLUSTER_FALLBACK
-
-_CONNECTIVITY_LINK_FALLBACK: dict[str, dict] = {
-    "1.1": {"ga": "2025-05-26", "fs_end": "2025-10-01", "mnt_end": "2026-06-11"},
-    "1.2": {"ga": "2025-10-01", "fs_end": "2026-02-26", "mnt_end": "2026-10-01"},
-    "1.3": {"ga": "2026-02-26", "fs_end": "2026-06-11", "mnt_end": "2026-10-01"},
-    "1.4": {"ga": "2026-06-11", "fs_end": "2026-10-01", "mnt_end": "2027-02-01"},
-}
-
-_GLOBAL_HUB_FALLBACK: dict[str, dict] = {
-    "1.4": {"ga": "2025-03-20", "fs_end": "2026-04-17"},
-    "1.5": {"ga": "2025-07-21", "fs_end": "2026-10-02"},
-    "1.6": {"ga": "2025-12-04", "fs_end": "2027-02-12"},
-    "1.7": {"ga": "2026-03-10", "fs_end": "2027-04-09"},
-}
-
-# Ceph lifecycle: single support tier mapped to fs_end (same label/colors as Full Support).
-_CEPH_FALLBACK: dict[str, dict] = {
-    "4": {"ga": "2020-01-31", "fs_end": "2023-03-31",
-          "els_end": "2025-04-30", "els2_end": "2027-04-30"},
-    "5": {"ga": "2021-08-31", "fs_end": "2024-08-31", "els_end": "2027-07-31"},
-    "6": {"ga": "2023-03-21", "fs_end": "2026-03-20", "els_end": "2028-03-20"},
-    "7": {"ga": "2023-12-13", "fs_end": "2026-12-12", "els_end": "2029-08-31"},
-    "8": {"ga": "2024-11-25", "fs_end": "2027-11-24", "els_end": "2029-11-24"},
-    "9": {"ga": "2026-01-29", "fs_end": "2029-01-28", "els_end": "2031-01-28"},
-}
+# ── Runtime data (populated from lifecycle-config.yaml) ──────────────────────
+_RHEL_MINOR_DATA: dict[str, dict[str, dict]] = {}
 
 # ── Date parsing ─────────────────────────────────────────────────────────────
 
@@ -392,91 +94,7 @@ def _parse_xy(v: str) -> tuple:
         return (0, 0)
 
 
-PRODUCT_CONFIGS: dict[str, dict] = {
-    "ocp": {
-        "api_name": "OpenShift Container Platform 4",
-        "title":    "OCP Lifecycle",
-        "phase_map": {
-            "General availability":           "ga",
-            "Full support":                   "fs_end",
-            "Maintenance support":            "mnt_end",
-            "Extended update support":        "eus1_end",
-            "Extended update support Term 2": "eus2_end",
-            "Extended life phase":            "elp_end",
-        },
-        "fallback":   _OCP_FALLBACK,
-        "parse_ver":  _parse_ocp,
-        "min_filter": lambda v: (
-            "." in v and v.startswith("4.") and len(v.split(".")) == 2
-            and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 12
-        ),
-        "eus_check":  lambda v: int(v.split(".")[1]) % 2 == 0,
-    },
-    "rhel": {
-        "api_name": "Red Hat Enterprise Linux",
-        "title":    "RHEL Lifecycle",
-        "phase_map": {
-            "General availability":                      "ga",
-            "Full support":                              "fs_end",
-            "Maintenance support":                       "mnt_end",
-            "Extended life cycle support (ELS) add-on": "els_end",
-            "Extended life phase":                       "elp_end",
-        },
-        "fallback":   _RHEL_FALLBACK,
-        "parse_ver":  _parse_rhel,
-        "min_filter": lambda v: v.isdigit() and int(v) >= 7,
-        "eus_check":  None,
-    },
-    "aap": {
-        "api_name": "Red Hat Ansible Automation Platform",
-        "title":    "AAP Lifecycle",
-        "phase_map": {
-            "General availability":           "ga",
-            "Full support":                   "fs_end",
-            "Maintenance Support 1":          "mnt_end",
-            "Maintenance support 2":          "mnt2_end",
-            "Extended update support":        "eus1_end",
-            "Extended update support Term 2": "eus2_end",
-        },
-        "fallback":   _AAP_FALLBACK,
-        "parse_ver":  _parse_aap,
-        "min_filter": lambda v: (
-            "." in v and len(v.split(".")) == 2
-            and all(x.isdigit() for x in v.split("."))
-            and int(v.split(".")[0]) >= 2
-        ),
-        "eus_check":  None,
-    },
-    "rhoai": {
-        "api_name": "Red Hat OpenShift AI Self-Managed",
-        "title":    "RHOAI Lifecycle",
-        "phase_map": {
-            "General availability":           "ga",
-            "Full support":                   "fs_end",
-            "Extended update support":        "eus1_end",
-            "Extended update support Term 2": "eus2_end",
-        },
-        "fallback":   _RHOAI_FALLBACK,
-        "parse_ver":  _parse_rhoai,
-        "min_filter": lambda v: _parse_rhoai(v) >= (2, 19) and "." in v.rstrip("*"),
-        "eus_check":  None,
-    },
-    "ceph": {
-        "api_name": "Red Hat Ceph Storage",
-        "title":    "Ceph Lifecycle",
-        "phase_map": {
-            "General availability":                              "ga",
-            "End of Life":                                       "fs_end",
-            "Extended life cycle support (ELS) add-on":         "els_end",
-            "Extended life cycle support (ELS) Term 2 add-on":  "els2_end",
-        },
-        "fallback":        _CEPH_FALLBACK,
-        "parse_ver":       lambda v: int(v) if v.isdigit() else 0,
-        "name_transform":  lambda n: n.replace("Red Hat Ceph Storage ", "").replace("Inktank Ceph Enterprise ", "").strip(),
-        "min_filter":      lambda v: v.isdigit() and int(v) >= 4,
-        "eus_check":       None,
-    },
-}
+PRODUCT_CONFIGS: dict[str, dict] = {}
 
 _OP_PHASE_MAP: dict[str, str] = {
     "General availability":           "ga",
@@ -496,231 +114,225 @@ _ODF_PHASE_MAP: dict[str, str] = {
     "Extended update support Term 3": "eus3_end",
 }
 
-OPERATOR_CONFIGS: dict[str, dict] = {
-    "pipelines": {
-        "api_name": "Red Hat OpenShift Pipelines", "title": "OpenShift Pipelines",
-        "phase_map": _OP_PHASE_MAP, "fallback": _PIPELINES_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 14) and "." in v,
-    },
-    "gitops": {
-        "api_name": "Red Hat OpenShift GitOps", "title": "OpenShift GitOps",
-        "phase_map": _OP_PHASE_MAP, "fallback": _GITOPS_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 12) and "." in v,
-    },
-    "service-mesh": {
-        "api_name": "Red Hat OpenShift Service Mesh", "title": "OpenShift Service Mesh",
-        "phase_map": _OP_PHASE_MAP, "fallback": _SERVICE_MESH_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (2, 4) and "." in v,
-    },
-    "virtualization": {
-        "api_name": "Red Hat OpenShift Virtualization", "title": "OpenShift Virtualization",
-        "phase_map": _OP_PHASE_MAP, "fallback": _VIRT_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "odf": {
-        "api_name": "Red Hat OpenShift Data Foundation", "title": "OpenShift Data Foundation",
-        "phase_map": _ODF_PHASE_MAP, "fallback": _ODF_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "logging": {
-        "api_name": "logging for Red Hat OpenShift", "title": "Logging for OpenShift",
-        "phase_map": _OP_PHASE_MAP, "fallback": _LOGGING_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (6, 0) and "." in v,
-    },
-    "oadp": {
-        "api_name": "OpenShift APIs for Data Protection", "title": "OADP",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OADP_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 3) and "." in v,
-    },
-    "builds": {
-        "api_name": "builds for Red Hat OpenShift", "title": "Builds for OpenShift",
-        "phase_map": _OP_PHASE_MAP, "fallback": _BUILDS_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 3) and "." in v,
-    },
-    "dr-hub": {
-        "api_name": "Openshift DR Hub Operator", "title": "OpenShift DR Hub",
-        "phase_map": _OP_PHASE_MAP, "fallback": _DR_HUB_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "cert-manager": {
-        "api_name": "cert-manager operator for Red Hat OpenShift", "title": "cert-manager",
-        "phase_map": _OP_PHASE_MAP, "fallback": _CERTMGR_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 12) and "." in v,
-    },
-    # ── Additional operators ──────────────────────────────────────────────────
-    "rhacm": {
-        "api_name": "Red Hat Advanced Cluster Management for Kubernetes", "title": "RHACM",
-        "phase_map": _OP_PHASE_MAP, "fallback": _RHACM_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (2, 10) and "." in v,
-    },
-    "rhacs": {
-        "api_name": "Red Hat Advanced Cluster Security for Kubernetes", "title": "RHACS",
-        "phase_map": _OP_PHASE_MAP, "fallback": _RHACS_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (4, 5) and "." in v,
-    },
-    "serverless": {
-        "api_name": "Red Hat OpenShift Serverless", "title": "OpenShift Serverless",
-        "phase_map": _OP_PHASE_MAP, "fallback": _SERVERLESS_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 30) and "." in v,
-    },
-    "mtv": {
-        "api_name": "migration toolkit for virtualization", "title": "Migration Toolkit for Virtualization",
-        "phase_map": _OP_PHASE_MAP, "fallback": _MTV_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (2, 6) and "." in v,
-    },
-    "loki": {
-        "api_name": "Loki operator", "title": "Loki Operator",
-        "phase_map": _OP_PHASE_MAP, "fallback": _LOKI_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (6, 0) and "." in v,
-    },
-    "kmm": {
-        "api_name": "Kernel Module Management operator for Red Hat OpenShift (Hub)", "title": "KMM",
-        "phase_map": _OP_PHASE_MAP, "fallback": _KMM_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (2, 1) and "." in v,
-    },
-    "rhdh": {
-        "api_name": "Red Hat Developer Hub", "title": "Red Hat Developer Hub",
-        "phase_map": _OP_PHASE_MAP, "fallback": _RHDH_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 5) and "." in v,
-    },
-    "sriov": {
-        "api_name": "SR-IOV network operator", "title": "SR-IOV Network Operator",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "nfd": {
-        "api_name": "node feature discovery operator", "title": "Node Feature Discovery",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "nmstate": {
-        "api_name": "Kubernetes NMState Operator", "title": "Kubernetes NMState",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "lso": {
-        "api_name": "local storage operator", "title": "Local Storage Operator",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "metallb": {
-        "api_name": "MetalLB operator", "title": "MetalLB Operator",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "vpa": {
-        "api_name": "vertical pod autoscaler operator", "title": "Vertical Pod Autoscaler",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "numaresources": {
-        "api_name": "numaresources-operator", "title": "NUMAresources Operator",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "winc": {
-        "api_name": "Red Hat OpenShift support for Windows Containers", "title": "Windows Containers",
-        "phase_map": _OP_PHASE_MAP, "fallback": _WINC_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (10, 14) and "." in v,
-    },
-    "mtc": {
-        "api_name": "migration toolkit for containers", "title": "Migration Toolkit for Containers",
-        "phase_map": _OP_PHASE_MAP, "fallback": _MTC_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 7) and "." in v,
-    },
-    "web-terminal": {
-        "api_name": "OpenShift Web Terminal", "title": "Web Terminal",
-        "phase_map": _OP_PHASE_MAP, "fallback": _WEBTERMINAL_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 10) and "." in v,
-    },
-    "mce": {
-        "api_name": "Multicluster Engine for Kubernetes", "title": "Multicluster Engine",
-        "phase_map": _OP_PHASE_MAP, "fallback": _MCE_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (2, 7) and "." in v,
-    },
-    "kiali": {
-        "api_name": "Kiali", "title": "Kiali",
-        "phase_map": _OP_PHASE_MAP, "fallback": _KIALI_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (2, 4) and "." in v,
-    },
-    "gatekeeper": {
-        "api_name": "Gatekeeper operator", "title": "Gatekeeper",
-        "phase_map": _OP_PHASE_MAP, "fallback": _GATEKEEPER_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (3, 17) and "." in v,
-    },
-    "submariner": {
-        "api_name": "Submariner", "title": "Submariner",
-        "phase_map": _OP_PHASE_MAP, "fallback": _SUBMARINER_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (0, 17) and "." in v,
-    },
-    "ptp": {
-        "api_name": "PTP Operator", "title": "PTP Operator",
-        "phase_map": _OP_PHASE_MAP, "fallback": _OCP_ALIGNED_OP_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 14,
-    },
-    "quay": {
-        "api_name": "Red Hat Quay", "title": "Red Hat Quay",
-        "phase_map": _OP_PHASE_MAP, "fallback": _QUAY_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (3, 12) and "." in v,
-    },
-    "odf-multicluster": {
-        "api_name": "ODF Multicluster Orchestrator", "title": "ODF Multicluster Orchestrator",
-        "phase_map": _OP_PHASE_MAP, "fallback": _ODF_MULTICLUSTER_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": None,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 16,
-    },
-    "dr-cluster": {
-        "api_name": "Openshift DR Cluster Operator", "title": "OpenShift DR Cluster",
-        "phase_map": _OP_PHASE_MAP, "fallback": _DR_CLUSTER_FALLBACK,
-        "parse_ver": _parse_ocp, "eus_check": None,
-        "min_filter": lambda v: "." in v and v.startswith("4.") and v.split(".")[1].isdigit() and int(v.split(".")[1]) >= 16,
-    },
-    "global-hub": {
-        "api_name": "multicluster global hub", "title": "Multicluster Global Hub",
-        "phase_map": _OP_PHASE_MAP, "fallback": _GLOBAL_HUB_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 4) and "." in v,
-    },
-    "connectivity-link": {
-        "api_name": "Red Hat Connectivity Link", "title": "Red Hat Connectivity Link",
-        "phase_map": _OP_PHASE_MAP, "fallback": _CONNECTIVITY_LINK_FALLBACK,
-        "parse_ver": _parse_xy, "eus_check": None,
-        "min_filter": lambda v: _parse_xy(v) >= (1, 1) and "." in v,
-    },
+_KEYCLOAK_PHASE_MAP: dict[str, str] = {
+    "General availability": "ga",
+    "Full support":         "fs_end",
+    "Maintenance support":  "mnt_end",
 }
+
+_ROLLING_GA_EOL_PHASE_MAP: dict[str, str] = {
+    "General availability": "ga",
+    "End of Life":          "fs_end",
+}
+
+OPERATOR_CONFIGS: dict[str, dict] = {}
+
+_MW_ELS_PHASE_MAP: dict[str, str] = {
+    "General availability":                        "ga",
+    "Full support":                                "fs_end",
+    "Maintenance support":                         "mnt_end",
+    "Extended life cycle support (ELS) 1":         "els_end",
+    "Extended life cycle support (ELS) 2":         "els2_end",
+}
+
+def _parse_xdotx(v: str) -> tuple:
+    """Parse 'X.x' or 'X.Y.x' middleware version like '8.x' → (8,), '7.x' → (7,)."""
+    base = v.split(".")[0]
+    try:
+        return (int(base),)
+    except ValueError:
+        return (0,)
+
+MIDDLEWARE_CONFIGS: dict[str, dict] = {}
+
+# ── Declarative YAML config support ──────────────────────────────────────────
+# Maps strategy name → {parse_ver, eus_check}. min_filter is built by _make_min_filter().
+# Populated here so all parse functions are already defined above.
+_VERSION_STRATEGIES: dict[str, dict] = {
+    "ocp-minor":   {"parse_ver": _parse_ocp,    "eus_check": lambda v: int(v.split(".")[1]) % 2 == 0},
+    "xy":          {"parse_ver": _parse_xy,     "eus_check": None},
+    "xy-exact":    {"parse_ver": _parse_xy,     "eus_check": None},
+    "xy-eus-even": {"parse_ver": _parse_xy,     "eus_check": lambda v: _parse_xy(v)[1] % 2 == 0},
+    "x-dotx":      {"parse_ver": _parse_xdotx,  "eus_check": None},
+    "rhel-major":  {"parse_ver": _parse_rhel,   "eus_check": None},
+    "aap":         {"parse_ver": _parse_aap,    "eus_check": None},
+    "rhoai":       {"parse_ver": _parse_rhoai,  "eus_check": None},
+    "ceph":        {
+        "parse_ver": lambda v: (int(v),) if v.isdigit() else (0,),
+        "eus_check": None,
+        "name_transform": lambda n: n.replace("Red Hat Ceph Storage ", "").replace("Inktank Ceph Enterprise ", "").strip(),
+    },
+    "rolling-eol": {"parse_ver": _parse_xy,     "eus_check": None},
+}
+
+# Maps preset name → phase_map dict for use in lifecycle-config.yaml.
+_PHASE_MAP_PRESETS: dict[str, dict] = {
+    "op-standard":    _OP_PHASE_MAP,
+    "op-odf":         _ODF_PHASE_MAP,
+    "els2":           _MW_ELS_PHASE_MAP,
+    "keycloak":       _KEYCLOAK_PHASE_MAP,
+    "rolling-ga-eol": _ROLLING_GA_EOL_PHASE_MAP,
+}
+
+
+def _coerce_date_str(v: object) -> str:
+    """PyYAML auto-converts bare ISO dates to datetime.date — turn them back to strings."""
+    if hasattr(v, "isoformat"):
+        return v.isoformat()[:10]
+    return str(v)
+
+
+def _make_min_filter(strategy: str, min_version: str):
+    """Build a min_filter callable from a strategy name and minimum version string."""
+    if strategy == "ocp-minor":
+        min_t = _parse_ocp(min_version)
+        return lambda v, _mt=min_t: (
+            "." in v and v.startswith("4.") and len(v.split(".")) == 2
+            and v.split(".")[1].isdigit() and _parse_ocp(v) >= _mt
+        )
+    if strategy in ("rhel-major", "ceph"):
+        min_i = int(min_version)
+        return lambda v, _mi=min_i: v.isdigit() and int(v) >= _mi
+    if strategy == "aap":
+        min_t = _parse_aap(min_version)
+        return lambda v, _mt=min_t: (
+            "." in v and len(v.split(".")) == 2
+            and all(x.isdigit() for x in v.split("."))
+            and _parse_aap(v) >= _mt
+        )
+    if strategy == "rhoai":
+        min_t = _parse_rhoai(min_version)
+        return lambda v, _mt=min_t: _parse_rhoai(v) >= _mt and "." in v.rstrip("*")
+    if strategy == "xy-exact":
+        min_t = _parse_xy(min_version)
+        return lambda v, _mt=min_t: (
+            "." in v and not v.endswith(".x")
+            and len(v.split(".")) == 2
+            and all(p.isdigit() for p in v.split("."))
+            and _parse_xy(v) >= _mt
+        )
+    if strategy == "x-dotx":
+        min_i = int(min_version)
+        return lambda v, _mi=min_i: v.endswith(".x") and v[:-2].isdigit() and int(v[:-2]) >= _mi
+    # xy, xy-eus-even, rolling-eol, unknown
+    parse = _VERSION_STRATEGIES.get(strategy, {}).get("parse_ver", _parse_xy)
+    min_t = parse(min_version)
+    return lambda v, _p=parse, _mt=min_t: _p(v) >= _mt and "." in v
+
+
+def _apply_product_overrides(products: dict) -> None:
+    for key, raw in products.items():
+        cfg = PRODUCT_CONFIGS.setdefault(key, {})
+        for field in ("api_name", "title", "page_url", "info_html"):
+            if field in raw:
+                cfg[field] = raw[field]
+        if "phase_map" in raw:
+            cfg["phase_map"] = dict(raw["phase_map"])
+        if "fallback" in raw:
+            cfg["fallback"] = {
+                str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
+                for k, v in raw["fallback"].items()
+            }
+        strat = raw.get("version_strategy")
+        if strat and strat in _VERSION_STRATEGIES:
+            vs = _VERSION_STRATEGIES[strat]
+            cfg["parse_ver"] = vs["parse_ver"]
+            cfg["eus_check"] = vs["eus_check"]
+            if "name_transform" in vs:
+                cfg["name_transform"] = vs["name_transform"]
+            if "min_version" in raw:
+                cfg["min_filter"] = _make_min_filter(strat, str(raw["min_version"]))
+
+
+def _apply_operator_overrides(operators: dict) -> None:
+    for key, raw in operators.items():
+        cfg = OPERATOR_CONFIGS.setdefault(key, {})
+        for field in ("api_name", "title", "page_url"):
+            if field in raw:
+                cfg[field] = raw[field]
+        preset = raw.get("phase_map_preset")
+        if preset and preset in _PHASE_MAP_PRESETS:
+            cfg["phase_map"] = _PHASE_MAP_PRESETS[preset]
+        if "phase_map" in raw:
+            cfg["phase_map"] = dict(raw["phase_map"])
+        if "fallback" in raw:
+            cfg["fallback"] = {
+                str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
+                for k, v in raw["fallback"].items()
+            }
+        else:
+            cfg.setdefault("fallback", {})
+        strat = raw.get("version_strategy")
+        if strat and strat in _VERSION_STRATEGIES:
+            vs = _VERSION_STRATEGIES[strat]
+            cfg["parse_ver"] = vs["parse_ver"]
+            cfg["eus_check"] = vs["eus_check"]
+            cfg["min_filter"] = _make_min_filter(strat, str(raw.get("min_version", "0.0")))
+        cfg.setdefault("eus_check", None)
+
+
+def _apply_middleware_overrides(middleware: dict) -> None:
+    for key, raw in middleware.items():
+        cfg = MIDDLEWARE_CONFIGS.setdefault(key, {})
+        for field in ("api_name", "title", "page_url"):
+            if field in raw:
+                cfg[field] = raw[field]
+        preset = raw.get("phase_map_preset")
+        if preset and preset in _PHASE_MAP_PRESETS:
+            cfg["phase_map"] = _PHASE_MAP_PRESETS[preset]
+        if "phase_map" in raw:
+            cfg["phase_map"] = dict(raw["phase_map"])
+        if "fallback" in raw:
+            cfg["fallback"] = {
+                str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
+                for k, v in raw["fallback"].items()
+            }
+        else:
+            cfg.setdefault("fallback", {})
+        strat = raw.get("version_strategy")
+        if strat and strat in _VERSION_STRATEGIES:
+            vs = _VERSION_STRATEGIES[strat]
+            cfg["parse_ver"] = vs["parse_ver"]
+            cfg["eus_check"] = vs["eus_check"]
+            cfg["min_filter"] = _make_min_filter(strat, str(raw.get("min_version", "0")))
+        cfg.setdefault("eus_check", None)
+
+
+def _load_external_config() -> None:
+    """Merge lifecycle-config.yaml into the runtime dicts (requires pyyaml)."""
+    if not _HAS_YAML:
+        print(
+            "Error: PyYAML is required but not installed.\n"
+            "  Run: pip install pyyaml\n"
+            "  lifecycle-config.yaml is the sole source of product data — without it no charts can be generated.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    cfg_path = Path(__file__).parent / "lifecycle-config.yaml"
+    if not cfg_path.exists():
+        print("Warning: lifecycle-config.yaml not found — no chart data will be generated.", file=sys.stderr)
+        return
+    with open(cfg_path, encoding="utf-8") as f:
+        raw = _yaml.safe_load(f)
+    if not isinstance(raw, dict):
+        return
+    if raw.get("products"):
+        _apply_product_overrides(raw["products"])
+    if raw.get("operators"):
+        _apply_operator_overrides(raw["operators"])
+    if raw.get("middleware"):
+        _apply_middleware_overrides(raw["middleware"])
+    if raw.get("rhel_minors"):
+        for major, minors in raw["rhel_minors"].items():
+            major_str = str(major)
+            _RHEL_MINOR_DATA.setdefault(major_str, {})
+            for ver, fields in minors.items():
+                _RHEL_MINOR_DATA[major_str][str(ver)] = {
+                    str(fk): _coerce_date_str(fv) for fk, fv in fields.items()
+                }
+
+
+_load_external_config()
 
 # ── Phase palette (PatternFly-aligned) ───────────────────────────────────────
 PHASES: dict[str, dict] = {
@@ -731,6 +343,13 @@ PHASES: dict[str, dict] = {
     "eus1": {"label": "EUS-1",         "bg": "#bee1f4", "border": "#004080", "text": "#004080"},
     "eus2": {"label": "EUS-2",         "bg": "#e7d4ff", "border": "#40199a", "text": "#40199a"},
     "eus3": {"label": "EUS-3",         "bg": "#f2c4ff", "border": "#6a0080", "text": "#6a0080"},
+    "elc":  {"label": "ELC",           "bg": "#9ec8ff", "border": "#004499", "text": "#004499"},
+    "elcp": {"label": "ELC Premium",   "bg": "#b8e6b8", "border": "#1e6b1e", "text": "#1e5c1e"},
+    # RHEL minor-specific phases matching official Red Hat naming
+    "rhel_std":  {"label": "Standard",      "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
+    "rhel_prem": {"label": "Premium",       "bg": "#f9d0c4", "border": "#8b3020", "text": "#8b3020"},
+    "rhel_elcp": {"label": "ELC, Premium",  "bg": "#fde8df", "border": "#c07060", "text": "#8b4030"},
+    "rhel_ll":   {"label": "Long Life",     "bg": "#a8d8ea", "border": "#005f73", "text": "#003f4f"},
     "els":  {"label": "ELS",           "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
     "els2": {"label": "ELS-2",         "bg": "#e88080", "border": "#8b0000", "text": "#fff"},
     "elp":  {"label": "Ext. Life",     "bg": "#e4e4e4", "border": "#6a6e73", "text": "#3c3f42"},
@@ -746,6 +365,8 @@ PHASE_KEYS = [
     ("eus1", "eus1_end"),
     ("eus2", "eus2_end"),
     ("eus3", "eus3_end"),  # ODF: Extended Update Support Term 3
+    ("elc",  "elc_end"),   # RHEL ELC (minor only, built in build_rhel_minor_versions)
+    ("elcp", "elcp_end"),  # RHEL ELC Premium (minor only)
     ("els",  "els_end"),
     ("els2", "els2_end"),  # Ceph: ELS Term 2 add-on
     ("elp",  "elp_end"),
@@ -765,7 +386,7 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
     fallback = cfg["fallback"]
     name_transform = cfg.get("name_transform")
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "lifecycle-graph/1.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "lifecycle-graph/1.0", "Accept-Language": "en-US,en;q=0.9"})
         with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
         product = data["data"][0]
@@ -849,6 +470,47 @@ def build_versions(
         result.append({
             "version": ver, "ga": ga, "last_end": last_end,
             "segments": segments, "is_eus": is_eus,
+            "is_eol": is_eol, "phase_key": phase_key, "days_left": days_left,
+        })
+    return result
+
+
+def build_rhel_minor_versions(major_ver: str) -> list[dict]:
+    """Build per-minor-release version dicts for the RHEL minor details toggle."""
+    minors = _RHEL_MINOR_DATA.get(major_ver, {})
+    today = date.today()
+    result = []
+    for ver in sorted(minors.keys(), key=lambda v: tuple(int(x) for x in v.split(".")), reverse=True):
+        m = minors[ver]
+        ga = _d(m["ga"])
+        std_end = _d(m["std_end"])
+        eus_end = _d(m["eus_end"]) if "eus_end" in m else None
+        elc_end = _d(m["elc_end"]) if "elc_end" in m else None
+        elcp_end = _d(m["elcp_end"]) if "elcp_end" in m else None
+        last_end = std_end
+        for cand in (eus_end, elc_end, elcp_end):
+            if cand and cand > last_end:
+                last_end = cand
+        segments = [{"key": "rhel_std", "start": ga, "end": std_end}]
+        if eus_end and eus_end > std_end:
+            segments.append({"key": "rhel_prem", "start": std_end, "end": eus_end})
+        # ELC, Premium starts where Premium/EUS ends (or std_end if no EUS)
+        elc_start = eus_end if (eus_end and eus_end > std_end) else std_end
+        if elc_end and elc_end > elc_start:
+            segments.append({"key": "rhel_elcp", "start": elc_start, "end": elc_end})
+        if elcp_end and elcp_end > (elc_end or elc_start):
+            segments.append({"key": "rhel_ll", "start": elc_end or elc_start, "end": elcp_end})
+        phase_key = "eol"
+        days_left = 0
+        for seg in segments:
+            if today <= seg["end"]:
+                phase_key = seg["key"]
+                days_left = (seg["end"] - today).days
+                break
+        is_eol = phase_key == "eol"
+        result.append({
+            "version": ver, "ga": ga, "last_end": last_end,
+            "segments": segments, "is_eus": bool(eus_end),
             "is_eol": is_eol, "phase_key": phase_key, "days_left": days_left,
         })
     return result
@@ -1051,7 +713,7 @@ _PAGE_CSS = """
     top: var(--chart-top);
     bottom: 20px;
     left: calc(var(--card-px) + var(--label-w));
-    right: calc(var(--card-px) + var(--days-col) + 8px);
+    right: calc(var(--card-px) + var(--days-col));
     pointer-events: none;
   }
   .chart-rows {
@@ -1204,11 +866,64 @@ _PAGE_CSS = """
   }
   .theme-btn:hover { background: #333; }
   .op-details .card { border: none; border-radius: 0; box-shadow: none; }
+  .card-info-block {
+    border-top: 1px solid var(--border-controls);
+    background: var(--bg-controls);
+    padding: 0 var(--card-px);
+    font-size: 12px;
+    color: var(--text-controls);
+  }
+  .card-info-block summary {
+    cursor: pointer; padding: 6px 0; font-weight: 600;
+    list-style: none; user-select: none;
+  }
+  .card-info-block summary::-webkit-details-marker { display: none; }
+  .card-info-block summary::before { content: "▶ "; font-size: 9px; color: var(--text-secondary); }
+  .card-info-block[open] summary::before { content: "▼ "; }
+  .card-info-body { padding: 6px 0 10px; line-height: 1.5; }
+  .card-info-body a { color: var(--link-color); }
+  .minor-group { display: none; flex-direction: column; gap: 2px; }
+  .minor-group.visible { display: flex; }
+  .minor-row {
+    display: flex; align-items: center;
+    height: 28px;
+    padding-left: 16px;
+    background: var(--bg-row-alt);
+    border-left: 2px solid var(--border-base);
+    margin-left: 2px;
+  }
+  .minor-row .chart-row-label {
+    width: calc(var(--label-w) - 16px);
+    flex-shrink: 0; padding-right: 6px;
+    overflow: hidden; display: flex; align-items: center;
+  }
+  .minor-row .ver-code { font-size: 11px; font-weight: 600; }
+  .minor-row .chart-row-bar { flex: 1; position: relative; height: 18px; }
+  .minor-row .chart-row-days { width: var(--days-col); flex-shrink: 0; text-align: right; padding-left: 4px; font-size: 11px; }
+  .nav-toggle {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 12px 4px 8px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: 1.5px solid var(--border-color); background: var(--card-bg);
+    color: var(--text-secondary); transition: background 0.15s, color 0.15s, opacity 0.15s;
+    text-decoration: none; user-select: none;
+  }
+  .nav-toggle .nav-check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 700;
+    border: 1.5px solid currentColor; flex-shrink: 0; transition: background 0.15s;
+  }
+  .nav-toggle .nav-check::after { content: "✕"; }
+  .nav-toggle.nav-on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .nav-toggle.nav-on .nav-check { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
+  .nav-toggle.nav-on .nav-check::after { content: "✓"; }
+  .nav-toggle:hover { opacity: 0.85; }
 """
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
-                 show_footer: bool = True, show_controls: bool = False) -> str:
+                 show_footer: bool = True, show_controls: bool = False,
+                 minor_data: dict[str, list[dict]] | None = None,
+                 page_url: str = "", info_html: str = "") -> str:
     today = date.today()
     pad = timedelta(days=60)
     all_dates = [v["ga"] for v in versions] + [v["last_end"] for v in versions] + [today]
@@ -1317,6 +1032,49 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
             f'</div>'
         )
 
+        # ── Minor release sub-rows ───────────────────────────────────────────
+        if minor_data and v["version"] in minor_data:
+            minor_rows_html = ""
+            for mv in minor_data[v["version"]]:
+                mv_bar_left = pct(mv["ga"])
+                mv_bar_right = pct(mv["last_end"])
+                mv_bar_width = mv_bar_right - mv_bar_left
+                mv_total_days = max((mv["last_end"] - mv["ga"]).days, 1)
+                mv_segs_html = ""
+                for i, seg in enumerate(mv["segments"]):
+                    ph = PHASES[seg["key"]]
+                    w = (seg["end"] - seg["start"]).days / mv_total_days * 100
+                    is_first, is_last = i == 0, i == len(mv["segments"]) - 1
+                    r = f"{'3px' if is_first else '0'} {'3px' if is_last else '0'} {'3px' if is_last else '0'} {'3px' if is_first else '0'}"
+                    bl = f"1px solid {ph['border']}" if is_first else "none"
+                    br = f"1px solid {ph['border']}" if is_last else "none"
+                    _tip = f'{ph["label"]} | {seg["start"].isoformat()} → {seg["end"].isoformat()}'
+                    mv_segs_html += (
+                        f'<div data-phase="{_tip}" '
+                        f'style="width:{w:.3f}%;height:100%;background:{ph["bg"]};'
+                        f'border-top:1px solid {ph["border"]};border-bottom:1px solid {ph["border"]};'
+                        f'border-left:{bl};border-right:{br};border-radius:{r}"></div>'
+                    )
+                mv_eus_badge = '<span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>' if mv["is_eus"] else ""
+                if mv["is_eol"]:
+                    mv_days_badge = '<span style="color:var(--red);font-weight:700;font-size:11px">EOL</span>'
+                else:
+                    _ph = PHASES[mv["phase_key"]]
+                    mv_days_badge = f'<span style="color:{_ph["text"]};font-weight:600;font-size:11px">{mv["days_left"]}d</span>'
+                minor_rows_html += (
+                    f'<div class="minor-row" data-eol="{str(mv["is_eol"]).lower()}">'
+                    f'  <div class="chart-row-label">'
+                    f'    <code class="ver-code">{mv["version"]}</code>{mv_eus_badge}'
+                    f'  </div>'
+                    f'  <div class="chart-row-bar">'
+                    f'    <div style="position:absolute;left:{mv_bar_left:.3f}%;width:{mv_bar_width:.3f}%;height:100%;'
+                    f'border-radius:3px;overflow:hidden;display:flex">{mv_segs_html}</div>'
+                    f'  </div>'
+                    f'  <div class="chart-row-days">{mv_days_badge}</div>'
+                    f'</div>'
+                )
+            rows_html += f'<div class="minor-group" data-major="{v["version"]}">{minor_rows_html}</div>'
+
     # ── Legend ───────────────────────────────────────────────────────────────
     legend_html = " ".join(
         f'<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)">'
@@ -1342,6 +1100,10 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         ver_names = [v["version"] for v in versions]
         from_opts = "".join(f'<option value="{v}">{v}</option>' for v in ver_names)
         to_opts   = "".join(f'<option value="{v}">{v}</option>' for v in ver_names)
+        minor_toggle_html = (
+            f'<label><input type="checkbox" class="ctrl-minor" onchange="toggleMinorRows(this.closest(\'.card\'))"> '
+            f'Show minor releases</label>'
+        ) if minor_data else ""
         controls_html = (
             f'<div class="card-controls">'
             f'<span class="ctrl-label">Range:</span>'
@@ -1352,10 +1114,25 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
             f'<option value="">All to</option>{to_opts}</select>'
             f'<label><input type="checkbox" class="ctrl-eol" onchange="filterCard(this.closest(\'.card\'))"> '
             f'Include EOL</label>'
+            f'{minor_toggle_html}'
             f'</div>'
         )
     else:
         controls_html = ""
+
+    page_link_html = (
+        f' <a href="{page_url}" target="_blank" rel="noopener" '
+        f'style="font-size:10px;color:var(--link-color);font-weight:400;'
+        f'text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" '
+        f'title="Official lifecycle policy">↗ policy</a>'
+    ) if page_url else ""
+
+    info_block_html = (
+        f'<details class="card-info-block">'
+        f'<summary>ℹ More info</summary>'
+        f'<div class="card-info-body">{info_html}</div>'
+        f'</details>'
+    ) if info_html else ""
 
     return f"""<div class="card"{anchor_attr}>
   <div class="card-header">
@@ -1363,7 +1140,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
       </svg>
-      {chart_label}
+      {chart_label}{page_link_html}
     </span>
     <div class="legend">
       {legend_html}
@@ -1371,6 +1148,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     </div>
   </div>
   {controls_html}
+  {info_block_html}
   <div class="chart-area">
     <div class="chart-inner" style="--mobile-min-width:{max(520, year_span * (24 if year_span > 18 else 40))}px">
       <div class="chart-grid">
@@ -1430,6 +1208,44 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
     )
 
 
+def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict]]) -> str:
+    if not middleware_data:
+        return ""
+    items = []
+    for label, versions, cfg in middleware_data:
+        if not versions:
+            continue
+        n_active = sum(1 for v in versions if not v["is_eol"])
+        meta = f"{len(versions)} version{'s' if len(versions) != 1 else ''}"
+        if n_active:
+            meta += f" · {n_active} active"
+        page_url = cfg.get("page_url", "")
+        page_link = (
+            f' <a href="{page_url}" target="_blank" rel="noopener" '
+            f'style="font-size:10px;color:var(--link-color)" title="Lifecycle policy">↗ policy</a>'
+        ) if page_url else ""
+        card = _render_card(versions, label, show_footer=False, show_controls=True)
+        items.append(
+            f'<details class="op-details">'
+            f'<summary class="op-summary">'
+            f'<span class="op-name">{label}{page_link}</span>'
+            f'<span class="op-meta">{meta}</span>'
+            f'</summary>'
+            f'{card}'
+            f'</details>'
+        )
+    return (
+        f'<div id="middleware">'
+        f'<div class="section-heading">Middleware &amp; Application Services '
+        f'<a href="https://access.redhat.com/support/policy/updates/jboss_notes" '
+        f'target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ lifecycle policy</a>'
+        f'</div>'
+        f'<div class="op-section">'
+        + "\n".join(items)
+        + "</div></div>"
+    )
+
+
 def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "") -> str:
     nav_html = f'<nav class="page-nav">{nav_links}</nav>' if nav_links else ""
     left_html = f'<span class="header-title">{title}</span>'
@@ -1481,8 +1297,27 @@ function filterCard(card) {{
   }}
   rows.forEach(function(row, i) {{
     var eol = row.dataset.eol === 'true';
-    row.style.display = (i >= fromIdx && i <= toIdx && (showEol || !eol)) ? '' : 'none';
+    var visible = i >= fromIdx && i <= toIdx && (showEol || !eol);
+    row.style.display = visible ? '' : 'none';
+    var group = row.nextElementSibling;
+    if (group && group.classList.contains('minor-group')) {{
+      if (!visible) {{
+        group.style.display = 'none';
+      }} else {{
+        group.style.display = group.classList.contains('visible') ? 'flex' : 'none';
+        group.querySelectorAll('.minor-row').forEach(function(mr) {{
+          mr.style.display = (showEol || mr.dataset.eol !== 'true') ? '' : 'none';
+        }});
+      }}
+    }}
   }});
+}}
+function toggleMinorRows(card) {{
+  var show = card.querySelector('.ctrl-minor') && card.querySelector('.ctrl-minor').checked;
+  card.querySelectorAll('.minor-group').forEach(function(g) {{
+    g.classList.toggle('visible', show);
+  }});
+  filterCard(card);
 }}
 document.addEventListener('DOMContentLoaded', function() {{
   document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
@@ -1534,27 +1369,59 @@ document.addEventListener('click', function(e) {{
     if (localStorage.getItem('lifecycle-theme') === null) {{ isDark = e.matches; apply(isDark); }}
   }});
 }})();
+function toggleProductCard(btn) {{
+  var target = btn.getAttribute('data-target');
+  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
+  if (!section) return;
+  var hidden = section.style.display === 'none';
+  if (hidden) {{
+    section.style.display = '';
+    btn.classList.add('nav-on');
+    setTimeout(function() {{ section.scrollIntoView({{behavior: 'smooth', block: 'start'}}); }}, 30);
+  }} else {{
+    section.style.display = 'none';
+    btn.classList.remove('nav-on');
+  }}
+}}
 </script>
 </body>
 </html>"""
 
 
-def render_html(versions: list[dict], chart_label: str, show_footer: bool = True) -> str:
-    card = _render_card(versions, chart_label, show_footer=show_footer, show_controls=True)
+def _rhel_minor_data(versions: list[dict]) -> dict[str, list[dict]]:
+    """Build minor version data for RHEL cards. Only includes majors present in versions."""
+    return {
+        v["version"]: build_rhel_minor_versions(v["version"])
+        for v in versions
+        if v["version"] in _RHEL_MINOR_DATA
+    }
+
+
+def render_html(versions: list[dict], chart_label: str, show_footer: bool = True,
+                minor_data: dict[str, list[dict]] | None = None,
+                page_url: str = "", info_html: str = "") -> str:
+    card = _render_card(versions, chart_label, show_footer=show_footer, show_controls=True,
+                        minor_data=minor_data, page_url=page_url, info_html=info_html)
     return _page_wrap(chart_label, card)
 
 
 def render_combined_html(
-    product_list: list[tuple[str, list[dict]]],
+    product_list: list[tuple[str, list[dict], dict]],
     title: str = "Red Hat Product Lifecycle",
     operators_data: list[tuple[str, list[dict]]] | None = None,
+    middleware_data: list[tuple[str, list[dict], dict]] | None = None,
 ) -> str:
+    _chk = '<span class="nav-check"></span>'
     nav_links = "".join(
-        f'<a href="#{label.lower().replace(" ", "-")}">{label}</a>'
-        for label, _ in product_list
+        f'<button class="nav-toggle nav-on" data-target="{label.lower().replace(" ", "-")}"'
+        f' onclick="toggleProductCard(this)">{_chk}{label}</button>'
+        for label, _, _ in product_list
     )
+    if middleware_data:
+        nav_links += f'<button class="nav-toggle nav-on" data-target="middleware" onclick="toggleProductCard(this)">{_chk}Middleware</button>'
     if operators_data:
-        nav_links += '<a href="#operators">Operators</a>'
+        nav_links += f'<button class="nav-toggle nav-on" data-target="operators" onclick="toggleProductCard(this)">{_chk}Operators</button>'
+    # Guide link lives in the footer, not the nav
     _gh_svg = (
         '<svg height="11" width="11" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;margin-right:4px">'
         '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38'
@@ -1588,15 +1455,21 @@ def render_combined_html(
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     cards = "\n".join(
         _render_card(versions, label, anchor=label.lower().replace(" ", "-"),
-                     show_footer=False, show_controls=True)
-        for label, versions in product_list
+                     show_footer=False, show_controls=True,
+                     minor_data=_rhel_minor_data(versions) if label == "RHEL Lifecycle" else None,
+                     page_url=cfg.get("page_url", ""),
+                     info_html=cfg.get("info_html", ""))
+        for label, versions, cfg in product_list
     )
     operators_section = _render_operator_section(operators_data or [])
+    middleware_section = _render_middleware_section(middleware_data or [])
     footer = (
         f'<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:4px">'
         f'Source: <a href="https://access.redhat.com/product-life-cycles/" '
         f'style="color:#0066cc" target="_blank">Red Hat Product Life Cycles</a>'
         f' &nbsp;·&nbsp; Generated {now_str}'
+        f' &nbsp;·&nbsp; '
+        f'<a href="lifecycle-about.html" style="color:#0066cc">How it works</a>'
         f' &nbsp;·&nbsp; '
         f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph" style="color:#0066cc;display:inline-flex;align-items:center;gap:4px;vertical-align:middle" target="_blank">'
         f'<svg height="13" width="13" viewBox="0 0 16 16" fill="#0066cc" xmlns="http://www.w3.org/2000/svg">'
@@ -1621,7 +1494,10 @@ def render_combined_html(
         f'<a href="https://github.com/mmayeras/redhat-lifecycle-graph/compare" style="color:#0066cc" target="_blank">Open a Pull Request</a>'
         f'</p>'
     )
-    body = cards + ("\n" + operators_section if operators_section else "") + "\n" + footer
+    body = (cards
+            + ("\n" + middleware_section if middleware_section else "")
+            + ("\n" + operators_section if operators_section else "")
+            + "\n" + footer)
     return _page_wrap(title, body, nav_links, contribute_html)
 
 
@@ -1815,12 +1691,13 @@ def export_png(svg_path: Path, png_path: Path) -> bool:
 
 def _fetch_all(
     args: argparse.Namespace,
-) -> tuple[list[tuple[str, list[dict]]], list[tuple[str, list[dict]]]]:
-    """Return (product_list, operators_data) with ALL versions (incl. EOL) for HTML.
+) -> tuple[list[tuple[str, list[dict], dict]], list[tuple[str, list[dict]]], list[tuple[str, list[dict], dict]]]:
+    """Return (product_list, operators_data, middleware_data) with ALL versions (incl. EOL).
 
+    product_list/middleware_data entries are (label, versions, cfg).
     Callers must filter by is_eol themselves when generating SVG/PNG.
     """
-    product_list: list[tuple[str, list[dict]]] = []
+    product_list: list[tuple[str, list[dict], dict]] = []
     for product in ["ocp", "rhel", "aap", "rhoai", "ceph"]:
         cfg = PRODUCT_CONFIGS[product]
         lifecycle = fetch_lifecycle(cfg)
@@ -1833,7 +1710,7 @@ def _fetch_all(
             include_eol=True,  # always; HTML controls filter via JS
         )
         if versions:
-            product_list.append((label, versions))
+            product_list.append((label, versions, cfg))
         else:
             print(f"No versions matched for {product}.", file=sys.stderr)
 
@@ -1843,9 +1720,17 @@ def _fetch_all(
         versions = build_versions(lifecycle, op_cfg, include_eol=True)
         if versions:
             operators_data.append((op_cfg["title"], versions))
-
     operators_data.sort(key=lambda t: t[0].lower())
-    return product_list, operators_data
+
+    middleware_data: list[tuple[str, list[dict], dict]] = []
+    for mw_cfg in MIDDLEWARE_CONFIGS.values():
+        lifecycle = fetch_lifecycle(mw_cfg)
+        versions = build_versions(lifecycle, mw_cfg, include_eol=True)
+        if versions:
+            middleware_data.append((mw_cfg["title"], versions, mw_cfg))
+    middleware_data.sort(key=lambda t: t[0].lower())
+
+    return product_list, operators_data, middleware_data
 
 
 def _svg_versions(versions: list[dict], include_eol: bool) -> list[dict]:
@@ -1873,7 +1758,9 @@ def _generate_product(
         print(f"No versions matched for {product}.", file=sys.stderr)
         return
 
-    html = render_html(versions_html, chart_label)
+    minor_data = _rhel_minor_data(versions_html) if product == "rhel" else None
+    html = render_html(versions_html, chart_label, minor_data=minor_data,
+                       page_url=cfg.get("page_url", ""), info_html=cfg.get("info_html", ""))
     out_html.write_text(html, encoding="utf-8")
     print(f"HTML: {out_html}  ({len(versions_html)} versions)")
 
@@ -1889,6 +1776,391 @@ def _generate_product(
 
     if args.open:
         subprocess.run(["open", str(out_html)], check=False)
+
+
+def _markdown_to_html(text: str) -> str:
+    """Convert a Markdown document to HTML (stdlib only, covers LIFECYCLE.md structure)."""
+    # Phase 1: extract fenced code blocks to protect them from inline transforms
+    placeholders: dict[str, str] = {}
+    counter = [0]
+
+    def _extract_fence(m: re.Match) -> str:
+        lang = m.group(1) or ""
+        code = _html.escape(m.group(2))
+        ph = f"\x00PH{counter[0]}\x00"
+        counter[0] += 1
+        cls = f' class="language-{lang}"' if lang else ""
+        placeholders[ph] = f'<pre><code{cls}>{code}</code></pre>'
+        return "\n" + ph + "\n"
+
+    text = re.sub(r"```(\w+)?\n(.*?)```", _extract_fence, text, flags=re.DOTALL)
+
+    def _inline(s: str) -> str:
+        s = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', s)
+        s = re.sub(r'`([^`]+)`', lambda m: f'<code>{_html.escape(m.group(1))}</code>', s)
+        s = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2" target="_blank">\1</a>', s)
+        return s
+
+    lines = text.splitlines()
+    out: list[str] = []
+    in_list: str | None = None
+    i = 0
+
+    def flush_list() -> None:
+        nonlocal in_list
+        if in_list:
+            out.append(f"</{in_list}>")
+            in_list = None
+
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+
+        # Code block placeholder
+        if stripped in placeholders:
+            flush_list()
+            out.append(placeholders[stripped])
+            i += 1
+            continue
+
+        # ATX headings
+        hm = re.match(r'^(#{1,4})\s+(.+)', line)
+        if hm:
+            flush_list()
+            lvl = len(hm.group(1))
+            out.append(f'<h{lvl}>{_inline(hm.group(2))}</h{lvl}>')
+            i += 1
+            continue
+
+        # Horizontal rule
+        if re.match(r'^---+\s*$', stripped):
+            flush_list()
+            out.append('<hr>')
+            i += 1
+            continue
+
+        # Table: header row followed by separator
+        if '|' in line and i + 1 < len(lines) and re.match(r'^[\|\s\-:]+$', lines[i + 1]):
+            flush_list()
+            headers = [c.strip() for c in line.strip('|').split('|')]
+            i += 2  # skip separator row
+            rows: list[list[str]] = []
+            while i < len(lines) and '|' in lines[i]:
+                rows.append([c.strip() for c in lines[i].strip('|').split('|')])
+                i += 1
+            ths = ''.join(f'<th>{_inline(c)}</th>' for c in headers)
+            trs = ''.join(
+                '<tr>' + ''.join(f'<td>{_inline(c)}</td>' for c in row) + '</tr>'
+                for row in rows
+            )
+            out.append(f'<table><thead><tr>{ths}</tr></thead><tbody>{trs}</tbody></table>')
+            continue
+
+        # Unordered list item
+        ulm = re.match(r'^- (.+)', line)
+        if ulm:
+            if in_list != 'ul':
+                flush_list()
+                in_list = 'ul'
+                out.append('<ul>')
+            out.append(f'<li>{_inline(ulm.group(1))}</li>')
+            i += 1
+            continue
+
+        # Ordered list item
+        olm = re.match(r'^\d+\.\s+(.+)', line)
+        if olm:
+            if in_list != 'ol':
+                flush_list()
+                in_list = 'ol'
+                out.append('<ol>')
+            out.append(f'<li>{_inline(olm.group(1))}</li>')
+            i += 1
+            continue
+
+        # Blank line
+        if not stripped:
+            flush_list()
+            i += 1
+            continue
+
+        # Paragraph: accumulate consecutive non-special lines
+        flush_list()
+        para: list[str] = [_inline(line)]
+        i += 1
+        while i < len(lines):
+            nxt = lines[i]
+            ns = nxt.strip()
+            if (not ns or ns in placeholders
+                    or re.match(r'^[#\-\d]|^---', nxt) or '|' in nxt):
+                break
+            para.append(_inline(nxt))
+            i += 1
+        out.append(f'<p>{" ".join(para)}</p>')
+
+    flush_list()
+
+    result = '\n'.join(out)
+    for ph, block in placeholders.items():
+        result = result.replace(ph, block)
+    return result
+
+
+def _generate_lifecycle_about(path: Path) -> None:
+    """Render a clean About page explaining how the project works."""
+    md_path = Path(__file__).parent / "LIFECYCLE.md"
+    if not md_path.exists():
+        return
+    md_text = md_path.read_text(encoding="utf-8")
+    content = _markdown_to_html(md_text)
+
+    # Build TOC from headings in markdown
+    toc_items = []
+    for m in re.finditer(r'^(#{2,3})\s+(.+)', md_text, re.MULTILINE):
+        lvl = len(m.group(1))
+        title = re.sub(r'[`*]', '', m.group(2)).strip()
+        slug = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')
+        toc_cls = "" if lvl == 2 else " toc-h3"
+        toc_items.append(f'<li class="{toc_cls}"><a href="#{slug}">{_html.escape(title)}</a></li>')
+
+    def _add_id(m: re.Match) -> str:
+        lvl, inner = m.group(1), m.group(2)
+        text = re.sub(r'<[^>]+>', '', inner)
+        slug = re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')
+        return f'<h{lvl} id="{slug}">{inner}</h{lvl}>'
+
+    content = re.sub(r'<h([23])>(.*?)</h\1>', _add_id, content)
+    toc_html = '<ul class="toc-list">' + ''.join(toc_items) + '</ul>'
+
+    html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How it works — lifecycle-graph</title>
+<style>
+:root {
+  --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --border:#30363d;
+  --text:#c9d1d9; --dim:#8b949e; --accent:#58a6ff; --green:#3fb950;
+  --orange:#f0883e; --purple:#d2a8ff; --link:#58a6ff;
+  --code-bg:#161b22; --th:#1c2128;
+}
+[data-theme="light"] {
+  --bg:#f6f8fa; --bg2:#ffffff; --bg3:#f0f3f6; --border:#d0d7de;
+  --text:#1f2328; --dim:#57606a; --accent:#0969da; --green:#1a7f37;
+  --orange:#bc4c00; --purple:#6639ba; --link:#0969da;
+  --code-bg:#f6f8fa; --th:#f0f3f6;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.65}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:99;height:52px;
+  display:flex;align-items:center;gap:12px;padding:0 28px;
+  background:var(--bg2);border-bottom:1px solid var(--border)}
+.nav-back{display:inline-flex;align-items:center;gap:5px;
+  color:var(--accent);text-decoration:none;font-size:13px;
+  padding:5px 12px;border:1px solid var(--border);border-radius:6px;
+  transition:.15s}
+.nav-back:hover{border-color:var(--accent)}
+.nav-title{font-size:14px;font-weight:600}
+.nav-spacer{flex:1}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:6px;
+  color:var(--dim);cursor:pointer;padding:4px 10px;font-size:14px;line-height:1}
+
+/* hero */
+.hero{padding:56px 28px 44px;text-align:center;
+  background:linear-gradient(175deg,var(--bg2) 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--border)}
+.hero h1{margin:0 0 10px;font-size:2.1rem;font-weight:700;letter-spacing:-.5px}
+.hero p{margin:0 auto;max-width:520px;color:var(--dim);font-size:1rem}
+.badges{display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;padding:3px 12px;
+  border-radius:20px;font-size:12px;font-weight:500;border:1px solid;cursor:default}
+.b-blue  {color:var(--accent);border-color:#58a6ff44;background:#58a6ff0d}
+.b-green {color:var(--green);border-color:#3fb95044;background:#3fb9500d}
+.b-orange{color:var(--orange);border-color:#f0883e44;background:#f0883e0d}
+.b-purple{color:var(--purple);border-color:#d2a8ff44;background:#d2a8ff0d}
+
+/* pipeline strip */
+.pipeline{display:flex;align-items:center;justify-content:center;
+  gap:0;padding:32px 28px;flex-wrap:wrap;
+  border-bottom:1px solid var(--border);background:var(--bg2)}
+.pipe-step{display:flex;flex-direction:column;align-items:center;
+  padding:14px 18px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;min-width:130px;text-align:center;gap:4px}
+.pipe-step .ps-icon{font-size:22px}
+.pipe-step .ps-label{font-size:12px;font-weight:600;color:var(--text)}
+.pipe-step .ps-sub{font-size:11px;color:var(--dim)}
+.pipe-arrow{font-size:20px;color:var(--border);padding:0 6px;flex-shrink:0}
+.pipe-step.c-orange{border-color:#f0883e66}
+.pipe-step.c-blue  {border-color:#58a6ff66}
+.pipe-step.c-green {border-color:#3fb95066}
+.pipe-step.c-purple{border-color:#d2a8ff66}
+.pipe-step.c-gray  {border-color:#8b949e66}
+
+/* layout */
+.layout{display:grid;grid-template-columns:210px 1fr;
+  max-width:1160px;margin:0 auto;padding:0 28px 80px}
+
+/* toc */
+.toc{position:sticky;top:52px;align-self:start;
+  height:calc(100vh - 52px);overflow-y:auto;
+  padding:28px 18px 28px 0;border-right:1px solid var(--border)}
+.toc-hd{font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--dim);margin:0 0 10px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:1px 0}
+.toc a{display:block;padding:4px 8px;font-size:13px;color:var(--dim);
+  text-decoration:none;border-radius:5px;border-left:2px solid transparent;
+  transition:.12s}
+.toc a:hover{color:var(--text);background:var(--bg2)}
+.toc a.on{color:var(--accent);border-left-color:var(--accent);background:var(--bg2)}
+.toc .h3 a{padding-left:18px;font-size:12px}
+
+/* article */
+.art{padding:32px 0 0 32px;min-width:0}
+.art h1{font-size:1.8rem;margin:0 0 6px}
+.art h2{font-size:1.15rem;font-weight:600;margin:38px 0 10px;
+  padding-bottom:6px;border-bottom:1px solid var(--border);scroll-margin-top:68px}
+.art h3{font-size:.98rem;font-weight:600;margin:22px 0 6px;scroll-margin-top:68px}
+.art h4{font-size:.88rem;font-weight:600;margin:14px 0 4px;color:var(--dim)}
+.art p{margin:8px 0}
+.art ul,.art ol{margin:6px 0 6px 22px}
+.art li{margin:3px 0}
+.art hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.art a{color:var(--link)}
+.art code{background:var(--code-bg);border:1px solid var(--border);
+  border-radius:4px;padding:1px 6px;font-size:.83em;
+  font-family:"SF Mono",Menlo,Consolas,monospace}
+.art pre{background:var(--code-bg);border:1px solid var(--border);
+  border-radius:8px;padding:14px 18px;overflow-x:auto;margin:12px 0}
+.art pre code{background:none;border:none;padding:0;font-size:.84em}
+.art table{border-collapse:collapse;margin:12px 0;font-size:.87em;
+  display:block;overflow-x:auto;width:100%}
+.art th,.art td{border:1px solid var(--border);padding:6px 14px;
+  text-align:left;white-space:nowrap}
+.art th{background:var(--th);font-weight:600}
+.art tr:nth-child(even) td{background:var(--bg2)}
+.art blockquote{margin:16px 0;padding:12px 16px 12px 20px;
+  border-left:3px solid var(--accent);border-radius:0 6px 6px 0;
+  background:var(--bg2)}
+.art blockquote p{margin:4px 0;font-size:.9em}
+.art blockquote table{font-size:.84em}
+
+/* footer */
+.foot{text-align:center;padding:24px;font-size:12px;color:var(--dim);
+  border-top:1px solid var(--border)}
+.foot a{color:var(--link);text-decoration:none}
+.foot a:hover{text-decoration:underline}
+
+@media(max-width:720px){
+  .layout{grid-template-columns:1fr}
+  .toc{display:none}
+  .art{padding:24px 0 0}
+  .pipeline{gap:4px}
+  .pipe-arrow{display:none}
+}
+</style>
+<script>(function(){
+  var s=localStorage.getItem('lifecycle-theme');
+  var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme',d?'dark':'light');
+})();</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="lifecycle.html">← Charts</a>
+  <span class="nav-title">How it works</span>
+  <span class="nav-spacer"></span>
+  <button class="theme-btn" id="tbtn">☀</button>
+</nav>
+
+<div class="hero">
+  <h1>How it works</h1>
+  <p>lifecycle-graph fetches Red Hat product support data, models it as phase timelines, and renders interactive Gantt charts — updated daily.</p>
+  <div class="badges">
+    <span class="badge b-orange">lifecycle-config.yaml</span>
+    <span class="badge b-blue">Red Hat Lifecycle API</span>
+    <span class="badge b-green">GitHub Pages</span>
+    <span class="badge b-blue">5 products</span>
+    <span class="badge b-purple">43 operators</span>
+  </div>
+</div>
+
+<div class="pipeline">
+  <div class="pipe-step c-orange">
+    <span class="ps-icon">📄</span>
+    <span class="ps-label">lifecycle-config.yaml</span>
+    <span class="ps-sub">sole source of truth</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-blue">
+    <span class="ps-icon">🔗</span>
+    <span class="ps-label">Red Hat API</span>
+    <span class="ps-sub">live lifecycle dates</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-blue">
+    <span class="ps-icon">⚙</span>
+    <span class="ps-label">build_versions()</span>
+    <span class="ps-sub">filter · EUS · segments</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-purple">
+    <span class="ps-icon">📊</span>
+    <span class="ps-label">render_card()</span>
+    <span class="ps-sub">Gantt HTML per version</span>
+  </div>
+  <span class="pipe-arrow">→</span>
+  <div class="pipe-step c-green">
+    <span class="ps-icon">🌐</span>
+    <span class="ps-label">GitHub Pages</span>
+    <span class="ps-sub">published daily</span>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="toc">
+    <p class="toc-hd">Contents</p>
+    """ + toc_html + """
+  </aside>
+  <article class="art">
+    """ + content + """
+  </article>
+</div>
+
+<div class="foot">
+  <a href="lifecycle.html">← Back to charts</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/mmayeras/redhat-lifecycle-graph" target="_blank">GitHub</a>
+  &nbsp;·&nbsp;
+  Data from <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a>
+</div>
+
+<script>
+document.getElementById('tbtn').addEventListener('click',function(){
+  var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('lifecycle-theme',t);
+});
+var hs=Array.from(document.querySelectorAll('.art h2,.art h3'));
+var ls=Array.from(document.querySelectorAll('.toc a'));
+window.addEventListener('scroll',function(){
+  var pos=window.scrollY+80;
+  var cur=hs.filter(function(h){return h.offsetTop<=pos;}).pop();
+  ls.forEach(function(l){l.classList.remove('on');});
+  if(cur){var l=document.querySelector('.toc a[href="#'+cur.id+'"]');if(l)l.classList.add('on');}
+},{passive:true});
+</script>
+</body>
+</html>"""
+
+    path.write_text(html, encoding="utf-8")
 
 
 def main() -> None:
@@ -1915,9 +2187,11 @@ def main() -> None:
     out_dir.mkdir(exist_ok=True)
 
     if args.product == "all":
-        product_list, operators_data = _fetch_all(args)
+        product_list, operators_data, middleware_data = _fetch_all(args)
         page_title = args.title or "Red Hat Product Lifecycle"
-        combined = render_combined_html(product_list, title=page_title, operators_data=operators_data)
+        combined = render_combined_html(product_list, title=page_title,
+                                        operators_data=operators_data,
+                                        middleware_data=middleware_data)
         lifecycle_out = (out_dir / "lifecycle.html").resolve()
         index_out = (out_dir / "index.html").resolve()
         lifecycle_out.write_text(combined, encoding="utf-8")
@@ -1927,17 +2201,25 @@ def main() -> None:
         if args.png:
             svg_combined = (out_dir / "lifecycle.svg").resolve()
             png_combined = (out_dir / "lifecycle.png").resolve()
-            svg_list = [(lbl, _svg_versions(vers, args.include_eol)) for lbl, vers in product_list]
+            svg_list = [(lbl, _svg_versions(vers, args.include_eol)) for lbl, vers, _ in product_list]
             svg_combined.write_text(render_combined_svg(svg_list, args.width), encoding="utf-8")
             print(f"SVG:  {svg_combined}  (combined)")
             ok = export_png(svg_combined, png_combined)
             if ok:
                 print(f"PNG:  {png_combined}  (combined)")
-        for cfg_key, (label, versions) in zip(["ocp", "rhel", "aap", "rhoai", "ceph"], product_list):
+        for cfg_key, (label, versions, pcfg) in zip(["ocp", "rhel", "aap", "rhoai", "ceph"], product_list):
             out = (out_dir / f"lifecycle-{cfg_key}.html").resolve()
-            html = render_html(versions, label)
+            minor_data = _rhel_minor_data(versions) if cfg_key == "rhel" else None
+            html = render_html(versions, label, minor_data=minor_data,
+                               page_url=pcfg.get("page_url", ""), info_html=pcfg.get("info_html", ""))
             out.write_text(html, encoding="utf-8")
             print(f"HTML: {out}  ({len(versions)} versions)")
+        if middleware_data:
+            mw_out = (out_dir / "lifecycle-middleware.html").resolve()
+            mw_combined = render_combined_html([], title="Red Hat Middleware Lifecycle",
+                                               middleware_data=middleware_data)
+            mw_out.write_text(mw_combined, encoding="utf-8")
+            print(f"HTML: {mw_out}  (middleware)")
             if args.png:
                 svg_out = out.with_suffix(".svg")
                 png_out = out.with_suffix(".png")
@@ -1946,6 +2228,9 @@ def main() -> None:
                 ok = export_png(svg_out, png_out)
                 if ok:
                     print(f"PNG:  {png_out}")
+        about_out = (out_dir / "lifecycle-about.html").resolve()
+        _generate_lifecycle_about(about_out)
+        print(f"HTML: {about_out}  (lifecycle guide)")
         if args.open:
             subprocess.run(["open", str(lifecycle_out)], check=False)
     else:

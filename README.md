@@ -1,8 +1,8 @@
 # lifecycle-graph
 
-Standalone Python script that generates Red Hat product lifecycle Gantt charts (OCP, RHEL, AAP) as HTML and PNG.
+Standalone Python script that generates Red Hat product lifecycle Gantt charts (OCP, RHEL, AAP, RHOAI, Ceph, operators, middleware) as interactive HTML.
 
-**No pip dependencies** — uses only stdlib (`urllib`, `json`, `argparse`).  
+**One optional dependency**: `pip install pyyaml` — required for config loading from `lifecycle-config.yaml`.  
 PNG export requires `rsvg-convert` (`brew install librsvg` / `apt install librsvg2-bin`).
 
 ## Preview
@@ -11,9 +11,15 @@ PNG export requires `rsvg-convert` (`brew install librsvg` / `apt install librsv
 
 Per-product: [lifecycle-ocp.png](docs/lifecycle-ocp.png) · [lifecycle-rhel.png](docs/lifecycle-rhel.png) · [lifecycle-aap.png](docs/lifecycle-aap.png) · [lifecycle-rhoai.png](docs/lifecycle-rhoai.png) · [lifecycle-ceph.png](docs/lifecycle-ceph.png)
 
-The combined chart (`--product all`) also includes **29 OpenShift operator lifecycle charts** — collapsed by default — sourced from the [Red Hat Product Life Cycles API](https://access.redhat.com/product-life-cycles/) and aligned with the [OpenShift Operator Life Cycles policy](https://access.redhat.com/support/policy/updates/openshift_operators).
+The combined chart (`--product all`) also includes **43+ OpenShift operator lifecycle charts** and middleware (JBoss EAP, JWS, Quarkus) — collapsed by default — sourced from the [Red Hat Product Life Cycles API](https://access.redhat.com/product-life-cycles/) and aligned with the [OpenShift Operator Life Cycles policy](https://access.redhat.com/support/policy/updates/openshift_operators).
 
-Operators included: OpenShift Pipelines, GitOps, Service Mesh, Virtualization, ODF, Logging, OADP, Builds, DR Hub, cert-manager, RHACM, RHACS, OpenShift Serverless, Migration Toolkit for Virtualization, Loki, KMM, Red Hat Developer Hub, SR-IOV, Node Feature Discovery, Kubernetes NMState, Local Storage, MetalLB, VPA, NUMAresources, Windows Containers.
+Operators included: OpenShift Pipelines, GitOps, Service Mesh, Virtualization, ODF, Logging, OADP, Builds, DR Hub, cert-manager, RHACM, RHACS, OpenShift Serverless, Migration Toolkit for Virtualization, Loki, KMM, Red Hat Developer Hub, SR-IOV, Node Feature Discovery, Kubernetes NMState, Local Storage, MetalLB, VPA, NUMAresources, Windows Containers, Compliance Operator, and more.
+
+## Quick start
+
+```bash
+pip install pyyaml
+```
 
 ## Usage
 
@@ -30,8 +36,8 @@ python3 lifecycle-graph.py --product aap --png
 # Ceph Storage
 python3 lifecycle-graph.py --product ceph --png
 
-# All products at once → lifecycle-ocp.*, lifecycle-rhel.*, lifecycle-aap.*, lifecycle-ceph.*
-python3 lifecycle-graph.py --product all --png
+# All products at once (recommended)
+python3 lifecycle-graph.py --product all --output-dir docs --png
 
 # Version range (per product format)
 python3 lifecycle-graph.py --product ocp  --from 4.18 --to 4.22 --png
@@ -84,10 +90,25 @@ python3 lifecycle-graph.py --product rhel --png --open
 EUS phases (Extended Update Support) only appear on even OCP/ODF releases (4.12, 4.14, …).  
 Ceph uses a single "Support" tier ending at EOL, followed by optional ELS / ELS Term 2 add-on periods.
 
+## Configuration
+
+All product, operator, and middleware data lives in `lifecycle-config.yaml` alongside the script. To add or update a product — edit only the YAML, no Python changes needed.
+
+```yaml
+operators:
+  my-op:
+    api_name: "Red Hat My Operator"   # exact name from the lifecycle API
+    version_strategy: xy
+    min_version: "1.0"
+    phase_map_preset: op-standard
+```
+
+See [LIFECYCLE.md](LIFECYCLE.md) for the full schema reference and examples.
+
 ## Data source
 
 Fetches live from the [Red Hat Product Life Cycles API](https://access.redhat.com/product-life-cycles/api/v1/products).  
-Falls back to bundled static data if the API is unreachable.
+Falls back to `fallback:` blocks in `lifecycle-config.yaml` if the API is unreachable.
 
 ## GitHub Actions
 
@@ -97,15 +118,15 @@ The workflow at [`.github/workflows/update-lifecycle.yml`](.github/workflows/upd
 
 | Trigger | When |
 |---------|------|
-| **Schedule** | Every Monday at 06:00 UTC |
-| **Push** | On any push to `main` that modifies `lifecycle-graph.py` |
+| **Schedule** | Daily at 06:00 UTC |
+| **Push** | On any push to `main` that modifies `lifecycle-graph.py`, `lifecycle-config.yaml`, or `LIFECYCLE.md` |
 | **Manual** | Via GitHub UI → Actions → *Update Lifecycle Charts* → Run workflow |
 
 ### What it does
 
 1. Checks out the repo
-2. Installs `librsvg2-bin` (~5 MB — the only system dependency)
-3. Runs `python3 lifecycle-graph.py --product all --png` — fetches live data, generates HTML + SVG + PNG for OCP, RHEL, and AAP
+2. Installs `pyyaml` and `librsvg2-bin`
+3. Runs `python3 lifecycle-graph.py --product all --output-dir docs --png` — fetches live data, generates HTML + SVG + PNG for all products
 4. Commits and pushes updated files only if the chart data changed
 
 ### Setup
