@@ -4,7 +4,7 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
-## [Unreleased]
+## [0.1.1] — 2026-07-03
 
 ### Added
 - **OpenStack Platform (OSP)** — `lifecycle-osp.html`; versions 16.1–17.1; Full Support / Maintenance / ELS / ELS-2 / ELS-3 phases; dates from API
