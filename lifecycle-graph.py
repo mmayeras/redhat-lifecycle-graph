@@ -694,6 +694,7 @@ _PAGE_CSS = """
     width: 100%;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     overflow: hidden;
+    scroll-margin-top: 70px;
   }
   .card-header {
     display: flex;
@@ -846,6 +847,7 @@ _PAGE_CSS = """
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     overflow: hidden;
+    scroll-margin-top: 70px;
   }
   .op-summary {
     cursor: pointer;
@@ -1377,9 +1379,23 @@ function toggleMinorRows(card) {{
   }});
   filterCard(card);
 }}
+function navigateToHash(hash) {{
+  if (!hash) return;
+  var id = hash.replace(/^#/, '');
+  var el = document.getElementById(id);
+  if (!el) return;
+  var node = el;
+  while (node) {{
+    if (node.tagName === 'DETAILS') node.open = true;
+    node = node.parentElement;
+  }}
+  setTimeout(function() {{ el.scrollIntoView({{behavior: 'smooth', block: 'start'}}); }}, 50);
+}}
 document.addEventListener('DOMContentLoaded', function() {{
   document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
+  navigateToHash(window.location.hash);
 }});
+window.addEventListener('hashchange', function() {{ navigateToHash(window.location.hash); }});
 (function() {{
   var tip = document.createElement('div');
   tip.id = 'phase-tooltip';
