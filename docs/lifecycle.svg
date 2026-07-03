@@ -447,12 +447,12 @@
 <line x1="35" y1="17" x2="35" y2="22" stroke="#6a6e73" stroke-width="1.5"/>
 <line x1="24" y1="26" x2="39" y2="26" stroke="#6a6e73" stroke-width="1"/>
 <rect x="209.0" y="22" width="14" height="12" rx="2" fill="#bde5b8" stroke="#1e4f18" stroke-width="1.5"/>
-<text x="228.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="12" fill="#151515">Support</text>
-<rect x="291.0" y="22" width="14" height="12" rx="2" fill="#f5b8b4" stroke="#c9190b" stroke-width="1.5"/>
-<text x="310.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="12" fill="#151515">ELS</text>
-<rect x="345.0" y="22" width="14" height="12" rx="2" fill="#e88080" stroke="#8b0000" stroke-width="1.5"/>
-<text x="364.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="12" fill="#151515">ELS-2</text>
-<text x="413.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" fill="#a30000" opacity="0.7">┆ Today (2026-07-03)</text>
+<text x="228.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="12" fill="#151515">Full Support</text>
+<rect x="326.0" y="22" width="14" height="12" rx="2" fill="#f5b8b4" stroke="#c9190b" stroke-width="1.5"/>
+<text x="345.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="12" fill="#151515">ELS</text>
+<rect x="380.0" y="22" width="14" height="12" rx="2" fill="#e88080" stroke="#8b0000" stroke-width="1.5"/>
+<text x="399.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="12" fill="#151515">ELS-2</text>
+<text x="448.0" y="33" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" fill="#a30000" opacity="0.7">┆ Today (2026-07-03)</text>
 <rect x="0" y="158" width="1400" height="48" fill="#fafafa"/>
 <rect x="0" y="266" width="1400" height="48" fill="#fafafa"/>
 <rect x="0" y="374" width="1400" height="48" fill="#fafafa"/>
@@ -487,7 +487,7 @@
 <clipPath id="p4r0"><rect x="786.3" y="111.0" width="512.9" height="34" rx="3"/></clipPath>
 <g clip-path="url(#p4r0)">
 <rect x="786.3" y="111.0" width="307.7" height="34" fill="#bde5b8"/>
-<text x="940.1" y="132.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Support</text>
+<text x="940.1" y="132.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Full Support</text>
 <rect x="1094.0" y="111.0" width="205.1" height="34" fill="#f5b8b4"/>
 <text x="1196.6" y="132.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#a30000">ELS</text>
 </g>
@@ -498,7 +498,7 @@
 <clipPath id="p4r1"><rect x="665.4" y="165.0" width="512.9" height="34" rx="3"/></clipPath>
 <g clip-path="url(#p4r1)">
 <rect x="665.4" y="165.0" width="307.4" height="34" fill="#bde5b8"/>
-<text x="819.2" y="186.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Support</text>
+<text x="819.2" y="186.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Full Support</text>
 <rect x="972.9" y="165.0" width="205.4" height="34" fill="#f5b8b4"/>
 <text x="1075.6" y="186.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#a30000">ELS</text>
 </g>
@@ -509,7 +509,7 @@
 <clipPath id="p4r2"><rect x="567.7" y="219.0" width="586.8" height="34" rx="3"/></clipPath>
 <g clip-path="url(#p4r2)">
 <rect x="567.7" y="219.0" width="307.7" height="34" fill="#bde5b8"/>
-<text x="721.5" y="240.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Support</text>
+<text x="721.5" y="240.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Full Support</text>
 <rect x="875.4" y="219.0" width="279.0" height="34" fill="#f5b8b4"/>
 <text x="1014.9" y="240.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#a30000">ELS</text>
 </g>
@@ -520,7 +520,7 @@
 <clipPath id="p4r3"><rect x="492.6" y="273.0" width="513.1" height="34" rx="3"/></clipPath>
 <g clip-path="url(#p4r3)">
 <rect x="492.6" y="273.0" width="307.7" height="34" fill="#bde5b8"/>
-<text x="646.5" y="294.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Support</text>
+<text x="646.5" y="294.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Full Support</text>
 <rect x="800.3" y="273.0" width="205.4" height="34" fill="#f5b8b4"/>
 <text x="903.0" y="294.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#a30000">ELS</text>
 </g>
@@ -531,7 +531,7 @@
 <clipPath id="p4r4"><rect x="333.3" y="327.0" width="607.0" height="34" rx="3"/></clipPath>
 <g clip-path="url(#p4r4)">
 <rect x="333.3" y="327.0" width="308.0" height="34" fill="#bde5b8"/>
-<text x="487.3" y="348.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Support</text>
+<text x="487.3" y="348.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Full Support</text>
 <rect x="641.3" y="327.0" width="299.0" height="34" fill="#f5b8b4"/>
 <text x="790.8" y="348.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#a30000">ELS</text>
 </g>
@@ -542,7 +542,7 @@
 <clipPath id="p4r5"><rect x="170.9" y="381.0" width="743.6" height="34" rx="3"/></clipPath>
 <g clip-path="url(#p4r5)">
 <rect x="170.9" y="381.0" width="324.6" height="34" fill="#bde5b8"/>
-<text x="333.1" y="402.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Support</text>
+<text x="333.1" y="402.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e4f18">Full Support</text>
 <rect x="495.4" y="381.0" width="213.9" height="34" fill="#f5b8b4"/>
 <text x="602.4" y="402.0" text-anchor="middle" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="11" font-weight="600" fill="#a30000">ELS</text>
 <rect x="709.3" y="381.0" width="205.1" height="34" fill="#e88080"/>
