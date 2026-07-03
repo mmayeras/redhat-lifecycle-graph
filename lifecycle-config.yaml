@@ -117,6 +117,7 @@ products:
     info_html: "<b>Standard</b> subscription covers the active support window for each minor release. <b>Premium</b> subscription provides additional maintenance for even minor releases (EUS). <b>ELC, Premium</b> (Extended Life Cycle) extends support 6 years from GA for even minors starting with RHEL 9.2+ and 8.10. <b>Long Life</b> provides up to 4 additional years beyond RHEL major year 10 (RHEL 8.10, 9.10, 10.10) via a Long Life add-on subscription. See the <a href=\"https://access.redhat.com/support/policy/updates/errata\" target=\"_blank\">RHEL errata policy</a> for details."
     version_strategy: rhel-major
     min_version: "7"
+    has_minors: true
     phase_map:
       "General availability": ga
       "Full support": fs_end
@@ -190,6 +191,58 @@ products:
       "7": { ga: "2023-12-13", fs_end: "2026-12-12", els_end: "2029-08-31" }
       "8": { ga: "2024-11-25", fs_end: "2027-11-24", els_end: "2029-11-24" }
       "9": { ga: "2026-01-29", fs_end: "2029-01-28", els_end: "2031-01-28" }
+
+  osp:
+    api_name: "Red Hat OpenStack Platform"
+    title: "OpenStack Platform (OSP)"
+    page_url: "https://access.redhat.com/support/policy/updates/openstack/platform"
+    version_strategy: xy
+    min_version: "16.1"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Maintenance support": mnt_end
+      "Extended life cycle support (ELS) add-on": els_end
+      "Extended life cycle support (ELS) Term 2 add-on": els2_end
+      "Extended life cycle support (ELS) Term 3 add-on": els3_end
+    fallback:
+      "16.1": { ga: "2020-07-29", fs_end: "2022-04-30", mnt_end: "2024-04-30" }
+      "16.2": { ga: "2021-09-15", fs_end: "2023-04-30", mnt_end: "2024-04-30", els_end: "2025-04-30", els2_end: "2026-04-30", els3_end: "2027-04-30" }
+      "17.1": { ga: "2023-08-16", fs_end: "2024-12-31", mnt_end: "2026-09-22", els_end: "2027-09-22", els2_end: "2028-09-22", els3_end: "2029-09-22" }
+
+  rhoso:
+    api_name: "Red Hat OpenStack Services on OpenShift"
+    title: "OpenStack on OpenShift (RHOSO)"
+    page_url: "https://access.redhat.com/support/policy/updates/openstack/platform"
+    version_strategy: xy
+    min_version: "18.0"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Maintenance support": mnt_end
+      "Extended life cycle support (ELS) add-on": els_end
+    fallback:
+      "18.0": { ga: "2024-08-26", fs_end: "2027-08-26", mnt_end: "2028-08-26", els_end: "2029-08-26" }
+
+  satellite:
+    api_name: "Red Hat Satellite Server"
+    title: "Red Hat Satellite"
+    page_url: "https://access.redhat.com/support/policy/updates/satellite"
+    version_strategy: xy
+    min_version: "6.13"
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "Maintenance support": mnt_end
+    fallback:
+      # fs_end/mnt_end marked "Estimated" in API for recent versions — use known dates
+      "6.13": { ga: "2023-05-03", fs_end: "2023-11-30", mnt_end: "2024-11-30" }
+      "6.14": { ga: "2023-11-08", fs_end: "2024-05-31", mnt_end: "2025-05-30" }
+      "6.15": { ga: "2024-04-23", fs_end: "2024-11-30", mnt_end: "2025-11-30" }
+      "6.16": { ga: "2024-11-05", fs_end: "2025-05-31", mnt_end: "2026-05-31" }
+      "6.17": { ga: "2025-05-06", fs_end: "2025-11-30", mnt_end: "2026-11-28" }
+      "6.18": { ga: "2025-11-04", fs_end: "2026-05-06", mnt_end: "2027-05-06" }
+      "6.19": { ga: "2026-05-06" }
 
 # ── Operators ─────────────────────────────────────────────────────────────────
 # To add a new operator, add an entry here. Minimal example:
@@ -566,11 +619,12 @@ operators:
     min_version: "10.14"
     phase_map_preset: op-standard
     fallback:
-      "10.17": { ga: "2024-10-30", fs_end: "2025-05-25", mnt_end: "2026-04-01" }
+      "10.17": { ga: "2024-10-01", fs_end: "2025-06-20", mnt_end: "2026-04-01" }
       "10.18": { ga: "2025-03-20", fs_end: "2025-10-17", mnt_end: "2026-08-25" }
-      "10.19": { ga: "2025-07-17", mnt_end: "2026-12-17" }
-      "10.20": { ga: "2025-10-22", mnt_end: "2027-04-21" }
-      "10.21": { ga: "2026-02-03", mnt_end: "2027-08-03" }
+      # fs_end = OCP N+1 GA + 3 months (relative in API, resolved from OCP schedule)
+      "10.19": { ga: "2025-07-17", fs_end: "2026-01-21", mnt_end: "2026-12-17" }
+      "10.20": { ga: "2025-10-22", fs_end: "2026-05-03", mnt_end: "2027-04-21" }
+      "10.21": { ga: "2026-02-03", fs_end: "2026-09-09", mnt_end: "2027-08-03" }
 
   mtc:
     api_name: "migration toolkit for containers"
@@ -846,3 +900,4 @@ middleware:
     fallback:
       "2.13.x": { ga: "2022-07-12", fs_end: "2023-05-31", mnt_end: "2024-07-31" }
       "3.x":    { ga: "2023-04-26", fs_end: "2025-06-30", mnt_end: "2026-06-30" }
+

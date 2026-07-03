@@ -4,6 +4,32 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
+## [Unreleased]
+
+### Added
+- **OpenStack Platform (OSP)** — `lifecycle-osp.html`; versions 16.1–17.1; Full Support / Maintenance / ELS / ELS-2 / ELS-3 phases; dates from API
+- **OpenStack on OpenShift (RHOSO)** — `lifecycle-rhoso.html`; version 18.0; separate product from classic OSP
+- **Red Hat Satellite** — `lifecycle-satellite.html`; versions 6.13–6.19; Full Support / Maintenance phases; dates from API
+- **Compliance Operator** — added to operators section; `op-standard` phase map
+- **`els3` phase** — new ELS Term 3 phase key and colour (`#c94040`) for OSP; added to `PHASES`, `PHASE_KEYS`, and fallback merge list
+- **`has_minors` YAML flag** — replaces hardcoded `cfg_key == "rhel"` check; enables minor-version toggle for any product that sets `has_minors: true` in YAML
+- **Products fully driven from YAML** — `_fetch_all()` and `main()` now iterate `PRODUCT_CONFIGS.keys()` instead of a hardcoded list; `--product` choices also dynamic; adding a product to YAML automatically creates its HTML page and nav button
+
+### Fixed
+- RHEL ELS fallback dates corrected from API: RHEL 7 (`2028-06-30` → `2029-05-31`), RHEL 8/9/10 `els_end` previously missing
+- RHEL 10 GA date corrected (`2025-05-01` → `2025-05-20`)
+- RHEL 10.1 removed — not published by Red Hat; RHEL 10 EUS minors are 10.2/10.4/10.6/10.8 (even only)
+- `build_rhel_minor_versions` no longer crashes on entries missing `std_end` (skips gracefully)
+- Windows Containers 10.19–10.21 `fs_end` was missing (API returns relative string `"4.N GA + 3 months"`); resolved from OCP schedule and added to fallback
+- OSP integer-only versions (13, 16) excluded by `xy` strategy dot-check; fixed by raising `min_version` to `16.1`
+- `blockquote` rendering in `lifecycle-about.html` — tables inside blockquotes now render correctly (recursive Markdown conversion)
+- `_parse_api_date` now handles `"Estimated Month, YYYY"` strings — parses to last day of that month; abbreviated month names (`Nov`, `Dec`, …) also supported; future products with estimated dates render correctly without fallback overrides
+
+### Known limitations
+- **VolSync 0.12–0.16**: `End of Life` is relative in API (`"Release of 0.N"`) — renders GA-only bar; resolves automatically once Red Hat publishes absolute dates
+
+---
+
 ## [0.1.0] — 2026-07-03
 
 ### Added

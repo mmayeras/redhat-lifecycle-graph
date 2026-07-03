@@ -30,6 +30,9 @@ _MONTHS: dict[str, str] = {
     "January": "01", "February": "02", "March": "03", "April": "04",
     "May": "05", "June": "06", "July": "07", "August": "08",
     "September": "09", "October": "10", "November": "11", "December": "12",
+    "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04",
+    "Jun": "06", "Jul": "07", "Aug": "08",
+    "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12",
 }
 
 
@@ -61,6 +64,16 @@ def _parse_api_date(s: str) -> str | None:
         month = _MONTHS.get(m.group(1))
         if month:
             return f"{m.group(3)}-{month}-{int(m.group(2)):02d}"
+    # "Estimated Month, YYYY" — use last day of month as conservative estimate
+    s2 = re.sub(r"^Estimated\s+", "", s)
+    m = re.match(r"(\w+),?\s+(\d{4})$", s2)
+    if m:
+        month = _MONTHS.get(m.group(1))
+        if month:
+            import calendar
+            yr, mo = int(m.group(2)), int(month)
+            last = calendar.monthrange(yr, mo)[1]
+            return f"{yr}-{month}-{last:02d}"
     return None
 
 
@@ -223,7 +236,7 @@ def _make_min_filter(strategy: str, min_version: str):
 def _apply_product_overrides(products: dict) -> None:
     for key, raw in products.items():
         cfg = PRODUCT_CONFIGS.setdefault(key, {})
-        for field in ("api_name", "title", "page_url", "info_html"):
+        for field in ("api_name", "title", "page_url", "info_html", "has_minors"):
             if field in raw:
                 cfg[field] = raw[field]
         if "phase_map" in raw:
@@ -352,6 +365,7 @@ PHASES: dict[str, dict] = {
     "rhel_ll":   {"label": "Long Life",     "bg": "#a8d8ea", "border": "#005f73", "text": "#003f4f"},
     "els":  {"label": "ELS",           "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
     "els2": {"label": "ELS-2",         "bg": "#e88080", "border": "#8b0000", "text": "#fff"},
+    "els3": {"label": "ELS-3",         "bg": "#c94040", "border": "#6b0000", "text": "#fff"},
     "elp":  {"label": "Ext. Life",     "bg": "#e4e4e4", "border": "#6a6e73", "text": "#3c3f42"},
 }
 
@@ -368,7 +382,8 @@ PHASE_KEYS = [
     ("elc",  "elc_end"),   # RHEL ELC (minor only, built in build_rhel_minor_versions)
     ("elcp", "elcp_end"),  # RHEL ELC Premium (minor only)
     ("els",  "els_end"),
-    ("els2", "els2_end"),  # Ceph: ELS Term 2 add-on
+    ("els2", "els2_end"),  # Ceph / OSP: ELS Term 2 add-on
+    ("els3", "els3_end"),  # OSP: ELS Term 3 add-on
     ("elp",  "elp_end"),
 ]
 
@@ -406,7 +421,7 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
                     if parsed:
                         dates[key] = parsed
             if name in fallback:
-                for _k in ("fs_end", "mnt_end", "eus1_end", "eus2_end", "sup_end", "els_end"):
+                for _k in ("fs_end", "mnt_end", "eus1_end", "eus2_end", "sup_end", "els_end", "els2_end", "els3_end"):
                     if _k not in dates and _k in fallback[name]:
                         dates[_k] = fallback[name][_k]
             if "ga" in dates and any(k in dates for k in ("fs_end", "mnt_end", "sup_end")):
@@ -417,6 +432,7 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
     except Exception as exc:
         print(f"API fetch failed for {cfg['title']} ({exc}), using fallback.", file=sys.stderr)
     return dict(fallback)
+
 
 
 def build_versions(
@@ -1700,10 +1716,8 @@ def _fetch_all(
     Callers must filter by is_eol themselves when generating SVG/PNG.
     """
     product_list: list[tuple[str, list[dict], dict]] = []
-    for product in ["ocp", "rhel", "aap", "rhoai", "ceph"]:
-        cfg = PRODUCT_CONFIGS[product]
+    for product, cfg in PRODUCT_CONFIGS.items():
         lifecycle = fetch_lifecycle(cfg)
-        label = cfg["title"]
         versions = build_versions(
             lifecycle, cfg,
             versions_filter=args.versions,
@@ -1712,7 +1726,7 @@ def _fetch_all(
             include_eol=True,  # always; HTML controls filter via JS
         )
         if versions:
-            product_list.append((label, versions, cfg))
+            product_list.append((cfg["title"], versions, cfg))
         else:
             print(f"No versions matched for {product}.", file=sys.stderr)
 
@@ -1760,7 +1774,7 @@ def _generate_product(
         print(f"No versions matched for {product}.", file=sys.stderr)
         return
 
-    minor_data = _rhel_minor_data(versions_html) if product == "rhel" else None
+    minor_data = _rhel_minor_data(versions_html) if cfg.get("has_minors") else None
     html = render_html(versions_html, chart_label, minor_data=minor_data,
                        page_url=cfg.get("page_url", ""), info_html=cfg.get("info_html", ""))
     out_html.write_text(html, encoding="utf-8")
@@ -2180,7 +2194,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="Generate Red Hat product lifecycle Gantt charts as HTML + PNG")
     ap.add_argument("-o", "--output", default=None,
                     help="Output HTML file (default: lifecycle-{product}.html; all: lifecycle.html + index.html)")
-    ap.add_argument("--product", default="ocp", choices=["ocp", "rhel", "aap", "rhoai", "ceph", "all"],
+    ap.add_argument("--product", default="ocp", choices=[*PRODUCT_CONFIGS.keys(), "all"],
                     help="Product to chart: ocp, rhel, aap, rhoai, ceph, or all (default: ocp)")
     ap.add_argument("-v", "--versions", nargs="*", help="Explicit versions to include (e.g. 4.19 4.20)")
     ap.add_argument("--from", dest="from_version", metavar="VER", help="Start of version range, inclusive (e.g. 4.18)")
@@ -2220,9 +2234,9 @@ def main() -> None:
             ok = export_png(svg_combined, png_combined)
             if ok:
                 print(f"PNG:  {png_combined}  (combined)")
-        for cfg_key, (label, versions, pcfg) in zip(["ocp", "rhel", "aap", "rhoai", "ceph"], product_list):
+        for cfg_key, (label, versions, pcfg) in zip(PRODUCT_CONFIGS.keys(), product_list):
             out = (out_dir / f"lifecycle-{cfg_key}.html").resolve()
-            minor_data = _rhel_minor_data(versions) if cfg_key == "rhel" else None
+            minor_data = _rhel_minor_data(versions) if pcfg.get("has_minors") else None
             html = render_html(versions, label, minor_data=minor_data,
                                page_url=pcfg.get("page_url", ""), info_html=pcfg.get("info_html", ""))
             out.write_text(html, encoding="utf-8")
