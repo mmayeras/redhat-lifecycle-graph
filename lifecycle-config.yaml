@@ -77,8 +77,8 @@ rhel_minors:
     # 9.8: future minor (projected ~May 2026); std_end = projected 9.9 GA; elc_end = GA + 6 years
     "9.8":  { ga: "2026-05-19", std_end: "2026-11-10", eus_end: "2028-05-31", elc_end: "2032-05-19" }
   "10":
-    "10.0": { ga: "2025-05-20", std_end: "2026-01-06" }
-    "10.1": { ga: "2026-01-06", std_end: "2026-06-01", eus_end: "2028-01-06", elc_end: "2032-01-06" }
+    # 10.0: std_end = when 10.1 GAs (not yet published); EUS minors for RHEL 10 are 10.2, 10.4, 10.6, 10.8
+    "10.0": { ga: "2025-05-20" }
 
 # ── Main products ─────────────────────────────────────────────────────────────
 # These entries define PRODUCT_CONFIGS — all data lives here, Python has no defaults.
@@ -124,10 +124,10 @@ products:
       "Extended life cycle support (ELS) add-on": els_end
       "Extended life phase": elp_end
     fallback:
-      "7":  { ga: "2014-06-10", fs_end: "2019-08-06", mnt_end: "2024-06-30", els_end: "2028-06-30" }
-      "8":  { ga: "2019-05-07", fs_end: "2024-05-31", mnt_end: "2029-05-31" }
-      "9":  { ga: "2022-05-18", fs_end: "2027-05-31", mnt_end: "2032-05-31" }
-      "10": { ga: "2025-05-01", fs_end: "2030-05-31", mnt_end: "2035-05-31" }
+      "7":  { ga: "2014-06-10", fs_end: "2019-08-06", mnt_end: "2024-06-30", els_end: "2029-05-31" }
+      "8":  { ga: "2019-05-07", fs_end: "2024-05-31", mnt_end: "2029-05-31", els_end: "2032-05-31" }
+      "9":  { ga: "2022-05-18", fs_end: "2027-05-31", mnt_end: "2032-05-31", els_end: "2035-05-31" }
+      "10": { ga: "2025-05-20", fs_end: "2030-05-31", mnt_end: "2035-05-31", els_end: "2038-05-31" }
 
   aap:
     api_name: "Red Hat Ansible Automation Platform"

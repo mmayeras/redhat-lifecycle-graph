@@ -483,6 +483,8 @@ def build_rhel_minor_versions(major_ver: str) -> list[dict]:
     for ver in sorted(minors.keys(), key=lambda v: tuple(int(x) for x in v.split(".")), reverse=True):
         m = minors[ver]
         ga = _d(m["ga"])
+        if "std_end" not in m:
+            continue  # next minor GA not yet published — skip
         std_end = _d(m["std_end"])
         eus_end = _d(m["eus_end"]) if "eus_end" in m else None
         elc_end = _d(m["elc_end"]) if "elc_end" in m else None
@@ -1821,6 +1823,17 @@ def _markdown_to_html(text: str) -> str:
             flush_list()
             out.append(placeholders[stripped])
             i += 1
+            continue
+
+        # Blockquote: collect consecutive > lines, recursively convert
+        if stripped.startswith('>'):
+            flush_list()
+            bq_lines: list[str] = []
+            while i < len(lines) and lines[i].strip().startswith('>'):
+                bq_lines.append(re.sub(r'^>\s?', '', lines[i]))
+                i += 1
+            inner = _markdown_to_html('\n'.join(bq_lines))
+            out.append(f'<blockquote>{inner}</blockquote>')
             continue
 
         # ATX headings
