@@ -1146,19 +1146,81 @@ function scrollToElement(el) {{
     }}
   }});
 }}
-function toggleProductCard(btn) {{
-  var target = btn.getAttribute('data-target');
-  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
-  if (!section) return;
-  var show = section.style.display === 'none';
-  if (show) {{
-    section.style.display = '';
-    btn.setAttribute('aria-pressed', 'true');
-    scrollToElement(section);
-  }} else {{
-    section.style.display = 'none';
-    btn.setAttribute('aria-pressed', 'false');
+function findProductSection(target) {{
+  return document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
+}}
+function getNavButtons() {{
+  return Array.from(document.querySelectorAll('.nav-toggle[data-target]'));
+}}
+function isFilterActive() {{
+  var nav = document.querySelector('.product-nav');
+  return nav && nav.classList.contains('is-filtered');
+}}
+function getSelectedTargets() {{
+  var selected = new Set();
+  getNavButtons().forEach(function(btn) {{
+    if (btn.getAttribute('aria-pressed') === 'true') selected.add(btn.getAttribute('data-target'));
+  }});
+  return selected;
+}}
+function applyProductFilter(selected, scrollTarget) {{
+  var nav = document.querySelector('.product-nav');
+  var resetBtn = document.getElementById('nav-reset');
+  var buttons = getNavButtons();
+  var allTargets = buttons.map(function(b) {{ return b.getAttribute('data-target'); }});
+  if (!selected || selected.size === 0) {{
+    allTargets.forEach(function(t) {{
+      var sec = findProductSection(t);
+      if (sec) sec.style.display = '';
+    }});
+    buttons.forEach(function(b) {{ b.setAttribute('aria-pressed', 'true'); }});
+    if (nav) nav.classList.remove('is-filtered');
+    if (resetBtn) resetBtn.hidden = true;
+    return;
   }}
+  allTargets.forEach(function(t) {{
+    var sec = findProductSection(t);
+    if (sec) sec.style.display = selected.has(t) ? '' : 'none';
+  }});
+  buttons.forEach(function(b) {{
+    b.setAttribute('aria-pressed', selected.has(b.getAttribute('data-target')) ? 'true' : 'false');
+  }});
+  if (nav) nav.classList.add('is-filtered');
+  if (resetBtn) resetBtn.hidden = false;
+  if (scrollTarget) {{
+    var el = findProductSection(scrollTarget);
+    if (el) scrollToElement(el);
+  }}
+}}
+function onProductNavClick(btn) {{
+  var target = btn.getAttribute('data-target');
+  if (!isFilterActive()) {{
+    applyProductFilter(new Set([target]), target);
+    return;
+  }}
+  var selected = getSelectedTargets();
+  if (selected.has(target)) {{
+    selected.delete(target);
+    applyProductFilter(selected.size ? selected : null);
+  }} else {{
+    selected.add(target);
+    applyProductFilter(selected, target);
+  }}
+}}
+function resetProductFilter() {{
+  applyProductFilter(null);
+}}
+function initProductNav() {{
+  var list = document.querySelector('.product-nav__list');
+  if (!list) return;
+  list.addEventListener('click', function(e) {{
+    if (e.target.closest('#nav-reset')) {{
+      resetProductFilter();
+      return;
+    }}
+    var btn = e.target.closest('.nav-toggle[data-target]');
+    if (btn) onProductNavClick(btn);
+  }});
 }}
 function applyRowStripes(card) {{
   var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
@@ -1219,10 +1281,12 @@ function navigateToHash(hash) {{
     if (node.tagName === 'DETAILS') node.open = true;
     node = node.parentElement;
   }}
+  applyProductFilter(new Set([id]), id);
   setTimeout(function() {{ scrollToElement(el); }}, 50);
 }}
 document.addEventListener('DOMContentLoaded', function() {{
   updateStickyOffset();
+  initProductNav();
   document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
   navigateToHash(window.location.hash);
 }});
@@ -1309,24 +1373,25 @@ def render_combined_html(
     middleware_data: list[tuple[str, list[dict], dict]] | None = None,
 ) -> str:
     _btn_cls = "pf-v6-c-button pf-m-secondary nav-toggle"
-    nav_links = "".join(
-        f'<button type="button" class="{_btn_cls}" aria-pressed="true"'
-        f' data-target="{label.lower().replace(" ", "-")}"'
-        f' aria-label="Show or hide {label}"'
-        f' onclick="toggleProductCard(this)">{label}</button>'
-        for label, _, _ in product_list
+    nav_links = (
+        '<button type="button" class="pf-v6-c-button pf-m-primary nav-reset" id="nav-reset" hidden>'
+        'Reset filter</button>'
+        + "".join(
+            f'<button type="button" class="{_btn_cls}" aria-pressed="true"'
+            f' data-target="{label.lower().replace(" ", "-")}"'
+            f' aria-label="Filter to {label}">{label}</button>'
+            for label, _, _ in product_list
+        )
     )
     if middleware_data:
         nav_links += (
             f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="middleware"'
-            f' aria-label="Show or hide Middleware"'
-            f' onclick="toggleProductCard(this)">Middleware</button>'
+            f' aria-label="Filter to Middleware">Middleware</button>'
         )
     if operators_data:
         nav_links += (
             f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="operators"'
-            f' aria-label="Show or hide Operators"'
-            f' onclick="toggleProductCard(this)">Operators</button>'
+            f' aria-label="Filter to Operators">Operators</button>'
         )
     # Guide link lives in the footer, not the nav
     _gh_svg = (
