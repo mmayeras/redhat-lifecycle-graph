@@ -61,9 +61,9 @@ products:
 rhel_minors:
   "9":
     "9.4": { ga: "2024-04-30", std_end: "2024-11-12", eus_end: "2026-05-31", elc_end: "2030-04-30" }
-    "9.6": { ga: "2025-05-13", std_end: "2025-11-12", eus_end: "2027-05-31", elc_end: "2031-05-13" }
+    "9.6": { ga: "2025-04-29", std_end: "2025-11-04", eus_end: "2027-05-31", elc_end: "2031-04-29" }
   "8":
-    "8.10": { ga: "2024-05-22", std_end: "2029-05-31", eus_end: "2026-05-31", elc_end: "2030-05-22", elcp_end: "2032-06-30" }
+    "8.10": { ga: "2024-05-22", std_end: "2029-05-31", eus_end: "2026-05-31", elc_end: "2030-05-22", elcp_end: "2033-05-31" }
 ```
 
 Fields per entry:
@@ -73,8 +73,26 @@ Fields per entry:
 | `ga` | yes | GA date |
 | `std_end` | yes | End of Standard subscription window |
 | `eus_end` | no | End of Premium/EUS (even minors) |
-| `elc_end` | no | End of ELC, Premium (even minors ≥ 9.2, and 8.10) |
-| `elcp_end` | no | End of Long Life (last minor of each major: 8.10, 9.10, 10.10) |
+| `elc_end` | no | End of **Extended Life Cycle, Premium subscription additional maintenance** (even minors ≥ 9.2, 8.10, 10.2+) |
+| `elcp_end` | no | End of **Long Life add-on terms** (last minor of each major: 8.10, 9.10, 10.10) |
+
+#### `rhel_majors`
+
+Major-version bars (RHEL 7, 8, 9, 10). Used when `use_major_phases: true` — the lifecycle API is **not** queried for RHEL.
+
+```yaml
+rhel_majors:
+  "8": { ga: "2019-05-07", std_end: "2029-05-31", elc_end: "2030-05-22", ll_end: "2033-05-31" }
+  "7": { ga: "2014-06-10", std_end: "2024-06-30", els_end: "2029-05-31" }
+```
+
+| Field | Required | Meaning |
+|-------|----------|---------|
+| `ga` | yes | Major release GA |
+| `std_end` | yes | End of Standard subscription (= year 10 / Maintenance support end) |
+| `els_end` | no | End of Extended life cycle support (ELS) add-on — **RHEL 7 only** |
+| `elc_end` | no | End of Extended Life Cycle, Premium subscription additional maintenance |
+| `ll_end` | no | End of Long Life add-on terms (majors with a `.10` minor) |
 
 > **Date format**: always quote dates as strings — `"2024-05-18"` not `2024-05-18`. Bare dates are auto-converted to Python `datetime.date` objects by PyYAML, which breaks string comparisons.
 
@@ -120,9 +138,12 @@ Same structure as `operators`, using `phase_map_preset: els2` for JBoss products
 |--------|--------|
 | `op-standard` | Full Support / Maintenance / EUS-1 / EUS-2 |
 | `op-odf` | Full Support / Maintenance / EUS-1 / EUS-2 / EUS-3 |
+| `osp-els3` | Full Support / 3rd-party Cert / Maintenance / ELS-1 / ELS-2 / ELS-3 |
 | `els2` | Full Support / Maintenance / ELS-1 / ELS-2 |
 | `keycloak` | General availability / Full support / Maintenance support |
 | `rolling-ga-eol` | General availability / End of Life |
+
+Products and operators both support `phase_map_preset`. Inline `phase_map` keys are merged on top of the preset.
 
 ### Add a new operator in 3 lines of YAML
 
@@ -163,47 +184,54 @@ Add a `fallback:` block with known dates to protect against API downtime (see ot
 
 ---
 
-## RHEL (major versions)
+## RHEL
 
 **Policy**: https://access.redhat.com/support/policy/updates/errata
 
-| Phase | Key | Notes |
-|-------|-----|-------|
-| Full Support | `fs` | 5 years from GA |
-| Maintenance | `mnt` | up to year 10 |
-| ELS add-on | `els` | optional paid add-on |
-| Extended Life | `elp` | |
+RHEL is **not** driven by the [Product Life Cycles API](https://access.redhat.com/product-life-cycles/api/v1/products?name=Red+Hat+Enterprise+Linux). That API returns legacy phase names (Full support, Maintenance support, ELS add-on) that do not match the current **subscription model**. Instead, RHEL uses `use_major_phases: true` and reads dates from `rhel_majors` and `rhel_minors` in YAML.
 
-RHEL major versions (7, 8, 9, 10) are fetched from the API. The `min_filter` accepts only integer version strings ≥ 7.
+Reference: [RHEL in a nutshell — Extended Life Cycle](https://docs.google.com/presentation/d/1GEVy4z9j2eUOFTuLODywBc9p1cDIp0oUTyZkiczknBs/edit?slide=id.g3d84542a08c_0_266).
 
-> **ELS vs ELC — terminology note**
->
-> These are two different programs that share similar names. This chart uses both:
->
-> | Abbreviation | Full name | Applies to | Source |
-> |---|---|---|---|
-> | **ELS** | Extended Life Cycle Support add-on | RHEL **major** versions (7, 8, 9, 10) | Red Hat lifecycle API returns `"Extended life cycle support (ELS) add-on"` as the exact phase name |
-> | **ELC** | Extended Life Cycle | RHEL **minor** versions (even minors ≥ 9.2, 8.10) | Not in the API — dates sourced manually from the errata page; field key `elc_end` in `lifecycle-config.yaml` |
->
-> The API does **not** expose ELC data for minor versions. Minor release dates (including ELC end dates) must be maintained manually in the `rhel_minors` block of `lifecycle-config.yaml`.
+### Subscription phases (official names)
+
+These four phases apply at **minor** release level.
+
+| Subscription phase | Chart key | Who gets it |
+|--------------------|-----------|-------------|
+| Standard subscription | `rhel_std` | all minors (~6 months per minor) |
+| Premium subscription additional maintenance | `rhel_prem` | **even** minors (EUS, 2 years) |
+| Extended Life Cycle, Premium subscription additional maintenance | `rhel_elcp` | even minors from RHEL 9.2+, 8.10, 10.2+ (6 years from GA) |
+| Long Life add-on terms | `rhel_ll` | last minor of a major (8.10, 9.10, 10.10) |
+
+**ELC eligibility**: 6 years from minor GA on even minors ≥ 9.2, on 8.10, and on 10.2+ (not 10.0/10.1).  
+**Long Life**: extends beyond major year 10 on the final minor; yearly renewal per Long Life add-on terms.
+
+### Major versions (default chart view)
+
+| Subscription phase | Chart key | Notes |
+|--------------------|-----------|-------|
+| Standard subscription | `rhel_std` | years 1–10 (Full + Maintenance support combined) |
+| Extended life cycle support (ELS) add-on | `rhel_els` | **RHEL 7 only** |
+| Extended Life Cycle, Premium subscription additional maintenance | `rhel_elcp` | RHEL 8/9/10 — extended maintenance after year 10 |
+| Long Life add-on terms | `rhel_ll` | RHEL 8+ when `.10` minor dates are known |
+
+`build_rhel_major_versions()` reads `_RHEL_MAJOR_DATA` (from `rhel_majors`).  
+`build_rhel_minor_versions(major)` reads `_RHEL_MINOR_DATA` (from `rhel_minors`).
+
+### ELS vs ELC
+
+| Abbreviation | Full name | Applies to | YAML field |
+|---|---|---|---|
+| **ELS** | Extended life cycle support (ELS) add-on | RHEL **7** major only | `els_end` in `rhel_majors` |
+| **ELC** | Extended Life Cycle, Premium subscription additional maintenance | RHEL **8/9/10** minors and majors | `elc_end` in `rhel_minors` / `rhel_majors` |
+
+The lifecycle API conflates these programs and returns inaccurate major-level dates. Maintain RHEL dates manually from the [errata policy page](https://access.redhat.com/support/policy/updates/errata).
 
 ### RHEL minor versions (the "Show minor releases" toggle)
 
-Minor release dates are **not** available from any Red Hat API — they are embedded as images on the errata page. They are stored in the `rhel_minors` block of `lifecycle-config.yaml`.
+Minor release dates are embedded as images on the errata page — not available from any API. Stored in `rhel_minors`.
 
-| Phase | Key | Who gets it |
-|-------|-----|-------------|
-| Standard | `rhel_std` | all minors |
-| Premium (EUS) | `rhel_prem` | **even** minors |
-| ELC, Premium | `rhel_elcp` | even minors from 9.2+ and 8.10 |
-| Long Life | `rhel_ll` | last minor of a major (8.10, 9.10, 10.10) |
-
-**ELC rule**: 6 years from minor GA, available for even minors ≥ 9.2 and for 8.10.  
-**Long Life rule**: extends beyond major year-10, only for the last minor release.
-
-`build_rhel_minor_versions(major_ver)` reads `_RHEL_MINOR_DATA[major_ver]` (populated from YAML at startup) and builds segments using the four `rhel_*` phase keys.
-
-**To update minor version dates**: edit the `rhel_minors` block in `lifecycle-config.yaml`. See the [Field reference](#field-reference) above for key names.
+**To update dates**: edit `rhel_minors` and/or `rhel_majors` in `lifecycle-config.yaml`. See the [field reference](#field-reference) above.
 
 ---
 
@@ -320,11 +348,25 @@ The `PHASE_KEYS` list defines the chronological order phases are checked when bu
 | Priority | Source | When used |
 |----------|--------|-----------|
 | 1st | Red Hat Product Life Cycles API | Always attempted first |
-| 2nd | `fallback:` blocks in `lifecycle-config.yaml` | API unreachable or returns 0 results |
+| 2nd | `fallback:` blocks in `lifecycle-config.yaml` | API unreachable or returns 0 versions |
+
+**API-first rule:** when the API returns a version, only phases present in the API response are used. The `fallback:` dict is **not** merged field-by-field to fill missing phases. If the API omits a phase date (N/A or unparseable), that segment is simply omitted from the chart.
 
 The API is queried with `Accept-Language: en-US` to prevent localised responses.
 
-`_parse_api_date` handles ISO datetimes, ISO dates with trailing text, and `"Month D, YYYY"` format. Returns `None` for relative strings like `"Release of X+1"` or `"N/A"`.
+`_parse_api_date` handles ISO datetimes, ISO dates with trailing text, `"Month D, YYYY"`, and `"Estimated Month, YYYY"` (last day of month). Returns `None` for `"N/A"` and other unparseable strings.
+
+### Validating phase_map coverage
+
+Before adding or changing a product, run:
+
+```bash
+python3 lifecycle-graph.py --validate-phases
+```
+
+This fetches each API-backed entry and reports `UNMAPPED_PHASE` errors when `product.all_phases` contains a name not in `phase_map`. Exit code 0 means all entries are covered. RHEL (`use_major_phases`) is skipped.
+
+Use `phase_map_preset` for standard phase shapes; add inline `phase_map` entries to **extend** a preset (they are merged on top, not replaced).
 
 ---
 

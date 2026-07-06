@@ -24,6 +24,7 @@ except ImportError:
 
 # ── Runtime data (populated from lifecycle-config.yaml) ──────────────────────
 _RHEL_MINOR_DATA: dict[str, dict[str, dict]] = {}
+_RHEL_MAJOR_DATA: dict[str, dict] = {}
 
 # ── Date parsing ─────────────────────────────────────────────────────────────
 
@@ -149,6 +150,16 @@ _MW_ELS_PHASE_MAP: dict[str, str] = {
     "Extended life cycle support (ELS) 2":         "els2_end",
 }
 
+_OSP_PHASE_MAP: dict[str, str] = {
+    "General availability":                              "ga",
+    "Full support":                                      "fs_end",
+    "Third-party certification period":                  "tpc_end",
+    "Maintenance support":                               "mnt_end",
+    "Extended life cycle support (ELS) add-on":          "els_end",
+    "Extended life cycle support (ELS) Term 2 add-on":   "els2_end",
+    "Extended life cycle support (ELS) Term 3 add-on":   "els3_end",
+}
+
 def _parse_xdotx(v: str) -> tuple:
     """Parse 'X.x' or 'X.Y.x' middleware version like '8.x' → (8,), '7.x' → (7,)."""
     base = v.split(".")[0]
@@ -184,6 +195,7 @@ _PHASE_MAP_PRESETS: dict[str, dict] = {
     "op-standard":    _OP_PHASE_MAP,
     "op-odf":         _ODF_PHASE_MAP,
     "els2":           _MW_ELS_PHASE_MAP,
+    "osp-els3":       _OSP_PHASE_MAP,
     "keycloak":       _KEYCLOAK_PHASE_MAP,
     "rolling-ga-eol": _ROLLING_GA_EOL_PHASE_MAP,
 }
@@ -237,11 +249,14 @@ def _make_min_filter(strategy: str, min_version: str):
 def _apply_product_overrides(products: dict) -> None:
     for key, raw in products.items():
         cfg = PRODUCT_CONFIGS.setdefault(key, {})
-        for field in ("api_name", "title", "page_url", "info_html", "has_minors"):
+        for field in ("api_name", "title", "page_url", "info_html", "has_minors", "use_major_phases"):
             if field in raw:
                 cfg[field] = raw[field]
+        preset = raw.get("phase_map_preset")
+        if preset and preset in _PHASE_MAP_PRESETS:
+            cfg["phase_map"] = dict(_PHASE_MAP_PRESETS[preset])
         if "phase_map" in raw:
-            cfg["phase_map"] = dict(raw["phase_map"])
+            cfg["phase_map"] = {**cfg.get("phase_map", {}), **dict(raw["phase_map"])}
         if "fallback" in raw:
             cfg["fallback"] = {
                 str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
@@ -266,9 +281,9 @@ def _apply_operator_overrides(operators: dict) -> None:
                 cfg[field] = raw[field]
         preset = raw.get("phase_map_preset")
         if preset and preset in _PHASE_MAP_PRESETS:
-            cfg["phase_map"] = _PHASE_MAP_PRESETS[preset]
+            cfg["phase_map"] = dict(_PHASE_MAP_PRESETS[preset])
         if "phase_map" in raw:
-            cfg["phase_map"] = dict(raw["phase_map"])
+            cfg["phase_map"] = {**cfg.get("phase_map", {}), **dict(raw["phase_map"])}
         if "fallback" in raw:
             cfg["fallback"] = {
                 str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
@@ -293,9 +308,9 @@ def _apply_middleware_overrides(middleware: dict) -> None:
                 cfg[field] = raw[field]
         preset = raw.get("phase_map_preset")
         if preset and preset in _PHASE_MAP_PRESETS:
-            cfg["phase_map"] = _PHASE_MAP_PRESETS[preset]
+            cfg["phase_map"] = dict(_PHASE_MAP_PRESETS[preset])
         if "phase_map" in raw:
-            cfg["phase_map"] = dict(raw["phase_map"])
+            cfg["phase_map"] = {**cfg.get("phase_map", {}), **dict(raw["phase_map"])}
         if "fallback" in raw:
             cfg["fallback"] = {
                 str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
@@ -344,6 +359,11 @@ def _load_external_config() -> None:
                 _RHEL_MINOR_DATA[major_str][str(ver)] = {
                     str(fk): _coerce_date_str(fv) for fk, fv in fields.items()
                 }
+    if raw.get("rhel_majors"):
+        for major, fields in raw["rhel_majors"].items():
+            _RHEL_MAJOR_DATA[str(major)] = {
+                str(fk): _coerce_date_str(fv) for fk, fv in fields.items()
+            }
 
 
 _load_external_config()
@@ -353,17 +373,25 @@ PHASES: dict[str, dict] = {
     "sup":  {"label": "Support",       "bg": "#bde5b8", "border": "#1e4f18", "text": "#1e4f18"},
     "fs":   {"label": "Full Support",  "bg": "#bde5b8", "border": "#1e4f18", "text": "#1e4f18"},
     "mnt":  {"label": "Maintenance",   "bg": "#f9e0a2", "border": "#795600", "text": "#795600"},
+    "tpc":  {"label": "3rd-party Cert","bg": "#d4e7f7", "border": "#336699", "text": "#336699"},
     "mnt2": {"label": "Maintenance 2", "bg": "#f4b678", "border": "#8f4700", "text": "#8f4700"},
     "eus1": {"label": "EUS-1",         "bg": "#bee1f4", "border": "#004080", "text": "#004080"},
     "eus2": {"label": "EUS-2",         "bg": "#e7d4ff", "border": "#40199a", "text": "#40199a"},
     "eus3": {"label": "EUS-3",         "bg": "#f2c4ff", "border": "#6a0080", "text": "#6a0080"},
     "elc":  {"label": "ELC",           "bg": "#9ec8ff", "border": "#004499", "text": "#004499"},
     "elcp": {"label": "ELC Premium",   "bg": "#b8e6b8", "border": "#1e6b1e", "text": "#1e5c1e"},
-    # RHEL minor-specific phases matching official Red Hat naming
-    "rhel_std":  {"label": "Standard",      "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
-    "rhel_prem": {"label": "Premium",       "bg": "#f9d0c4", "border": "#8b3020", "text": "#8b3020"},
-    "rhel_elcp": {"label": "ELC, Premium",  "bg": "#fde8df", "border": "#c07060", "text": "#8b4030"},
-    "rhel_ll":   {"label": "Long Life",     "bg": "#a8d8ea", "border": "#005f73", "text": "#003f4f"},
+    # RHEL subscription phases — names from Red Hat RHEL lifecycle materials
+    # (see LIFECYCLE.md; API Full support/Maintenance/ELS names are not used)
+    "rhel_std":  {"label": "Standard subscription", "short_label": "Standard",
+                  "bg": "#fae0dc", "border": "#ee0000", "text": "#7d1007"},
+    "rhel_prem": {"label": "Premium subscription additional maintenance", "short_label": "Premium",
+                  "bg": "#fdf2cf", "border": "#f0ab00", "text": "#6e4800"},
+    "rhel_elcp": {"label": "Extended Life Cycle, Premium subscription additional maintenance", "short_label": "ELC, Premium",
+                  "bg": "#d4e7f7", "border": "#336699", "text": "#004080"},
+    "rhel_ll":   {"label": "Long Life add-on terms", "short_label": "Long Life",
+                  "bg": "#c7ebee", "border": "#006970", "text": "#003f4f"},
+    "rhel_els":  {"label": "Extended life cycle support (ELS) add-on", "short_label": "ELS add-on",
+                  "bg": "#e7d4ff", "border": "#6a1b9a", "text": "#40199a"},
     "els":  {"label": "ELS",           "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
     "els2": {"label": "ELS-2",         "bg": "#e88080", "border": "#8b0000", "text": "#fff"},
     "els3": {"label": "ELS-3",         "bg": "#c94040", "border": "#6b0000", "text": "#fff"},
@@ -375,6 +403,7 @@ PHASES: dict[str, dict] = {
 PHASE_KEYS = [
     ("sup",  "sup_end"),   # Ceph: single-tier support (no fs/mnt split)
     ("fs",   "fs_end"),
+    ("tpc",  "tpc_end"),   # OSP: third-party certification period
     ("mnt",  "mnt_end"),
     ("mnt2", "mnt2_end"),
     ("eus1", "eus1_end"),
@@ -389,49 +418,115 @@ PHASE_KEYS = [
 ]
 
 
+def _phase_bar_text(ph: dict, width_pct: float) -> str:
+    """Return in-bar label text; empty when the segment is too narrow."""
+    if width_pct < 3:
+        return ""
+    return ph.get("short_label", ph["label"])
+
+
+def _phase_legend_text(ph: dict) -> str:
+    return ph.get("short_label", ph["label"])
+
+
 def _d(s: str) -> date:
     return date.fromisoformat(s)
 
 
-def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
-    """Fetch lifecycle for a product from Red Hat API; fall back to static data."""
+_SUPPORT_END_KEYS = ("fs_end", "mnt_end", "mnt2_end", "sup_end", "tpc_end")
+
+
+def _api_phases_to_dates(ver_data: dict, phase_map: dict[str, str]) -> dict[str, str]:
+    """Map API phase end_dates to internal field names via phase_map."""
+    dates: dict[str, str] = {}
+    for phase in ver_data.get("phases", []):
+        field = phase_map.get(phase["name"])
+        if not field:
+            continue
+        parsed = _parse_api_date(phase.get("end_date", ""))
+        if parsed:
+            dates[field] = parsed
+    return dates
+
+
+def _fetch_api_product(cfg: dict) -> dict | None:
+    """Return the raw API product dict, or None if the request fails."""
     name_param = cfg["api_name"].replace(" ", "+")
     url = f"https://access.redhat.com/product-life-cycles/api/v1/products?name={name_param}"
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={"User-Agent": "lifecycle-graph/1.0", "Accept-Language": "en-US,en;q=0.9"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read())
+        return data["data"][0]
+    except Exception:
+        return None
+
+
+def validate_phases() -> int:
+    """Audit phase_map coverage against the Red Hat API. Returns error count."""
+    errors = 0
+    entries: list[tuple[str, dict]] = []
+    for key, cfg in PRODUCT_CONFIGS.items():
+        if cfg.get("use_major_phases"):
+            continue
+        entries.append((f"product:{key}", cfg))
+    for key, cfg in OPERATOR_CONFIGS.items():
+        entries.append((f"operator:{key}", cfg))
+    for key, cfg in MIDDLEWARE_CONFIGS.items():
+        entries.append((f"middleware:{key}", cfg))
+
+    for label, cfg in entries:
+        product = _fetch_api_product(cfg)
+        if product is None:
+            print(f"SKIP {label}: API unavailable", file=sys.stderr)
+            continue
+        phase_map = cfg.get("phase_map", {})
+        api_phases = {p["name"] for p in product.get("all_phases", [])}
+        for phase_name in sorted(api_phases):
+            if phase_name not in phase_map:
+                print(f"ERROR {label}: UNMAPPED_PHASE {phase_name!r}", file=sys.stderr)
+                errors += 1
+    if errors:
+        print(f"\n{errors} unmapped phase(s) — fix phase_map or phase_map_preset in lifecycle-config.yaml.",
+              file=sys.stderr)
+    else:
+        print("All API-backed entries have complete phase_map coverage.", file=sys.stderr)
+    return errors
+
+
+def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
+    """Fetch lifecycle for a product from the Red Hat API; fall back to static data.
+
+    phase_map translates API phase names to internal date fields (ga, fs_end, …).
+    When the API returns a version, only API-provided phases are used — fallback
+    is not merged field-by-field. fallback: is used only when the API is unreachable.
+    """
     phase_map = cfg["phase_map"]
     min_filter = cfg["min_filter"]
-    fallback = cfg["fallback"]
+    fallback = cfg.get("fallback", {})
     name_transform = cfg.get("name_transform")
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "lifecycle-graph/1.0", "Accept-Language": "en-US,en;q=0.9"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read())
-        product = data["data"][0]
-        result: dict[str, dict] = {}
-        for ver_data in product["versions"]:
-            raw = ver_data["name"]
-            name = name_transform(raw) if name_transform else raw
-            if not name_transform and " " in raw:
-                continue
-            if not min_filter(name):
-                continue
-            dates: dict[str, str] = {}
-            for phase in ver_data["phases"]:
-                key = phase_map.get(phase["name"])
-                if key:
-                    parsed = _parse_api_date(phase.get("end_date", ""))
-                    if parsed:
-                        dates[key] = parsed
-            if name in fallback:
-                for _k in ("fs_end", "mnt_end", "eus1_end", "eus2_end", "sup_end", "els_end", "els2_end", "els3_end"):
-                    if _k not in dates and _k in fallback[name]:
-                        dates[_k] = fallback[name][_k]
-            if "ga" in dates and any(k in dates for k in ("fs_end", "mnt_end", "sup_end")):
-                result[name] = dates
-        if result:
-            print(f"Fetched {len(result)} {cfg['title']} versions from Red Hat API.", file=sys.stderr)
-            return result
-    except Exception as exc:
-        print(f"API fetch failed for {cfg['title']} ({exc}), using fallback.", file=sys.stderr)
+    product = _fetch_api_product(cfg)
+    if product is None:
+        print(f"API fetch failed for {cfg['title']}, using fallback.", file=sys.stderr)
+        return dict(fallback)
+    result: dict[str, dict] = {}
+    for ver_data in product["versions"]:
+        raw = ver_data["name"]
+        name = name_transform(raw) if name_transform else raw
+        if not name_transform and " " in raw:
+            continue
+        if not min_filter(name):
+            continue
+        dates = _api_phases_to_dates(ver_data, phase_map)
+        if "ga" in dates and any(k in dates for k in _SUPPORT_END_KEYS):
+            result[name] = dates
+    if result:
+        print(f"Fetched {len(result)} {cfg['title']} versions from Red Hat API.", file=sys.stderr)
+        return result
+    print(f"API returned 0 versions for {cfg['title']}, using fallback.", file=sys.stderr)
     return dict(fallback)
 
 
@@ -535,6 +630,44 @@ def build_rhel_minor_versions(major_ver: str) -> list[dict]:
     return result
 
 
+def build_rhel_major_versions() -> list[dict]:
+    """Build major-version dicts for RHEL using subscription phase keys from rhel_majors."""
+    today = date.today()
+    result = []
+    for ver in sorted(_RHEL_MAJOR_DATA.keys(), key=lambda v: int(v), reverse=True):
+        m = _RHEL_MAJOR_DATA[ver]
+        ga = _d(m["ga"])
+        std_end = _d(m["std_end"])
+        els_end = _d(m["els_end"]) if "els_end" in m else None
+        elc_end = _d(m["elc_end"]) if "elc_end" in m else None
+        ll_end = _d(m["ll_end"]) if "ll_end" in m else None
+        segments = [{"key": "rhel_std", "start": ga, "end": std_end}]
+        ext_start = std_end
+        if els_end and els_end > ext_start:
+            segments.append({"key": "rhel_els", "start": ext_start, "end": els_end})
+            ext_start = els_end
+        if elc_end and elc_end > ext_start:
+            segments.append({"key": "rhel_elcp", "start": ext_start, "end": elc_end})
+            ext_start = elc_end
+        if ll_end and ll_end > ext_start:
+            segments.append({"key": "rhel_ll", "start": ext_start, "end": ll_end})
+        last_end = segments[-1]["end"]
+        phase_key = "eol"
+        days_left = 0
+        for seg in segments:
+            if today <= seg["end"]:
+                phase_key = seg["key"]
+                days_left = (seg["end"] - today).days
+                break
+        is_eol = phase_key == "eol"
+        result.append({
+            "version": ver, "ga": ga, "last_end": last_end,
+            "segments": segments, "is_eus": False,
+            "is_eol": is_eol, "phase_key": phase_key, "days_left": days_left,
+        })
+    return result
+
+
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
@@ -603,8 +736,13 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
             r = f"{'4px' if is_first else '0'} {'4px' if is_last else '0'} {'4px' if is_last else '0'} {'4px' if is_first else '0'}"
             bl = f"1.5px solid {ph['border']}" if is_first else "none"
             br = f"1.5px solid {ph['border']}" if is_last else "none"
-            show_label = w > 5
-            inner = f'<span style="font-size:11px;color:{ph["text"]};font-weight:600;white-space:nowrap;padding:0 6px">{ph["label"]}</span>' if show_label else ""
+            show_label = w > 3
+            bar_text = _phase_bar_text(ph, w)
+            fs = "10px" if w < 12 else "11px"
+            inner = (
+                f'<span class="phase-bar-label" style="font-size:{fs};color:{ph["text"]};font-weight:600">'
+                f'{bar_text}</span>'
+            ) if show_label and bar_text else ""
             _tip_text = f'{ph["label"]} | {seg["start"].isoformat()} → {seg["end"].isoformat()}'
             segs_html += (
                 f'<div data-phase="{_tip_text}" '
@@ -697,10 +835,11 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 
     # ── Legend ───────────────────────────────────────────────────────────────
     legend_html = " ".join(
-        f'<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)">'
+        f'<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"'
+        f' title="{PHASES[k]["label"]}">'
         f'<span style="display:inline-block;width:14px;height:12px;border-radius:2px;'
         f'background:{PHASES[k]["bg"]};border:1.5px solid {PHASES[k]["border"]}"></span>'
-        f'{PHASES[k]["label"]}</span>'
+        f'{_phase_legend_text(PHASES[k])}</span>'
         for k, _ in PHASE_KEYS
         if k in used_phases
     )
@@ -913,9 +1052,9 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
         subnav_html = (
             '<section class="pf-v6-c-page__main-subnav pf-m-limit-width pf-m-align-center pf-m-sticky-top">'
             '<div class="pf-v6-c-page__main-body">'
-            f'<nav class="pf-v6-c-nav pf-m-horizontal pf-m-overflow" aria-label="Product navigation">'
-            f'<ul class="pf-v6-c-nav__list" style="display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap">{nav_links}</ul>'
-            '</nav>'
+            f'<div class="product-nav" role="navigation" aria-label="Product navigation">'
+            f'<div class="product-nav__list">{nav_links}</div>'
+            '</div>'
             '</div>'
             '</section>'
         )
@@ -969,6 +1108,58 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
   </div>
 </div>
 <script>
+function getStickyOffset() {{
+  var offset = 16;
+  var masthead = document.querySelector('.pf-v6-c-masthead');
+  var subnav = document.querySelector('.pf-v6-c-page__main-subnav');
+  if (masthead) offset += masthead.getBoundingClientRect().height;
+  if (subnav) offset += subnav.getBoundingClientRect().height;
+  return offset;
+}}
+function getScrollParent(el) {{
+  var node = el.parentElement;
+  while (node) {{
+    var style = window.getComputedStyle(node);
+    if (/(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight) {{
+      return node;
+    }}
+    node = node.parentElement;
+  }}
+  return null;
+}}
+function updateStickyOffset() {{
+  document.documentElement.style.setProperty('--sticky-offset', getStickyOffset() + 'px');
+}}
+function scrollToElement(el) {{
+  if (!el) return;
+  updateStickyOffset();
+  requestAnimationFrame(function() {{
+    updateStickyOffset();
+    var offset = getStickyOffset();
+    var parent = getScrollParent(el);
+    if (parent) {{
+      var top = el.getBoundingClientRect().top - parent.getBoundingClientRect().top + parent.scrollTop - offset;
+      parent.scrollTo({{ top: Math.max(0, top), behavior: 'smooth' }});
+    }} else {{
+      var top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({{ top: Math.max(0, top), behavior: 'smooth' }});
+    }}
+  }});
+}}
+function toggleProductCard(btn) {{
+  var target = btn.getAttribute('data-target');
+  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
+  if (!section) return;
+  var show = section.style.display === 'none';
+  if (show) {{
+    section.style.display = '';
+    btn.setAttribute('aria-pressed', 'true');
+    scrollToElement(section);
+  }} else {{
+    section.style.display = 'none';
+    btn.setAttribute('aria-pressed', 'false');
+  }}
+}}
 function filterCard(card) {{
   var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
   if (!rows.length) return;
@@ -1019,12 +1210,14 @@ function navigateToHash(hash) {{
     if (node.tagName === 'DETAILS') node.open = true;
     node = node.parentElement;
   }}
-  setTimeout(function() {{ el.scrollIntoView({{behavior: 'smooth', block: 'start'}}); }}, 50);
+  setTimeout(function() {{ scrollToElement(el); }}, 50);
 }}
 document.addEventListener('DOMContentLoaded', function() {{
+  updateStickyOffset();
   document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
   navigateToHash(window.location.hash);
 }});
+window.addEventListener('resize', updateStickyOffset);
 window.addEventListener('hashchange', function() {{ navigateToHash(window.location.hash); }});
 (function() {{
   var tip = document.createElement('div');
@@ -1068,24 +1261,16 @@ document.addEventListener('click', function(e) {{
     }}
   }}
   var cur = document.documentElement.getAttribute('data-theme')==='dark';
-  applyTheme(cur);
-  btn.addEventListener('click',function(){{
-    var isDark = document.documentElement.getAttribute('data-theme')==='dark';
-    var next = !isDark;
-    localStorage.setItem('lifecycle-theme', next?'dark':'light');
-    applyTheme(next);
-  }});
-}})();
-function toggleProductCard(btn) {{
-  var target = btn.getAttribute('data-target');
-  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
-  if (!section) return;
-  if (section.style.display === 'none') {{
-    section.style.display = '';
+  if (btn && sunIcon && moonIcon) {{
+    applyTheme(cur);
+    btn.addEventListener('click',function(){{
+      var isDark = document.documentElement.getAttribute('data-theme')==='dark';
+      var next = !isDark;
+      localStorage.setItem('lifecycle-theme', next?'dark':'light');
+      applyTheme(next);
+    }});
   }}
-  btn.setAttribute('aria-pressed', 'true');
-  section.scrollIntoView({{behavior: 'smooth', block: 'start'}});
-}}
+}})();
 </script>
 </body>
 </html>"""
@@ -1116,19 +1301,22 @@ def render_combined_html(
 ) -> str:
     _btn_cls = "pf-v6-c-button pf-m-secondary nav-toggle"
     nav_links = "".join(
-        f'<button class="{_btn_cls}" aria-pressed="true"'
+        f'<button type="button" class="{_btn_cls}" aria-pressed="true"'
         f' data-target="{label.lower().replace(" ", "-")}"'
+        f' aria-label="Show or hide {label}"'
         f' onclick="toggleProductCard(this)">{label}</button>'
         for label, _, _ in product_list
     )
     if middleware_data:
         nav_links += (
-            f'<button class="{_btn_cls}" aria-pressed="true" data-target="middleware"'
+            f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="middleware"'
+            f' aria-label="Show or hide Middleware"'
             f' onclick="toggleProductCard(this)">Middleware</button>'
         )
     if operators_data:
         nav_links += (
-            f'<button class="{_btn_cls}" aria-pressed="true" data-target="operators"'
+            f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="operators"'
+            f' aria-label="Show or hide Operators"'
             f' onclick="toggleProductCard(this)">Operators</button>'
         )
     # Guide link lives in the footer, not the nav
@@ -1326,9 +1514,11 @@ def render_svg(versions: list[dict], chart_label: str, width: int = 1400,
             sx = px(seg["start"])
             sw = px(seg["end"]) - sx
             els.append(f'<rect x="{sx:.1f}" y="{bar_y:.1f}" width="{sw:.1f}" height="{BAR_H}" fill="{ph["bg"]}"/>')
-            if sw > 65:
+            if sw > 40:
                 lbl_x = sx + sw / 2
-                els.append(f'<text x="{lbl_x:.1f}" y="{bar_y + BAR_H/2 + 4:.1f}" text-anchor="middle" font-family="{FONT}" font-size="11" font-weight="600" fill="{ph["text"]}">{ph["label"]}</text>')
+                bar_lbl = _phase_bar_text(ph, sw / bar_w * 100 if bar_w else 0)
+                if bar_lbl:
+                    els.append(f'<text x="{lbl_x:.1f}" y="{bar_y + BAR_H/2 + 4:.1f}" text-anchor="middle" font-family="{FONT}" font-size="11" font-weight="600" fill="{ph["text"]}">{bar_lbl}</text>')
         if v["is_eol"]:
             els.append(f'<rect x="{bar_x:.1f}" y="{bar_y:.1f}" width="{bar_w:.1f}" height="{BAR_H}" fill="url(#eol)"/>')
         els.append('</g>')
@@ -1409,14 +1599,17 @@ def _fetch_all(
     """
     product_list: list[tuple[str, list[dict], dict]] = []
     for product, cfg in PRODUCT_CONFIGS.items():
-        lifecycle = fetch_lifecycle(cfg)
-        versions = build_versions(
-            lifecycle, cfg,
-            versions_filter=args.versions,
-            from_version=args.from_version,
-            to_version=args.to_version,
-            include_eol=True,  # always; HTML controls filter via JS
-        )
+        if cfg.get("use_major_phases"):
+            versions = build_rhel_major_versions()
+        else:
+            lifecycle = fetch_lifecycle(cfg)
+            versions = build_versions(
+                lifecycle, cfg,
+                versions_filter=args.versions,
+                from_version=args.from_version,
+                to_version=args.to_version,
+                include_eol=True,  # always; HTML controls filter via JS
+            )
         if versions:
             product_list.append((cfg["title"], versions, cfg))
         else:
@@ -1452,16 +1645,19 @@ def _generate_product(
     args: argparse.Namespace,
 ) -> None:
     cfg = PRODUCT_CONFIGS[product]
-    lifecycle = fetch_lifecycle(cfg)
     chart_label = args.title if args.title else cfg["title"]
 
-    versions_html = build_versions(
-        lifecycle, cfg,
-        versions_filter=args.versions,
-        from_version=args.from_version,
-        to_version=args.to_version,
-        include_eol=True,  # always; JS controls visibility
-    )
+    if cfg.get("use_major_phases"):
+        versions_html = build_rhel_major_versions()
+    else:
+        lifecycle = fetch_lifecycle(cfg)
+        versions_html = build_versions(
+            lifecycle, cfg,
+            versions_filter=args.versions,
+            from_version=args.from_version,
+            to_version=args.to_version,
+            include_eol=True,  # always; JS controls visibility
+        )
     if not versions_html:
         print(f"No versions matched for {product}.", file=sys.stderr)
         return
@@ -1900,7 +2096,12 @@ def main() -> None:
     ap.add_argument("--width", type=int, default=1400, help="SVG/PNG width in pixels (default: 1400)")
     ap.add_argument("--output-dir", dest="output_dir", default=".",
                     help="Output directory (default: current dir; CI uses docs/)")
+    ap.add_argument("--validate-phases", action="store_true",
+                    help="Audit phase_map coverage against the Red Hat API and exit")
     args = ap.parse_args()
+
+    if args.validate_phases:
+        sys.exit(1 if validate_phases() else 0)
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(exist_ok=True)
@@ -1911,6 +2112,8 @@ def main() -> None:
         if static_dst.exists():
             shutil.rmtree(static_dst)
         shutil.copytree(static_src, static_dst)
+    else:
+        print(f"Warning: {static_src} not found — skipping static asset copy.", file=sys.stderr)
 
     if args.product == "all":
         product_list, operators_data, middleware_data = _fetch_all(args)

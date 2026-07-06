@@ -4,6 +4,33 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
+## [0.2.0] — 2026-07-06
+
+### Added
+- **RHEL subscription model** — major and minor charts use official phase names (Standard subscription, Premium subscription additional maintenance, Extended Life Cycle Premium, Long Life add-on terms) from Red Hat lifecycle materials; bypasses inaccurate lifecycle API via `use_major_phases: true`
+- **`rhel_majors` YAML block** — major-version dates (`std_end`, `els_end`, `elc_end`, `ll_end`) as single source of truth for RHEL 7–10
+- **`rhel_els` phase key** — RHEL 7 major Extended life cycle support (ELS) add-on segment
+- **`--validate-phases` CLI** — audits `phase_map` coverage against the Red Hat API for all non-RHEL entries
+- **API-first lifecycle fetch** — no per-field YAML backfill when API returns a version; `fallback:` used only when API is unreachable
+- **`phase_map_preset` for products** — presets merge with inline `phase_map` overrides
+- **`osp-els3` preset** and `tpc` phase for OpenStack Platform third-party certification
+- **PatternFly v6 UI** — external CSS (`static/css/chart.css`), Flask dev server (`server.py`), `Containerfile` for containerized local preview
+- **Nav improvements** — product section toggle show/hide, centered nav pills, sticky scroll offset for card titles
+
+### Changed
+- **RHEL phase display labels** — match subscription terminology (not API Full support / Maintenance names)
+- **RHEL 8 major chart** — split Extended Life Cycle, Premium (to 2030-05-22) and Long Life add-on (to 2033-05-31) segments
+- **Removed RHEL API fallback** — `phase_map` and `fallback:` removed from RHEL product entry (YAML blocks only)
+- **LIFECYCLE.md** — rewritten RHEL section with ELC/ELS terminology, `rhel_majors` field reference, API bypass documented
+- **README** — Containerfile local development instructions, RHEL phase legend, `--validate-phases`
+
+### Fixed
+- Satellite, OCP, AAP, OSP, Global Hub, Quay family, and 12 operators — phase_map gaps causing missing EUS/ELS segments
+- Containerfile — copies config/docs inputs, installs PyYAML, generates `docs/` at build time
+- Missing `static/` directory — graceful warning instead of crash when assets absent
+
+---
+
 ## [0.1.1] — 2026-07-03
 
 ### Added

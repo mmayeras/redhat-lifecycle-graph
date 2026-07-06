@@ -6,6 +6,25 @@
   --pf-v6-c-page--section--m-limit-width--MaxWidth: 1200px;
 }
 
+/* ── Product nav: two wrapped rows, no horizontal overlap ──────────────── */
+.product-nav {
+  padding: 8px 0;
+}
+
+.product-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 8px;
+  max-width: 100%;
+}
+
+.product-nav__list .nav-toggle {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
 /* ── Chart layout variables ─────────────────────────────────────────────── */
 :root {
   --card-px: 24px;
@@ -15,6 +34,11 @@
   --row-h: 48px;
   --bar-h: 34px;
   --ver-font: 15px;
+  --sticky-offset: 130px; /* updated by JS from masthead + subnav height */
+}
+
+html {
+  scroll-padding-top: var(--sticky-offset);
 }
 
 @media (max-width: 600px) {
@@ -73,6 +97,11 @@ html[data-theme="light"] {
   --phase-els-badge: #a30000;
   --phase-els2-badge: #8b0000;
   --phase-elp-badge: #3c3f42;
+  --phase-rhel-std-badge: #7d1007;
+  --phase-rhel-prem-badge: #6e4800;
+  --phase-rhel-elcp-badge: #004080;
+  --phase-rhel-ll-badge: #003f4f;
+  --phase-rhel-els-badge: #40199a;
 }
 
 html[data-theme="dark"],
@@ -119,7 +148,7 @@ html.pf-v6-theme-dark {
   width: 100%;
   box-shadow: var(--pf-t--global--box-shadow--sm, 0 2px 8px rgba(0,0,0,0.08));
   overflow: hidden;
-  scroll-margin-top: 70px;
+  scroll-margin-top: var(--sticky-offset);
 }
 
 .card-header {
@@ -212,6 +241,7 @@ html.pf-v6-theme-dark {
   padding-bottom: 10px;
   border-bottom: 2px solid var(--border-base);
   margin-bottom: 4px;
+  scroll-margin-top: var(--sticky-offset);
 }
 .op-section { display: flex; flex-direction: column; gap: 8px; }
 .op-details {
@@ -220,7 +250,7 @@ html.pf-v6-theme-dark {
   border-radius: var(--pf-t--global--border--radius--medium, 8px);
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   overflow: hidden;
-  scroll-margin-top: 70px;
+  scroll-margin-top: var(--sticky-offset);
 }
 .op-summary {
   cursor: pointer;
@@ -320,6 +350,23 @@ html.pf-v6-theme-dark {
   flex-shrink: 0;
   text-align: right;
   padding-left: 4px;
+}
+
+/* In-bar phase labels: ellipsis when space is tight */
+.phase-bar-label {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.chart-row-bar [data-phase] {
+  min-width: 0;
 }
 
 /* ── Version code ────────────────────────────────────────────────────── */

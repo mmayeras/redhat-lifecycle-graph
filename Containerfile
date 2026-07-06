@@ -8,10 +8,10 @@ COPY requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY --chown=1001:0 --chmod=775 lifecycle-graph.py server.py ./
+COPY --chown=1001:0 --chmod=775 lifecycle-graph.py server.py lifecycle-config.yaml LIFECYCLE.md ./
 COPY --chown=1001:0 --chmod=775 static/ static/
 
-RUN python lifecycle-graph.py --product all && chown -R 1001:0 docs/
+RUN python lifecycle-graph.py --product all --output-dir docs && chown -R 1001:0 docs/
 
 USER 1001
 
