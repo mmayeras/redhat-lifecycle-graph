@@ -148,7 +148,7 @@ html.pf-v6-theme-dark {
   width: 100%;
   box-shadow: var(--pf-t--global--box-shadow--sm, 0 2px 8px rgba(0,0,0,0.08));
   overflow: hidden;
-  scroll-margin-top: 70px;
+  scroll-margin-top: var(--sticky-offset);
 }
 
 .card-header {
@@ -250,7 +250,7 @@ html.pf-v6-theme-dark {
   border-radius: var(--pf-t--global--border--radius--medium, 8px);
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   overflow: hidden;
-  scroll-margin-top: 70px;
+  scroll-margin-top: var(--sticky-offset);
 }
 .op-summary {
   cursor: pointer;
@@ -322,7 +322,7 @@ html.pf-v6-theme-dark {
   flex-direction: column;
   gap: 6px;
 }
-.chart-rows > div:nth-child(even) { background: var(--bg-row-alt); }
+.chart-row.row-alt { background: var(--bg-row-alt); border-radius: 4px; }
 
 .chart-row {
   display: flex;

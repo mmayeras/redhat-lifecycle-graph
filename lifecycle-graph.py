@@ -1160,6 +1160,14 @@ function toggleProductCard(btn) {{
     btn.setAttribute('aria-pressed', 'false');
   }}
 }}
+function applyRowStripes(card) {{
+  var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
+  var visible = rows.filter(function(r) {{ return r.style.display !== 'none'; }});
+  rows.forEach(function(r) {{ r.classList.remove('row-alt'); }});
+  visible.forEach(function(row, i) {{
+    if (i % 2 === 1) row.classList.add('row-alt');
+  }});
+}}
 function filterCard(card) {{
   var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
   if (!rows.length) return;
@@ -1192,6 +1200,7 @@ function filterCard(card) {{
       }}
     }}
   }});
+  applyRowStripes(card);
 }}
 function toggleMinorRows(card) {{
   var show = card.querySelector('.ctrl-minor') && card.querySelector('.ctrl-minor').checked;
