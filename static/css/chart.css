@@ -441,17 +441,30 @@ html.pf-v6-theme-dark {
   max-width: 110px;
 }
 
-/* ── Nav toggle buttons: standard PF6 secondary button ────────────────── */
+/* ── Nav filter buttons ───────────────────────────────────────────────── */
+.nav-reset {
+  font-size: var(--pf-t--global--font--size--sm, 14px);
+  white-space: nowrap;
+}
+.nav-reset[hidden] { display: none; }
+
 .nav-toggle.pf-m-secondary {
   font-size: var(--pf-t--global--font--size--sm, 14px);
   white-space: nowrap;
 }
-.nav-toggle.pf-m-secondary[aria-pressed="false"] {
+.product-nav:not(.is-filtered) .nav-toggle.pf-m-secondary {
+  opacity: 1;
+  color: inherit;
+}
+.product-nav.is-filtered .nav-toggle.pf-m-secondary[aria-pressed="false"] {
   color: var(--pf-t--global--text--color--subtle);
   border-color: var(--pf-t--global--border--color--default);
-  opacity: 0.6;
+  opacity: 0.55;
 }
-.nav-toggle.pf-m-secondary[aria-pressed="false"]:hover {
+.product-nav.is-filtered .nav-toggle.pf-m-secondary[aria-pressed="false"]:hover {
+  opacity: 0.85;
+}
+.product-nav.is-filtered .nav-toggle.pf-m-secondary[aria-pressed="true"] {
   opacity: 1;
 }
 
