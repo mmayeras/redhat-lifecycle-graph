@@ -9,6 +9,7 @@ import argparse
 import html as _html
 import json
 import re
+import shutil
 import subprocess
 import sys
 import urllib.request
@@ -23,6 +24,7 @@ except ImportError:
 
 # ── Runtime data (populated from lifecycle-config.yaml) ──────────────────────
 _RHEL_MINOR_DATA: dict[str, dict[str, dict]] = {}
+_RHEL_MAJOR_DATA: dict[str, dict] = {}
 
 # ── Date parsing ─────────────────────────────────────────────────────────────
 
@@ -148,6 +150,16 @@ _MW_ELS_PHASE_MAP: dict[str, str] = {
     "Extended life cycle support (ELS) 2":         "els2_end",
 }
 
+_OSP_PHASE_MAP: dict[str, str] = {
+    "General availability":                              "ga",
+    "Full support":                                      "fs_end",
+    "Third-party certification period":                  "tpc_end",
+    "Maintenance support":                               "mnt_end",
+    "Extended life cycle support (ELS) add-on":          "els_end",
+    "Extended life cycle support (ELS) Term 2 add-on":   "els2_end",
+    "Extended life cycle support (ELS) Term 3 add-on":   "els3_end",
+}
+
 def _parse_xdotx(v: str) -> tuple:
     """Parse 'X.x' or 'X.Y.x' middleware version like '8.x' → (8,), '7.x' → (7,)."""
     base = v.split(".")[0]
@@ -183,6 +195,7 @@ _PHASE_MAP_PRESETS: dict[str, dict] = {
     "op-standard":    _OP_PHASE_MAP,
     "op-odf":         _ODF_PHASE_MAP,
     "els2":           _MW_ELS_PHASE_MAP,
+    "osp-els3":       _OSP_PHASE_MAP,
     "keycloak":       _KEYCLOAK_PHASE_MAP,
     "rolling-ga-eol": _ROLLING_GA_EOL_PHASE_MAP,
 }
@@ -236,11 +249,14 @@ def _make_min_filter(strategy: str, min_version: str):
 def _apply_product_overrides(products: dict) -> None:
     for key, raw in products.items():
         cfg = PRODUCT_CONFIGS.setdefault(key, {})
-        for field in ("api_name", "title", "page_url", "info_html", "has_minors"):
+        for field in ("api_name", "title", "page_url", "info_html", "has_minors", "use_major_phases"):
             if field in raw:
                 cfg[field] = raw[field]
+        preset = raw.get("phase_map_preset")
+        if preset and preset in _PHASE_MAP_PRESETS:
+            cfg["phase_map"] = dict(_PHASE_MAP_PRESETS[preset])
         if "phase_map" in raw:
-            cfg["phase_map"] = dict(raw["phase_map"])
+            cfg["phase_map"] = {**cfg.get("phase_map", {}), **dict(raw["phase_map"])}
         if "fallback" in raw:
             cfg["fallback"] = {
                 str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
@@ -265,9 +281,9 @@ def _apply_operator_overrides(operators: dict) -> None:
                 cfg[field] = raw[field]
         preset = raw.get("phase_map_preset")
         if preset and preset in _PHASE_MAP_PRESETS:
-            cfg["phase_map"] = _PHASE_MAP_PRESETS[preset]
+            cfg["phase_map"] = dict(_PHASE_MAP_PRESETS[preset])
         if "phase_map" in raw:
-            cfg["phase_map"] = dict(raw["phase_map"])
+            cfg["phase_map"] = {**cfg.get("phase_map", {}), **dict(raw["phase_map"])}
         if "fallback" in raw:
             cfg["fallback"] = {
                 str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
@@ -292,9 +308,9 @@ def _apply_middleware_overrides(middleware: dict) -> None:
                 cfg[field] = raw[field]
         preset = raw.get("phase_map_preset")
         if preset and preset in _PHASE_MAP_PRESETS:
-            cfg["phase_map"] = _PHASE_MAP_PRESETS[preset]
+            cfg["phase_map"] = dict(_PHASE_MAP_PRESETS[preset])
         if "phase_map" in raw:
-            cfg["phase_map"] = dict(raw["phase_map"])
+            cfg["phase_map"] = {**cfg.get("phase_map", {}), **dict(raw["phase_map"])}
         if "fallback" in raw:
             cfg["fallback"] = {
                 str(k): {str(fk): _coerce_date_str(fv) for fk, fv in v.items()}
@@ -343,6 +359,11 @@ def _load_external_config() -> None:
                 _RHEL_MINOR_DATA[major_str][str(ver)] = {
                     str(fk): _coerce_date_str(fv) for fk, fv in fields.items()
                 }
+    if raw.get("rhel_majors"):
+        for major, fields in raw["rhel_majors"].items():
+            _RHEL_MAJOR_DATA[str(major)] = {
+                str(fk): _coerce_date_str(fv) for fk, fv in fields.items()
+            }
 
 
 _load_external_config()
@@ -352,17 +373,25 @@ PHASES: dict[str, dict] = {
     "sup":  {"label": "Support",       "bg": "#bde5b8", "border": "#1e4f18", "text": "#1e4f18"},
     "fs":   {"label": "Full Support",  "bg": "#bde5b8", "border": "#1e4f18", "text": "#1e4f18"},
     "mnt":  {"label": "Maintenance",   "bg": "#f9e0a2", "border": "#795600", "text": "#795600"},
+    "tpc":  {"label": "3rd-party Cert","bg": "#d4e7f7", "border": "#336699", "text": "#336699"},
     "mnt2": {"label": "Maintenance 2", "bg": "#f4b678", "border": "#8f4700", "text": "#8f4700"},
     "eus1": {"label": "EUS-1",         "bg": "#bee1f4", "border": "#004080", "text": "#004080"},
     "eus2": {"label": "EUS-2",         "bg": "#e7d4ff", "border": "#40199a", "text": "#40199a"},
     "eus3": {"label": "EUS-3",         "bg": "#f2c4ff", "border": "#6a0080", "text": "#6a0080"},
     "elc":  {"label": "ELC",           "bg": "#9ec8ff", "border": "#004499", "text": "#004499"},
     "elcp": {"label": "ELC Premium",   "bg": "#b8e6b8", "border": "#1e6b1e", "text": "#1e5c1e"},
-    # RHEL minor-specific phases matching official Red Hat naming
-    "rhel_std":  {"label": "Standard",      "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
-    "rhel_prem": {"label": "Premium",       "bg": "#f9d0c4", "border": "#8b3020", "text": "#8b3020"},
-    "rhel_elcp": {"label": "ELC, Premium",  "bg": "#fde8df", "border": "#c07060", "text": "#8b4030"},
-    "rhel_ll":   {"label": "Long Life",     "bg": "#a8d8ea", "border": "#005f73", "text": "#003f4f"},
+    # RHEL subscription phases — names from Red Hat RHEL lifecycle materials
+    # (see LIFECYCLE.md; API Full support/Maintenance/ELS names are not used)
+    "rhel_std":  {"label": "Standard subscription", "short_label": "Standard",
+                  "bg": "#fae0dc", "border": "#ee0000", "text": "#7d1007"},
+    "rhel_prem": {"label": "Premium subscription additional maintenance", "short_label": "Premium",
+                  "bg": "#fdf2cf", "border": "#f0ab00", "text": "#6e4800"},
+    "rhel_elcp": {"label": "Extended Life Cycle, Premium subscription additional maintenance", "short_label": "ELC, Premium",
+                  "bg": "#d4e7f7", "border": "#336699", "text": "#004080"},
+    "rhel_ll":   {"label": "Long Life add-on terms", "short_label": "Long Life",
+                  "bg": "#c7ebee", "border": "#006970", "text": "#003f4f"},
+    "rhel_els":  {"label": "Extended life cycle support (ELS) add-on", "short_label": "ELS add-on",
+                  "bg": "#e7d4ff", "border": "#6a1b9a", "text": "#40199a"},
     "els":  {"label": "ELS",           "bg": "#f5b8b4", "border": "#c9190b", "text": "#a30000"},
     "els2": {"label": "ELS-2",         "bg": "#e88080", "border": "#8b0000", "text": "#fff"},
     "els3": {"label": "ELS-3",         "bg": "#c94040", "border": "#6b0000", "text": "#fff"},
@@ -374,6 +403,7 @@ PHASES: dict[str, dict] = {
 PHASE_KEYS = [
     ("sup",  "sup_end"),   # Ceph: single-tier support (no fs/mnt split)
     ("fs",   "fs_end"),
+    ("tpc",  "tpc_end"),   # OSP: third-party certification period
     ("mnt",  "mnt_end"),
     ("mnt2", "mnt2_end"),
     ("eus1", "eus1_end"),
@@ -388,49 +418,115 @@ PHASE_KEYS = [
 ]
 
 
+def _phase_bar_text(ph: dict, width_pct: float) -> str:
+    """Return in-bar label text; empty when the segment is too narrow."""
+    if width_pct < 3:
+        return ""
+    return ph.get("short_label", ph["label"])
+
+
+def _phase_legend_text(ph: dict) -> str:
+    return ph.get("short_label", ph["label"])
+
+
 def _d(s: str) -> date:
     return date.fromisoformat(s)
 
 
-def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
-    """Fetch lifecycle for a product from Red Hat API; fall back to static data."""
+_SUPPORT_END_KEYS = ("fs_end", "mnt_end", "mnt2_end", "sup_end", "tpc_end")
+
+
+def _api_phases_to_dates(ver_data: dict, phase_map: dict[str, str]) -> dict[str, str]:
+    """Map API phase end_dates to internal field names via phase_map."""
+    dates: dict[str, str] = {}
+    for phase in ver_data.get("phases", []):
+        field = phase_map.get(phase["name"])
+        if not field:
+            continue
+        parsed = _parse_api_date(phase.get("end_date", ""))
+        if parsed:
+            dates[field] = parsed
+    return dates
+
+
+def _fetch_api_product(cfg: dict) -> dict | None:
+    """Return the raw API product dict, or None if the request fails."""
     name_param = cfg["api_name"].replace(" ", "+")
     url = f"https://access.redhat.com/product-life-cycles/api/v1/products?name={name_param}"
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={"User-Agent": "lifecycle-graph/1.0", "Accept-Language": "en-US,en;q=0.9"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read())
+        return data["data"][0]
+    except Exception:
+        return None
+
+
+def validate_phases() -> int:
+    """Audit phase_map coverage against the Red Hat API. Returns error count."""
+    errors = 0
+    entries: list[tuple[str, dict]] = []
+    for key, cfg in PRODUCT_CONFIGS.items():
+        if cfg.get("use_major_phases"):
+            continue
+        entries.append((f"product:{key}", cfg))
+    for key, cfg in OPERATOR_CONFIGS.items():
+        entries.append((f"operator:{key}", cfg))
+    for key, cfg in MIDDLEWARE_CONFIGS.items():
+        entries.append((f"middleware:{key}", cfg))
+
+    for label, cfg in entries:
+        product = _fetch_api_product(cfg)
+        if product is None:
+            print(f"SKIP {label}: API unavailable", file=sys.stderr)
+            continue
+        phase_map = cfg.get("phase_map", {})
+        api_phases = {p["name"] for p in product.get("all_phases", [])}
+        for phase_name in sorted(api_phases):
+            if phase_name not in phase_map:
+                print(f"ERROR {label}: UNMAPPED_PHASE {phase_name!r}", file=sys.stderr)
+                errors += 1
+    if errors:
+        print(f"\n{errors} unmapped phase(s) — fix phase_map or phase_map_preset in lifecycle-config.yaml.",
+              file=sys.stderr)
+    else:
+        print("All API-backed entries have complete phase_map coverage.", file=sys.stderr)
+    return errors
+
+
+def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
+    """Fetch lifecycle for a product from the Red Hat API; fall back to static data.
+
+    phase_map translates API phase names to internal date fields (ga, fs_end, …).
+    When the API returns a version, only API-provided phases are used — fallback
+    is not merged field-by-field. fallback: is used only when the API is unreachable.
+    """
     phase_map = cfg["phase_map"]
     min_filter = cfg["min_filter"]
-    fallback = cfg["fallback"]
+    fallback = cfg.get("fallback", {})
     name_transform = cfg.get("name_transform")
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "lifecycle-graph/1.0", "Accept-Language": "en-US,en;q=0.9"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read())
-        product = data["data"][0]
-        result: dict[str, dict] = {}
-        for ver_data in product["versions"]:
-            raw = ver_data["name"]
-            name = name_transform(raw) if name_transform else raw
-            if not name_transform and " " in raw:
-                continue
-            if not min_filter(name):
-                continue
-            dates: dict[str, str] = {}
-            for phase in ver_data["phases"]:
-                key = phase_map.get(phase["name"])
-                if key:
-                    parsed = _parse_api_date(phase.get("end_date", ""))
-                    if parsed:
-                        dates[key] = parsed
-            if name in fallback:
-                for _k in ("fs_end", "mnt_end", "eus1_end", "eus2_end", "sup_end", "els_end", "els2_end", "els3_end"):
-                    if _k not in dates and _k in fallback[name]:
-                        dates[_k] = fallback[name][_k]
-            if "ga" in dates and any(k in dates for k in ("fs_end", "mnt_end", "sup_end")):
-                result[name] = dates
-        if result:
-            print(f"Fetched {len(result)} {cfg['title']} versions from Red Hat API.", file=sys.stderr)
-            return result
-    except Exception as exc:
-        print(f"API fetch failed for {cfg['title']} ({exc}), using fallback.", file=sys.stderr)
+    product = _fetch_api_product(cfg)
+    if product is None:
+        print(f"API fetch failed for {cfg['title']}, using fallback.", file=sys.stderr)
+        return dict(fallback)
+    result: dict[str, dict] = {}
+    for ver_data in product["versions"]:
+        raw = ver_data["name"]
+        name = name_transform(raw) if name_transform else raw
+        if not name_transform and " " in raw:
+            continue
+        if not min_filter(name):
+            continue
+        dates = _api_phases_to_dates(ver_data, phase_map)
+        if "ga" in dates and any(k in dates for k in _SUPPORT_END_KEYS):
+            result[name] = dates
+    if result:
+        print(f"Fetched {len(result)} {cfg['title']} versions from Red Hat API.", file=sys.stderr)
+        return result
+    print(f"API returned 0 versions for {cfg['title']}, using fallback.", file=sys.stderr)
     return dict(fallback)
 
 
@@ -534,410 +630,47 @@ def build_rhel_minor_versions(major_ver: str) -> list[dict]:
     return result
 
 
-_PAGE_CSS = """
-  :root {
-    --card-px: 24px;
-    --label-w: 130px;
-    --days-col: 48px;
-    --chart-top: 64px;
-    --row-h: 48px;
-    --bar-h: 34px;
-    --ver-font: 15px;
-    /* theme – light defaults */
-    --bg-page: #f5f5f5;
-    --bg-card: #fff;
-    --bg-card-header: #f0f0f0;
-    --bg-controls: #f8f8f8;
-    --bg-row-alt: #fafafa;
-    --border-base: #d2d2d2;
-    --border-controls: #e8e8e8;
-    --text-primary: #151515;
-    --text-secondary: #6a6e73;
-    --text-controls: #3c3f42;
-    --link-color: #0066cc;
-    --grid-line: #d2d2d2;
-    --today-label-bg: rgba(255,255,255,0.9);
-    --today-label-border: rgba(163,0,0,0.25);
-    --input-bg: #fff;
-    --red: #a30000;
-  }
-  [data-theme="dark"] {
-    --bg-page: #111;
-    --bg-card: #1e1e1e;
-    --bg-card-header: #252525;
-    --bg-controls: #1a1a1a;
-    --bg-row-alt: #191919;
-    --border-base: #383838;
-    --border-controls: #383838;
-    --text-primary: #e8e8e8;
-    --text-secondary: #8a8e93;
-    --text-controls: #c8cacc;
-    --link-color: #5b9bd5;
-    --grid-line: #333;
-    --today-label-bg: rgba(30,30,30,0.95);
-    --today-label-border: rgba(220,80,80,0.5);
-    --input-bg: #1e1e1e;
-    --red: #e05050;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg-page: #111;
-      --bg-card: #1e1e1e;
-      --bg-card-header: #252525;
-      --bg-controls: #1a1a1a;
-      --bg-row-alt: #191919;
-      --border-base: #383838;
-      --border-controls: #383838;
-      --text-primary: #e8e8e8;
-      --text-secondary: #8a8e93;
-      --text-controls: #c8cacc;
-      --link-color: #5b9bd5;
-      --grid-line: #333;
-      --today-label-bg: rgba(30,30,30,0.95);
-      --today-label-border: rgba(220,80,80,0.5);
-      --input-bg: #1e1e1e;
-      --red: #e05050;
-    }
-  }
-  @media (max-width: 600px) {
-    :root {
-      --card-px: 8px;
-      --label-w: 56px;
-      --days-col: 32px;
-      --chart-top: 44px;
-      --row-h: 36px;
-      --bar-h: 24px;
-      --ver-font: 10px;
-    }
-    .page-header {
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto;
-      gap: 4px;
-      padding: 8px 12px;
-    }
-    .header-left { display: none; }
-    .header-right { grid-column: 2; grid-row: 1; }
-    .page-nav {
-      grid-column: 1; grid-row: 1;
-      flex-wrap: nowrap; overflow-x: auto;
-      justify-content: flex-start;
-      scrollbar-width: none;
-    }
-    .page-nav::-webkit-scrollbar { display: none; }
-    .page-nav a { flex-shrink: 0; font-size: 11px; padding: 3px 8px; }
-    a.gh-contribute { font-size: 11px; padding: 3px 8px; }
-    .chart-inner { min-width: var(--mobile-min-width, 480px); }
-    .chart-row-bar span { display: none; }
-    .card-header-legend { flex-wrap: wrap; gap: 4px; }
-    .page-content { padding: 12px 8px 32px; gap: 14px; }
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "Red Hat Text","Red Hat Display","Open Sans",system-ui,sans-serif;
-    background: var(--bg-page);
-    color: var(--text-primary);
-    padding: 0;
-    margin: 0;
-  }
-  .page-header {
-    background: #151515;
-    color: #fff;
-    padding: 14px 20px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 8px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-left { display: flex; align-items: center; justify-content: flex-start; }
-  .header-right { display: flex; align-items: center; justify-content: flex-end; }
-  .header-title { font-size: 13px; font-weight: 700; color: #e0e0e0; letter-spacing: -0.01em; white-space: nowrap; }
-  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
-  .page-nav a {
-    color: #e0e0e0;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 4px;
-    border: 1px solid #444;
-  }
-  .page-nav a:hover { background: #333; color: #fff; }
-  a.gh-contribute {
-    display: inline-flex; align-items: center; gap: 5px;
-    color: #fff; background: #1a7f37; border: 1px solid #1a7f37;
-    text-decoration: none; font-size: 12px; font-weight: 600;
-    padding: 3px 10px; border-radius: 4px;
-  }
-  a.gh-contribute:visited { color: #fff; }
-  a.gh-contribute:hover { background: #24a148; border-color: #24a148; color: #fff; }
-  .page-content {
-    max-width: 1148px;
-    margin: 0 auto;
-    padding: 20px 12px 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  @media (min-width: 700px) {
-    .page-header { padding: 14px 32px; }
-    .header-title { font-size: 15px; }
-    .page-nav a { font-size: 13px; padding: 4px 12px; }
-    .page-content { padding: 28px 24px 48px; gap: 28px; }
-  }
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-base);
-    border-radius: 8px;
-    width: 100%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    overflow: hidden;
-    scroll-margin-top: 70px;
-  }
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px var(--card-px);
-    background: var(--bg-card-header);
-    border-bottom: 1px solid var(--border-base);
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .card-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-  }
-  .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .legend span { font-size: 11px !important; }
-  .chart-area {
-    background: var(--bg-card);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .chart-inner {
-    position: relative;
-    padding: var(--chart-top) var(--card-px) 20px;
-    min-width: 100%;
-  }
-  .chart-grid {
-    position: absolute;
-    top: var(--chart-top);
-    bottom: 20px;
-    left: calc(var(--card-px) + var(--label-w));
-    right: calc(var(--card-px) + var(--days-col));
-    pointer-events: none;
-  }
-  .chart-rows {
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .chart-rows > div:nth-child(even) { background: var(--bg-row-alt); }
-  .chart-row {
-    display: flex;
-    align-items: center;
-    height: var(--row-h);
-  }
-  .chart-row-label {
-    width: var(--label-w);
-    flex-shrink: 0;
-    padding-right: 8px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-  }
-  .chart-row-bar {
-    flex: 1;
-    position: relative;
-    height: var(--bar-h);
-  }
-  .chart-row-days {
-    width: var(--days-col);
-    flex-shrink: 0;
-    text-align: right;
-    padding-left: 4px;
-  }
-  .eol-warn { position: relative; cursor: pointer; display: inline-block; }
-  .eol-tip {
-    display: none;
-    position: absolute;
-    right: 0; top: calc(100% + 4px);
-    background: #151515; color: #fff;
-    font-size: 11px; font-weight: 400; line-height: 1.4;
-    padding: 7px 10px; border-radius: 5px;
-    white-space: normal; width: 280px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
-    z-index: 300;
-  }
-  .eol-tip::before {
-    content: ""; position: absolute;
-    right: 8px; top: -5px;
-    border: 5px solid transparent;
-    border-top: 0; border-bottom-color: #151515;
-  }
-  .eol-warn:hover .eol-tip,
-  .eol-warn.pinned .eol-tip { display: block; }
-  #phase-tooltip {
-    display: none; position: fixed; z-index: 400; pointer-events: none;
-    background: #151515; color: #fff;
-    font-size: 11px; line-height: 1.6;
-    padding: 6px 10px; border-radius: 5px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
-    white-space: nowrap;
-  }
-  .ver-code {
-    font-family: "Red Hat Mono","Courier New",monospace;
-    font-size: var(--ver-font);
-    color: var(--text-primary);
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .card-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 6px var(--card-px);
-    background: var(--bg-controls);
-    border-bottom: 1px solid var(--border-controls);
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--text-controls);
-  }
-  .card-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; }
-  .card-controls select {
-    font-size: 12px;
-    padding: 2px 4px;
-    border: 1px solid var(--border-base);
-    border-radius: 3px;
-    background: var(--input-bg);
-    color: var(--text-primary);
-    font-family: inherit;
-    max-width: 90px;
-  }
-  .card-controls .ctrl-label { color: var(--text-secondary); margin-right: -4px; }
-  .footer {
-    padding: 8px var(--card-px) 12px;
-    font-size: 11px; color: var(--text-secondary);
-    border-top: 1px solid var(--border-base); background: var(--bg-card-header);
-    word-break: break-word;
-  }
-  .footer a { color: var(--link-color); text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
-  .section-heading {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-primary);
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border-base);
-    margin-bottom: 4px;
-  }
-  .op-section { display: flex; flex-direction: column; gap: 8px; }
-  .op-details {
-    background: var(--bg-card);
-    border: 1px solid var(--border-base);
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    overflow: hidden;
-    scroll-margin-top: 70px;
-  }
-  .op-summary {
-    cursor: pointer;
-    padding: 10px var(--card-px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    background: var(--bg-card-header);
-    list-style: none;
-    user-select: none;
-  }
-  .op-summary::-webkit-details-marker { display: none; }
-  .op-summary::marker { display: none; }
-  .op-details[open] > .op-summary { border-bottom: 1px solid var(--border-base); }
-  .op-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .op-name::before { content: "▶"; font-size: 9px; color: var(--text-secondary); transition: transform 0.15s; }
-  .op-details[open] .op-name::before { transform: rotate(90deg); }
-  .op-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
-  .theme-btn {
-    background: transparent;
-    border: 1px solid #444;
-    color: #e0e0e0;
-    border-radius: 4px;
-    padding: 2px 7px;
-    font-size: 14px;
-    line-height: 1.4;
-    cursor: pointer;
-  }
-  .theme-btn:hover { background: #333; }
-  .op-details .card { border: none; border-radius: 0; box-shadow: none; }
-  .card-info-block {
-    border-top: 1px solid var(--border-controls);
-    background: var(--bg-controls);
-    padding: 0 var(--card-px);
-    font-size: 12px;
-    color: var(--text-controls);
-  }
-  .card-info-block summary {
-    cursor: pointer; padding: 6px 0; font-weight: 600;
-    list-style: none; user-select: none;
-  }
-  .card-info-block summary::-webkit-details-marker { display: none; }
-  .card-info-block summary::before { content: "▶ "; font-size: 9px; color: var(--text-secondary); }
-  .card-info-block[open] summary::before { content: "▼ "; }
-  .card-info-body { padding: 6px 0 10px; line-height: 1.5; }
-  .card-info-body a { color: var(--link-color); }
-  .minor-group { display: none; flex-direction: column; gap: 2px; }
-  .minor-group.visible { display: flex; }
-  .minor-row {
-    display: flex; align-items: center;
-    height: 28px;
-    padding-left: 16px;
-    background: var(--bg-row-alt);
-    border-left: 2px solid var(--border-base);
-    margin-left: 2px;
-  }
-  .minor-row .chart-row-label {
-    width: calc(var(--label-w) - 16px);
-    flex-shrink: 0; padding-right: 6px;
-    overflow: hidden; display: flex; align-items: center;
-  }
-  .minor-row .ver-code { font-size: 11px; font-weight: 600; }
-  .minor-row .chart-row-bar { flex: 1; position: relative; height: 18px; }
-  .minor-row .chart-row-days { width: var(--days-col); flex-shrink: 0; text-align: right; padding-left: 4px; font-size: 11px; }
-  .nav-toggle {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 4px 12px 4px 8px; border-radius: 20px; font-size: 13px; font-weight: 500;
-    cursor: pointer; border: 1.5px solid var(--border-color); background: var(--card-bg);
-    color: var(--text-secondary); transition: background 0.15s, color 0.15s, opacity 0.15s;
-    text-decoration: none; user-select: none;
-  }
-  .nav-toggle .nav-check {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 700;
-    border: 1.5px solid currentColor; flex-shrink: 0; transition: background 0.15s;
-  }
-  .nav-toggle .nav-check::after { content: "✕"; }
-  .nav-toggle.nav-on { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .nav-toggle.nav-on .nav-check { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
-  .nav-toggle.nav-on .nav-check::after { content: "✓"; }
-  .nav-toggle:hover { opacity: 0.85; }
-"""
+def build_rhel_major_versions() -> list[dict]:
+    """Build major-version dicts for RHEL using subscription phase keys from rhel_majors."""
+    today = date.today()
+    result = []
+    for ver in sorted(_RHEL_MAJOR_DATA.keys(), key=lambda v: int(v), reverse=True):
+        m = _RHEL_MAJOR_DATA[ver]
+        ga = _d(m["ga"])
+        std_end = _d(m["std_end"])
+        els_end = _d(m["els_end"]) if "els_end" in m else None
+        elc_end = _d(m["elc_end"]) if "elc_end" in m else None
+        ll_end = _d(m["ll_end"]) if "ll_end" in m else None
+        segments = [{"key": "rhel_std", "start": ga, "end": std_end}]
+        ext_start = std_end
+        if els_end and els_end > ext_start:
+            segments.append({"key": "rhel_els", "start": ext_start, "end": els_end})
+            ext_start = els_end
+        if elc_end and elc_end > ext_start:
+            segments.append({"key": "rhel_elcp", "start": ext_start, "end": elc_end})
+            ext_start = elc_end
+        if ll_end and ll_end > ext_start:
+            segments.append({"key": "rhel_ll", "start": ext_start, "end": ll_end})
+        last_end = segments[-1]["end"]
+        phase_key = "eol"
+        days_left = 0
+        for seg in segments:
+            if today <= seg["end"]:
+                phase_key = seg["key"]
+                days_left = (seg["end"] - today).days
+                break
+        is_eol = phase_key == "eol"
+        result.append({
+            "version": ver, "ga": ga, "last_end": last_end,
+            "segments": segments, "is_eus": False,
+            "is_eol": is_eol, "phase_key": phase_key, "days_left": days_left,
+        })
+    return result
+
+
+_PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
+
+_STATIC_PREFIX = "static"
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
@@ -1003,8 +736,13 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
             r = f"{'4px' if is_first else '0'} {'4px' if is_last else '0'} {'4px' if is_last else '0'} {'4px' if is_first else '0'}"
             bl = f"1.5px solid {ph['border']}" if is_first else "none"
             br = f"1.5px solid {ph['border']}" if is_last else "none"
-            show_label = w > 5
-            inner = f'<span style="font-size:11px;color:{ph["text"]};font-weight:600;white-space:nowrap;padding:0 6px">{ph["label"]}</span>' if show_label else ""
+            show_label = w > 3
+            bar_text = _phase_bar_text(ph, w)
+            fs = "10px" if w < 12 else "11px"
+            inner = (
+                f'<span class="phase-bar-label" style="font-size:{fs};color:{ph["text"]};font-weight:600">'
+                f'{bar_text}</span>'
+            ) if show_label and bar_text else ""
             _tip_text = f'{ph["label"]} | {seg["start"].isoformat()} → {seg["end"].isoformat()}'
             segs_html += (
                 f'<div data-phase="{_tip_text}" '
@@ -1097,10 +835,11 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 
     # ── Legend ───────────────────────────────────────────────────────────────
     legend_html = " ".join(
-        f'<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)">'
+        f'<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"'
+        f' title="{PHASES[k]["label"]}">'
         f'<span style="display:inline-block;width:14px;height:12px;border-radius:2px;'
         f'background:{PHASES[k]["bg"]};border:1.5px solid {PHASES[k]["border"]}"></span>'
-        f'{PHASES[k]["label"]}</span>'
+        f'{_phase_legend_text(PHASES[k])}</span>'
         for k, _ in PHASE_KEYS
         if k in used_phases
     )
@@ -1306,39 +1045,121 @@ def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict
     )
 
 
-def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "") -> str:
-    nav_html = f'<nav class="page-nav">{nav_links}</nav>' if nav_links else ""
-    left_html = f'<span class="header-title">{title}</span>'
-    _theme_btn = '<button id="theme-toggle" class="theme-btn" title="Toggle dark/light mode"></button>'
-    _right_content = contribute_html if contribute_html else ""
-    right_html = f'<div style="display:flex;align-items:center;gap:8px">{_theme_btn}{_right_content}</div>'
+def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "",
+               static_prefix: str = _STATIC_PREFIX) -> str:
+    subnav_html = ""
+    if nav_links:
+        subnav_html = (
+            '<section class="pf-v6-c-page__main-subnav pf-m-limit-width pf-m-align-center pf-m-sticky-top">'
+            '<div class="pf-v6-c-page__main-body">'
+            f'<div class="product-nav" role="navigation" aria-label="Product navigation">'
+            f'<div class="product-nav__list">{nav_links}</div>'
+            '</div>'
+            '</div>'
+            '</section>'
+        )
+    masthead_right = (
+        '<div class="pf-v6-c-masthead__content">'
+        '<div class="pf-v6-l-flex pf-m-align-items-center pf-m-justify-content-flex-end pf-m-flex-1 pf-m-gap-sm">'
+        '<button class="pf-v6-c-button pf-m-plain" type="button" id="theme-toggle" aria-label="Toggle theme">'
+        '<svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+        '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42'
+        'M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        '<svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">'
+        '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+        '</button>'
+        f'{contribute_html}'
+        '</div></div>'
+    )
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark" class="pf-v6-theme-dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
-<style>
-{_PAGE_CSS}
-</style>
-<script>
-(function(){{
-  var s=localStorage.getItem('lifecycle-theme');
-  var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme',d?'dark':'light');
-}})();
-</script>
+<link rel="icon" type="image/svg+xml" href="{static_prefix}/icons/redhat-hat-red.svg">
+<script>(function(){{var t=localStorage.getItem('lifecycle-theme'),d;if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;if(d){{document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}}else{{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}}}})();</script>
+<link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
+<link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly-addons.css">
+<link rel="stylesheet" href="{static_prefix}/css/chart.css">
 </head>
 <body>
-<header class="page-header">
-  <div class="header-left">{left_html}</div>
-  {nav_html}
-  <div class="header-right">{right_html}</div>
-</header>
-<div class="page-content">
+<div class="pf-v6-c-page">
+  <header class="pf-v6-c-masthead">
+    <div class="pf-v6-c-masthead__main">
+      <a class="pf-v6-c-masthead__brand pf-v6-l-flex pf-m-align-items-center pf-m-gap-sm pf-v6-u-text-color-regular" href="#">
+        <img src="{static_prefix}/icons/redhat-hat-red.svg" alt="Red Hat" width="28" height="28">
+        <span class="pf-v6-c-title pf-m-md">{title}</span>
+      </a>
+    </div>
+    {masthead_right}
+  </header>
+  <div class="pf-v6-c-page__main-container">
+    <main class="pf-v6-c-page__main" id="main-content">
+      {subnav_html}
+      <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
+        <div class="pf-v6-c-page__main-body">
+          <div class="pf-v6-l-stack pf-m-gutter">
 {body}
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 </div>
 <script>
+function getStickyOffset() {{
+  var offset = 16;
+  var masthead = document.querySelector('.pf-v6-c-masthead');
+  var subnav = document.querySelector('.pf-v6-c-page__main-subnav');
+  if (masthead) offset += masthead.getBoundingClientRect().height;
+  if (subnav) offset += subnav.getBoundingClientRect().height;
+  return offset;
+}}
+function getScrollParent(el) {{
+  var node = el.parentElement;
+  while (node) {{
+    var style = window.getComputedStyle(node);
+    if (/(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight) {{
+      return node;
+    }}
+    node = node.parentElement;
+  }}
+  return null;
+}}
+function updateStickyOffset() {{
+  document.documentElement.style.setProperty('--sticky-offset', getStickyOffset() + 'px');
+}}
+function scrollToElement(el) {{
+  if (!el) return;
+  updateStickyOffset();
+  requestAnimationFrame(function() {{
+    updateStickyOffset();
+    var offset = getStickyOffset();
+    var parent = getScrollParent(el);
+    if (parent) {{
+      var top = el.getBoundingClientRect().top - parent.getBoundingClientRect().top + parent.scrollTop - offset;
+      parent.scrollTo({{ top: Math.max(0, top), behavior: 'smooth' }});
+    }} else {{
+      var top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({{ top: Math.max(0, top), behavior: 'smooth' }});
+    }}
+  }});
+}}
+function toggleProductCard(btn) {{
+  var target = btn.getAttribute('data-target');
+  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
+  if (!section) return;
+  var show = section.style.display === 'none';
+  if (show) {{
+    section.style.display = '';
+    btn.setAttribute('aria-pressed', 'true');
+    scrollToElement(section);
+  }} else {{
+    section.style.display = 'none';
+    btn.setAttribute('aria-pressed', 'false');
+  }}
+}}
 function filterCard(card) {{
   var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
   if (!rows.length) return;
@@ -1389,12 +1210,14 @@ function navigateToHash(hash) {{
     if (node.tagName === 'DETAILS') node.open = true;
     node = node.parentElement;
   }}
-  setTimeout(function() {{ el.scrollIntoView({{behavior: 'smooth', block: 'start'}}); }}, 50);
+  setTimeout(function() {{ scrollToElement(el); }}, 50);
 }}
 document.addEventListener('DOMContentLoaded', function() {{
+  updateStickyOffset();
   document.querySelectorAll('.card').forEach(function(card) {{ filterCard(card); }});
   navigateToHash(window.location.hash);
 }});
+window.addEventListener('resize', updateStickyOffset);
 window.addEventListener('hashchange', function() {{ navigateToHash(window.location.hash); }});
 (function() {{
   var tip = document.createElement('div');
@@ -1422,41 +1245,32 @@ document.addEventListener('click', function(e) {{
   if (warn) {{ warn.classList.toggle('pinned'); e.stopPropagation(); }}
   else {{ document.querySelectorAll('.eol-warn.pinned').forEach(function(w) {{ w.classList.remove('pinned'); }}); }}
 }});
-(function() {{
-  var root = document.documentElement;
+(function(){{
   var btn = document.getElementById('theme-toggle');
-  var stored = localStorage.getItem('lifecycle-theme');
-  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  var isDark = stored !== null ? stored === 'dark' : prefersDark;
-  function apply(dark) {{
-    root.setAttribute('data-theme', dark ? 'dark' : 'light');
-    btn.textContent = dark ? '☀' : '🌙';
-    btn.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  var sunIcon = document.getElementById('theme-icon-sun');
+  var moonIcon = document.getElementById('theme-icon-moon');
+  function applyTheme(dark){{
+    if(dark){{
+      document.documentElement.classList.add('pf-v6-theme-dark');
+      document.documentElement.setAttribute('data-theme','dark');
+      sunIcon.style.display='inline';moonIcon.style.display='none';
+    }}else{{
+      document.documentElement.classList.remove('pf-v6-theme-dark');
+      document.documentElement.setAttribute('data-theme','light');
+      sunIcon.style.display='none';moonIcon.style.display='inline';
+    }}
   }}
-  apply(isDark);
-  btn.addEventListener('click', function() {{
-    isDark = !isDark;
-    localStorage.setItem('lifecycle-theme', isDark ? 'dark' : 'light');
-    apply(isDark);
-  }});
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {{
-    if (localStorage.getItem('lifecycle-theme') === null) {{ isDark = e.matches; apply(isDark); }}
-  }});
+  var cur = document.documentElement.getAttribute('data-theme')==='dark';
+  if (btn && sunIcon && moonIcon) {{
+    applyTheme(cur);
+    btn.addEventListener('click',function(){{
+      var isDark = document.documentElement.getAttribute('data-theme')==='dark';
+      var next = !isDark;
+      localStorage.setItem('lifecycle-theme', next?'dark':'light');
+      applyTheme(next);
+    }});
+  }}
 }})();
-function toggleProductCard(btn) {{
-  var target = btn.getAttribute('data-target');
-  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
-  if (!section) return;
-  var hidden = section.style.display === 'none';
-  if (hidden) {{
-    section.style.display = '';
-    btn.classList.add('nav-on');
-    setTimeout(function() {{ section.scrollIntoView({{behavior: 'smooth', block: 'start'}}); }}, 30);
-  }} else {{
-    section.style.display = 'none';
-    btn.classList.remove('nav-on');
-  }}
-}}
 </script>
 </body>
 </html>"""
@@ -1485,16 +1299,26 @@ def render_combined_html(
     operators_data: list[tuple[str, list[dict]]] | None = None,
     middleware_data: list[tuple[str, list[dict], dict]] | None = None,
 ) -> str:
-    _chk = '<span class="nav-check"></span>'
+    _btn_cls = "pf-v6-c-button pf-m-secondary nav-toggle"
     nav_links = "".join(
-        f'<button class="nav-toggle nav-on" data-target="{label.lower().replace(" ", "-")}"'
-        f' onclick="toggleProductCard(this)">{_chk}{label}</button>'
+        f'<button type="button" class="{_btn_cls}" aria-pressed="true"'
+        f' data-target="{label.lower().replace(" ", "-")}"'
+        f' aria-label="Show or hide {label}"'
+        f' onclick="toggleProductCard(this)">{label}</button>'
         for label, _, _ in product_list
     )
     if middleware_data:
-        nav_links += f'<button class="nav-toggle nav-on" data-target="middleware" onclick="toggleProductCard(this)">{_chk}Middleware</button>'
+        nav_links += (
+            f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="middleware"'
+            f' aria-label="Show or hide Middleware"'
+            f' onclick="toggleProductCard(this)">Middleware</button>'
+        )
     if operators_data:
-        nav_links += f'<button class="nav-toggle nav-on" data-target="operators" onclick="toggleProductCard(this)">{_chk}Operators</button>'
+        nav_links += (
+            f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="operators"'
+            f' aria-label="Show or hide Operators"'
+            f' onclick="toggleProductCard(this)">Operators</button>'
+        )
     # Guide link lives in the footer, not the nav
     _gh_svg = (
         '<svg height="11" width="11" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;margin-right:4px">'
@@ -1690,9 +1514,11 @@ def render_svg(versions: list[dict], chart_label: str, width: int = 1400,
             sx = px(seg["start"])
             sw = px(seg["end"]) - sx
             els.append(f'<rect x="{sx:.1f}" y="{bar_y:.1f}" width="{sw:.1f}" height="{BAR_H}" fill="{ph["bg"]}"/>')
-            if sw > 65:
+            if sw > 40:
                 lbl_x = sx + sw / 2
-                els.append(f'<text x="{lbl_x:.1f}" y="{bar_y + BAR_H/2 + 4:.1f}" text-anchor="middle" font-family="{FONT}" font-size="11" font-weight="600" fill="{ph["text"]}">{ph["label"]}</text>')
+                bar_lbl = _phase_bar_text(ph, sw / bar_w * 100 if bar_w else 0)
+                if bar_lbl:
+                    els.append(f'<text x="{lbl_x:.1f}" y="{bar_y + BAR_H/2 + 4:.1f}" text-anchor="middle" font-family="{FONT}" font-size="11" font-weight="600" fill="{ph["text"]}">{bar_lbl}</text>')
         if v["is_eol"]:
             els.append(f'<rect x="{bar_x:.1f}" y="{bar_y:.1f}" width="{bar_w:.1f}" height="{BAR_H}" fill="url(#eol)"/>')
         els.append('</g>')
@@ -1773,14 +1599,17 @@ def _fetch_all(
     """
     product_list: list[tuple[str, list[dict], dict]] = []
     for product, cfg in PRODUCT_CONFIGS.items():
-        lifecycle = fetch_lifecycle(cfg)
-        versions = build_versions(
-            lifecycle, cfg,
-            versions_filter=args.versions,
-            from_version=args.from_version,
-            to_version=args.to_version,
-            include_eol=True,  # always; HTML controls filter via JS
-        )
+        if cfg.get("use_major_phases"):
+            versions = build_rhel_major_versions()
+        else:
+            lifecycle = fetch_lifecycle(cfg)
+            versions = build_versions(
+                lifecycle, cfg,
+                versions_filter=args.versions,
+                from_version=args.from_version,
+                to_version=args.to_version,
+                include_eol=True,  # always; HTML controls filter via JS
+            )
         if versions:
             product_list.append((cfg["title"], versions, cfg))
         else:
@@ -1816,16 +1645,19 @@ def _generate_product(
     args: argparse.Namespace,
 ) -> None:
     cfg = PRODUCT_CONFIGS[product]
-    lifecycle = fetch_lifecycle(cfg)
     chart_label = args.title if args.title else cfg["title"]
 
-    versions_html = build_versions(
-        lifecycle, cfg,
-        versions_filter=args.versions,
-        from_version=args.from_version,
-        to_version=args.to_version,
-        include_eol=True,  # always; JS controls visibility
-    )
+    if cfg.get("use_major_phases"):
+        versions_html = build_rhel_major_versions()
+    else:
+        lifecycle = fetch_lifecycle(cfg)
+        versions_html = build_versions(
+            lifecycle, cfg,
+            versions_filter=args.versions,
+            from_version=args.from_version,
+            to_version=args.to_version,
+            include_eol=True,  # always; JS controls visibility
+        )
     if not versions_html:
         print(f"No versions matched for {product}.", file=sys.stderr)
         return
@@ -2264,10 +2096,24 @@ def main() -> None:
     ap.add_argument("--width", type=int, default=1400, help="SVG/PNG width in pixels (default: 1400)")
     ap.add_argument("--output-dir", dest="output_dir", default=".",
                     help="Output directory (default: current dir; CI uses docs/)")
+    ap.add_argument("--validate-phases", action="store_true",
+                    help="Audit phase_map coverage against the Red Hat API and exit")
     args = ap.parse_args()
+
+    if args.validate_phases:
+        sys.exit(1 if validate_phases() else 0)
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(exist_ok=True)
+
+    static_src = Path(__file__).parent / "static"
+    if static_src.is_dir():
+        static_dst = out_dir / "static"
+        if static_dst.exists():
+            shutil.rmtree(static_dst)
+        shutil.copytree(static_src, static_dst)
+    else:
+        print(f"Warning: {static_src} not found — skipping static asset copy.", file=sys.stderr)
 
     if args.product == "all":
         product_list, operators_data, middleware_data = _fetch_all(args)

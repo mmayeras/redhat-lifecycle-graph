@@ -21,6 +21,13 @@ python3 lifecycle-graph.py --product all --output-dir docs
 # Generate one product (faster for testing)
 python3 lifecycle-graph.py --product ocp --output-dir /tmp/test
 
+# Validate API phase_map coverage (RHEL skipped)
+python3 lifecycle-graph.py --validate-phases
+
+# Containerized local preview
+docker build -t lifecycle-graph:local -f Containerfile .
+docker run --rm -p 8080:8080 lifecycle-graph:local
+
 # Install PyYAML first if needed
 pip install pyyaml
 ```
@@ -30,11 +37,11 @@ No virtual environment needed. Python 3.12+ required.
 ## Architecture
 
 ```
-lifecycle-config.yaml  ──load──▶  PRODUCT_CONFIGS / OPERATOR_CONFIGS / MIDDLEWARE_CONFIGS / _RHEL_MINOR_DATA
+lifecycle-config.yaml  ──load──▶  PRODUCT_CONFIGS / OPERATOR_CONFIGS / MIDDLEWARE_CONFIGS / _RHEL_MINOR_DATA / _RHEL_MAJOR_DATA
                                          │
-                           fetch_lifecycle(cfg)  [Red Hat API, then fallback:]
+                           fetch_lifecycle(cfg)  [Red Hat API, then fallback:]  — skipped for RHEL (use_major_phases)
                                          │
-                           build_versions(raw, cfg)
+                           build_versions(raw, cfg)  /  build_rhel_major_versions()
                                          │
                            _render_card(versions)  →  HTML Gantt
 ```
@@ -81,15 +88,21 @@ Find the exact `api_name`:
 curl "https://access.redhat.com/product-life-cycles/api/v1/products?name=My+Operator"
 ```
 
-## RHEL minor date updates
+## RHEL date updates
 
-Edit `rhel_minors` block in `lifecycle-config.yaml`. Dates are **not** from the API — source them from the [RHEL errata policy page](https://access.redhat.com/support/policy/updates/errata).
+RHEL bypasses the lifecycle API (`use_major_phases: true`). All dates live in two YAML blocks:
 
-Field meanings:
-- `std_end` — date the next minor GA releases (end of standard update window)
-- `eus_end` — EUS add-on end (even minors, RHEL 8+)
-- `elc_end` — ELC end = GA + 6 years (even minors ≥ 9.2 and 8.10)
-- `elcp_end` — Long Life end (last minor of each major: 8.10, 9.10, 10.10 only)
+**Major versions** — `rhel_majors:` (`std_end`, `els_end` for RHEL 7, `elc_end`, `ll_end` for 8+)
+
+**Minor versions** — `rhel_minors:` per the field reference below.
+
+Source: [RHEL errata policy page](https://access.redhat.com/support/policy/updates/errata). Phase names follow the subscription model (Standard / Premium / ELC Premium / Long Life), not API phase names.
+
+Field meanings for `rhel_minors`:
+- `std_end` — end of Standard subscription window (= next minor GA)
+- `eus_end` — end of Premium subscription additional maintenance (even minors, RHEL 8+)
+- `elc_end` — end of Extended Life Cycle, Premium subscription additional maintenance (GA + 6 years; even minors ≥ 9.2, 8.10, 10.2+)
+- `elcp_end` — end of Long Life add-on terms (last minor of each major: 8.10, 9.10, 10.10)
 
 All dates **must** be quoted strings: `"2024-05-18"` not `2024-05-18`. Bare dates become `datetime.date` objects in Python and break string comparisons.
 

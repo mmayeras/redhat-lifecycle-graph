@@ -1,0 +1,488 @@
+/* Gantt chart positioning and domain-specific styles.
+   Everything else is handled by PatternFly v6. */
+
+/* ── Constrain the page main section to a readable content width ────────── */
+.pf-v6-c-page {
+  --pf-v6-c-page--section--m-limit-width--MaxWidth: 1200px;
+}
+
+/* ── Product nav: two wrapped rows, no horizontal overlap ──────────────── */
+.product-nav {
+  padding: 8px 0;
+}
+
+.product-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 8px;
+  max-width: 100%;
+}
+
+.product-nav__list .nav-toggle {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* ── Chart layout variables ─────────────────────────────────────────────── */
+:root {
+  --card-px: 24px;
+  --label-w: 130px;
+  --days-col: 48px;
+  --chart-top: 64px;
+  --row-h: 48px;
+  --bar-h: 34px;
+  --ver-font: 15px;
+  --sticky-offset: 130px; /* updated by JS from masthead + subnav height */
+}
+
+html {
+  scroll-padding-top: var(--sticky-offset);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --card-px: 8px;
+    --label-w: 56px;
+    --days-col: 32px;
+    --chart-top: 44px;
+    --row-h: 36px;
+    --bar-h: 24px;
+    --ver-font: 10px;
+  }
+  .chart-inner { min-width: var(--mobile-min-width, 480px); }
+  .chart-row-bar span { display: none; }
+  .card-header-legend { flex-wrap: wrap; gap: 4px; }
+}
+
+/* ── Tooltip colors: PF6's "inverse" tokens ────────────────────────────── */
+:root {
+  --tooltip-bg: var(--pf-t--global--background--color--inverse--default, #151515);
+  --tooltip-text: var(--pf-t--global--text--color--inverse, #fff);
+}
+
+/* ── Upstream CSS vars mapped to PF6 tokens ────────────────────────────── */
+:root,
+html[data-theme="light"] {
+  --bg-page: var(--pf-t--global--background--color--primary--default, #f5f5f5);
+  --bg-card: var(--pf-t--global--background--color--primary--default, #fff);
+  --bg-card-header: var(--pf-t--global--background--color--secondary--default, #f0f0f0);
+  --bg-controls: var(--pf-t--global--background--color--secondary--default, #f8f8f8);
+  --bg-row-alt: var(--pf-t--global--background--color--secondary--default, #fafafa);
+  --border-base: var(--pf-t--global--border--color--default, #d2d2d2);
+  --border-controls: var(--pf-t--global--border--color--default, #e8e8e8);
+  --text-primary: var(--pf-t--global--text--color--regular, #151515);
+  --text-secondary: var(--pf-t--global--text--color--subtle, #6a6e73);
+  --text-controls: var(--pf-t--global--text--color--subtle, #3c3f42);
+  --link-color: var(--pf-t--global--text--color--link--default, #0066cc);
+  --grid-line: var(--pf-t--global--border--color--default);
+  --grid-year-text: var(--pf-t--global--text--color--subtle);
+  --today-color: var(--pf-t--global--color--nonstatus--red--default, #a30000);
+  --red: var(--pf-t--global--color--nonstatus--red--default, #a30000);
+  --today-label-bg: rgba(255,255,255,0.9);
+  --today-label-border: rgba(163,0,0,0.25);
+  --input-bg: #fff;
+  --muted: var(--pf-t--global--text--color--subtle, #6a6e73);
+  --accent: var(--pf-t--global--text--color--link--default, #0066cc);
+  --border-color: var(--pf-t--global--border--color--default, #d2d2d2);
+  --card-bg: var(--pf-t--global--background--color--primary--default, #fff);
+  --phase-sup-badge: #1e4f18;
+  --phase-fs-badge: #1e4f18;
+  --phase-mnt-badge: #795600;
+  --phase-mnt2-badge: #8f4700;
+  --phase-eus1-badge: #004080;
+  --phase-eus2-badge: #40199a;
+  --phase-eus3-badge: #6a0080;
+  --phase-els-badge: #a30000;
+  --phase-els2-badge: #8b0000;
+  --phase-elp-badge: #3c3f42;
+  --phase-rhel-std-badge: #7d1007;
+  --phase-rhel-prem-badge: #6e4800;
+  --phase-rhel-elcp-badge: #004080;
+  --phase-rhel-ll-badge: #003f4f;
+  --phase-rhel-els-badge: #40199a;
+}
+
+html[data-theme="dark"],
+html.pf-v6-theme-dark {
+  --bg-page: var(--pf-t--global--background--color--primary--default, #111);
+  --bg-card: var(--pf-t--global--background--color--primary--default, #1e1e1e);
+  --bg-card-header: var(--pf-t--global--background--color--secondary--default, #252525);
+  --bg-controls: var(--pf-t--global--background--color--secondary--default, #1a1a1a);
+  --bg-row-alt: #191919;
+  --border-base: var(--pf-t--global--border--color--default, #383838);
+  --border-controls: var(--pf-t--global--border--color--default, #383838);
+  --text-primary: var(--pf-t--global--text--color--regular, #e8e8e8);
+  --text-secondary: var(--pf-t--global--text--color--subtle, #8a8e93);
+  --text-controls: var(--pf-t--global--text--color--subtle, #c8cacc);
+  --link-color: var(--pf-t--global--text--color--link--default, #5b9bd5);
+  --grid-line: var(--pf-t--global--border--color--default);
+  --grid-year-text: var(--pf-t--global--text--color--subtle);
+  --today-color: #ef4444;
+  --red: #e05050;
+  --today-label-bg: rgba(15,17,20,0.9);
+  --today-label-border: rgba(239,68,68,0.35);
+  --input-bg: #1e1e1e;
+  --muted: var(--pf-t--global--text--color--subtle, #8a8e93);
+  --accent: var(--pf-t--global--text--color--link--default, #58a6ff);
+  --border-color: var(--pf-t--global--border--color--default, #383838);
+  --card-bg: var(--pf-t--global--background--color--primary--default, #1e1e1e);
+  --phase-sup-badge: #86efac;
+  --phase-fs-badge: #86efac;
+  --phase-mnt-badge: #fcd34d;
+  --phase-mnt2-badge: #fb923c;
+  --phase-eus1-badge: #7dd3fc;
+  --phase-eus2-badge: #c084fc;
+  --phase-eus3-badge: #e879f9;
+  --phase-els-badge: #f87171;
+  --phase-els2-badge: #fca5a5;
+  --phase-elp-badge: #d1d5db;
+}
+
+/* ── Card (upstream class, styled via PF6 tokens) ──────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-base);
+  border-radius: var(--pf-t--global--border--radius--medium, 8px);
+  width: 100%;
+  box-shadow: var(--pf-t--global--box-shadow--sm, 0 2px 8px rgba(0,0,0,0.08));
+  overflow: hidden;
+  scroll-margin-top: 70px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px var(--card-px);
+  background: var(--bg-card-header);
+  border-bottom: 1px solid var(--border-base);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.legend span { font-size: 11px !important; }
+
+.chart-area {
+  background: var(--bg-card);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.footer {
+  padding: 8px var(--card-px) 12px;
+  font-size: 11px; color: var(--text-secondary);
+  border-top: 1px solid var(--border-base); background: var(--bg-card-header);
+  word-break: break-word;
+}
+.footer a { color: var(--link-color); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* ── Card controls toolbar ─────────────────────────────────────────────── */
+.card-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px var(--card-px);
+  background: var(--bg-controls);
+  border-bottom: 1px solid var(--border-controls);
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-controls);
+}
+.card-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; }
+.card-controls select {
+  font-size: 12px;
+  padding: 2px 4px;
+  border: 1px solid var(--border-base);
+  border-radius: 3px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+  max-width: 90px;
+}
+.card-controls .ctrl-label { color: var(--text-secondary); margin-right: -4px; }
+
+/* ── Card info expandable block ────────────────────────────────────────── */
+.card-info-block {
+  border-top: 1px solid var(--border-controls);
+  background: var(--bg-controls);
+  padding: 0 var(--card-px);
+  font-size: 12px;
+  color: var(--text-controls);
+}
+.card-info-block summary {
+  cursor: pointer; padding: 6px 0; font-weight: 600;
+  list-style: none; user-select: none;
+}
+.card-info-block summary::-webkit-details-marker { display: none; }
+.card-info-block summary::before { content: "▶ "; font-size: 9px; color: var(--text-secondary); }
+.card-info-block[open] summary::before { content: "▼ "; }
+.card-info-body { padding: 6px 0 10px; line-height: 1.5; }
+.card-info-body a { color: var(--link-color); }
+
+/* ── Operator/Middleware collapsible sections ───────────────────────────── */
+.section-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-base);
+  margin-bottom: 4px;
+  scroll-margin-top: var(--sticky-offset);
+}
+.op-section { display: flex; flex-direction: column; gap: 8px; }
+.op-details {
+  background: var(--bg-card);
+  border: 1px solid var(--border-base);
+  border-radius: var(--pf-t--global--border--radius--medium, 8px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+  scroll-margin-top: 70px;
+}
+.op-summary {
+  cursor: pointer;
+  padding: 10px var(--card-px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--bg-card-header);
+  list-style: none;
+  user-select: none;
+}
+.op-summary::-webkit-details-marker { display: none; }
+.op-summary::marker { display: none; }
+.op-details[open] > .op-summary { border-bottom: 1px solid var(--border-base); }
+.op-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.op-name::before { content: "▶"; font-size: 9px; color: var(--text-secondary); transition: transform 0.15s; }
+.op-details[open] .op-name::before { transform: rotate(90deg); }
+.op-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+.op-details .card { border: none; border-radius: 0; box-shadow: none; }
+
+/* ── RHEL minor release rows ───────────────────────────────────────────── */
+.minor-group { display: none; flex-direction: column; gap: 2px; }
+.minor-group.visible { display: flex; }
+.minor-row {
+  display: flex; align-items: center;
+  height: 28px;
+  padding-left: 16px;
+  background: var(--bg-row-alt);
+  border-left: 2px solid var(--border-base);
+  margin-left: 2px;
+}
+.minor-row .chart-row-label {
+  width: calc(var(--label-w) - 16px);
+  flex-shrink: 0; padding-right: 6px;
+  overflow: hidden; display: flex; align-items: center;
+}
+.minor-row .ver-code { font-size: 11px; font-weight: 600; }
+.minor-row .chart-row-bar { flex: 1; position: relative; height: 18px; }
+.minor-row .chart-row-days { width: var(--days-col); flex-shrink: 0; text-align: right; padding-left: 4px; font-size: 11px; }
+
+/* ── Chart structure ─────────────────────────────────────────────────── */
+.chart-inner {
+  position: relative;
+  padding: var(--chart-top) var(--card-px) 20px;
+  min-width: 100%;
+}
+
+.chart-grid {
+  position: absolute;
+  top: var(--chart-top);
+  bottom: 20px;
+  left: calc(var(--card-px) + var(--label-w));
+  right: calc(var(--card-px) + var(--days-col) + 8px);
+  pointer-events: none;
+}
+
+.chart-rows {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.chart-rows > div:nth-child(even) { background: var(--bg-row-alt); }
+
+.chart-row {
+  display: flex;
+  align-items: center;
+  height: var(--row-h);
+}
+
+.chart-row-label {
+  width: var(--label-w);
+  flex-shrink: 0;
+  padding-right: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.chart-row-bar {
+  flex: 1;
+  position: relative;
+  height: var(--bar-h);
+}
+
+.chart-row-days {
+  width: var(--days-col);
+  flex-shrink: 0;
+  text-align: right;
+  padding-left: 4px;
+}
+
+/* In-bar phase labels: ellipsis when space is tight */
+.phase-bar-label {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.chart-row-bar [data-phase] {
+  min-width: 0;
+}
+
+/* ── Version code ────────────────────────────────────────────────────── */
+.ver-code {
+  font-family: "Red Hat Mono", "Courier New", monospace;
+  font-size: var(--ver-font);
+  color: var(--text-primary);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── EOL warning tooltip ─────────────────────────────────────────────── */
+.eol-warn {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.eol-tip {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  font-size: var(--pf-t--global--font--size--xs, 11px);
+  font-weight: 400;
+  line-height: 1.4;
+  padding: 7px 10px;
+  border-radius: var(--pf-t--global--border--radius--small, 5px);
+  white-space: normal;
+  width: 280px;
+  z-index: 300;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  box-shadow: var(--pf-t--global--box-shadow--md);
+}
+
+.eol-tip::before {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: -5px;
+  border: 5px solid transparent;
+  border-top: 0;
+  border-bottom-color: var(--tooltip-bg);
+}
+
+.eol-warn:hover .eol-tip,
+.eol-warn.pinned .eol-tip {
+  display: block;
+}
+
+/* ── Phase tooltip (hover on chart segments) ─────────────────────────── */
+#phase-tooltip {
+  display: none;
+  position: fixed;
+  z-index: 400;
+  pointer-events: none;
+  font-size: var(--pf-t--global--font--size--xs, 11px);
+  line-height: 1.6;
+  padding: 6px 10px;
+  border-radius: var(--pf-t--global--border--radius--small, 5px);
+  white-space: nowrap;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  box-shadow: var(--pf-t--global--box-shadow--md);
+}
+
+/* ── Compact version-range selects in card toolbars ──────────────────── */
+.ctrl-select {
+  max-width: 110px;
+}
+
+/* ── Nav toggle buttons: standard PF6 secondary button ────────────────── */
+.nav-toggle.pf-m-secondary {
+  font-size: var(--pf-t--global--font--size--sm, 14px);
+  white-space: nowrap;
+}
+.nav-toggle.pf-m-secondary[aria-pressed="false"] {
+  color: var(--pf-t--global--text--color--subtle);
+  border-color: var(--pf-t--global--border--color--default);
+  opacity: 0.6;
+}
+.nav-toggle.pf-m-secondary[aria-pressed="false"]:hover {
+  opacity: 1;
+}
+
+/* ── Masthead: brand left, controls right ─────────────────────────────── */
+.pf-v6-c-masthead {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.pf-v6-c-masthead__main {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pf-v6-c-masthead__brand {
+  text-decoration: none;
+}
+
+.pf-v6-c-masthead__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+/* ── Horizontal nav overflow on mobile ───────────────────────────────── */
+@media (max-width: 768px) {
+  .pf-v6-c-masthead .pf-v6-c-nav.pf-m-horizontal {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

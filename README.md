@@ -19,7 +19,38 @@ Operators included: OpenShift Pipelines, GitOps, Service Mesh, Virtualization, O
 
 ```bash
 pip install pyyaml
+
+# Generate all charts into docs/ (GitHub Pages layout)
+python3 lifecycle-graph.py --product all --output-dir docs
 ```
+
+## Local development with Containerfile
+
+The repo includes a `Containerfile` that pre-generates charts at build time and serves them with Flask + Gunicorn:
+
+```bash
+# Build image (generates docs/ during build)
+docker build -t lifecycle-graph:local -f Containerfile .
+
+# Run locally on port 8080
+docker run --rm -p 8080:8080 lifecycle-graph:local
+```
+
+Open http://localhost:8080/ for the combined lifecycle site (`index.html`).
+
+For live development without rebuilding the image:
+
+```bash
+pip install -r requirements.txt
+python3 lifecycle-graph.py --product all --output-dir docs
+python3 server.py   # serves docs/ on http://localhost:8080
+```
+
+Rebuild the container after changing `lifecycle-graph.py`, `lifecycle-config.yaml`, `static/`, or `LIFECYCLE.md`.
+
+### Static assets (`static/`)
+
+`static/` at the repo root is the **editable source** for CSS and icons during local development. When you run `--output-dir docs`, the script copies it to `docs/static/` — that is what GitHub Pages and `server.py` serve. You do not need a separate `static/` checkout to browse the deployed site; edit root `static/`, regenerate, and commit both `static/` and `docs/static/` changes.
 
 ## Usage
 
@@ -65,6 +96,8 @@ python3 lifecycle-graph.py --product rhel --png --open
 | `--width N` | `1400` | SVG/PNG width in pixels |
 | `--open` | off | Open HTML in browser after generating |
 | `--title TEXT` | product title | Override card header title |
+| `--validate-phases` | off | Audit API `phase_map` coverage (exit 1 on gaps) |
+| `--output-dir DIR` | `.` | Output directory (`docs/` for GitHub Pages) |
 
 ## Outputs
 
@@ -76,18 +109,24 @@ python3 lifecycle-graph.py --product rhel --png --open
 
 | Color | Phase | Products |
 |-------|-------|---------|
+| Red | Standard subscription | RHEL minors/majors |
+| Salmon | Premium subscription additional maintenance | RHEL minors (even) |
+| Peach | Extended Life Cycle, Premium subscription additional maintenance (ELC) | RHEL minors/majors |
+| Teal | Long Life add-on terms | RHEL minors/majors |
+| Red | Extended life cycle support (ELS) add-on | RHEL 7 major |
 | Green | Support | Ceph (single-tier) |
-| Green | Full Support | OCP, RHEL, AAP |
-| Orange | Maintenance | OCP, RHEL, AAP |
+| Green | Full Support | OCP, AAP |
+| Orange | Maintenance | OCP, AAP |
 | Dark Orange | Maintenance 2 | AAP |
 | Blue | EUS-1 | OCP, ODF |
 | Purple | EUS-2 | OCP, ODF |
-| Violet | EUS-3 | ODF (future) |
-| Pink/Red | ELS | RHEL, Ceph |
+| Violet | EUS-3 | ODF |
+| Pink/Red | ELS | Ceph |
 | Dark Red | ELS-2 | Ceph (ELS Term 2 add-on) |
-| Gray | Ext. Life | OCP, RHEL |
+| Gray | Ext. Life | OCP |
 
 EUS phases (Extended Update Support) only appear on even OCP/ODF releases (4.12, 4.14, …).  
+RHEL uses subscription phase names from the [errata policy](https://access.redhat.com/support/policy/updates/errata), not the lifecycle API. See [LIFECYCLE.md](LIFECYCLE.md#rhel).  
 Ceph uses a single "Support" tier ending at EOL, followed by optional ELS / ELS Term 2 add-on periods.
 
 ## Configuration
@@ -108,7 +147,17 @@ See [LIFECYCLE.md](LIFECYCLE.md) for the full schema reference and examples.
 ## Data source
 
 Fetches live from the [Red Hat Product Life Cycles API](https://access.redhat.com/product-life-cycles/api/v1/products).  
-Falls back to `fallback:` blocks in `lifecycle-config.yaml` if the API is unreachable.
+Falls back to `fallback:` blocks in `lifecycle-config.yaml` only when the API is unreachable.
+
+**API-first rule:** when the API returns a version, only API-provided phases are used — `fallback:` is not merged field-by-field.
+
+**RHEL exception:** dates come from `rhel_majors` / `rhel_minors` in YAML (the API phase names and dates are inaccurate for the subscription model).
+
+Validate phase coverage before changing products:
+
+```bash
+python3 lifecycle-graph.py --validate-phases
+```
 
 ## GitHub Actions
 

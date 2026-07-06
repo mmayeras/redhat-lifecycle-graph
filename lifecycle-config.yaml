@@ -28,16 +28,23 @@
 # ── phase_map_preset values ──────────────────────────────────────────────────
 #   op-standard    → Full Support / Maintenance / EUS-1 / EUS-2
 #   op-odf         → Full Support / Maintenance / EUS-1 / EUS-2 / EUS-3
+#   osp-els3       → Full Support / 3rd-party Cert / Maintenance / ELS-1 / ELS-2 / ELS-3
 #   els2           → Full Support / Maintenance / ELS-1 / ELS-2
 #   keycloak       → Full Support / Maintenance (no EUS)
 #   rolling-ga-eol → General availability / End of Life only
 
 # ── RHEL minor release dates ─────────────────────────────────────────────────
-# Most frequently updated section.
-# std_end: next minor GA (end of standard update window for this minor)
-# eus_end: EUS add-on end (even minors only, RHEL 8+)
-# elc_end: ELC, Premium end (GA + 6 years, even minors ≥ 9.2 and 8.10)
-# elcp_end: Long Life end (last minor of each major only)
+# Source: https://access.redhat.com/support/policy/updates/errata
+# Phase names (subscription model — not the lifecycle API phase names):
+#   Standard subscription — all minors (~6 months per minor)
+#   Premium subscription additional maintenance — even minors (EUS, 2 years)
+#   Extended Life Cycle, Premium subscription additional maintenance — even minors ≥ 9.2, 8.10, 10.2+ (6 years from GA)
+#   Long Life add-on terms — last minor of each major (8.10, 9.10, 10.10)
+#
+# std_end:  next minor GA (end of Standard subscription window for this minor)
+# eus_end:  end of Premium additional maintenance (even minors only, RHEL 8+)
+# elc_end:  end of ELC, Premium (GA + 6 years; even minors ≥ 9.2, 8.10, 10.2+)
+# elcp_end: end of Long Life add-on (last minor of each major only)
 
 rhel_minors:
   "7":
@@ -80,6 +87,21 @@ rhel_minors:
     # 10.0: std_end = when 10.1 GAs (not yet published); EUS minors for RHEL 10 are 10.2, 10.4, 10.6, 10.8
     "10.0": { ga: "2025-05-20" }
 
+# ── RHEL major release lifecycle (major-level view) ───────────────────────────
+# RHEL bypasses the lifecycle API (use_major_phases: true) — API Full support /
+# Maintenance / ELS names do not match the subscription model below.
+# Source: https://access.redhat.com/support/policy/updates/errata
+#
+# std_end:  end of Standard subscription (= major Maintenance support end, year 10)
+# els_end:  end of Extended life cycle support (ELS) add-on (RHEL 7 only)
+# elc_end:  end of Extended Life Cycle, Premium subscription additional maintenance
+# ll_end:   end of Long Life add-on terms (majors with a .10 minor: 8, 9, 10)
+rhel_majors:
+  "7":  { ga: "2014-06-10", std_end: "2024-06-30", els_end: "2029-05-31" }
+  "8":  { ga: "2019-05-07", std_end: "2029-05-31", elc_end: "2030-05-22", ll_end: "2033-05-31" }
+  "9":  { ga: "2022-05-18", std_end: "2032-05-31", elc_end: "2036-05-31" }
+  "10": { ga: "2025-05-20", std_end: "2035-05-31", elc_end: "2039-05-31" }
+
 # ── Main products ─────────────────────────────────────────────────────────────
 # These entries define PRODUCT_CONFIGS — all data lives here, Python has no defaults.
 
@@ -97,6 +119,7 @@ products:
       "Maintenance support": mnt_end
       "Extended update support": eus1_end
       "Extended update support Term 2": eus2_end
+      "Extended update support Term 3": eus3_end
       "Extended life phase": elp_end
     fallback:
       "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
@@ -114,21 +137,11 @@ products:
     api_name: "Red Hat Enterprise Linux"
     title: "RHEL Lifecycle"
     page_url: "https://access.redhat.com/support/policy/updates/errata"
-    info_html: "<b>Standard</b> subscription covers the active support window for each minor release. <b>Premium</b> subscription provides additional maintenance for even minor releases (EUS). <b>ELC, Premium</b> (Extended Life Cycle) extends support 6 years from GA for even minors starting with RHEL 9.2+ and 8.10. <b>Long Life</b> provides up to 4 additional years beyond RHEL major year 10 (RHEL 8.10, 9.10, 10.10) via a Long Life add-on subscription. See the <a href=\"https://access.redhat.com/support/policy/updates/errata\" target=\"_blank\">RHEL errata policy</a> for details."
+    info_html: "<b>Standard subscription</b> covers each minor release (~6 months). <b>Premium subscription additional maintenance</b> extends even minors by 2 years (EUS). <b>Extended Life Cycle, Premium subscription additional maintenance</b> (ELC) adds 6 years from GA on even minors from RHEL 9.2+, 8.10, and 10.2+. <b>Long Life add-on terms</b> extend the last minor of a major (8.10, 9.10, 10.10). RHEL 7 uses the legacy <b>Extended life cycle support (ELS) add-on</b> instead of ELC. Dates are from the <a href=\"https://access.redhat.com/support/policy/updates/errata\" target=\"_blank\">errata policy</a>, not the lifecycle API."
     version_strategy: rhel-major
     min_version: "7"
     has_minors: true
-    phase_map:
-      "General availability": ga
-      "Full support": fs_end
-      "Maintenance support": mnt_end
-      "Extended life cycle support (ELS) add-on": els_end
-      "Extended life phase": elp_end
-    fallback:
-      "7":  { ga: "2014-06-10", fs_end: "2019-08-06", mnt_end: "2024-06-30", els_end: "2029-05-31" }
-      "8":  { ga: "2019-05-07", fs_end: "2024-05-31", mnt_end: "2029-05-31", els_end: "2032-05-31" }
-      "9":  { ga: "2022-05-18", fs_end: "2027-05-31", mnt_end: "2032-05-31", els_end: "2035-05-31" }
-      "10": { ga: "2025-05-20", fs_end: "2030-05-31", mnt_end: "2035-05-31", els_end: "2038-05-31" }
+    use_major_phases: true
 
   aap:
     api_name: "Red Hat Ansible Automation Platform"
@@ -143,6 +156,7 @@ products:
       "Maintenance support 2": mnt2_end
       "Extended update support": eus1_end
       "Extended update support Term 2": eus2_end
+      "Extended life cycle support (ELS) add-on": els_end
     fallback:
       "2.4": { ga: "2023-09-27", fs_end: "2024-09-27", mnt_end: "2025-09-27", mnt2_end: "2026-09-27" }
       "2.5": { ga: "2024-10-01", fs_end: "2025-10-01", mnt_end: "2026-10-01", mnt2_end: "2027-10-01" }
@@ -198,13 +212,7 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/openstack/platform"
     version_strategy: xy
     min_version: "16.1"
-    phase_map:
-      "General availability": ga
-      "Full support": fs_end
-      "Maintenance support": mnt_end
-      "Extended life cycle support (ELS) add-on": els_end
-      "Extended life cycle support (ELS) Term 2 add-on": els2_end
-      "Extended life cycle support (ELS) Term 3 add-on": els3_end
+    phase_map_preset: osp-els3
     fallback:
       "16.1": { ga: "2020-07-29", fs_end: "2022-04-30", mnt_end: "2024-04-30" }
       "16.2": { ga: "2021-09-15", fs_end: "2023-04-30", mnt_end: "2024-04-30", els_end: "2025-04-30", els2_end: "2026-04-30", els3_end: "2027-04-30" }
@@ -230,10 +238,7 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/satellite"
     version_strategy: xy
     min_version: "6.13"
-    phase_map:
-      "General availability": ga
-      "Full support": fs_end
-      "Maintenance support": mnt_end
+    phase_map_preset: op-standard
     fallback:
       # fs_end/mnt_end marked "Estimated" in API for recent versions — use known dates
       "6.13": { ga: "2023-05-03", fs_end: "2023-11-30", mnt_end: "2024-11-30" }
@@ -306,7 +311,7 @@ operators:
     title: "OpenShift Virtualization"
     version_strategy: ocp-minor
     min_version: "4.14"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "4.15": { ga: "2024-02-27", fs_end: "2024-09-27", mnt_end: "2025-08-27" }
       "4.16": { ga: "2024-06-27", fs_end: "2025-01-01", mnt_end: "2025-12-27", eus1_end: "2026-06-27", eus2_end: "2027-06-27" }
@@ -401,7 +406,7 @@ operators:
     title: "RHACM"
     version_strategy: xy
     min_version: "2.10"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "2.12": { ga: "2025-04-02", fs_end: "2026-01-01", mnt_end: "2026-10-02" }
       "2.13": { ga: "2025-06-18", fs_end: "2026-04-24", mnt_end: "2026-12-24" }
@@ -509,7 +514,7 @@ operators:
     title: "Node Feature Discovery"
     version_strategy: ocp-minor
     min_version: "4.14"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
       "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
@@ -527,7 +532,7 @@ operators:
     title: "Kubernetes NMState"
     version_strategy: ocp-minor
     min_version: "4.14"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
       "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
@@ -545,7 +550,7 @@ operators:
     title: "Local Storage Operator"
     version_strategy: ocp-minor
     min_version: "4.14"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
       "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
@@ -581,7 +586,7 @@ operators:
     title: "Vertical Pod Autoscaler"
     version_strategy: ocp-minor
     min_version: "4.14"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
       "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
@@ -599,7 +604,7 @@ operators:
     title: "NUMAresources Operator"
     version_strategy: ocp-minor
     min_version: "4.14"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
       "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
@@ -654,7 +659,7 @@ operators:
     title: "Multicluster Engine"
     version_strategy: xy
     min_version: "2.7"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "2.7":  { ga: "2024-11-05", fs_end: "2026-01-06", mnt_end: "2026-06-02" }
       "2.8":  { ga: "2025-03-12", fs_end: "2026-04-17", mnt_end: "2026-09-18" }
@@ -705,7 +710,7 @@ operators:
     title: "PTP Operator"
     version_strategy: ocp-minor
     min_version: "4.14"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
     fallback:
       "4.12": { ga: "2023-01-17", fs_end: "2023-08-17", mnt_end: "2024-07-17", eus1_end: "2025-01-17", eus2_end: "2026-01-17" }
       "4.13": { ga: "2023-05-17", fs_end: "2024-01-31", mnt_end: "2024-11-17" }
@@ -723,7 +728,9 @@ operators:
     title: "Red Hat Quay"
     version_strategy: xy
     min_version: "3.12"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
+    phase_map:
+      "Extended life phase": elp_end
     fallback:
       "3.13": { ga: "2025-01-22", fs_end: "2025-07-07", mnt_end: "2026-04-01" }
       "3.14": { ga: "2025-04-02", fs_end: "2025-10-07", mnt_end: "2026-08-25" }
@@ -762,7 +769,10 @@ operators:
     title: "Multicluster Global Hub"
     version_strategy: xy
     min_version: "1.4"
-    phase_map_preset: op-standard
+    phase_map:
+      "General availability": ga
+      "Full support": fs_end
+      "End of Life": mnt_end
     fallback:
       "1.4": { ga: "2025-03-20", fs_end: "2026-04-17" }
       "1.5": { ga: "2025-07-21", fs_end: "2026-10-02" }
@@ -798,7 +808,9 @@ operators:
     title: "Quay Container Security Operator"
     version_strategy: xy
     min_version: "3.12"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
+    phase_map:
+      "Extended life phase": elp_end
     fallback:
       "3.13": { ga: "2024-06-04", fs_end: "2024-09-04", mnt_end: "2025-12-31" }
       "3.14": { ga: "2024-09-04", fs_end: "2024-12-04", mnt_end: "2026-03-31" }
@@ -811,7 +823,9 @@ operators:
     title: "Quay Bridge Operator"
     version_strategy: xy
     min_version: "3.5"
-    phase_map_preset: op-standard
+    phase_map_preset: op-odf
+    phase_map:
+      "Extended life phase": elp_end
     fallback:
       "3.7":  { ga: "2022-10-19", fs_end: "2023-04-19", mnt_end: "2024-10-31" }
       "3.8":  { ga: "2023-03-29", fs_end: "2023-09-29", mnt_end: "2024-12-31" }

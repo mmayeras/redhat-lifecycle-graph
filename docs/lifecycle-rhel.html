@@ -1,430 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark" class="pf-v6-theme-dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RHEL Lifecycle</title>
-<style>
-
-  :root {
-    --card-px: 24px;
-    --label-w: 130px;
-    --days-col: 48px;
-    --chart-top: 64px;
-    --row-h: 48px;
-    --bar-h: 34px;
-    --ver-font: 15px;
-    /* theme – light defaults */
-    --bg-page: #f5f5f5;
-    --bg-card: #fff;
-    --bg-card-header: #f0f0f0;
-    --bg-controls: #f8f8f8;
-    --bg-row-alt: #fafafa;
-    --border-base: #d2d2d2;
-    --border-controls: #e8e8e8;
-    --text-primary: #151515;
-    --text-secondary: #6a6e73;
-    --text-controls: #3c3f42;
-    --link-color: #0066cc;
-    --grid-line: #d2d2d2;
-    --today-label-bg: rgba(255,255,255,0.9);
-    --today-label-border: rgba(163,0,0,0.25);
-    --input-bg: #fff;
-    --red: #a30000;
-  }
-  [data-theme="dark"] {
-    --bg-page: #111;
-    --bg-card: #1e1e1e;
-    --bg-card-header: #252525;
-    --bg-controls: #1a1a1a;
-    --bg-row-alt: #191919;
-    --border-base: #383838;
-    --border-controls: #383838;
-    --text-primary: #e8e8e8;
-    --text-secondary: #8a8e93;
-    --text-controls: #c8cacc;
-    --link-color: #5b9bd5;
-    --grid-line: #333;
-    --today-label-bg: rgba(30,30,30,0.95);
-    --today-label-border: rgba(220,80,80,0.5);
-    --input-bg: #1e1e1e;
-    --red: #e05050;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg-page: #111;
-      --bg-card: #1e1e1e;
-      --bg-card-header: #252525;
-      --bg-controls: #1a1a1a;
-      --bg-row-alt: #191919;
-      --border-base: #383838;
-      --border-controls: #383838;
-      --text-primary: #e8e8e8;
-      --text-secondary: #8a8e93;
-      --text-controls: #c8cacc;
-      --link-color: #5b9bd5;
-      --grid-line: #333;
-      --today-label-bg: rgba(30,30,30,0.95);
-      --today-label-border: rgba(220,80,80,0.5);
-      --input-bg: #1e1e1e;
-      --red: #e05050;
-    }
-  }
-  @media (max-width: 600px) {
-    :root {
-      --card-px: 8px;
-      --label-w: 56px;
-      --days-col: 32px;
-      --chart-top: 44px;
-      --row-h: 36px;
-      --bar-h: 24px;
-      --ver-font: 10px;
-    }
-    .page-header {
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto;
-      gap: 4px;
-      padding: 8px 12px;
-    }
-    .header-left { display: none; }
-    .header-right { grid-column: 2; grid-row: 1; }
-    .page-nav {
-      grid-column: 1; grid-row: 1;
-      flex-wrap: nowrap; overflow-x: auto;
-      justify-content: flex-start;
-      scrollbar-width: none;
-    }
-    .page-nav::-webkit-scrollbar { display: none; }
-    .page-nav a { flex-shrink: 0; font-size: 11px; padding: 3px 8px; }
-    a.gh-contribute { font-size: 11px; padding: 3px 8px; }
-    .chart-inner { min-width: var(--mobile-min-width, 480px); }
-    .chart-row-bar span { display: none; }
-    .card-header-legend { flex-wrap: wrap; gap: 4px; }
-    .page-content { padding: 12px 8px 32px; gap: 14px; }
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "Red Hat Text","Red Hat Display","Open Sans",system-ui,sans-serif;
-    background: var(--bg-page);
-    color: var(--text-primary);
-    padding: 0;
-    margin: 0;
-  }
-  .page-header {
-    background: #151515;
-    color: #fff;
-    padding: 14px 20px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 8px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-left { display: flex; align-items: center; justify-content: flex-start; }
-  .header-right { display: flex; align-items: center; justify-content: flex-end; }
-  .header-title { font-size: 13px; font-weight: 700; color: #e0e0e0; letter-spacing: -0.01em; white-space: nowrap; }
-  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
-  .page-nav a {
-    color: #e0e0e0;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 4px;
-    border: 1px solid #444;
-  }
-  .page-nav a:hover { background: #333; color: #fff; }
-  a.gh-contribute {
-    display: inline-flex; align-items: center; gap: 5px;
-    color: #fff; background: #1a7f37; border: 1px solid #1a7f37;
-    text-decoration: none; font-size: 12px; font-weight: 600;
-    padding: 3px 10px; border-radius: 4px;
-  }
-  a.gh-contribute:visited { color: #fff; }
-  a.gh-contribute:hover { background: #24a148; border-color: #24a148; color: #fff; }
-  .page-content {
-    max-width: 1148px;
-    margin: 0 auto;
-    padding: 20px 12px 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  @media (min-width: 700px) {
-    .page-header { padding: 14px 32px; }
-    .header-title { font-size: 15px; }
-    .page-nav a { font-size: 13px; padding: 4px 12px; }
-    .page-content { padding: 28px 24px 48px; gap: 28px; }
-  }
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-base);
-    border-radius: 8px;
-    width: 100%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    overflow: hidden;
-    scroll-margin-top: 70px;
-  }
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px var(--card-px);
-    background: var(--bg-card-header);
-    border-bottom: 1px solid var(--border-base);
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .card-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-  }
-  .legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .legend span { font-size: 11px !important; }
-  .chart-area {
-    background: var(--bg-card);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .chart-inner {
-    position: relative;
-    padding: var(--chart-top) var(--card-px) 20px;
-    min-width: 100%;
-  }
-  .chart-grid {
-    position: absolute;
-    top: var(--chart-top);
-    bottom: 20px;
-    left: calc(var(--card-px) + var(--label-w));
-    right: calc(var(--card-px) + var(--days-col));
-    pointer-events: none;
-  }
-  .chart-rows {
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .chart-rows > div:nth-child(even) { background: var(--bg-row-alt); }
-  .chart-row {
-    display: flex;
-    align-items: center;
-    height: var(--row-h);
-  }
-  .chart-row-label {
-    width: var(--label-w);
-    flex-shrink: 0;
-    padding-right: 8px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-  }
-  .chart-row-bar {
-    flex: 1;
-    position: relative;
-    height: var(--bar-h);
-  }
-  .chart-row-days {
-    width: var(--days-col);
-    flex-shrink: 0;
-    text-align: right;
-    padding-left: 4px;
-  }
-  .eol-warn { position: relative; cursor: pointer; display: inline-block; }
-  .eol-tip {
-    display: none;
-    position: absolute;
-    right: 0; top: calc(100% + 4px);
-    background: #151515; color: #fff;
-    font-size: 11px; font-weight: 400; line-height: 1.4;
-    padding: 7px 10px; border-radius: 5px;
-    white-space: normal; width: 280px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
-    z-index: 300;
-  }
-  .eol-tip::before {
-    content: ""; position: absolute;
-    right: 8px; top: -5px;
-    border: 5px solid transparent;
-    border-top: 0; border-bottom-color: #151515;
-  }
-  .eol-warn:hover .eol-tip,
-  .eol-warn.pinned .eol-tip { display: block; }
-  #phase-tooltip {
-    display: none; position: fixed; z-index: 400; pointer-events: none;
-    background: #151515; color: #fff;
-    font-size: 11px; line-height: 1.6;
-    padding: 6px 10px; border-radius: 5px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
-    white-space: nowrap;
-  }
-  .ver-code {
-    font-family: "Red Hat Mono","Courier New",monospace;
-    font-size: var(--ver-font);
-    color: var(--text-primary);
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .card-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 6px var(--card-px);
-    background: var(--bg-controls);
-    border-bottom: 1px solid var(--border-controls);
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--text-controls);
-  }
-  .card-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap; }
-  .card-controls select {
-    font-size: 12px;
-    padding: 2px 4px;
-    border: 1px solid var(--border-base);
-    border-radius: 3px;
-    background: var(--input-bg);
-    color: var(--text-primary);
-    font-family: inherit;
-    max-width: 90px;
-  }
-  .card-controls .ctrl-label { color: var(--text-secondary); margin-right: -4px; }
-  .footer {
-    padding: 8px var(--card-px) 12px;
-    font-size: 11px; color: var(--text-secondary);
-    border-top: 1px solid var(--border-base); background: var(--bg-card-header);
-    word-break: break-word;
-  }
-  .footer a { color: var(--link-color); text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
-  .section-heading {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-primary);
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border-base);
-    margin-bottom: 4px;
-  }
-  .op-section { display: flex; flex-direction: column; gap: 8px; }
-  .op-details {
-    background: var(--bg-card);
-    border: 1px solid var(--border-base);
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    overflow: hidden;
-    scroll-margin-top: 70px;
-  }
-  .op-summary {
-    cursor: pointer;
-    padding: 10px var(--card-px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    background: var(--bg-card-header);
-    list-style: none;
-    user-select: none;
-  }
-  .op-summary::-webkit-details-marker { display: none; }
-  .op-summary::marker { display: none; }
-  .op-details[open] > .op-summary { border-bottom: 1px solid var(--border-base); }
-  .op-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .op-name::before { content: "▶"; font-size: 9px; color: var(--text-secondary); transition: transform 0.15s; }
-  .op-details[open] .op-name::before { transform: rotate(90deg); }
-  .op-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
-  .theme-btn {
-    background: transparent;
-    border: 1px solid #444;
-    color: #e0e0e0;
-    border-radius: 4px;
-    padding: 2px 7px;
-    font-size: 14px;
-    line-height: 1.4;
-    cursor: pointer;
-  }
-  .theme-btn:hover { background: #333; }
-  .op-details .card { border: none; border-radius: 0; box-shadow: none; }
-  .card-info-block {
-    border-top: 1px solid var(--border-controls);
-    background: var(--bg-controls);
-    padding: 0 var(--card-px);
-    font-size: 12px;
-    color: var(--text-controls);
-  }
-  .card-info-block summary {
-    cursor: pointer; padding: 6px 0; font-weight: 600;
-    list-style: none; user-select: none;
-  }
-  .card-info-block summary::-webkit-details-marker { display: none; }
-  .card-info-block summary::before { content: "▶ "; font-size: 9px; color: var(--text-secondary); }
-  .card-info-block[open] summary::before { content: "▼ "; }
-  .card-info-body { padding: 6px 0 10px; line-height: 1.5; }
-  .card-info-body a { color: var(--link-color); }
-  .minor-group { display: none; flex-direction: column; gap: 2px; }
-  .minor-group.visible { display: flex; }
-  .minor-row {
-    display: flex; align-items: center;
-    height: 28px;
-    padding-left: 16px;
-    background: var(--bg-row-alt);
-    border-left: 2px solid var(--border-base);
-    margin-left: 2px;
-  }
-  .minor-row .chart-row-label {
-    width: calc(var(--label-w) - 16px);
-    flex-shrink: 0; padding-right: 6px;
-    overflow: hidden; display: flex; align-items: center;
-  }
-  .minor-row .ver-code { font-size: 11px; font-weight: 600; }
-  .minor-row .chart-row-bar { flex: 1; position: relative; height: 18px; }
-  .minor-row .chart-row-days { width: var(--days-col); flex-shrink: 0; text-align: right; padding-left: 4px; font-size: 11px; }
-  .nav-toggle {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 4px 12px 4px 8px; border-radius: 20px; font-size: 13px; font-weight: 500;
-    cursor: pointer; border: 1.5px solid var(--border-color); background: var(--card-bg);
-    color: var(--text-secondary); transition: background 0.15s, color 0.15s, opacity 0.15s;
-    text-decoration: none; user-select: none;
-  }
-  .nav-toggle .nav-check {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 700;
-    border: 1.5px solid currentColor; flex-shrink: 0; transition: background 0.15s;
-  }
-  .nav-toggle .nav-check::after { content: "✕"; }
-  .nav-toggle.nav-on { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .nav-toggle.nav-on .nav-check { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
-  .nav-toggle.nav-on .nav-check::after { content: "✓"; }
-  .nav-toggle:hover { opacity: 0.85; }
-
-</style>
-<script>
-(function(){
-  var s=localStorage.getItem('lifecycle-theme');
-  var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme',d?'dark':'light');
-})();
-</script>
+<link rel="icon" type="image/svg+xml" href="static/icons/redhat-hat-red.svg">
+<script>(function(){var t=localStorage.getItem('lifecycle-theme'),d;if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;if(d){document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
+<link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly-addons.css">
+<link rel="stylesheet" href="static/css/chart.css">
 </head>
 <body>
-<header class="page-header">
-  <div class="header-left"><span class="header-title">RHEL Lifecycle</span></div>
-  
-  <div class="header-right"><div style="display:flex;align-items:center;gap:8px"><button id="theme-toggle" class="theme-btn" title="Toggle dark/light mode"></button></div></div>
-</header>
-<div class="page-content">
+<div class="pf-v6-c-page">
+  <header class="pf-v6-c-masthead">
+    <div class="pf-v6-c-masthead__main">
+      <a class="pf-v6-c-masthead__brand pf-v6-l-flex pf-m-align-items-center pf-m-gap-sm pf-v6-u-text-color-regular" href="#">
+        <img src="static/icons/redhat-hat-red.svg" alt="Red Hat" width="28" height="28">
+        <span class="pf-v6-c-title pf-m-md">RHEL Lifecycle</span>
+      </a>
+    </div>
+    <div class="pf-v6-c-masthead__content"><div class="pf-v6-l-flex pf-m-align-items-center pf-m-justify-content-flex-end pf-m-flex-1 pf-m-gap-sm"><button class="pf-v6-c-button pf-m-plain" type="button" id="theme-toggle" aria-label="Toggle theme"><svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
+  </header>
+  <div class="pf-v6-c-page__main-container">
+    <main class="pf-v6-c-page__main" id="main-content">
+      
+      <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
+        <div class="pf-v6-c-page__main-body">
+          <div class="pf-v6-l-stack pf-m-gutter">
 <div class="card">
   <div class="card-header">
     <span class="card-title">
@@ -434,27 +36,84 @@
       RHEL Lifecycle <a href="https://access.redhat.com/support/policy/updates/errata" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a>
     </span>
     <div class="legend">
-      <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f5b8b4;border:1.5px solid #c9190b"></span>ELS</span>
-      <span style="font-size:11px;color:var(--red);opacity:0.85">┆ Today (2026-07-05)</span>
+      
+      <span style="font-size:11px;color:var(--red);opacity:0.85">┆ Today (2026-07-06)</span>
     </div>
   </div>
   <div class="card-controls"><span class="ctrl-label">Range:</span><select class="ctrl-from" onchange="filterCard(this.closest('.card'))"><option value="">All from</option><option value="10">10</option><option value="9">9</option><option value="8">8</option><option value="7">7</option></select><span class="ctrl-label">→</span><select class="ctrl-to" onchange="filterCard(this.closest('.card'))"><option value="">All to</option><option value="10">10</option><option value="9">9</option><option value="8">8</option><option value="7">7</option></select><label><input type="checkbox" class="ctrl-eol" onchange="filterCard(this.closest('.card'))"> Include EOL</label><label><input type="checkbox" class="ctrl-minor" onchange="toggleMinorRows(this.closest('.card'))"> Show minor releases</label></div>
-  <details class="card-info-block"><summary>ℹ More info</summary><div class="card-info-body"><b>Standard</b> subscription covers the active support window for each minor release. <b>Premium</b> subscription provides additional maintenance for even minor releases (EUS). <b>ELC, Premium</b> (Extended Life Cycle) extends support 6 years from GA for even minors starting with RHEL 9.2+ and 8.10. <b>Long Life</b> provides up to 4 additional years beyond RHEL major year 10 (RHEL 8.10, 9.10, 10.10) via a Long Life add-on subscription. See the <a href="https://access.redhat.com/support/policy/updates/errata" target="_blank">RHEL errata policy</a> for details.</div></details>
+  <details class="card-info-block"><summary>ℹ More info</summary><div class="card-info-body"><b>Standard subscription</b> covers each minor release (~6 months). <b>Premium subscription additional maintenance</b> extends even minors by 2 years (EUS). <b>Extended Life Cycle, Premium subscription additional maintenance</b> (ELC) adds 6 years from GA on even minors from RHEL 9.2+, 8.10, and 10.2+. <b>Long Life add-on terms</b> extend the last minor of a major (8.10, 9.10, 10.10). RHEL 7 uses the legacy <b>Extended life cycle support (ELS) add-on</b> instead of ELC. Dates are from the <a href="https://access.redhat.com/support/policy/updates/errata" target="_blank">errata policy</a>, not the lifecycle API.</div></details>
   <div class="chart-area">
-    <div class="chart-inner" style="--mobile-min-width:600px">
+    <div class="chart-inner" style="--mobile-min-width:624px">
       <div class="chart-grid">
-        <div style="position:absolute;left:2.986%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:2.986%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2015</div><div style="position:absolute;left:7.098%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:11.221%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:15.333%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:19.446%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:23.558%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:23.558%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2020</div><div style="position:absolute;left:27.681%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:31.794%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:35.906%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:40.018%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:44.142%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:44.142%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2025</div><div style="position:absolute;left:48.254%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:52.366%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:56.478%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:60.602%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:64.714%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:64.714%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2030</div><div style="position:absolute;left:68.826%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:72.938%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:77.062%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:81.174%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:85.286%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:85.286%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2035</div><div style="position:absolute;left:89.398%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:93.522%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:97.634%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div>
-        <div style="position:absolute;left:50.338%;top:0;bottom:0;border-left:1.5px dashed var(--red);opacity:0.7;z-index:2"></div><div style="position:absolute;left:50.338%;top:calc(-1 * var(--chart-top) + 12px);font-size:11px;color:var(--red);transform:translateX(-50%);font-weight:700;white-space:nowrap;background:var(--today-label-bg);padding:1px 4px;border-radius:2px;border:1px solid var(--today-label-border)">Today</div>
+        <div style="position:absolute;left:2.868%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:2.868%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2015</div><div style="position:absolute;left:6.817%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:10.778%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:14.728%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:18.678%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:22.627%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:22.627%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2020</div><div style="position:absolute;left:26.588%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:30.538%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:34.488%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:38.437%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:42.398%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:42.398%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2025</div><div style="position:absolute;left:46.348%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:50.298%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:54.247%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:58.208%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:62.158%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:62.158%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2030</div><div style="position:absolute;left:66.108%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:70.057%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:74.018%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:77.968%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:81.918%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:81.918%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2035</div><div style="position:absolute;left:85.867%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:89.828%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:93.778%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:97.728%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div>
+        <div style="position:absolute;left:48.361%;top:0;bottom:0;border-left:1.5px dashed var(--red);opacity:0.7;z-index:2"></div><div style="position:absolute;left:48.361%;top:calc(-1 * var(--chart-top) + 12px);font-size:11px;color:var(--red);transform:translateX(-50%);font-weight:700;white-space:nowrap;background:var(--today-label-bg);padding:1px 4px;border-radius:2px;border:1px solid var(--today-label-border)">Today</div>
       </div>
       <div class="chart-rows">
-        <div class="chart-row" data-ver="10" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">10</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:45.708%;width:53.616%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Full Support | 2025-05-20 → 2030-05-31" style="width:38.601%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div data-phase="Maintenance | 2030-05-31 → 2035-05-31" style="width:38.369%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div data-phase="ELS | 2035-05-31 → 2038-05-31" style="width:23.030%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 1426 days remaining">1426d</span></div></div><div class="minor-group" data-major="10"></div><div class="chart-row" data-ver="9" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:33.337%;width:53.639%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Full Support | 2022-05-18 → 2027-05-31" style="width:38.626%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div data-phase="Maintenance | 2027-05-31 → 2032-05-31" style="width:38.374%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div data-phase="ELS | 2032-05-31 → 2035-05-31" style="width:22.999%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 330 days remaining">330d</span></div></div><div class="minor-group" data-major="9"><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.8</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:49.808%;width:24.696%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2026-05-19 → 2026-11-10" style="width:7.984%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2026-11-10 → 2028-05-31" style="width:25.912%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="ELC, Premium | 2028-05-31 → 2032-05-19" style="width:66.104%;height:100%;background:#fde8df;border-top:1px solid #c07060;border-bottom:1px solid #c07060;border-left:none;border-right:1px solid #c07060;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:600;font-size:11px">128d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:47.600%;width:2.208%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2025-11-04 → 2026-05-19" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.6</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:45.471%;width:24.685%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2025-04-29 → 2025-11-04" style="width:8.626%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2025-11-04 → 2027-05-31" style="width:26.152%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="ELC, Premium | 2027-05-31 → 2031-04-29" style="width:65.221%;height:100%;background:#fde8df;border-top:1px solid #c07060;border-bottom:1px solid #c07060;border-left:none;border-right:1px solid #c07060;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#8b3020;font-weight:600;font-size:11px">330d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.5</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:43.578%;width:1.893%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2024-11-12 → 2025-04-29" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.4</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:41.370%;width:24.685%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2024-04-30 → 2024-11-12" style="width:8.946%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2024-11-12 → 2026-05-31" style="width:25.787%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="ELC, Premium | 2026-05-31 → 2030-04-30" style="width:65.267%;height:100%;background:#fde8df;border-top:1px solid #c07060;border-bottom:1px solid #c07060;border-left:none;border-right:1px solid #c07060;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#8b4030;font-weight:600;font-size:11px">1395d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:39.398%;width:1.972%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2023-11-07 → 2024-04-30" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.2</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:37.359%;width:24.696%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2023-05-10 → 2023-11-07" style="width:8.257%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2023-11-07 → 2025-05-31" style="width:26.049%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="ELC, Premium | 2025-05-31 → 2029-05-10" style="width:65.693%;height:100%;background:#fde8df;border-top:1px solid #c07060;border-bottom:1px solid #c07060;border-left:none;border-right:1px solid #c07060;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#8b4030;font-weight:600;font-size:11px">1040d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.1</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:35.376%;width:1.983%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2022-11-15 → 2023-05-10" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:33.337%;width:2.039%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2022-05-18 → 2022-11-15" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div></div><div class="chart-row" data-ver="8" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">8</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:20.865%;width:53.774%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Full Support | 2019-05-07 → 2024-05-31" style="width:38.781%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div data-phase="Maintenance | 2024-05-31 → 2029-05-31" style="width:38.257%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div data-phase="ELS | 2029-05-31 → 2032-05-31" style="width:22.962%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#795600;font-weight:600;font-size:13px" title="Maintenance — 1061 days remaining">1061d</span></div></div><div class="minor-group" data-major="8"><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">8.10</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:41.618%;width:37.134%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2024-05-22 → 2029-05-31" style="width:55.674%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="ELC, Premium | 2029-05-31 → 2030-05-22" style="width:10.801%;height:100%;background:#fde8df;border-top:1px solid #c07060;border-bottom:1px solid #c07060;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="Long Life | 2030-05-22 → 2033-05-31" style="width:33.525%;height:100%;background:#a8d8ea;border-top:1px solid #005f73;border-bottom:1px solid #005f73;border-left:none;border-right:1px solid #005f73;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:600;font-size:11px">1061d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.9</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:39.477%;width:2.141%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2023-11-14 → 2024-05-22" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.8</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:37.427%;width:8.405%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2023-05-16 → 2023-11-14" style="width:24.397%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2023-11-14 → 2025-05-31" style="width:75.603%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:1px solid #8b3020;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:35.297%;width:2.129%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2022-11-08 → 2023-05-16" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.6</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:33.247%;width:8.472%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2022-05-10 → 2022-11-08" style="width:24.202%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2022-11-08 → 2024-05-31" style="width:75.798%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:1px solid #8b3020;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.5</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:31.196%;width:2.050%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2021-11-09 → 2022-05-10" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.4</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:29.225%;width:8.371%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2021-05-18 → 2021-11-09" style="width:23.553%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2021-11-09 → 2023-05-31" style="width:76.447%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:1px solid #8b3020;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:27.017%;width:2.208%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2020-11-03 → 2021-05-18" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.2</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:24.887%;width:8.224%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2020-04-28 → 2020-11-03" style="width:25.890%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2020-11-03 → 2022-04-28" style="width:74.110%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:1px solid #8b3020;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.1</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:22.916%;width:1.972%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2019-11-05 → 2020-04-28" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:20.865%;width:2.050%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2019-05-07 → 2019-11-05" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div></div><div class="chart-row" data-ver="7" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:0.676%;width:61.616%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Full Support | 2014-06-10 → 2019-08-06" style="width:34.430%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#1e4f18;font-weight:600;white-space:nowrap;padding:0 6px">Full Support</span></div><div data-phase="Maintenance | 2019-08-06 → 2024-06-30" style="width:32.730%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#795600;font-weight:600;white-space:nowrap;padding:0 6px">Maintenance</span></div><div data-phase="ELS | 2024-06-30 → 2029-05-31" style="width:32.840%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-size:11px;color:#a30000;font-weight:600;white-space:nowrap;padding:0 6px">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#a30000;font-weight:600;font-size:13px" title="ELS — 1061 days remaining">1061d</span></div></div><div class="minor-group" data-major="7"><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.9</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:26.622%;width:15.435%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2020-09-29 → 2024-06-30" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.8</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:24.572%;width:2.050%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2020-03-31 → 2020-09-29" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:21.890%;width:2.681%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2019-08-06 → 2020-03-31" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.6</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:18.736%;width:8.247%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2018-10-30 → 2019-08-06" style="width:38.251%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2019-08-06 → 2020-10-31" style="width:61.749%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:1px solid #8b3020;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.5</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:16.449%;width:2.287%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2018-04-10 → 2018-10-30" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.4</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:13.598%;width:8.574%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2017-07-31 → 2018-04-10" style="width:33.246%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium | 2018-04-10 → 2019-08-31" style="width:66.754%;height:100%;background:#f9d0c4;border-top:1px solid #8b3020;border-bottom:1px solid #8b3020;border-left:none;border-right:1px solid #8b3020;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:10.557%;width:3.042%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2016-11-03 → 2017-07-31" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.2</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:6.613%;width:3.943%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2015-11-19 → 2016-11-03" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.1</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:3.695%;width:2.918%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2015-03-05 → 2015-11-19" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:0.676%;width:3.019%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard | 2014-06-10 → 2015-03-05" style="width:100.000%;height:100%;background:#f5b8b4;border-top:1px solid #c9190b;border-bottom:1px solid #c9190b;border-left:1px solid #c9190b;border-right:1px solid #c9190b;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div></div>
+        <div class="chart-row" data-ver="10" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">10</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:43.902%;width:55.449%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2025-05-20 → 2035-05-31" style="width:71.487%;height:100%;background:#fae0dc;border-top:1.5px solid #ee0000;border-bottom:1.5px solid #ee0000;border-left:1.5px solid #ee0000;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#7d1007;font-weight:600">Standard</span></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2035-05-31 → 2039-05-31" style="width:28.513%;height:100%;background:#d4e7f7;border-top:1.5px solid #336699;border-bottom:1.5px solid #336699;border-left:none;border-right:1.5px solid #336699;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#004080;font-weight:600">ELC, Premium</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#7d1007;font-weight:600;font-size:13px" title="Standard subscription — 3251 days remaining">3251d</span></div></div><div class="minor-group" data-major="10"></div><div class="chart-row" data-ver="9" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:32.020%;width:55.481%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2022-05-18 → 2032-05-31" style="width:71.504%;height:100%;background:#fae0dc;border-top:1.5px solid #ee0000;border-bottom:1.5px solid #ee0000;border-left:1.5px solid #ee0000;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#7d1007;font-weight:600">Standard</span></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2032-05-31 → 2036-05-31" style="width:28.496%;height:100%;background:#d4e7f7;border-top:1.5px solid #336699;border-bottom:1.5px solid #336699;border-left:none;border-right:1.5px solid #336699;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#004080;font-weight:600">ELC, Premium</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#7d1007;font-weight:600;font-size:13px" title="Standard subscription — 2156 days remaining">2156d</span></div></div><div class="minor-group" data-major="9"><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.8</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:47.841%;width:23.720%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2026-05-19 → 2026-11-10" style="width:7.984%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2026-11-10 → 2028-05-31" style="width:25.912%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2028-05-31 → 2032-05-19" style="width:66.104%;height:100%;background:#d4e7f7;border-top:1px solid #336699;border-bottom:1px solid #336699;border-left:none;border-right:1px solid #336699;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#7d1007;font-weight:600;font-size:11px">127d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:45.720%;width:2.121%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2025-11-04 → 2026-05-19" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.6</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:43.675%;width:23.710%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2025-04-29 → 2025-11-04" style="width:8.626%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2025-11-04 → 2027-05-31" style="width:26.152%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2027-05-31 → 2031-04-29" style="width:65.221%;height:100%;background:#d4e7f7;border-top:1px solid #336699;border-bottom:1px solid #336699;border-left:none;border-right:1px solid #336699;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#6e4800;font-weight:600;font-size:11px">329d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.5</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:41.857%;width:1.818%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2024-11-12 → 2025-04-29" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.4</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:39.736%;width:23.710%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2024-04-30 → 2024-11-12" style="width:8.946%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2024-11-12 → 2026-05-31" style="width:25.787%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2026-05-31 → 2030-04-30" style="width:65.267%;height:100%;background:#d4e7f7;border-top:1px solid #336699;border-bottom:1px solid #336699;border-left:none;border-right:1px solid #336699;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#004080;font-weight:600;font-size:11px">1394d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:37.842%;width:1.894%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2023-11-07 → 2024-04-30" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">9.2</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:35.884%;width:23.720%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2023-05-10 → 2023-11-07" style="width:8.257%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2023-11-07 → 2025-05-31" style="width:26.049%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2025-05-31 → 2029-05-10" style="width:65.693%;height:100%;background:#d4e7f7;border-top:1px solid #336699;border-bottom:1px solid #336699;border-left:none;border-right:1px solid #336699;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#004080;font-weight:600;font-size:11px">1039d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.1</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:33.979%;width:1.905%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2022-11-15 → 2023-05-10" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">9.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:32.020%;width:1.959%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2022-05-18 → 2022-11-15" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div></div><div class="chart-row" data-ver="8" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">8</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:20.041%;width:55.600%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2019-05-07 → 2029-05-31" style="width:71.565%;height:100%;background:#fae0dc;border-top:1.5px solid #ee0000;border-bottom:1.5px solid #ee0000;border-left:1.5px solid #ee0000;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#7d1007;font-weight:600">Standard</span></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2029-05-31 → 2030-05-22" style="width:6.929%;height:100%;background:#d4e7f7;border-top:1.5px solid #336699;border-bottom:1.5px solid #336699;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:10px;color:#004080;font-weight:600">ELC, Premium</span></div><div data-phase="Long Life add-on terms | 2030-05-22 → 2033-05-31" style="width:21.506%;height:100%;background:#c7ebee;border-top:1.5px solid #006970;border-bottom:1.5px solid #006970;border-left:none;border-right:1.5px solid #006970;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#003f4f;font-weight:600">Long Life</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#7d1007;font-weight:600;font-size:13px" title="Standard subscription — 1060 days remaining">1060d</span></div></div><div class="minor-group" data-major="8"><div class="minor-row" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">8.10</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:39.974%;width:35.667%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2024-05-22 → 2029-05-31" style="width:55.674%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Extended Life Cycle, Premium subscription additional maintenance | 2029-05-31 → 2030-05-22" style="width:10.801%;height:100%;background:#d4e7f7;border-top:1px solid #336699;border-bottom:1px solid #336699;border-left:none;border-right:none;border-radius:0 0 0 0"></div><div data-phase="Long Life add-on terms | 2030-05-22 → 2033-05-31" style="width:33.525%;height:100%;background:#c7ebee;border-top:1px solid #006970;border-bottom:1px solid #006970;border-left:none;border-right:1px solid #006970;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:#7d1007;font-weight:600;font-size:11px">1060d</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.9</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:37.918%;width:2.056%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2023-11-14 → 2024-05-22" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.8</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:35.948%;width:8.073%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2023-05-16 → 2023-11-14" style="width:24.397%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2023-11-14 → 2025-05-31" style="width:75.603%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:1px solid #f0ab00;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:33.903%;width:2.045%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2022-11-08 → 2023-05-16" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.6</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:31.934%;width:8.138%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2022-05-10 → 2022-11-08" style="width:24.202%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2022-11-08 → 2024-05-31" style="width:75.798%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:1px solid #f0ab00;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.5</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:29.964%;width:1.969%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2021-11-09 → 2022-05-10" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.4</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:28.071%;width:8.040%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2021-05-18 → 2021-11-09" style="width:23.553%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2021-11-09 → 2023-05-31" style="width:76.447%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:1px solid #f0ab00;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:25.950%;width:2.121%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2020-11-03 → 2021-05-18" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.2</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:23.904%;width:7.900%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2020-04-28 → 2020-11-03" style="width:25.890%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2020-11-03 → 2022-04-28" style="width:74.110%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:1px solid #f0ab00;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.1</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:22.011%;width:1.894%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2019-11-05 → 2020-04-28" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">8.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:20.041%;width:1.969%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2019-05-07 → 2019-11-05" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div></div><div class="chart-row" data-ver="7" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:0.649%;width:59.182%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2014-06-10 → 2024-06-30" style="width:67.160%;height:100%;background:#fae0dc;border-top:1.5px solid #ee0000;border-bottom:1.5px solid #ee0000;border-left:1.5px solid #ee0000;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#7d1007;font-weight:600">Standard</span></div><div data-phase="Extended life cycle support (ELS) add-on | 2024-06-30 → 2029-05-31" style="width:32.840%;height:100%;background:#e7d4ff;border-top:1.5px solid #6a1b9a;border-bottom:1.5px solid #6a1b9a;border-left:none;border-right:1.5px solid #6a1b9a;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#40199a;font-weight:600">ELS add-on</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#40199a;font-weight:600;font-size:13px" title="Extended life cycle support (ELS) add-on — 1060 days remaining">1060d</span></div></div><div class="minor-group" data-major="7"><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.9</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:25.571%;width:14.825%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2020-09-29 → 2024-06-30" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.8</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:23.601%;width:1.969%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2020-03-31 → 2020-09-29" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.7</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:21.026%;width:2.575%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2019-08-06 → 2020-03-31" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.6</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:17.996%;width:7.921%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2018-10-30 → 2019-08-06" style="width:38.251%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2019-08-06 → 2020-10-31" style="width:61.749%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:1px solid #f0ab00;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.5</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:15.799%;width:2.197%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2018-04-10 → 2018-10-30" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.4</code><span style="font-size:8px;color:#40199a;font-weight:700;margin-left:3px">EUS</span>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:13.061%;width:8.235%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2017-07-31 → 2018-04-10" style="width:33.246%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:none;border-radius:3px 0 0 3px"></div><div data-phase="Premium subscription additional maintenance | 2018-04-10 → 2019-08-31" style="width:66.754%;height:100%;background:#fdf2cf;border-top:1px solid #f0ab00;border-bottom:1px solid #f0ab00;border-left:none;border-right:1px solid #f0ab00;border-radius:0 3px 3px 0"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.3</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:10.140%;width:2.922%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2016-11-03 → 2017-07-31" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.2</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:6.352%;width:3.787%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2015-11-19 → 2016-11-03" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.1</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:3.549%;width:2.803%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2015-03-05 → 2015-11-19" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div><div class="minor-row" data-eol="true">  <div class="chart-row-label">    <code class="ver-code">7.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:0.649%;width:2.900%;height:100%;border-radius:3px;overflow:hidden;display:flex"><div data-phase="Standard subscription | 2014-06-10 → 2015-03-05" style="width:100.000%;height:100%;background:#fae0dc;border-top:1px solid #ee0000;border-bottom:1px solid #ee0000;border-left:1px solid #ee0000;border-right:1px solid #ee0000;border-radius:3px 3px 3px 3px"></div></div>  </div>  <div class="chart-row-days"><span style="color:var(--red);font-weight:700;font-size:11px">EOL</span></div></div></div>
       </div>
     </div>
   </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-05 09:15 UTC</div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-06 08:27 UTC</div>
 </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 </div>
 <script>
+function getStickyOffset() {
+  var offset = 16;
+  var masthead = document.querySelector('.pf-v6-c-masthead');
+  var subnav = document.querySelector('.pf-v6-c-page__main-subnav');
+  if (masthead) offset += masthead.getBoundingClientRect().height;
+  if (subnav) offset += subnav.getBoundingClientRect().height;
+  return offset;
+}
+function getScrollParent(el) {
+  var node = el.parentElement;
+  while (node) {
+    var style = window.getComputedStyle(node);
+    if (/(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight) {
+      return node;
+    }
+    node = node.parentElement;
+  }
+  return null;
+}
+function updateStickyOffset() {
+  document.documentElement.style.setProperty('--sticky-offset', getStickyOffset() + 'px');
+}
+function scrollToElement(el) {
+  if (!el) return;
+  updateStickyOffset();
+  requestAnimationFrame(function() {
+    updateStickyOffset();
+    var offset = getStickyOffset();
+    var parent = getScrollParent(el);
+    if (parent) {
+      var top = el.getBoundingClientRect().top - parent.getBoundingClientRect().top + parent.scrollTop - offset;
+      parent.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    } else {
+      var top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+  });
+}
+function toggleProductCard(btn) {
+  var target = btn.getAttribute('data-target');
+  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
+  if (!section) return;
+  var show = section.style.display === 'none';
+  if (show) {
+    section.style.display = '';
+    btn.setAttribute('aria-pressed', 'true');
+    scrollToElement(section);
+  } else {
+    section.style.display = 'none';
+    btn.setAttribute('aria-pressed', 'false');
+  }
+}
 function filterCard(card) {
   var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
   if (!rows.length) return;
@@ -505,12 +164,14 @@ function navigateToHash(hash) {
     if (node.tagName === 'DETAILS') node.open = true;
     node = node.parentElement;
   }
-  setTimeout(function() { el.scrollIntoView({behavior: 'smooth', block: 'start'}); }, 50);
+  setTimeout(function() { scrollToElement(el); }, 50);
 }
 document.addEventListener('DOMContentLoaded', function() {
+  updateStickyOffset();
   document.querySelectorAll('.card').forEach(function(card) { filterCard(card); });
   navigateToHash(window.location.hash);
 });
+window.addEventListener('resize', updateStickyOffset);
 window.addEventListener('hashchange', function() { navigateToHash(window.location.hash); });
 (function() {
   var tip = document.createElement('div');
@@ -538,41 +199,32 @@ document.addEventListener('click', function(e) {
   if (warn) { warn.classList.toggle('pinned'); e.stopPropagation(); }
   else { document.querySelectorAll('.eol-warn.pinned').forEach(function(w) { w.classList.remove('pinned'); }); }
 });
-(function() {
-  var root = document.documentElement;
+(function(){
   var btn = document.getElementById('theme-toggle');
-  var stored = localStorage.getItem('lifecycle-theme');
-  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  var isDark = stored !== null ? stored === 'dark' : prefersDark;
-  function apply(dark) {
-    root.setAttribute('data-theme', dark ? 'dark' : 'light');
-    btn.textContent = dark ? '☀' : '🌙';
-    btn.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  var sunIcon = document.getElementById('theme-icon-sun');
+  var moonIcon = document.getElementById('theme-icon-moon');
+  function applyTheme(dark){
+    if(dark){
+      document.documentElement.classList.add('pf-v6-theme-dark');
+      document.documentElement.setAttribute('data-theme','dark');
+      sunIcon.style.display='inline';moonIcon.style.display='none';
+    }else{
+      document.documentElement.classList.remove('pf-v6-theme-dark');
+      document.documentElement.setAttribute('data-theme','light');
+      sunIcon.style.display='none';moonIcon.style.display='inline';
+    }
   }
-  apply(isDark);
-  btn.addEventListener('click', function() {
-    isDark = !isDark;
-    localStorage.setItem('lifecycle-theme', isDark ? 'dark' : 'light');
-    apply(isDark);
-  });
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-    if (localStorage.getItem('lifecycle-theme') === null) { isDark = e.matches; apply(isDark); }
-  });
+  var cur = document.documentElement.getAttribute('data-theme')==='dark';
+  if (btn && sunIcon && moonIcon) {
+    applyTheme(cur);
+    btn.addEventListener('click',function(){
+      var isDark = document.documentElement.getAttribute('data-theme')==='dark';
+      var next = !isDark;
+      localStorage.setItem('lifecycle-theme', next?'dark':'light');
+      applyTheme(next);
+    });
+  }
 })();
-function toggleProductCard(btn) {
-  var target = btn.getAttribute('data-target');
-  var section = document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
-  if (!section) return;
-  var hidden = section.style.display === 'none';
-  if (hidden) {
-    section.style.display = '';
-    btn.classList.add('nav-on');
-    setTimeout(function() { section.scrollIntoView({behavior: 'smooth', block: 'start'}); }, 30);
-  } else {
-    section.style.display = 'none';
-    btn.classList.remove('nav-on');
-  }
-}
 </script>
 </body>
 </html>
