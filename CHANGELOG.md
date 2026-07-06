@@ -4,6 +4,23 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
+## [0.2.1] — 2026-07-06
+
+### Added
+- **Additive product nav filter** — default shows all charts; first click isolates one product, further clicks add more; **Reset filter** button restores show-all
+- **RHEL short bar labels** — `short_label` on in-bar text (e.g. "ELC, Premium"); full subscription names remain in tooltips and legend
+
+### Changed
+- **Product nav** — replaced per-section show/hide toggles with isolate-then-add filter model; nav pills wrap on two rows
+- **RHEL phase colours** — distinct palette per subscription phase (Standard, Premium, ELC, Long Life, ELS add-on)
+- **Sticky scroll offset** — `--sticky-offset` computed from masthead + subnav height (accounts for two-row nav)
+
+### Fixed
+- **Zebra row striping** — alternates on visible rows only; hidden EOL rows no longer break the pattern
+- **Card title hidden under sticky nav** — scroll offset recalculated after filter/layout changes
+
+---
+
 ## [0.2.0] — 2026-07-06
 
 ### Added
@@ -15,7 +32,7 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 - **`phase_map_preset` for products** — presets merge with inline `phase_map` overrides
 - **`osp-els3` preset** and `tpc` phase for OpenStack Platform third-party certification
 - **PatternFly v6 UI** — external CSS (`static/css/chart.css`), Flask dev server (`server.py`), `Containerfile` for containerized local preview
-- **Nav improvements** — product section toggle show/hide, centered nav pills, sticky scroll offset for card titles
+- **Nav improvements** — wrapped product pills, sticky scroll offset for card titles (superseded by additive filter in 0.2.1)
 
 ### Changed
 - **RHEL phase display labels** — match subscription terminology (not API Full support / Maintenance names)
