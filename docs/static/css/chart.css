@@ -322,7 +322,7 @@ html.pf-v6-theme-dark {
   flex-direction: column;
   gap: 6px;
 }
-.chart-rows > div:nth-child(even) { background: var(--bg-row-alt); }
+.chart-row.row-alt { background: var(--bg-row-alt); border-radius: 4px; }
 
 .chart-row {
   display: flex;
