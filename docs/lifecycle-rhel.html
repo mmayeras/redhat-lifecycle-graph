@@ -8,7 +8,7 @@
 <script>(function(){var t=localStorage.getItem('lifecycle-theme'),d;if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;if(d){document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}})();</script>
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly-addons.css">
-<link rel="stylesheet" href="static/css/chart.css?v=0.2.6">
+<link rel="stylesheet" href="static/css/chart.css?v=0.2.7">
 </head>
 <body>
 <div class="pf-v6-c-page">
@@ -32,7 +32,7 @@
   <div class="card-header">
     <span class="card-title">
       <img class="card-title__icon" src="static/icons/products/rhel.svg" alt="" width="20" height="20" loading="lazy">
-      Red Hat Enterprise Linux Lifecycle <a href="https://access.redhat.com/support/policy/updates/errata" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a>
+      Red Hat Enterprise Linux <a href="https://access.redhat.com/support/policy/updates/errata" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a>
     </span>
     <div class="legend">
       
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-07 15:17 UTC</div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-07 15:22 UTC</div>
 </div>
 </div>
         </div>
@@ -129,6 +129,7 @@ function applyProductFilter(selected, scrollTarget) {
     buttons.forEach(function(b) { b.setAttribute('aria-pressed', 'true'); });
     if (nav) nav.classList.remove('is-filtered');
     if (resetBtn) resetBtn.hidden = true;
+    updateNavFilterBadge(null);
     return;
   }
   allTargets.forEach(function(t) {
@@ -140,15 +141,35 @@ function applyProductFilter(selected, scrollTarget) {
   });
   if (nav) nav.classList.add('is-filtered');
   if (resetBtn) resetBtn.hidden = false;
+  updateNavFilterBadge(selected);
   if (scrollTarget) {
     var el = findProductSection(scrollTarget);
     if (el) scrollToElement(el);
   }
 }
+function updateNavFilterBadge(selected) {
+  var badge = document.getElementById('nav-filter-badge');
+  if (!badge) return;
+  if (!selected || selected.size === 0 || selected.size === getNavButtons().length) {
+    badge.hidden = true;
+    badge.textContent = '';
+    return;
+  }
+  badge.hidden = false;
+  badge.textContent = selected.size + ' selected';
+}
+function collapseMobileProductNav() {
+  var shell = document.getElementById('product-nav-shell');
+  if (!shell || !window.matchMedia('(max-width: 768px)').matches) return;
+  shell.removeAttribute('open');
+  localStorage.setItem('lifecycle-product-nav-open', 'false');
+  updateStickyOffset();
+}
 function onProductNavClick(btn) {
   var target = btn.getAttribute('data-target');
   if (!isFilterActive()) {
     applyProductFilter(new Set([target]), target);
+    collapseMobileProductNav();
     return;
   }
   var selected = getSelectedTargets();
@@ -158,6 +179,7 @@ function onProductNavClick(btn) {
   } else {
     selected.add(target);
     applyProductFilter(selected, target);
+    collapseMobileProductNav();
   }
 }
 function resetProductFilter() {
@@ -169,6 +191,7 @@ function initProductNav() {
   list.addEventListener('click', function(e) {
     if (e.target.closest('#nav-reset')) {
       resetProductFilter();
+      collapseMobileProductNav();
       return;
     }
     var btn = e.target.closest('.nav-toggle[data-target]');
@@ -283,6 +306,28 @@ document.addEventListener('click', function(e) {
     updateStickyOffset();
   });
   updateStickyOffset();
+})();
+(function(){
+  var shell = document.getElementById('product-nav-shell');
+  if (!shell) return;
+  var mq = window.matchMedia('(min-width: 769px)');
+  var KEY = 'lifecycle-product-nav-open';
+  function syncProductNavShell() {
+    if (mq.matches) shell.setAttribute('open', '');
+    else {
+      var saved = localStorage.getItem(KEY);
+      if (saved === 'true') shell.setAttribute('open', '');
+      else shell.removeAttribute('open');
+    }
+    updateStickyOffset();
+  }
+  if (typeof mq.addEventListener === 'function') mq.addEventListener('change', syncProductNavShell);
+  else if (typeof mq.addListener === 'function') mq.addListener(syncProductNavShell);
+  shell.addEventListener('toggle', function() {
+    if (!mq.matches) localStorage.setItem(KEY, shell.open ? 'true' : 'false');
+    updateStickyOffset();
+  });
+  syncProductNavShell();
 })();
 (function(){
   var btn = document.getElementById('theme-toggle');

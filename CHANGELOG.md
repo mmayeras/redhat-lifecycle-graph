@@ -8,6 +8,14 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
+## [0.2.5] — 2026-07-07
+
+### Fixed
+- **Mobile product filter** — filter bar no longer stays sticky on small screens; collapsed behind a “Filter products” toggle and auto-closes after a selection
+- **Product display names** — drop “Lifecycle” suffix from filter pills and chart headers; rename RHOAI to Red Hat OpenShift AI
+
+---
+
 ## [0.2.4] — 2026-07-07
 
 ### Fixed

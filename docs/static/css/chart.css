@@ -28,6 +28,36 @@
   gap: 6px;
 }
 
+.product-nav-shell > summary {
+  display: none;
+  list-style: none;
+}
+
+.product-nav-shell > summary::-webkit-details-marker {
+  display: none;
+}
+
+.product-nav__toggle::after {
+  content: " ▸";
+  opacity: 0.65;
+  font-size: 0.9em;
+}
+
+.product-nav-shell[open] > .product-nav__toggle::after {
+  content: " ▾";
+}
+
+.product-nav__badge {
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--link-color) 18%, transparent);
+  color: var(--link-color);
+  vertical-align: middle;
+}
+
 .nav-toggle__icon,
 .card-title__icon,
 .section-heading__icon {
@@ -749,6 +779,46 @@ html.pf-v6-theme-dark {
 
 /* ── Horizontal nav overflow on mobile ───────────────────────────────── */
 @media (max-width: 768px) {
+  .pf-v6-c-page__main-subnav.pf-m-sticky-top {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  .product-nav-shell > .product-nav__toggle {
+    display: block;
+    padding: 0.55rem 0.75rem;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    background: color-mix(in srgb, var(--link-color) 8%, var(--bg-card));
+    border: 1px solid var(--border-base);
+    border-radius: var(--pf-t--global--border--radius--medium, 8px);
+    box-shadow: var(--pf-t--global--box-shadow--sm, 0 2px 8px rgba(0, 0, 0, 0.1));
+    user-select: none;
+  }
+
+  .product-nav-shell[open] > .product-nav__toggle {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+
+  .product-nav-shell[open] .product-nav {
+    padding: 0.5rem 0.35rem 0.35rem;
+    background: color-mix(in srgb, var(--link-color) 6%, var(--bg-card));
+    border: 1px solid var(--border-base);
+    border-top: none;
+    border-radius: 0 0 var(--pf-t--global--border--radius--medium, 8px)
+      var(--pf-t--global--border--radius--medium, 8px);
+    max-height: min(50vh, 360px);
+    overflow-y: auto;
+  }
+
   .pf-v6-c-masthead .pf-v6-c-nav.pf-m-horizontal {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;

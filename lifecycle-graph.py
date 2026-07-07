@@ -792,7 +792,7 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
-_ASSET_VERSION = "0.2.6"  # bump when static/css or icons change (cache bust)
+_ASSET_VERSION = "0.2.7"  # bump when static/css or icons change (cache bust)
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
@@ -1012,7 +1012,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         f' <a href="{page_url}" target="_blank" rel="noopener" '
         f'style="font-size:10px;color:var(--link-color);font-weight:400;'
         f'text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" '
-        f'title="Official lifecycle policy">↗ policy</a>'
+        f'title="Official Lifecycle Policy">↗ policy</a>'
     ) if page_url else ""
 
     anchor_link_html = (
@@ -1189,7 +1189,7 @@ _POLICY_LINK_LABELS: dict[str, str] = {
     "OCP Lifecycle": "OpenShift Container Platform",
     "RHEL Lifecycle": "Red Hat Enterprise Linux",
     "AAP Lifecycle": "Ansible Automation Platform",
-    "RHOAI Lifecycle": "RHOAI",
+    "RHOAI Lifecycle": "Red Hat OpenShift AI",
     "Ceph Lifecycle": "Ceph",
     "Red Hat Satellite": "Satellite",
 }
@@ -1209,7 +1209,7 @@ _DISCLAIMER_ICONS: dict[str, str] = {
     "OpenShift Container Platform": "ocp",
     "Red Hat Enterprise Linux": "rhel",
     "Ansible Automation Platform": "aap",
-    "RHOAI": "rhoai",
+    "Red Hat OpenShift AI": "rhoai",
     "Ceph": "ceph",
     "Satellite": "satellite",
     "OpenShift Operators": "operators",
@@ -1236,11 +1236,9 @@ def _chart_icon_key(chart_title: str) -> str:
 
 def _chart_display_heading(chart_title: str) -> str:
     short = _POLICY_LINK_LABELS.get(chart_title)
-    if short and chart_title.endswith(" Lifecycle"):
-        return f"{short} Lifecycle"
     if short:
         return short
-    return chart_title
+    return chart_title.removesuffix(" Lifecycle")
 
 
 def _product_icon_img(
@@ -1305,7 +1303,7 @@ def _build_disclaimer_html(
     )
     return (
         '<details class="disclaimer-sidebar-shell" id="disclaimer-sidebar-shell">'
-        '<summary class="disclaimer-sidebar__toggle">Official sources &amp; disclaimer</summary>'
+        '<summary class="disclaimer-sidebar__toggle">Official sources &amp; Disclaimer</summary>'
         '<aside class="disclaimer-sidebar" aria-label="Disclaimer and official sources">'
         '<p class="disclaimer-sidebar__note">'
         '<strong>Unofficial community tool</strong> - not a Red Hat product or publication. '
@@ -1327,9 +1325,14 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
         subnav_html = (
             '<section class="pf-v6-c-page__main-subnav pf-m-limit-width pf-m-align-center pf-m-sticky-top">'
             '<div class="pf-v6-c-page__main-body">'
+            '<details class="product-nav-shell" id="product-nav-shell">'
+            '<summary class="product-nav__toggle">Filter products'
+            '<span class="product-nav__badge" id="nav-filter-badge" hidden></span>'
+            '</summary>'
             f'<div class="product-nav" role="navigation" aria-label="Product navigation">'
             f'<div class="product-nav__list">{nav_links}</div>'
             '</div>'
+            '</details>'
             '</div>'
             '</section>'
         )
@@ -1459,6 +1462,7 @@ function applyProductFilter(selected, scrollTarget) {{
     buttons.forEach(function(b) {{ b.setAttribute('aria-pressed', 'true'); }});
     if (nav) nav.classList.remove('is-filtered');
     if (resetBtn) resetBtn.hidden = true;
+    updateNavFilterBadge(null);
     return;
   }}
   allTargets.forEach(function(t) {{
@@ -1470,15 +1474,35 @@ function applyProductFilter(selected, scrollTarget) {{
   }});
   if (nav) nav.classList.add('is-filtered');
   if (resetBtn) resetBtn.hidden = false;
+  updateNavFilterBadge(selected);
   if (scrollTarget) {{
     var el = findProductSection(scrollTarget);
     if (el) scrollToElement(el);
   }}
 }}
+function updateNavFilterBadge(selected) {{
+  var badge = document.getElementById('nav-filter-badge');
+  if (!badge) return;
+  if (!selected || selected.size === 0 || selected.size === getNavButtons().length) {{
+    badge.hidden = true;
+    badge.textContent = '';
+    return;
+  }}
+  badge.hidden = false;
+  badge.textContent = selected.size + ' selected';
+}}
+function collapseMobileProductNav() {{
+  var shell = document.getElementById('product-nav-shell');
+  if (!shell || !window.matchMedia('(max-width: 768px)').matches) return;
+  shell.removeAttribute('open');
+  localStorage.setItem('lifecycle-product-nav-open', 'false');
+  updateStickyOffset();
+}}
 function onProductNavClick(btn) {{
   var target = btn.getAttribute('data-target');
   if (!isFilterActive()) {{
     applyProductFilter(new Set([target]), target);
+    collapseMobileProductNav();
     return;
   }}
   var selected = getSelectedTargets();
@@ -1488,6 +1512,7 @@ function onProductNavClick(btn) {{
   }} else {{
     selected.add(target);
     applyProductFilter(selected, target);
+    collapseMobileProductNav();
   }}
 }}
 function resetProductFilter() {{
@@ -1499,6 +1524,7 @@ function initProductNav() {{
   list.addEventListener('click', function(e) {{
     if (e.target.closest('#nav-reset')) {{
       resetProductFilter();
+      collapseMobileProductNav();
       return;
     }}
     var btn = e.target.closest('.nav-toggle[data-target]');
@@ -1613,6 +1639,28 @@ document.addEventListener('click', function(e) {{
     updateStickyOffset();
   }});
   updateStickyOffset();
+}})();
+(function(){{
+  var shell = document.getElementById('product-nav-shell');
+  if (!shell) return;
+  var mq = window.matchMedia('(min-width: 769px)');
+  var KEY = 'lifecycle-product-nav-open';
+  function syncProductNavShell() {{
+    if (mq.matches) shell.setAttribute('open', '');
+    else {{
+      var saved = localStorage.getItem(KEY);
+      if (saved === 'true') shell.setAttribute('open', '');
+      else shell.removeAttribute('open');
+    }}
+    updateStickyOffset();
+  }}
+  if (typeof mq.addEventListener === 'function') mq.addEventListener('change', syncProductNavShell);
+  else if (typeof mq.addListener === 'function') mq.addListener(syncProductNavShell);
+  shell.addEventListener('toggle', function() {{
+    if (!mq.matches) localStorage.setItem(KEY, shell.open ? 'true' : 'false');
+    updateStickyOffset();
+  }});
+  syncProductNavShell();
 }})();
 (function(){{
   var btn = document.getElementById('theme-toggle');
