@@ -469,6 +469,30 @@ html.pf-v6-theme-dark {
 }
 
 /* ── Masthead: brand left, controls right ─────────────────────────────── */
+.disclaimer-banner {
+  background: color-mix(in srgb, var(--link-color) 8%, var(--bg-page, transparent));
+  border-bottom: 1px solid var(--border-base);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.disclaimer-banner strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.disclaimer-banner a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.disclaimer-banner a:hover {
+  text-decoration: underline;
+}
+
 .pf-v6-c-masthead {
   display: flex !important;
   align-items: center !important;

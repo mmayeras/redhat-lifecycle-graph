@@ -6,6 +6,9 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ## [Unreleased]
 
+### Added
+- **Unofficial-tool disclaimer banner** — slim info bar on the main charts page clarifying this is not a Red Hat product and dates should be verified on access.redhat.com
+
 ### Fixed
 - **Relative API phase dates** — resolves `Release of X.Y`, `X.YGA + N months`, `GA of X.Y`, `with the release of X.Y`, and related patterns against other versions' GA dates; when the referenced release is not published yet, the version is shown as still supported (not EOL)
 
