@@ -8,6 +8,13 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
+## [0.2.4] — 2026-07-07
+
+### Fixed
+- **Disclaimer panel** — collapsible on all screen sizes; collapsed by default with a left-edge tab on desktop and a toggle bar on mobile; open/closed state remembered in `localStorage`
+
+---
+
 ## [0.2.3] — 2026-07-07
 
 ### Fixed

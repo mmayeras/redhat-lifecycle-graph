@@ -792,7 +792,7 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
-_ASSET_VERSION = "0.2.4"  # bump when static/css or icons change (cache bust)
+_ASSET_VERSION = "0.2.6"  # bump when static/css or icons change (cache bust)
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
@@ -1304,7 +1304,7 @@ def _build_disclaimer_html(
         if contribute_html else ""
     )
     return (
-        '<details class="disclaimer-sidebar-shell" open>'
+        '<details class="disclaimer-sidebar-shell" id="disclaimer-sidebar-shell">'
         '<summary class="disclaimer-sidebar__toggle">Official sources &amp; disclaimer</summary>'
         '<aside class="disclaimer-sidebar" aria-label="Disclaimer and official sources">'
         '<p class="disclaimer-sidebar__note">'
@@ -1378,9 +1378,9 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
     </div>
     {masthead_right}
   </header>
-  {sidebar_html}
   <div class="pf-v6-c-page__main-container">
     <main class="pf-v6-c-page__main" id="main-content">
+      {sidebar_html}
       {subnav_html}
       <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
         <div class="pf-v6-c-page__main-body">
@@ -1601,6 +1601,19 @@ document.addEventListener('click', function(e) {{
   if (warn) {{ warn.classList.toggle('pinned'); e.stopPropagation(); }}
   else {{ document.querySelectorAll('.eol-warn.pinned').forEach(function(w) {{ w.classList.remove('pinned'); }}); }}
 }});
+(function(){{
+  var shell = document.getElementById('disclaimer-sidebar-shell');
+  if (!shell) return;
+  var KEY = 'lifecycle-disclaimer-open';
+  var saved = localStorage.getItem(KEY);
+  if (saved === 'true') shell.setAttribute('open', '');
+  else if (saved === 'false') shell.removeAttribute('open');
+  shell.addEventListener('toggle', function() {{
+    localStorage.setItem(KEY, shell.open ? 'true' : 'false');
+    updateStickyOffset();
+  }});
+  updateStickyOffset();
+}})();
 (function(){{
   var btn = document.getElementById('theme-toggle');
   var sunIcon = document.getElementById('theme-icon-sun');
