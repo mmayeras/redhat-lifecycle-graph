@@ -118,10 +118,12 @@ html[data-theme="light"] {
   --link-color: var(--pf-t--global--text--color--link--default, #0066cc);
   --grid-line: var(--pf-t--global--border--color--default);
   --grid-year-text: var(--pf-t--global--text--color--subtle);
-  --today-color: var(--pf-t--global--color--nonstatus--red--default, #a30000);
+  --today-color: #c40000;
+  --today-line: #c40000;
+  --today-label-text: #9b0000;
+  --today-label-bg: #ffffff;
+  --today-label-border: #c40000;
   --red: var(--pf-t--global--color--nonstatus--red--default, #a30000);
-  --today-label-bg: rgba(255,255,255,0.9);
-  --today-label-border: rgba(163,0,0,0.25);
   --input-bg: #fff;
   --muted: var(--pf-t--global--text--color--subtle, #6a6e73);
   --accent: var(--pf-t--global--text--color--link--default, #0066cc);
@@ -160,9 +162,11 @@ html.pf-v6-theme-dark {
   --grid-line: var(--pf-t--global--border--color--default);
   --grid-year-text: var(--pf-t--global--text--color--subtle);
   --today-color: #ef4444;
+  --today-line: #ef4444;
+  --today-label-text: #fecaca;
+  --today-label-bg: rgba(15, 17, 20, 0.92);
+  --today-label-border: #ef4444;
   --red: #e05050;
-  --today-label-bg: rgba(15,17,20,0.9);
-  --today-label-border: rgba(239,68,68,0.35);
   --input-bg: #1e1e1e;
   --muted: var(--pf-t--global--text--color--subtle, #8a8e93);
   --accent: var(--pf-t--global--text--color--link--default, #58a6ff);
@@ -356,6 +360,36 @@ html.pf-v6-theme-dark {
   left: calc(var(--card-px) + var(--label-w));
   right: calc(var(--card-px) + var(--days-col) + 8px);
   pointer-events: none;
+}
+
+.chart-today-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 2px dashed var(--today-line);
+  z-index: 2;
+}
+
+.chart-today-label {
+  position: absolute;
+  top: calc(-1 * var(--chart-top) + 12px);
+  font-size: 11px;
+  color: var(--today-label-text);
+  transform: translateX(-50%);
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--today-label-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1.5px solid var(--today-label-border);
+  z-index: 3;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.legend-today {
+  font-size: 11px;
+  color: var(--today-label-text);
+  font-weight: 600;
 }
 
 .chart-rows {

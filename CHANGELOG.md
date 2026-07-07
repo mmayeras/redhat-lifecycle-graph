@@ -8,6 +8,13 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ---
 
+## [0.2.6] — 2026-07-07
+
+### Fixed
+- **Today marker in light mode** — stronger red line and label (no faded opacity) for readable contrast on bright backgrounds
+
+---
+
 ## [0.2.5] — 2026-07-07
 
 ### Fixed

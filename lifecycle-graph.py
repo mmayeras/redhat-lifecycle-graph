@@ -792,7 +792,7 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
-_ASSET_VERSION = "0.2.7"  # bump when static/css or icons change (cache bust)
+_ASSET_VERSION = "0.2.8"  # bump when static/css or icons change (cache bust)
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
@@ -835,12 +835,8 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     )
 
     today_html = (
-        f'<div style="position:absolute;left:{today_pct:.3f}%;top:0;bottom:0;'
-        f'border-left:1.5px dashed var(--red);opacity:0.7;z-index:2"></div>'
-        f'<div style="position:absolute;left:{today_pct:.3f}%;top:calc(-1 * var(--chart-top) + 12px);'
-        f'font-size:11px;color:var(--red);transform:translateX(-50%);'
-        f'font-weight:700;white-space:nowrap;background:var(--today-label-bg);'
-        f'padding:1px 4px;border-radius:2px;border:1px solid var(--today-label-border)">Today</div>'
+        f'<div class="chart-today-line" style="left:{today_pct:.3f}%"></div>'
+        f'<div class="chart-today-label" style="left:{today_pct:.3f}%">Today</div>'
     )
 
     # ── Rows ────────────────────────────────────────────────────────────────
@@ -1047,7 +1043,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     </span>
     <div class="legend">
       {legend_html}
-      <span style="font-size:11px;color:var(--red);opacity:0.85">┆ Today ({today.isoformat()})</span>
+      <span class="legend-today">┆ Today ({today.isoformat()})</span>
     </div>
   </div>
   {controls_html}
