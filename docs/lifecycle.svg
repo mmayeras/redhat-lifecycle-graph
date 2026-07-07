@@ -572,7 +572,7 @@
 <rect width="1400" height="56" rx="8" fill="#f0f0f0"/>
 <rect y="48" width="1400" height="8" fill="#f0f0f0"/>
 <line x1="0" y1="56" x2="1400" y2="56" stroke="#d2d2d2" stroke-width="1"/>
-<text x="46" y="35" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="14" font-weight="700" fill="#151515">OpenStack Platform (OSP)</text>
+<text x="46" y="35" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="14" font-weight="700" fill="#151515">OpenStack Platform</text>
 <rect x="24" y="19" width="15" height="15" rx="2" fill="none" stroke="#6a6e73" stroke-width="1.5"/>
 <line x1="28" y1="17" x2="28" y2="22" stroke="#6a6e73" stroke-width="1.5"/>
 <line x1="35" y1="17" x2="35" y2="22" stroke="#6a6e73" stroke-width="1.5"/>
@@ -655,7 +655,7 @@
 <rect width="1400" height="56" rx="8" fill="#f0f0f0"/>
 <rect y="48" width="1400" height="8" fill="#f0f0f0"/>
 <line x1="0" y1="56" x2="1400" y2="56" stroke="#d2d2d2" stroke-width="1"/>
-<text x="46" y="35" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="14" font-weight="700" fill="#151515">OpenStack on OpenShift (RHOSO)</text>
+<text x="46" y="35" font-family="RedHatDisplay,RedHatText,'Red Hat Display','Red Hat Text','Open Sans',system-ui,sans-serif" font-size="14" font-weight="700" fill="#151515">OpenStack on OpenShift</text>
 <rect x="24" y="19" width="15" height="15" rx="2" fill="none" stroke="#6a6e73" stroke-width="1.5"/>
 <line x1="28" y1="17" x2="28" y2="22" stroke="#6a6e73" stroke-width="1.5"/>
 <line x1="35" y1="17" x2="35" y2="22" stroke="#6a6e73" stroke-width="1.5"/>
