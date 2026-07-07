@@ -792,6 +792,7 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
+_ASSET_VERSION = "0.2.3"  # bump when static/css or icons change (cache bust)
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
@@ -1261,12 +1262,12 @@ def _policy_link_label(chart_title: str) -> str:
 
 def _disclaimer_nav_item(text: str, url: str, static_prefix: str) -> str:
     icon_key = _DISCLAIMER_ICONS.get(text, "product-life-cycles")
+    icon = _product_icon_img(icon_key, static_prefix, 20, 20, "disclaimer-sidebar__icon")
     return (
         f'<li class="disclaimer-sidebar__item">'
         f'<a class="disclaimer-sidebar__link" href="{url}" target="_blank" rel="noopener">'
-        f'<img class="disclaimer-sidebar__icon" src="{static_prefix}/icons/products/{icon_key}.svg" '
-        f'alt="" width="20" height="20" loading="lazy">'
-        f'<span>{_html.escape(text)}</span>'
+        f'<span class="disclaimer-sidebar__icon-wrap" aria-hidden="true">{icon}</span>'
+        f'<span class="disclaimer-sidebar__label">{_html.escape(text)}</span>'
         f'</a></li>'
     )
 
@@ -1303,6 +1304,8 @@ def _build_disclaimer_html(
         if contribute_html else ""
     )
     return (
+        '<details class="disclaimer-sidebar-shell" open>'
+        '<summary class="disclaimer-sidebar__toggle">Official sources &amp; disclaimer</summary>'
         '<aside class="disclaimer-sidebar" aria-label="Disclaimer and official sources">'
         '<p class="disclaimer-sidebar__note">'
         '<strong>Unofficial community tool</strong> - not a Red Hat product or publication. '
@@ -1312,6 +1315,7 @@ def _build_disclaimer_html(
         f'<ul class="disclaimer-sidebar__list">{items}</ul>'
         f'{contrib}'
         '</aside>'
+        '</details>'
     )
 
 
@@ -1361,7 +1365,7 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
 <script>(function(){{var t=localStorage.getItem('lifecycle-theme'),d;if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;if(d){{document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}}else{{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}}}})();</script>
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly-addons.css">
-<link rel="stylesheet" href="{static_prefix}/css/chart.css">
+<link rel="stylesheet" href="{static_prefix}/css/chart.css?v={_ASSET_VERSION}">
 </head>
 <body>
 <div class="{page_class}">

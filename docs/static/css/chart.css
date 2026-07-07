@@ -482,12 +482,27 @@ html.pf-v6-theme-dark {
 }
 
 /* ── Floating left sidebar (official sources) ─────────────────────────── */
-.disclaimer-sidebar {
+.disclaimer-sidebar-shell {
   position: fixed;
-  left: 12px;
+  left: max(12px, env(safe-area-inset-left, 0px));
   top: 50%;
   transform: translateY(-50%);
   z-index: 200;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.disclaimer-sidebar-shell > summary {
+  display: none;
+  list-style: none;
+}
+
+.disclaimer-sidebar-shell > summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclaimer-sidebar {
   width: 240px;
   max-height: calc(100vh - 2rem);
   overflow-y: auto;
@@ -528,24 +543,44 @@ html.pf-v6-theme-dark {
 .disclaimer-sidebar__link {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   padding: 0.35rem 0.4rem;
   border-radius: var(--pf-t--global--border--radius--small, 5px);
-  color: var(--text-primary);
-  text-decoration: none;
+  color: var(--text-primary) !important;
+  text-decoration: none !important;
   transition: background 0.15s;
 }
 
-.disclaimer-sidebar__link:hover {
+.disclaimer-sidebar__link:hover,
+.disclaimer-sidebar__link:focus-visible {
   background: color-mix(in srgb, var(--link-color) 12%, transparent);
-  text-decoration: none;
+  text-decoration: none !important;
+  color: var(--text-primary) !important;
+}
+
+.disclaimer-sidebar__icon-wrap {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 4px;
 }
 
 .disclaimer-sidebar__icon {
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  display: block;
+}
+
+.disclaimer-sidebar__label {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.3;
 }
 
 .disclaimer-sidebar strong {
@@ -582,13 +617,45 @@ html.pf-v6-theme-dark {
   text-decoration: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .disclaimer-sidebar {
+    width: 210px;
+    padding: 0.85rem 0.75rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .disclaimer-sidebar__icon-wrap {
+    flex-basis: 22px;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .disclaimer-sidebar-shell {
     position: static;
     transform: none;
     width: auto;
+    margin: 0 0 0.75rem;
+  }
+
+  .disclaimer-sidebar-shell > .disclaimer-sidebar__toggle {
+    display: block;
+    padding: 0.55rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    background: color-mix(in srgb, var(--link-color) 8%, var(--bg-card));
+    border: 1px solid var(--border-base);
+    border-radius: var(--pf-t--global--border--radius--medium, 8px);
+    list-style: none;
+  }
+
+  .disclaimer-sidebar {
+    width: auto;
     max-height: none;
-    margin: 0 0 1rem;
+    margin-top: 0.35rem;
   }
 
   .page-content-offset {
