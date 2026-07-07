@@ -797,7 +797,8 @@ _STATIC_PREFIX = "static"
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
                  show_footer: bool = True, show_controls: bool = False,
                  minor_data: dict[str, list[dict]] | None = None,
-                 page_url: str = "", info_html: str = "") -> str:
+                 page_url: str = "", info_html: str = "",
+                 static_prefix: str = _STATIC_PREFIX) -> str:
     today = date.today()
     pad = timedelta(days=60)
     all_dates = [v["ga"] for v in versions] + [v["last_end"] for v in versions] + [today]
@@ -1032,13 +1033,16 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         f'</details>'
     ) if info_html else ""
 
+    heading_label = _chart_display_heading(chart_label)
+    title_icon = _product_icon_img(
+        _chart_icon_key(chart_label), static_prefix, 20, 20, "card-title__icon",
+    )
+
     return f"""<div class="card"{anchor_attr}>
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      {chart_label}{page_link_html}{anchor_link_html}
+      {title_icon}
+      {heading_label}{page_link_html}{anchor_link_html}
     </span>
     <div class="legend">
       {legend_html}
@@ -1112,7 +1116,10 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
     )
     return (
         f'<div id="operators">'
-        f'<div class="section-heading">OpenShift Operators</div>'
+        f'<div class="section-heading">'
+        f'{_product_icon_img("operators", _STATIC_PREFIX, 22, 22, "section-heading__icon")}'
+        f'<span>OpenShift Operators</span>'
+        f'</div>'
         f'{search}'
         f'<div class="op-section">'
         + "\n".join(items)
@@ -1162,29 +1169,155 @@ def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict
         )
     return (
         f'<div id="middleware">'
-        f'<div class="section-heading">Middleware &amp; Application Services '
+        f'<div class="section-heading">'
+        f'{_product_icon_img("middleware", _STATIC_PREFIX, 22, 22, "section-heading__icon")}'
+        f'<span>Middleware &amp; Application Services '
         f'<a href="https://access.redhat.com/support/policy/updates/jboss_notes" '
         f'target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ policy</a>'
-        f'</div>'
+        f'</span></div>'
         f'<div class="op-section">'
         + "\n".join(items)
         + "</div></div>"
     )
 
 
+_OPERATOR_POLICY_URL = "https://access.redhat.com/support/policy/updates/openshift_operators"
+_MIDDLEWARE_POLICY_URL = "https://access.redhat.com/support/policy/updates/jboss_notes"
+
+_POLICY_LINK_LABELS: dict[str, str] = {
+    "OCP Lifecycle": "OpenShift Container Platform",
+    "RHEL Lifecycle": "Red Hat Enterprise Linux",
+    "AAP Lifecycle": "Ansible Automation Platform",
+    "RHOAI Lifecycle": "RHOAI",
+    "Ceph Lifecycle": "Ceph",
+    "Red Hat Satellite": "Satellite",
+}
+
+# Chart titles excluded from the official-sources sidebar (charts remain on the page).
+_DISCLAIMER_SKIP_TITLES: frozenset[str] = frozenset({
+    "OpenStack Platform",
+    "OpenStack on OpenShift",
+    "OpenStack Platform (OSP)",
+    "OpenStack on OpenShift (RHOSO)",
+})
+
+# Red Hat technology icons in static/icons/products/ (from Red Hat open asset repos).
+_DISCLAIMER_ICONS: dict[str, str] = {
+    "Product Life Cycles": "product-life-cycles",
+    "API": "api",
+    "OpenShift Container Platform": "ocp",
+    "Red Hat Enterprise Linux": "rhel",
+    "Ansible Automation Platform": "aap",
+    "RHOAI": "rhoai",
+    "Ceph": "ceph",
+    "Satellite": "satellite",
+    "OpenShift Operators": "operators",
+    "Middleware": "middleware",
+}
+
+_CHART_ICON_KEYS: dict[str, str] = {
+    "OCP Lifecycle": "ocp",
+    "RHEL Lifecycle": "rhel",
+    "AAP Lifecycle": "aap",
+    "RHOAI Lifecycle": "rhoai",
+    "Ceph Lifecycle": "ceph",
+    "OpenStack Platform": "osp",
+    "OpenStack on OpenShift": "osp",
+    "OpenStack Platform (OSP)": "osp",
+    "OpenStack on OpenShift (RHOSO)": "osp",
+    "Red Hat Satellite": "satellite",
+}
+
+
+def _chart_icon_key(chart_title: str) -> str:
+    return _CHART_ICON_KEYS.get(chart_title, "product-life-cycles")
+
+
+def _chart_display_heading(chart_title: str) -> str:
+    short = _POLICY_LINK_LABELS.get(chart_title)
+    if short and chart_title.endswith(" Lifecycle"):
+        return f"{short} Lifecycle"
+    if short:
+        return short
+    return chart_title
+
+
+def _product_icon_img(
+    icon_key: str,
+    static_prefix: str = _STATIC_PREFIX,
+    width: int = 20,
+    height: int = 20,
+    css_class: str = "product-icon",
+) -> str:
+    return (
+        f'<img class="{css_class}" src="{static_prefix}/icons/products/{icon_key}.svg" '
+        f'alt="" width="{width}" height="{height}" loading="lazy">'
+    )
+
+
+def _policy_link_label(chart_title: str) -> str:
+    return _POLICY_LINK_LABELS.get(chart_title, chart_title.removesuffix(" Lifecycle"))
+
+
+def _disclaimer_nav_item(text: str, url: str, static_prefix: str) -> str:
+    icon_key = _DISCLAIMER_ICONS.get(text, "product-life-cycles")
+    return (
+        f'<li class="disclaimer-sidebar__item">'
+        f'<a class="disclaimer-sidebar__link" href="{url}" target="_blank" rel="noopener">'
+        f'<img class="disclaimer-sidebar__icon" src="{static_prefix}/icons/products/{icon_key}.svg" '
+        f'alt="" width="20" height="20" loading="lazy">'
+        f'<span>{_html.escape(text)}</span>'
+        f'</a></li>'
+    )
+
+
+def _build_disclaimer_html(
+    product_list: list[tuple[str, list[dict], dict]],
+    operators_data: list | None,
+    middleware_data: list | None,
+    contribute_html: str = "",
+    static_prefix: str = _STATIC_PREFIX,
+) -> str:
+    """Left sidebar: disclaimer, official source links with product icons, Contribute."""
+    links: list[tuple[str, str]] = [
+        ("Product Life Cycles", "https://access.redhat.com/product-life-cycles/"),
+        ("API", "https://access.redhat.com/product-life-cycles/api/v1/products"),
+    ]
+    seen_urls: set[str] = {url for _, url in links}
+    for chart_title, _, cfg in product_list:
+        if chart_title in _DISCLAIMER_SKIP_TITLES:
+            continue
+        url = cfg.get("page_url", "")
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            links.append((_policy_link_label(chart_title), url))
+    if operators_data and _OPERATOR_POLICY_URL not in seen_urls:
+        links.append(("OpenShift Operators", _OPERATOR_POLICY_URL))
+    if middleware_data and _MIDDLEWARE_POLICY_URL not in seen_urls:
+        links.append(("Middleware", _MIDDLEWARE_POLICY_URL))
+    items = "".join(
+        _disclaimer_nav_item(text, url, static_prefix) for text, url in links
+    )
+    contrib = (
+        f'<div class="disclaimer-sidebar__contrib">{contribute_html}</div>'
+        if contribute_html else ""
+    )
+    return (
+        '<aside class="disclaimer-sidebar" aria-label="Disclaimer and official sources">'
+        '<p class="disclaimer-sidebar__note">'
+        '<strong>Unofficial community tool</strong> - not a Red Hat product or publication. '
+        'Dates are compiled from public Red Hat sources.'
+        '</p>'
+        '<p class="disclaimer-sidebar__heading">Official sources</p>'
+        f'<ul class="disclaimer-sidebar__list">{items}</ul>'
+        f'{contrib}'
+        '</aside>'
+    )
+
+
 def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "",
-               static_prefix: str = _STATIC_PREFIX, show_disclaimer: bool = False) -> str:
-    disclaimer_html = ""
-    if show_disclaimer:
-        disclaimer_html = (
-            '<div class="disclaimer-banner" role="note">'
-            '<strong>Unofficial community tool</strong> — not a Red Hat product or publication. '
-            'Lifecycle dates are compiled from public Red Hat sources. '
-            'Confirm on <a href="https://access.redhat.com/product-life-cycles/" '
-            'target="_blank" rel="noopener">access.redhat.com</a> before planning upgrades '
-            'or support decisions.'
-            '</div>'
-        )
+               static_prefix: str = _STATIC_PREFIX, disclaimer_html: str = "",
+               sidebar_layout: bool = False) -> str:
     subnav_html = ""
     if nav_links:
         subnav_html = (
@@ -1196,6 +1329,7 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
             '</div>'
             '</section>'
         )
+    masthead_contrib = "" if sidebar_layout else contribute_html
     masthead_right = (
         '<div class="pf-v6-c-masthead__content">'
         '<div class="pf-v6-l-flex pf-m-align-items-center pf-m-justify-content-flex-end pf-m-flex-1 pf-m-gap-sm">'
@@ -1206,9 +1340,17 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
         '<svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">'
         '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
         '</button>'
-        f'{contribute_html}'
+        f'{masthead_contrib}'
         '</div></div>'
     )
+    if sidebar_layout and disclaimer_html:
+        main_content = (
+            f'<div class="page-content-offset"><div class="pf-v6-l-stack pf-m-gutter">\n{body}\n</div></div>'
+        )
+    else:
+        main_content = f'<div class="pf-v6-l-stack pf-m-gutter">\n{disclaimer_html}{body}\n</div>'
+    page_class = "pf-v6-c-page pf-v6-c-page--with-sidebar" if sidebar_layout and disclaimer_html else "pf-v6-c-page"
+    sidebar_html = disclaimer_html if sidebar_layout else ""
     return f"""<!DOCTYPE html>
 <html lang="en" data-theme="dark" class="pf-v6-theme-dark">
 <head>
@@ -1222,7 +1364,7 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
 <link rel="stylesheet" href="{static_prefix}/css/chart.css">
 </head>
 <body>
-<div class="pf-v6-c-page">
+<div class="{page_class}">
   <header class="pf-v6-c-masthead">
     <div class="pf-v6-c-masthead__main">
       <a class="pf-v6-c-masthead__brand pf-v6-l-flex pf-m-align-items-center pf-m-gap-sm pf-v6-u-text-color-regular" href="#">
@@ -1232,15 +1374,13 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
     </div>
     {masthead_right}
   </header>
-  {disclaimer_html}
+  {sidebar_html}
   <div class="pf-v6-c-page__main-container">
     <main class="pf-v6-c-page__main" id="main-content">
       {subnav_html}
       <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
         <div class="pf-v6-c-page__main-body">
-          <div class="pf-v6-l-stack pf-m-gutter">
-{body}
-          </div>
+          {main_content}
         </div>
       </section>
     </main>
@@ -1518,19 +1658,25 @@ def render_combined_html(
         + "".join(
             f'<button type="button" class="{_btn_cls}" aria-pressed="true"'
             f' data-target="{label.lower().replace(" ", "-")}"'
-            f' aria-label="Filter to {label}">{label}</button>'
+            f' aria-label="Filter to {_chart_display_heading(label)}">'
+            f'{_product_icon_img(_chart_icon_key(label), css_class="nav-toggle__icon", width=16, height=16)}'
+            f'{_chart_display_heading(label)}</button>'
             for label, _, _ in product_list
         )
     )
     if middleware_data:
         nav_links += (
             f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="middleware"'
-            f' aria-label="Filter to Middleware">Middleware</button>'
+            f' aria-label="Filter to Middleware">'
+            f'{_product_icon_img("middleware", css_class="nav-toggle__icon", width=16, height=16)}'
+            f'Middleware</button>'
         )
     if operators_data:
         nav_links += (
             f'<button type="button" class="{_btn_cls}" aria-pressed="true" data-target="operators"'
-            f' aria-label="Filter to Operators">Operators</button>'
+            f' aria-label="Filter to OpenShift Operators">'
+            f'{_product_icon_img("operators", css_class="nav-toggle__icon", width=16, height=16)}'
+            f'OpenShift Operators</button>'
         )
     # Guide link lives in the footer, not the nav
     _gh_svg = (
@@ -1609,7 +1755,13 @@ def render_combined_html(
             + ("\n" + middleware_section if middleware_section else "")
             + ("\n" + operators_section if operators_section else "")
             + "\n" + footer)
-    return _page_wrap(title, body, nav_links, contribute_html, show_disclaimer=True)
+    return _page_wrap(
+        title, body, nav_links, contribute_html,
+        disclaimer_html=_build_disclaimer_html(
+            product_list, operators_data, middleware_data, contribute_html,
+        ),
+        sidebar_layout=True,
+    )
 
 
 def render_svg(versions: list[dict], chart_label: str, width: int = 1400,

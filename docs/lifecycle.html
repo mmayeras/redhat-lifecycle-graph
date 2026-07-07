@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="static/css/chart.css">
 </head>
 <body>
-<div class="pf-v6-c-page">
+<div class="pf-v6-c-page pf-v6-c-page--with-sidebar">
   <header class="pf-v6-c-masthead">
     <div class="pf-v6-c-masthead__main">
       <a class="pf-v6-c-masthead__brand pf-v6-l-flex pf-m-align-items-center pf-m-gap-sm pf-v6-u-text-color-regular" href="#">
@@ -19,22 +19,20 @@
         <span class="pf-v6-c-title pf-m-md">Red Hat Product Lifecycle</span>
       </a>
     </div>
-    <div class="pf-v6-c-masthead__content"><div class="pf-v6-l-flex pf-m-align-items-center pf-m-justify-content-flex-end pf-m-flex-1 pf-m-gap-sm"><button class="pf-v6-c-button pf-m-plain" type="button" id="theme-toggle" aria-label="Toggle theme"><svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button><a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new?body=%23%23%23%20%F0%9F%9A%80%20Contribution%20Proposal%0A%0A%2A%2AWhat%20kind%20of%20contribution%20is%20this%3F%2A%2A%0A-%20%5B%20%5D%20Bug%20Fix%0A-%20%5B%20%5D%20Feature%20%2F%20Enhancement%0A-%20%5B%20%5D%20Life-cycle%20Data%20Update%20%28e.g.%2C%20adding%20missing%20product%20timelines%29%0A-%20%5B%20%5D%20Documentation%20Improvement%0A%0A---%0A%0A%23%23%23%20%F0%9F%93%9D%20Description%0A%0A%23%23%23%20%F0%9F%9B%A0%EF%B8%8F%20Proposed%20Implementation%20%2F%20Changes%0A%0A%23%23%23%20%F0%9F%8E%A8%20Visuals%20%28if%20applicable%29%0A%0A%23%23%23%20%F0%9F%99%8B%E2%80%8D%E2%99%82%EF%B8%8F%20Assignee%0A-%20%5B%20%5D%20I%20would%20like%20to%20work%20on%20this%20myself%21" class="gh-contribute" target="_blank"><svg height="11" width="11" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Contribute</a></div></div>
+    <div class="pf-v6-c-masthead__content"><div class="pf-v6-l-flex pf-m-align-items-center pf-m-justify-content-flex-end pf-m-flex-1 pf-m-gap-sm"><button class="pf-v6-c-button pf-m-plain" type="button" id="theme-toggle" aria-label="Toggle theme"><svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
   </header>
-  <div class="disclaimer-banner" role="note"><strong>Unofficial community tool</strong> — not a Red Hat product or publication. Lifecycle dates are compiled from public Red Hat sources. Confirm on <a href="https://access.redhat.com/product-life-cycles/" target="_blank" rel="noopener">access.redhat.com</a> before planning upgrades or support decisions.</div>
+  <aside class="disclaimer-sidebar" aria-label="Disclaimer and official sources"><p class="disclaimer-sidebar__note"><strong>Unofficial community tool</strong> - not a Red Hat product or publication. Dates are compiled from public Red Hat sources.</p><p class="disclaimer-sidebar__heading">Official sources</p><ul class="disclaimer-sidebar__list"><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/product-life-cycles/" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy"><span>Product Life Cycles</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/product-life-cycles/api/v1/products" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/api.svg" alt="" width="20" height="20" loading="lazy"><span>API</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/openshift" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/ocp.svg" alt="" width="20" height="20" loading="lazy"><span>OpenShift Container Platform</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/errata" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/rhel.svg" alt="" width="20" height="20" loading="lazy"><span>Red Hat Enterprise Linux</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/ansible-automation-platform" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/aap.svg" alt="" width="20" height="20" loading="lazy"><span>Ansible Automation Platform</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/rhoai-sm/lifecycle" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/rhoai.svg" alt="" width="20" height="20" loading="lazy"><span>RHOAI</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/ceph-storage" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/ceph.svg" alt="" width="20" height="20" loading="lazy"><span>Ceph</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/satellite" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/satellite.svg" alt="" width="20" height="20" loading="lazy"><span>Satellite</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/openshift_operators" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/operators.svg" alt="" width="20" height="20" loading="lazy"><span>OpenShift Operators</span></a></li><li class="disclaimer-sidebar__item"><a class="disclaimer-sidebar__link" href="https://access.redhat.com/support/policy/updates/jboss_notes" target="_blank" rel="noopener"><img class="disclaimer-sidebar__icon" src="static/icons/products/middleware.svg" alt="" width="20" height="20" loading="lazy"><span>Middleware</span></a></li></ul><div class="disclaimer-sidebar__contrib"><a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new?body=%23%23%23%20%F0%9F%9A%80%20Contribution%20Proposal%0A%0A%2A%2AWhat%20kind%20of%20contribution%20is%20this%3F%2A%2A%0A-%20%5B%20%5D%20Bug%20Fix%0A-%20%5B%20%5D%20Feature%20%2F%20Enhancement%0A-%20%5B%20%5D%20Life-cycle%20Data%20Update%20%28e.g.%2C%20adding%20missing%20product%20timelines%29%0A-%20%5B%20%5D%20Documentation%20Improvement%0A%0A---%0A%0A%23%23%23%20%F0%9F%93%9D%20Description%0A%0A%23%23%23%20%F0%9F%9B%A0%EF%B8%8F%20Proposed%20Implementation%20%2F%20Changes%0A%0A%23%23%23%20%F0%9F%8E%A8%20Visuals%20%28if%20applicable%29%0A%0A%23%23%23%20%F0%9F%99%8B%E2%80%8D%E2%99%82%EF%B8%8F%20Assignee%0A-%20%5B%20%5D%20I%20would%20like%20to%20work%20on%20this%20myself%21" class="gh-contribute" target="_blank"><svg height="11" width="11" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Contribute</a></div></aside>
   <div class="pf-v6-c-page__main-container">
     <main class="pf-v6-c-page__main" id="main-content">
-      <section class="pf-v6-c-page__main-subnav pf-m-limit-width pf-m-align-center pf-m-sticky-top"><div class="pf-v6-c-page__main-body"><div class="product-nav" role="navigation" aria-label="Product navigation"><div class="product-nav__list"><button type="button" class="pf-v6-c-button pf-m-primary nav-reset" id="nav-reset" hidden>Reset filter</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="ocp-lifecycle" aria-label="Filter to OCP Lifecycle">OCP Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="rhel-lifecycle" aria-label="Filter to RHEL Lifecycle">RHEL Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="aap-lifecycle" aria-label="Filter to AAP Lifecycle">AAP Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="rhoai-lifecycle" aria-label="Filter to RHOAI Lifecycle">RHOAI Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="ceph-lifecycle" aria-label="Filter to Ceph Lifecycle">Ceph Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="openstack-platform-(osp)" aria-label="Filter to OpenStack Platform (OSP)">OpenStack Platform (OSP)</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="openstack-on-openshift-(rhoso)" aria-label="Filter to OpenStack on OpenShift (RHOSO)">OpenStack on OpenShift (RHOSO)</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="red-hat-satellite" aria-label="Filter to Red Hat Satellite">Red Hat Satellite</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="middleware" aria-label="Filter to Middleware">Middleware</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="operators" aria-label="Filter to Operators">Operators</button></div></div></div></section>
+      <section class="pf-v6-c-page__main-subnav pf-m-limit-width pf-m-align-center pf-m-sticky-top"><div class="pf-v6-c-page__main-body"><div class="product-nav" role="navigation" aria-label="Product navigation"><div class="product-nav__list"><button type="button" class="pf-v6-c-button pf-m-primary nav-reset" id="nav-reset" hidden>Reset filter</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="ocp-lifecycle" aria-label="Filter to OpenShift Container Platform Lifecycle"><img class="nav-toggle__icon" src="static/icons/products/ocp.svg" alt="" width="16" height="16" loading="lazy">OpenShift Container Platform Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="rhel-lifecycle" aria-label="Filter to Red Hat Enterprise Linux Lifecycle"><img class="nav-toggle__icon" src="static/icons/products/rhel.svg" alt="" width="16" height="16" loading="lazy">Red Hat Enterprise Linux Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="aap-lifecycle" aria-label="Filter to Ansible Automation Platform Lifecycle"><img class="nav-toggle__icon" src="static/icons/products/aap.svg" alt="" width="16" height="16" loading="lazy">Ansible Automation Platform Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="rhoai-lifecycle" aria-label="Filter to RHOAI Lifecycle"><img class="nav-toggle__icon" src="static/icons/products/rhoai.svg" alt="" width="16" height="16" loading="lazy">RHOAI Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="ceph-lifecycle" aria-label="Filter to Ceph Lifecycle"><img class="nav-toggle__icon" src="static/icons/products/ceph.svg" alt="" width="16" height="16" loading="lazy">Ceph Lifecycle</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="openstack-platform" aria-label="Filter to OpenStack Platform"><img class="nav-toggle__icon" src="static/icons/products/osp.svg" alt="" width="16" height="16" loading="lazy">OpenStack Platform</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="openstack-on-openshift" aria-label="Filter to OpenStack on OpenShift"><img class="nav-toggle__icon" src="static/icons/products/osp.svg" alt="" width="16" height="16" loading="lazy">OpenStack on OpenShift</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="red-hat-satellite" aria-label="Filter to Satellite"><img class="nav-toggle__icon" src="static/icons/products/satellite.svg" alt="" width="16" height="16" loading="lazy">Satellite</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="middleware" aria-label="Filter to Middleware"><img class="nav-toggle__icon" src="static/icons/products/middleware.svg" alt="" width="16" height="16" loading="lazy">Middleware</button><button type="button" class="pf-v6-c-button pf-m-secondary nav-toggle" aria-pressed="true" data-target="operators" aria-label="Filter to OpenShift Operators"><img class="nav-toggle__icon" src="static/icons/products/operators.svg" alt="" width="16" height="16" loading="lazy">OpenShift Operators</button></div></div></div></section>
       <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
         <div class="pf-v6-c-page__main-body">
-          <div class="pf-v6-l-stack pf-m-gutter">
+          <div class="page-content-offset"><div class="pf-v6-l-stack pf-m-gutter">
 <div class="card" id="ocp-lifecycle">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      OCP Lifecycle <a href="https://access.redhat.com/support/policy/updates/openshift" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#ocp-lifecycle" onclick="var u=location.href.split('#')[0]+'#ocp-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+      <img class="card-title__icon" src="static/icons/products/ocp.svg" alt="" width="20" height="20" loading="lazy">
+      OpenShift Container Platform Lifecycle <a href="https://access.redhat.com/support/policy/updates/openshift" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#ocp-lifecycle" onclick="var u=location.href.split('#')[0]+'#ocp-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Maintenance"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-1"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bee1f4;border:1.5px solid #004080"></span>EUS-1</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-2"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#e7d4ff;border:1.5px solid #40199a"></span>EUS-2</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-3"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f2c4ff;border:1.5px solid #6a0080"></span>EUS-3</span>
@@ -59,10 +57,8 @@
 <div class="card" id="rhel-lifecycle">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      RHEL Lifecycle <a href="https://access.redhat.com/support/policy/updates/errata" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#rhel-lifecycle" onclick="var u=location.href.split('#')[0]+'#rhel-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+      <img class="card-title__icon" src="static/icons/products/rhel.svg" alt="" width="20" height="20" loading="lazy">
+      Red Hat Enterprise Linux Lifecycle <a href="https://access.redhat.com/support/policy/updates/errata" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#rhel-lifecycle" onclick="var u=location.href.split('#')[0]+'#rhel-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
       
@@ -87,10 +83,8 @@
 <div class="card" id="aap-lifecycle">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      AAP Lifecycle <a href="https://access.redhat.com/support/policy/updates/ansible-automation-platform" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#aap-lifecycle" onclick="var u=location.href.split('#')[0]+'#aap-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+      <img class="card-title__icon" src="static/icons/products/aap.svg" alt="" width="20" height="20" loading="lazy">
+      Ansible Automation Platform Lifecycle <a href="https://access.redhat.com/support/policy/updates/ansible-automation-platform" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#aap-lifecycle" onclick="var u=location.href.split('#')[0]+'#aap-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Maintenance"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Maintenance 2"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f4b678;border:1.5px solid #8f4700"></span>Maintenance 2</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-1"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bee1f4;border:1.5px solid #004080"></span>EUS-1</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-2"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#e7d4ff;border:1.5px solid #40199a"></span>EUS-2</span>
@@ -115,10 +109,8 @@
 <div class="card" id="rhoai-lifecycle">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      RHOAI Lifecycle <a href="https://access.redhat.com/support/policy/updates/rhoai" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#rhoai-lifecycle" onclick="var u=location.href.split('#')[0]+'#rhoai-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+      <img class="card-title__icon" src="static/icons/products/rhoai.svg" alt="" width="20" height="20" loading="lazy">
+      RHOAI Lifecycle <a href="https://access.redhat.com/support/policy/updates/rhoai-sm/lifecycle" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#rhoai-lifecycle" onclick="var u=location.href.split('#')[0]+'#rhoai-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-1"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bee1f4;border:1.5px solid #004080"></span>EUS-1</span>
@@ -143,9 +135,7 @@
 <div class="card" id="ceph-lifecycle">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/ceph.svg" alt="" width="20" height="20" loading="lazy">
       Ceph Lifecycle <a href="https://access.redhat.com/support/policy/updates/ceph-storage" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#ceph-lifecycle" onclick="var u=location.href.split('#')[0]+'#ceph-lifecycle';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
@@ -168,13 +158,11 @@
   </div>
   
 </div>
-<div class="card" id="openstack-platform-(osp)">
+<div class="card" id="openstack-platform">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      OpenStack Platform (OSP) <a href="https://access.redhat.com/support/policy/updates/openstack/platform" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#openstack-platform-(osp)" onclick="var u=location.href.split('#')[0]+'#openstack-platform-(osp)';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+      <img class="card-title__icon" src="static/icons/products/osp.svg" alt="" width="20" height="20" loading="lazy">
+      OpenStack Platform <a href="https://access.redhat.com/support/policy/updates/openstack/platform" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#openstack-platform" onclick="var u=location.href.split('#')[0]+'#openstack-platform';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Maintenance"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="ELS"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f5b8b4;border:1.5px solid #c9190b"></span>ELS</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="ELS-2"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#e88080;border:1.5px solid #8b0000"></span>ELS-2</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="ELS-3"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#c94040;border:1.5px solid #6b0000"></span>ELS-3</span>
@@ -196,13 +184,11 @@
   </div>
   
 </div>
-<div class="card" id="openstack-on-openshift-(rhoso)">
+<div class="card" id="openstack-on-openshift">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      OpenStack on OpenShift (RHOSO) <a href="https://access.redhat.com/support/policy/updates/openstack/platform" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#openstack-on-openshift-(rhoso)" onclick="var u=location.href.split('#')[0]+'#openstack-on-openshift-(rhoso)';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+      <img class="card-title__icon" src="static/icons/products/osp.svg" alt="" width="20" height="20" loading="lazy">
+      OpenStack on OpenShift <a href="https://access.redhat.com/support/policy/updates/openstack/platform" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#openstack-on-openshift" onclick="var u=location.href.split('#')[0]+'#openstack-on-openshift';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Maintenance"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="ELS"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f5b8b4;border:1.5px solid #c9190b"></span>ELS</span>
@@ -227,10 +213,8 @@
 <div class="card" id="red-hat-satellite">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
-      Red Hat Satellite <a href="https://access.redhat.com/support/policy/updates/satellite" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#red-hat-satellite" onclick="var u=location.href.split('#')[0]+'#red-hat-satellite';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+      <img class="card-title__icon" src="static/icons/products/satellite.svg" alt="" width="20" height="20" loading="lazy">
+      Satellite <a href="https://access.redhat.com/support/policy/updates/satellite" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official lifecycle policy">↗ policy</a> <a href="#red-hat-satellite" onclick="var u=location.href.split('#')[0]+'#red-hat-satellite';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Maintenance"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-1"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bee1f4;border:1.5px solid #004080"></span>EUS-1</span>
@@ -252,12 +236,10 @@
   </div>
   
 </div>
-<div id="middleware"><div class="section-heading">Middleware &amp; Application Services <a href="https://access.redhat.com/support/policy/updates/jboss_notes" target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ policy</a></div><div class="op-section"><details id="mw-jboss-eap" class="op-details"><summary class="op-summary"><span class="op-name">JBoss EAP <a href="https://access.redhat.com/support/policy/updates/jboss_notes" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color)" title="Lifecycle policy">↗ policy</a> <a href="#mw-jboss-eap" onclick="var u=location.href.split('#')[0]+'#mw-jboss-eap';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 3 active</span></summary><div class="card">
+<div id="middleware"><div class="section-heading"><img class="section-heading__icon" src="static/icons/products/middleware.svg" alt="" width="22" height="22" loading="lazy"><span>Middleware &amp; Application Services <a href="https://access.redhat.com/support/policy/updates/jboss_notes" target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ policy</a></span></div><div class="op-section"><details id="mw-jboss-eap" class="op-details"><summary class="op-summary"><span class="op-name">JBoss EAP <a href="https://access.redhat.com/support/policy/updates/jboss_notes" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color)" title="Lifecycle policy">↗ policy</a> <a href="#mw-jboss-eap" onclick="var u=location.href.split('#')[0]+'#mw-jboss-eap';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       JBoss EAP
     </span>
     <div class="legend">
@@ -283,9 +265,7 @@
 <details id="mw-jboss-web-server-(jws)" class="op-details"><summary class="op-summary"><span class="op-name">JBoss Web Server (JWS) <a href="https://access.redhat.com/support/policy/updates/jboss_notes" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color)" title="Lifecycle policy">↗ policy</a> <a href="#mw-jboss-web-server-(jws)" onclick="var u=location.href.split('#')[0]+'#mw-jboss-web-server-(jws)';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       JBoss Web Server (JWS)
     </span>
     <div class="legend">
@@ -311,9 +291,7 @@
 <details id="mw-red-hat-build-of-quarkus" class="op-details"><summary class="op-summary"><span class="op-name">Red Hat build of Quarkus <a href="https://access.redhat.com/support/policy/updates/jboss_notes" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color)" title="Lifecycle policy">↗ policy</a> <a href="#mw-red-hat-build-of-quarkus" onclick="var u=location.href.split('#')[0]+'#mw-red-hat-build-of-quarkus';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">1 version · 1 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Red Hat build of Quarkus
     </span>
     <div class="legend">
@@ -336,12 +314,10 @@
   </div>
   
 </div></details></div></div>
-<div id="operators"><div class="section-heading">OpenShift Operators</div><div style="margin:12px 0 8px"><input type="search" id="op-search" placeholder="Filter operators…" autocomplete="off" style="width:100%;max-width:340px;padding:6px 10px;border:1px solid var(--border-base);border-radius:4px;font-size:13px;font-family:inherit;outline:none;background:var(--input-bg);color:var(--text-primary)" oninput="(function(q){var all=document.querySelectorAll('#operators .op-details');q=q.toLowerCase();all.forEach(function(el){var n=el.querySelector('.op-name').textContent.toLowerCase();el.style.display=n.includes(q)?'':'none'});})(this.value)"></div><div class="op-section"><details id="op-builds-for-openshift" class="op-details"><summary class="op-summary"><span class="op-name">Builds for OpenShift <a href="#op-builds-for-openshift" onclick="var u=location.href.split('#')[0]+'#op-builds-for-openshift';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 2 active</span></summary><div class="card">
+<div id="operators"><div class="section-heading"><img class="section-heading__icon" src="static/icons/products/operators.svg" alt="" width="22" height="22" loading="lazy"><span>OpenShift Operators</span></div><div style="margin:12px 0 8px"><input type="search" id="op-search" placeholder="Filter operators…" autocomplete="off" style="width:100%;max-width:340px;padding:6px 10px;border:1px solid var(--border-base);border-radius:4px;font-size:13px;font-family:inherit;outline:none;background:var(--input-bg);color:var(--text-primary)" oninput="(function(q){var all=document.querySelectorAll('#operators .op-details');q=q.toLowerCase();all.forEach(function(el){var n=el.querySelector('.op-name').textContent.toLowerCase();el.style.display=n.includes(q)?'':'none'});})(this.value)"></div><div class="op-section"><details id="op-builds-for-openshift" class="op-details"><summary class="op-summary"><span class="op-name">Builds for OpenShift <a href="#op-builds-for-openshift" onclick="var u=location.href.split('#')[0]+'#op-builds-for-openshift';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 2 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Builds for OpenShift
     </span>
     <div class="legend">
@@ -367,9 +343,7 @@
 <details id="op-cert-manager" class="op-details"><summary class="op-summary"><span class="op-name">cert-manager <a href="#op-cert-manager" onclick="var u=location.href.split('#')[0]+'#op-cert-manager';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">8 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       cert-manager
     </span>
     <div class="legend">
@@ -395,9 +369,7 @@
 <details id="op-gatekeeper" class="op-details"><summary class="op-summary"><span class="op-name">Gatekeeper <a href="#op-gatekeeper" onclick="var u=location.href.split('#')[0]+'#op-gatekeeper';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">5 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Gatekeeper
     </span>
     <div class="legend">
@@ -423,9 +395,7 @@
 <details id="op-kiali" class="op-details"><summary class="op-summary"><span class="op-name">Kiali <a href="#op-kiali" onclick="var u=location.href.split('#')[0]+'#op-kiali';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Kiali
     </span>
     <div class="legend">
@@ -451,9 +421,7 @@
 <details id="op-kmm" class="op-details"><summary class="op-summary"><span class="op-name">KMM <a href="#op-kmm" onclick="var u=location.href.split('#')[0]+'#op-kmm';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 2 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       KMM
     </span>
     <div class="legend">
@@ -479,9 +447,7 @@
 <details id="op-kubernetes-nmstate" class="op-details"><summary class="op-summary"><span class="op-name">Kubernetes NMState <a href="#op-kubernetes-nmstate" onclick="var u=location.href.split('#')[0]+'#op-kubernetes-nmstate';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">9 versions · 7 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Kubernetes NMState
     </span>
     <div class="legend">
@@ -507,9 +473,7 @@
 <details id="op-local-storage-operator" class="op-details"><summary class="op-summary"><span class="op-name">Local Storage Operator <a href="#op-local-storage-operator" onclick="var u=location.href.split('#')[0]+'#op-local-storage-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Local Storage Operator
     </span>
     <div class="legend">
@@ -535,9 +499,7 @@
 <details id="op-logging-for-openshift" class="op-details"><summary class="op-summary"><span class="op-name">Logging for OpenShift <a href="#op-logging-for-openshift" onclick="var u=location.href.split('#')[0]+'#op-logging-for-openshift';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Logging for OpenShift
     </span>
     <div class="legend">
@@ -563,9 +525,7 @@
 <details id="op-loki-operator" class="op-details"><summary class="op-summary"><span class="op-name">Loki Operator <a href="#op-loki-operator" onclick="var u=location.href.split('#')[0]+'#op-loki-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Loki Operator
     </span>
     <div class="legend">
@@ -591,9 +551,7 @@
 <details id="op-metallb-operator" class="op-details"><summary class="op-summary"><span class="op-name">MetalLB Operator <a href="#op-metallb-operator" onclick="var u=location.href.split('#')[0]+'#op-metallb-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">9 versions · 7 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       MetalLB Operator
     </span>
     <div class="legend">
@@ -619,9 +577,7 @@
 <details id="op-migration-toolkit-for-containers" class="op-details"><summary class="op-summary"><span class="op-name">Migration Toolkit for Containers <a href="#op-migration-toolkit-for-containers" onclick="var u=location.href.split('#')[0]+'#op-migration-toolkit-for-containers';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">2 versions · 1 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Migration Toolkit for Containers
     </span>
     <div class="legend">
@@ -647,9 +603,7 @@
 <details id="op-migration-toolkit-for-virtualization" class="op-details"><summary class="op-summary"><span class="op-name">Migration Toolkit for Virtualization <a href="#op-migration-toolkit-for-virtualization" onclick="var u=location.href.split('#')[0]+'#op-migration-toolkit-for-virtualization';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Migration Toolkit for Virtualization
     </span>
     <div class="legend">
@@ -675,9 +629,7 @@
 <details id="op-multicluster-engine" class="op-details"><summary class="op-summary"><span class="op-name">Multicluster Engine <a href="#op-multicluster-engine" onclick="var u=location.href.split('#')[0]+'#op-multicluster-engine';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Multicluster Engine
     </span>
     <div class="legend">
@@ -703,9 +655,7 @@
 <details id="op-multicluster-global-hub" class="op-details"><summary class="op-summary"><span class="op-name">Multicluster Global Hub <a href="#op-multicluster-global-hub" onclick="var u=location.href.split('#')[0]+'#op-multicluster-global-hub';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Multicluster Global Hub
     </span>
     <div class="legend">
@@ -731,9 +681,7 @@
 <details id="op-node-feature-discovery" class="op-details"><summary class="op-summary"><span class="op-name">Node Feature Discovery <a href="#op-node-feature-discovery" onclick="var u=location.href.split('#')[0]+'#op-node-feature-discovery';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Node Feature Discovery
     </span>
     <div class="legend">
@@ -759,9 +707,7 @@
 <details id="op-numaresources-operator" class="op-details"><summary class="op-summary"><span class="op-name">NUMAresources Operator <a href="#op-numaresources-operator" onclick="var u=location.href.split('#')[0]+'#op-numaresources-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">9 versions · 7 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       NUMAresources Operator
     </span>
     <div class="legend">
@@ -787,9 +733,7 @@
 <details id="op-oadp" class="op-details"><summary class="op-summary"><span class="op-name">OADP <a href="#op-oadp" onclick="var u=location.href.split('#')[0]+'#op-oadp';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OADP
     </span>
     <div class="legend">
@@ -815,9 +759,7 @@
 <details id="op-odf-multicluster-orchestrator" class="op-details"><summary class="op-summary"><span class="op-name">ODF Multicluster Orchestrator <a href="#op-odf-multicluster-orchestrator" onclick="var u=location.href.split('#')[0]+'#op-odf-multicluster-orchestrator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">5 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       ODF Multicluster Orchestrator
     </span>
     <div class="legend">
@@ -843,9 +785,7 @@
 <details id="op-openshift-data-foundation" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift Data Foundation <a href="#op-openshift-data-foundation" onclick="var u=location.href.split('#')[0]+'#op-openshift-data-foundation';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">8 versions · 6 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift Data Foundation
     </span>
     <div class="legend">
@@ -871,9 +811,7 @@
 <details id="op-openshift-dev-spaces" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift Dev Spaces <a href="#op-openshift-dev-spaces" onclick="var u=location.href.split('#')[0]+'#op-openshift-dev-spaces';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">5 versions · 2 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift Dev Spaces
     </span>
     <div class="legend">
@@ -899,9 +837,7 @@
 <details id="op-openshift-dr-cluster" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift DR Cluster <a href="#op-openshift-dr-cluster" onclick="var u=location.href.split('#')[0]+'#op-openshift-dr-cluster';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">5 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift DR Cluster
     </span>
     <div class="legend">
@@ -927,9 +863,7 @@
 <details id="op-openshift-dr-hub" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift DR Hub <a href="#op-openshift-dr-hub" onclick="var u=location.href.split('#')[0]+'#op-openshift-dr-hub';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift DR Hub
     </span>
     <div class="legend">
@@ -955,9 +889,7 @@
 <details id="op-openshift-gitops" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift GitOps <a href="#op-openshift-gitops" onclick="var u=location.href.split('#')[0]+'#op-openshift-gitops';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">10 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift GitOps
     </span>
     <div class="legend">
@@ -983,9 +915,7 @@
 <details id="op-openshift-pipelines" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift Pipelines <a href="#op-openshift-pipelines" onclick="var u=location.href.split('#')[0]+'#op-openshift-pipelines';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">9 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift Pipelines
     </span>
     <div class="legend">
@@ -1011,9 +941,7 @@
 <details id="op-openshift-serverless" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift Serverless <a href="#op-openshift-serverless" onclick="var u=location.href.split('#')[0]+'#op-openshift-serverless';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">8 versions · 1 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift Serverless
     </span>
     <div class="legend">
@@ -1039,9 +967,7 @@
 <details id="op-openshift-serverless-logic" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift Serverless Logic <a href="#op-openshift-serverless-logic" onclick="var u=location.href.split('#')[0]+'#op-openshift-serverless-logic';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">5 versions · 1 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift Serverless Logic
     </span>
     <div class="legend">
@@ -1067,9 +993,7 @@
 <details id="op-openshift-service-mesh" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift Service Mesh <a href="#op-openshift-service-mesh" onclick="var u=location.href.split('#')[0]+'#op-openshift-service-mesh';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift Service Mesh
     </span>
     <div class="legend">
@@ -1095,9 +1019,7 @@
 <details id="op-openshift-virtualization" class="op-details"><summary class="op-summary"><span class="op-name">OpenShift Virtualization <a href="#op-openshift-virtualization" onclick="var u=location.href.split('#')[0]+'#op-openshift-virtualization';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">9 versions · 7 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       OpenShift Virtualization
     </span>
     <div class="legend">
@@ -1123,9 +1045,7 @@
 <details id="op-ptp-operator" class="op-details"><summary class="op-summary"><span class="op-name">PTP Operator <a href="#op-ptp-operator" onclick="var u=location.href.split('#')[0]+'#op-ptp-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">9 versions · 7 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       PTP Operator
     </span>
     <div class="legend">
@@ -1151,9 +1071,7 @@
 <details id="op-quay-bridge-operator" class="op-details"><summary class="op-summary"><span class="op-name">Quay Bridge Operator <a href="#op-quay-bridge-operator" onclick="var u=location.href.split('#')[0]+'#op-quay-bridge-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">13 versions · 7 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Quay Bridge Operator
     </span>
     <div class="legend">
@@ -1179,9 +1097,7 @@
 <details id="op-quay-container-security-operator" class="op-details"><summary class="op-summary"><span class="op-name">Quay Container Security Operator <a href="#op-quay-container-security-operator" onclick="var u=location.href.split('#')[0]+'#op-quay-container-security-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Quay Container Security Operator
     </span>
     <div class="legend">
@@ -1207,9 +1123,7 @@
 <details id="op-red-hat-build-of-keycloak" class="op-details"><summary class="op-summary"><span class="op-name">Red Hat Build of Keycloak <a href="#op-red-hat-build-of-keycloak" onclick="var u=location.href.split('#')[0]+'#op-red-hat-build-of-keycloak';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 2 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Red Hat Build of Keycloak
     </span>
     <div class="legend">
@@ -1235,9 +1149,7 @@
 <details id="op-red-hat-connectivity-link" class="op-details"><summary class="op-summary"><span class="op-name">Red Hat Connectivity Link <a href="#op-red-hat-connectivity-link" onclick="var u=location.href.split('#')[0]+'#op-red-hat-connectivity-link';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">4 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Red Hat Connectivity Link
     </span>
     <div class="legend">
@@ -1263,9 +1175,7 @@
 <details id="op-red-hat-developer-hub" class="op-details"><summary class="op-summary"><span class="op-name">Red Hat Developer Hub <a href="#op-red-hat-developer-hub" onclick="var u=location.href.split('#')[0]+'#op-red-hat-developer-hub';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 2 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Red Hat Developer Hub
     </span>
     <div class="legend">
@@ -1291,9 +1201,7 @@
 <details id="op-red-hat-quay" class="op-details"><summary class="op-summary"><span class="op-name">Red Hat Quay <a href="#op-red-hat-quay" onclick="var u=location.href.split('#')[0]+'#op-red-hat-quay';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Red Hat Quay
     </span>
     <div class="legend">
@@ -1319,9 +1227,7 @@
 <details id="op-rhacm" class="op-details"><summary class="op-summary"><span class="op-name">RHACM <a href="#op-rhacm" onclick="var u=location.href.split('#')[0]+'#op-rhacm';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">8 versions · 6 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       RHACM
     </span>
     <div class="legend">
@@ -1347,9 +1253,7 @@
 <details id="op-rhacs" class="op-details"><summary class="op-summary"><span class="op-name">RHACS <a href="#op-rhacs" onclick="var u=location.href.split('#')[0]+'#op-rhacs';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       RHACS
     </span>
     <div class="legend">
@@ -1375,9 +1279,7 @@
 <details id="op-sr-iov-network-operator" class="op-details"><summary class="op-summary"><span class="op-name">SR-IOV Network Operator <a href="#op-sr-iov-network-operator" onclick="var u=location.href.split('#')[0]+'#op-sr-iov-network-operator';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       SR-IOV Network Operator
     </span>
     <div class="legend">
@@ -1403,9 +1305,7 @@
 <details id="op-submariner" class="op-details"><summary class="op-summary"><span class="op-name">Submariner <a href="#op-submariner" onclick="var u=location.href.split('#')[0]+'#op-submariner';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">5 versions · 2 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Submariner
     </span>
     <div class="legend">
@@ -1431,9 +1331,7 @@
 <details id="op-vertical-pod-autoscaler" class="op-details"><summary class="op-summary"><span class="op-name">Vertical Pod Autoscaler <a href="#op-vertical-pod-autoscaler" onclick="var u=location.href.split('#')[0]+'#op-vertical-pod-autoscaler';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 5 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Vertical Pod Autoscaler
     </span>
     <div class="legend">
@@ -1459,9 +1357,7 @@
 <details id="op-volsync" class="op-details"><summary class="op-summary"><span class="op-name">VolSync <a href="#op-volsync" onclick="var u=location.href.split('#')[0]+'#op-volsync';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">5 versions · 2 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       VolSync
     </span>
     <div class="legend">
@@ -1487,9 +1383,7 @@
 <details id="op-web-terminal" class="op-details"><summary class="op-summary"><span class="op-name">Web Terminal <a href="#op-web-terminal" onclick="var u=location.href.split('#')[0]+'#op-web-terminal';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">6 versions · 3 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Web Terminal
     </span>
     <div class="legend">
@@ -1515,9 +1409,7 @@
 <details id="op-windows-containers" class="op-details"><summary class="op-summary"><span class="op-name">Windows Containers <a href="#op-windows-containers" onclick="var u=location.href.split('#')[0]+'#op-windows-containers';navigator.clipboard.writeText(u);event.preventDefault()" style="font-size:10px;color:var(--muted);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:4px;vertical-align:middle;opacity:0.5" title="Copy link to this chart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a></span><span class="op-meta">7 versions · 4 active</span></summary><div class="card">
   <div class="card-header">
     <span class="card-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-      </svg>
+      <img class="card-title__icon" src="static/icons/products/product-life-cycles.svg" alt="" width="20" height="20" loading="lazy">
       Windows Containers
     </span>
     <div class="legend">
@@ -1540,8 +1432,8 @@
   </div>
   
 </div></details></div></div>
-<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:4px">Source: <a href="https://access.redhat.com/product-life-cycles/" style="color:#0066cc" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-07 14:04 UTC &nbsp;·&nbsp; <a href="lifecycle-about.html" style="color:#0066cc">How it works</a> &nbsp;·&nbsp; <a href="https://github.com/mmayeras/redhat-lifecycle-graph" style="color:#0066cc;display:inline-flex;align-items:center;gap:4px;vertical-align:middle" target="_blank"><svg height="13" width="13" viewBox="0 0 16 16" fill="#0066cc" xmlns="http://www.w3.org/2000/svg"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View source on GitHub</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/mickaelmayeras/" style="color:#0066cc;display:inline-flex;align-items:center;gap:4px;vertical-align:middle" target="_blank"><svg height="13" width="13" viewBox="0 0 24 24" fill="#0066cc" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Mickael Mayeras</a></p><p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:6px">📣 If you find this useful and want to contribute: <a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new?body=%23%23%23%20%F0%9F%9A%80%20Contribution%20Proposal%0A%0A%2A%2AWhat%20kind%20of%20contribution%20is%20this%3F%2A%2A%0A-%20%5B%20%5D%20Bug%20Fix%0A-%20%5B%20%5D%20Feature%20%2F%20Enhancement%0A-%20%5B%20%5D%20Life-cycle%20Data%20Update%20%28e.g.%2C%20adding%20missing%20product%20timelines%29%0A-%20%5B%20%5D%20Documentation%20Improvement%0A%0A---%0A%0A%23%23%23%20%F0%9F%93%9D%20Description%0A%0A%23%23%23%20%F0%9F%9B%A0%EF%B8%8F%20Proposed%20Implementation%20%2F%20Changes%0A%0A%23%23%23%20%F0%9F%8E%A8%20Visuals%20%28if%20applicable%29%0A%0A%23%23%23%20%F0%9F%99%8B%E2%80%8D%E2%99%82%EF%B8%8F%20Assignee%0A-%20%5B%20%5D%20I%20would%20like%20to%20work%20on%20this%20myself%21" style="color:#0066cc" target="_blank">Open an Issue</a>&nbsp;·&nbsp;<a href="https://github.com/mmayeras/redhat-lifecycle-graph/compare" style="color:#0066cc" target="_blank">Open a Pull Request</a></p>
-          </div>
+<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:4px">Source: <a href="https://access.redhat.com/product-life-cycles/" style="color:#0066cc" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-07 14:38 UTC &nbsp;·&nbsp; <a href="lifecycle-about.html" style="color:#0066cc">How it works</a> &nbsp;·&nbsp; <a href="https://github.com/mmayeras/redhat-lifecycle-graph" style="color:#0066cc;display:inline-flex;align-items:center;gap:4px;vertical-align:middle" target="_blank"><svg height="13" width="13" viewBox="0 0 16 16" fill="#0066cc" xmlns="http://www.w3.org/2000/svg"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View source on GitHub</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/mickaelmayeras/" style="color:#0066cc;display:inline-flex;align-items:center;gap:4px;vertical-align:middle" target="_blank"><svg height="13" width="13" viewBox="0 0 24 24" fill="#0066cc" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Mickael Mayeras</a></p><p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:6px">📣 If you find this useful and want to contribute: <a href="https://github.com/mmayeras/redhat-lifecycle-graph/issues/new?body=%23%23%23%20%F0%9F%9A%80%20Contribution%20Proposal%0A%0A%2A%2AWhat%20kind%20of%20contribution%20is%20this%3F%2A%2A%0A-%20%5B%20%5D%20Bug%20Fix%0A-%20%5B%20%5D%20Feature%20%2F%20Enhancement%0A-%20%5B%20%5D%20Life-cycle%20Data%20Update%20%28e.g.%2C%20adding%20missing%20product%20timelines%29%0A-%20%5B%20%5D%20Documentation%20Improvement%0A%0A---%0A%0A%23%23%23%20%F0%9F%93%9D%20Description%0A%0A%23%23%23%20%F0%9F%9B%A0%EF%B8%8F%20Proposed%20Implementation%20%2F%20Changes%0A%0A%23%23%23%20%F0%9F%8E%A8%20Visuals%20%28if%20applicable%29%0A%0A%23%23%23%20%F0%9F%99%8B%E2%80%8D%E2%99%82%EF%B8%8F%20Assignee%0A-%20%5B%20%5D%20I%20would%20like%20to%20work%20on%20this%20myself%21" style="color:#0066cc" target="_blank">Open an Issue</a>&nbsp;·&nbsp;<a href="https://github.com/mmayeras/redhat-lifecycle-graph/compare" style="color:#0066cc" target="_blank">Open a Pull Request</a></p>
+</div></div>
         </div>
       </section>
     </main>
