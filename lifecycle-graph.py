@@ -792,7 +792,7 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
-_ASSET_VERSION = "0.2.3"  # bump when static/css or icons change (cache bust)
+_ASSET_VERSION = "0.2.4"  # bump when static/css or icons change (cache bust)
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
@@ -1262,7 +1262,7 @@ def _policy_link_label(chart_title: str) -> str:
 
 def _disclaimer_nav_item(text: str, url: str, static_prefix: str) -> str:
     icon_key = _DISCLAIMER_ICONS.get(text, "product-life-cycles")
-    icon = _product_icon_img(icon_key, static_prefix, 20, 20, "disclaimer-sidebar__icon")
+    icon = _product_icon_img(icon_key, static_prefix, 18, 18, "disclaimer-sidebar__icon")
     return (
         f'<li class="disclaimer-sidebar__item">'
         f'<a class="disclaimer-sidebar__link" href="{url}" target="_blank" rel="noopener">'

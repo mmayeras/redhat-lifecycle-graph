@@ -488,6 +488,8 @@ html.pf-v6-theme-dark {
   top: 50%;
   transform: translateY(-50%);
   z-index: 200;
+  width: 268px;
+  max-width: min(268px, calc(100vw - 24px));
   margin: 0;
   padding: 0;
   border: none;
@@ -503,14 +505,16 @@ html.pf-v6-theme-dark {
 }
 
 .disclaimer-sidebar {
-  width: 240px;
+  width: 100%;
+  box-sizing: border-box;
   max-height: calc(100vh - 2rem);
   overflow-y: auto;
+  overflow-x: hidden;
   background: color-mix(in srgb, var(--link-color) 8%, var(--bg-card));
   border: 1px solid var(--border-base);
   border-radius: var(--pf-t--global--border--radius--medium, 8px);
   box-shadow: var(--pf-t--global--box-shadow--md, 0 4px 16px rgba(0, 0, 0, 0.12));
-  padding: 1rem 1rem 0.85rem;
+  padding: 1rem 0.9rem 0.85rem;
   font-size: 0.8125rem;
   line-height: 1.45;
   color: var(--text-secondary);
@@ -541,14 +545,15 @@ html.pf-v6-theme-dark {
 }
 
 .disclaimer-sidebar__link {
-  display: flex;
+  display: flex !important;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.35rem 0.4rem;
+  gap: 0.5rem;
+  padding: 0.35rem 0.35rem;
   border-radius: var(--pf-t--global--border--radius--small, 5px);
   color: var(--text-primary) !important;
   text-decoration: none !important;
   transition: background 0.15s;
+  min-width: 0;
 }
 
 .disclaimer-sidebar__link:hover,
@@ -559,10 +564,12 @@ html.pf-v6-theme-dark {
 }
 
 .disclaimer-sidebar__icon-wrap {
-  flex: 0 0 24px;
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  max-width: 20px;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -570,15 +577,18 @@ html.pf-v6-theme-dark {
 }
 
 .disclaimer-sidebar__icon {
+  width: 18px !important;
+  height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  min-width: 0;
   flex-shrink: 0;
-  width: 100%;
-  height: 100%;
   object-fit: contain;
   display: block;
 }
 
 .disclaimer-sidebar__label {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
   line-height: 1.3;
 }
@@ -618,16 +628,14 @@ html.pf-v6-theme-dark {
 }
 
 @media (max-width: 900px) {
-  .disclaimer-sidebar {
-    width: 210px;
-    padding: 0.85rem 0.75rem 0.75rem;
-    font-size: 0.75rem;
+  .disclaimer-sidebar-shell {
+    width: 240px;
+    max-width: min(240px, calc(100vw - 24px));
   }
 
-  .disclaimer-sidebar__icon-wrap {
-    flex-basis: 22px;
-    width: 22px;
-    height: 22px;
+  .disclaimer-sidebar {
+    padding: 0.85rem 0.75rem 0.75rem;
+    font-size: 0.75rem;
   }
 }
 

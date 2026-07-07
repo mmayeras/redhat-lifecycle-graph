@@ -6,8 +6,12 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ## [Unreleased]
 
+---
+
+## [0.2.3] — 2026-07-07
+
 ### Fixed
-- **Disclaimer sidebar layout** — keep floating left panel on tablet/desktop (removed overly broad 1024px static fallback); collapsible panel on phones; icon boxes prevent logo/text overlap; cache-bust `chart.css` after static updates
+- **Disclaimer sidebar layout** — keep floating left panel on tablet/desktop (removed overly broad 1024px static fallback); collapsible panel on phones; fixed flex `min-width` bug that inflated SVG icons and crushed labels; wider sidebar for long product names; cache-bust `chart.css` after static updates
 
 ---
 
