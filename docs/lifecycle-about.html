@@ -343,9 +343,10 @@ _render_card(versions)    →  HTML Gantt chart
 <h3 id="rolling-stream-operators">Rolling-Stream operators</h3>
 <p>Rapid release cadence; lifecycle tied to next release, not absolute dates. Examples: VolSync, Dev Spaces, Serverless Logic.</p>
 <ul>
-<li>API often returns relative dates ("Release of X+1 + 3 months") which cannot be resolved → those versions render with GA only.</li>
-<li><code>fallback:</code> blocks in <code>lifecycle-config.yaml</code> provide static GA dates for recent versions.</li>
-<li>Use <code>version_strategy: rolling-eol</code> and <code>phase_map_preset: rolling-ga-eol</code>.</li>
+<li>API often returns relative dates (<code>Release of X.Y</code>, <code>Release of X.Y + N months</code>) instead of ISO dates.</li>
+<li>When the referenced version is <strong>not yet published</strong> in the API, the chart treats that phase as <strong>ongoing</strong> (badge shows <strong>active</strong>) rather than EOL.</li>
+<li>Once Red Hat publishes the referenced version with a GA date, the phase end resolves automatically.</li>
+<li>Use <code>version_strategy: rolling-eol</code> and <code>phase_map_preset: rolling-ga-eol</code> for operators with only GA + EOL phases.</li>
 </ul>
 <p><strong>To add a new operator</strong>: see <a href="#add-a-new-operator-in-3-lines-of-yaml" target="_blank">Add a new operator in 3 lines of YAML</a> above.</p>
 <p><strong>ODF</strong> uses <code>phase_map_preset: op-odf</code> which adds a third EUS tier (<code>eus3</code>).</p>
@@ -367,6 +368,9 @@ _render_card(versions)    →  HTML Gantt chart
 <p><strong>API-first rule:</strong> when the API returns a version, only phases present in the API response are used. The <code>fallback:</code> dict is <strong>not</strong> merged field-by-field to fill missing phases. If the API omits a phase date (N/A or unparseable), that segment is simply omitted from the chart.</p>
 <p>The API is queried with <code>Accept-Language: en-US</code> to prevent localised responses.</p>
 <p><code>_parse_api_date</code> handles ISO datetimes, ISO dates with trailing text, <code>&quot;Month D, YYYY&quot;</code>, and <code>&quot;Estimated Month, YYYY&quot;</code> (last day of month). Returns <code>None</code> for <code>&quot;N/A&quot;</code> and other unparseable strings.</p>
+<p><strong>Relative release dates:</strong> some products and operators return phase ends as relative strings instead of calendar dates, for example:</p>
+<table><thead><tr><th>Pattern</th><th>Example</th></tr></thead><tbody><tr><td><code>Release of X.Y</code> (+ optional <code>+ N months</code>)</td><td>Pipelines, VolSync</td></tr><tr><td><code>X.YGA + N Months</code></td><td>ODF</td></tr><tr><td><code>X.Y GA + N months</code></td><td>Windows Containers, LSO</td></tr><tr><td><code>GA of X.Y + N Months</code></td><td>Quay, NUMA Resources, PTP</td></tr><tr><td><code>with the release of X.Y</code></td><td>Gatekeeper</td></tr><tr><td><code>ReleaseX.Y+N month</code></td><td>cert-manager</td></tr></tbody></table>
+<p>The generator builds a GA-date index from all versions in the API response and resolves these references. If the referenced version is not published yet (or uses a wildcard like <code>4.N</code>), the phase is marked <strong>open-ended</strong> (still supported, shown as <strong>active</strong> on the chart). This applies to all API-backed entries.</p>
 <h3 id="validating-phase-map-coverage">Validating phase_map coverage</h3>
 <p>Before adding or changing a product, run:</p>
 <pre><code class="language-bash">python3 lifecycle-graph.py --validate-phases

@@ -304,9 +304,10 @@ Follow their own `X.Y` versioning. Examples: RHACM, cert-manager, OADP, MTC, RHD
 
 Rapid release cadence; lifecycle tied to next release, not absolute dates. Examples: VolSync, Dev Spaces, Serverless Logic.
 
-- API often returns relative dates ("Release of X+1 + 3 months") which cannot be resolved → those versions render with GA only.
-- `fallback:` blocks in `lifecycle-config.yaml` provide static GA dates for recent versions.
-- Use `version_strategy: rolling-eol` and `phase_map_preset: rolling-ga-eol`.
+- API often returns relative dates (`Release of X.Y`, `Release of X.Y + N months`) instead of ISO dates.
+- When the referenced version is **not yet published** in the API, the chart treats that phase as **ongoing** (badge shows **active**) rather than EOL.
+- Once Red Hat publishes the referenced version with a GA date, the phase end resolves automatically.
+- Use `version_strategy: rolling-eol` and `phase_map_preset: rolling-ga-eol` for operators with only GA + EOL phases.
 
 **To add a new operator**: see [Add a new operator in 3 lines of YAML](#add-a-new-operator-in-3-lines-of-yaml) above.
 
@@ -355,6 +356,19 @@ The `PHASE_KEYS` list defines the chronological order phases are checked when bu
 The API is queried with `Accept-Language: en-US` to prevent localised responses.
 
 `_parse_api_date` handles ISO datetimes, ISO dates with trailing text, `"Month D, YYYY"`, and `"Estimated Month, YYYY"` (last day of month). Returns `None` for `"N/A"` and other unparseable strings.
+
+**Relative release dates:** some products and operators return phase ends as relative strings instead of calendar dates, for example:
+
+| Pattern | Example |
+|---------|---------|
+| `Release of X.Y` (+ optional `+ N months`) | Pipelines, VolSync |
+| `X.YGA + N Months` | ODF |
+| `X.Y GA + N months` | Windows Containers, LSO |
+| `GA of X.Y + N Months` | Quay, NUMA Resources, PTP |
+| `with the release of X.Y` | Gatekeeper |
+| `ReleaseX.Y+N month` | cert-manager |
+
+The generator builds a GA-date index from all versions in the API response and resolves these references. If the referenced version is not published yet (or uses a wildcard like `4.N`), the phase is marked **open-ended** (still supported, shown as **active** on the chart). This applies to all API-backed entries.
 
 ### Validating phase_map coverage
 

@@ -6,6 +6,7 @@ for declarative configuration of products, operators, middleware, and RHEL minor
 """
 
 import argparse
+import calendar
 import html as _html
 import json
 import re
@@ -77,6 +78,109 @@ def _parse_api_date(s: str) -> str | None:
             last = calendar.monthrange(yr, mo)[1]
             return f"{yr}-{month}-{last:02d}"
     return None
+
+
+# Phase end tied to a future release not yet in the API — support is still ongoing.
+OPEN_END = "__open__"
+
+# Relative phase-end strings from the Red Hat API (not ISO dates).  Tried in order.
+_RELATIVE_REF_PATTERNS: list[re.Pattern] = [
+    re.compile(r"^Release of (.+?)(?:\s*\+\s*(\d+)\s+months?)?$", re.IGNORECASE),
+    re.compile(r"^with the release of (.+?)(?:\s*\+\s*(\d+)\s+months?)?$", re.IGNORECASE),
+    re.compile(r"^GA of (.+?)(?:\s*\+\s*(\d+)\s+months?)?$", re.IGNORECASE),
+    re.compile(r"^(\d+(?:\.\d+)+)\s*GA(?:\s*\+\s*(\d+)\s+months?)?$", re.IGNORECASE),
+    re.compile(r"^Release(\d+(?:\.\d+)+)(?:\+(\d+)\s*months?)?$", re.IGNORECASE),
+    re.compile(r"^(\d+\.N)\s*GA(?:\s*\+\s*(\d+)\s+months?)?$", re.IGNORECASE),
+]
+
+
+def _add_months(d: date, months: int) -> date:
+    """Return *d* plus *months* calendar months (day clamped to month end)."""
+    m = d.month - 1 + months
+    y = d.year + m // 12
+    m = m % 12 + 1
+    last = calendar.monthrange(y, m)[1]
+    return date(y, m, min(d.day, last))
+
+
+def _parse_relative_ref(s: str) -> tuple[str, int] | None:
+    """Parse relative API phase-end strings into (version_ref, month_offset).
+
+    Handles patterns such as ``Release of 1.23 + 1 month``, ``4.22GA + 3 Months``,
+    ``GA of 3.18 + 3 Months``, ``with the release of 3.20``, and ``Release1.20+1 month``.
+    """
+    text = s.strip()
+    for pat in _RELATIVE_REF_PATTERNS:
+        m = pat.match(text)
+        if m:
+            months = int(m.group(2)) if m.group(2) else 0
+            return m.group(1).strip(), months
+    return None
+
+
+def _lookup_ga(ref_ver: str, ga_index: dict[str, str]) -> str | None:
+    """Resolve a referenced version name against the GA-date index."""
+    ref = ref_ver.strip()
+    if ref in ga_index:
+        return ga_index[ref]
+    # Product-prefixed refs: "Logging 6.6" → "6.6", "Serverless 1.38" → "1.38"
+    if " " in ref:
+        suffix = ref.rsplit(" ", 1)[-1]
+        if suffix in ga_index:
+            return ga_index[suffix]
+    return None
+
+
+def _resolve_api_phase_end(raw: str, ga_index: dict[str, str]) -> str | None:
+    """Resolve a phase ``end_date`` to YYYY-MM-DD, OPEN_END, or None.
+
+    Absolute ISO / prose dates are parsed normally.  Relative strings reference
+    another version's GA (optionally ``+ N months``).  When that version is not
+    published yet — or uses a wildcard (``4.N``) — returns OPEN_END so the phase
+    is treated as ongoing support rather than EOL.
+    """
+    if not raw or not isinstance(raw, str):
+        return None
+    raw = raw.strip()
+    if raw in ("N/A", "Available on request"):
+        return None
+    absolute = _parse_api_date(raw)
+    if absolute:
+        return absolute
+    release = _parse_relative_ref(raw)
+    if release is None:
+        return None
+    ref_ver, months = release
+    ga = _lookup_ga(ref_ver, ga_index)
+    if ga:
+        d = date.fromisoformat(ga)
+        if months:
+            d = _add_months(d, months)
+        return d.isoformat()
+    return OPEN_END
+
+
+def _build_ga_index(
+    product_versions: list,
+    name_transform,
+    min_filter,
+) -> dict[str, str]:
+    """Map version name → GA date (YYYY-MM-DD) from API version entries."""
+    index: dict[str, str] = {}
+    for ver_data in product_versions:
+        raw = ver_data["name"]
+        name = name_transform(raw) if name_transform else raw
+        if not name_transform and " " in raw:
+            continue
+        if not min_filter(name):
+            continue
+        for phase in ver_data.get("phases", []):
+            if phase.get("name") == "General availability":
+                ga = _parse_api_date(phase.get("end_date", ""))
+                if ga:
+                    index[name] = ga
+                break
+    return index
 
 
 def _parse_ocp(v: str) -> tuple:
@@ -436,16 +540,20 @@ def _d(s: str) -> date:
 _SUPPORT_END_KEYS = ("fs_end", "mnt_end", "mnt2_end", "sup_end", "tpc_end")
 
 
-def _api_phases_to_dates(ver_data: dict, phase_map: dict[str, str]) -> dict[str, str]:
+def _api_phases_to_dates(
+    ver_data: dict,
+    phase_map: dict[str, str],
+    ga_index: dict[str, str],
+) -> dict[str, str]:
     """Map API phase end_dates to internal field names via phase_map."""
     dates: dict[str, str] = {}
     for phase in ver_data.get("phases", []):
         field = phase_map.get(phase["name"])
         if not field:
             continue
-        parsed = _parse_api_date(phase.get("end_date", ""))
-        if parsed:
-            dates[field] = parsed
+        resolved = _resolve_api_phase_end(phase.get("end_date", ""), ga_index)
+        if resolved:
+            dates[field] = resolved
     return dates
 
 
@@ -512,6 +620,7 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
     if product is None:
         print(f"API fetch failed for {cfg['title']}, using fallback.", file=sys.stderr)
         return dict(fallback)
+    ga_index = _build_ga_index(product["versions"], name_transform, min_filter)
     result: dict[str, dict] = {}
     for ver_data in product["versions"]:
         raw = ver_data["name"]
@@ -520,8 +629,8 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
             continue
         if not min_filter(name):
             continue
-        dates = _api_phases_to_dates(ver_data, phase_map)
-        if "ga" in dates and any(k in dates for k in _SUPPORT_END_KEYS):
+        dates = _api_phases_to_dates(ver_data, phase_map, ga_index)
+        if "ga" in dates and any(dates.get(k) for k in _SUPPORT_END_KEYS):
             result[name] = dates
     if result:
         print(f"Fetched {len(result)} {cfg['title']} versions from Red Hat API.", file=sys.stderr)
@@ -558,10 +667,17 @@ def build_versions(
         lc = lifecycle[ver]
         ga = _d(lc["ga"])
         segments, prev = [], ga
+        phase_open = False
         for key, field in PHASE_KEYS:
             val = lc.get(field)
             if not val:
                 continue
+            if val == OPEN_END:
+                if prev <= today:
+                    segments.append({"key": key, "start": prev, "end": today})
+                    prev = today
+                phase_open = True
+                break
             end = _d(val)
             if end > prev:
                 segments.append({"key": key, "start": prev, "end": end})
@@ -572,6 +688,10 @@ def build_versions(
         days_left = 0
         for key, field in PHASE_KEYS:
             val = lc.get(field)
+            if val == OPEN_END:
+                phase_key = key
+                phase_open = True
+                break
             if val and today <= _d(val):
                 phase_key = key
                 days_left = (_d(val) - today).days
@@ -583,6 +703,7 @@ def build_versions(
             "version": ver, "ga": ga, "last_end": last_end,
             "segments": segments, "is_eus": is_eus,
             "is_eol": is_eol, "phase_key": phase_key, "days_left": days_left,
+            "phase_open": phase_open,
         })
     return result
 
@@ -761,6 +882,12 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 
         if v["is_eol"]:
             days_badge = '<span style="color:var(--red);font-weight:700;font-size:13px">EOL</span>'
+        elif v.get("phase_open"):
+            ph = PHASES[v["phase_key"]]
+            days_badge = (
+                f'<span style="color:{ph["text"]};font-weight:600;font-size:13px" '
+                f'title="{ph["label"]} — ongoing until the referenced release is published">active</span>'
+            )
         elif v["days_left"] <= 30:
             _eol_date = v["last_end"].isoformat()
             _eol_days = v["days_left"]
@@ -1605,6 +1732,9 @@ def render_svg(versions: list[dict], chart_label: str, width: int = 1400,
 
         if v["is_eol"]:
             els.append(f'<text x="{chart_right + 8}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="12" font-weight="700" fill="{C_EOL}">EOL</text>')
+        elif v.get("phase_open"):
+            ph = PHASES[v["phase_key"]]
+            els.append(f'<text x="{chart_right + 8}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="12" font-weight="600" fill="{ph["text"]}">active</text>')
         else:
             ph = PHASES[v["phase_key"]]
             els.append(f'<text x="{chart_right + 8}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="12" font-weight="600" fill="{ph["text"]}">{v["days_left"]}d</text>')
