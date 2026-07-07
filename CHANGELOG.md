@@ -6,8 +6,18 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ## [Unreleased]
 
+---
+
+## [0.2.2] — 2026-07-07
+
 ### Added
-- **Unofficial-tool disclaimer banner** — slim info bar on the main charts page clarifying this is not a Red Hat product and dates should be verified on access.redhat.com
+- **Unofficial-tool disclaimer sidebar** — fixed left panel (vertically centered while scrolling) on the main charts page with official Red Hat technology icons, per-product lifecycle policy links, and **Contribute** moved from the masthead into the sidebar
+- **Product icons** — Red Hat technology SVGs in `static/icons/products/` used consistently in the sidebar, product nav pills, chart card headers, and Operators/Middleware section headings
+
+### Changed
+- **Product display names** — OCP → OpenShift Container Platform, RHEL → Red Hat Enterprise Linux, AAP → Ansible Automation Platform, Operators → OpenShift Operators (nav, cards, and sidebar)
+- **OpenStack chart titles** — drop `(OSP)` / `(RHOSO)` parenthetical abbreviations; OpenStack products omitted from the official-sources sidebar (charts remain on the page)
+- **RHOAI policy link** — updated to `rhoai-sm/lifecycle` URL
 
 ### Fixed
 - **Relative API phase dates** — resolves `Release of X.Y`, `X.YGA + N months`, `GA of X.Y`, `with the release of X.Y`, and related patterns against other versions' GA dates; when the referenced release is not published yet, the version is shown as still supported (not EOL)

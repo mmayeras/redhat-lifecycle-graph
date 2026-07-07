@@ -166,7 +166,7 @@ products:
   rhoai:
     api_name: "Red Hat OpenShift AI Self-Managed"
     title: "RHOAI Lifecycle"
-    page_url: "https://access.redhat.com/support/policy/updates/rhoai"
+    page_url: "https://access.redhat.com/support/policy/updates/rhoai-sm/lifecycle"
     version_strategy: rhoai
     min_version: "2.19"
     phase_map:
@@ -208,7 +208,7 @@ products:
 
   osp:
     api_name: "Red Hat OpenStack Platform"
-    title: "OpenStack Platform (OSP)"
+    title: "OpenStack Platform"
     page_url: "https://access.redhat.com/support/policy/updates/openstack/platform"
     version_strategy: xy
     min_version: "16.1"
@@ -220,7 +220,7 @@ products:
 
   rhoso:
     api_name: "Red Hat OpenStack Services on OpenShift"
-    title: "OpenStack on OpenShift (RHOSO)"
+    title: "OpenStack on OpenShift"
     page_url: "https://access.redhat.com/support/policy/updates/openstack/platform"
     version_strategy: xy
     min_version: "18.0"
