@@ -1173,7 +1173,18 @@ def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict
 
 
 def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "",
-               static_prefix: str = _STATIC_PREFIX) -> str:
+               static_prefix: str = _STATIC_PREFIX, show_disclaimer: bool = False) -> str:
+    disclaimer_html = ""
+    if show_disclaimer:
+        disclaimer_html = (
+            '<div class="disclaimer-banner" role="note">'
+            '<strong>Unofficial community tool</strong> — not a Red Hat product or publication. '
+            'Lifecycle dates are compiled from public Red Hat sources. '
+            'Confirm on <a href="https://access.redhat.com/product-life-cycles/" '
+            'target="_blank" rel="noopener">access.redhat.com</a> before planning upgrades '
+            'or support decisions.'
+            '</div>'
+        )
     subnav_html = ""
     if nav_links:
         subnav_html = (
@@ -1221,6 +1232,7 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
     </div>
     {masthead_right}
   </header>
+  {disclaimer_html}
   <div class="pf-v6-c-page__main-container">
     <main class="pf-v6-c-page__main" id="main-content">
       {subnav_html}
@@ -1597,7 +1609,7 @@ def render_combined_html(
             + ("\n" + middleware_section if middleware_section else "")
             + ("\n" + operators_section if operators_section else "")
             + "\n" + footer)
-    return _page_wrap(title, body, nav_links, contribute_html)
+    return _page_wrap(title, body, nav_links, contribute_html, show_disclaimer=True)
 
 
 def render_svg(versions: list[dict], chart_label: str, width: int = 1400,
