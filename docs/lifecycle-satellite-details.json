@@ -1,0 +1,2387 @@
+{
+ "product": "satellite",
+ "title": "Red Hat Satellite",
+ "generated": "2026-07-17T13:11:16Z",
+ "minors": [
+  {
+   "minor": "6.19",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.19/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.19.2",
+     "date": "2026-07-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:34365",
+       "synopsis": "Important: Satellite 6.19.2 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34365",
+       "items": [
+        "candlepin: mchange-commons-java: Arbitrary code execution via JNDI dereferencing of crafted objects (CVE-2026-27727)",
+        "yggdrasil-worker-forwarder: Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+        "yggdrasil-worker-forwarder: Go crypto/x509: Certificate validation bypass due to incorrect DNS constraint application (CVE-2026-33810)",
+        "yggdrasil-worker-forwarder: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "yggdrasil-worker-forwarder: Go: Denial of Service vulnerability in certificate chain building (CVE-2026-32280)",
+        "yggdrasil-worker-forwarder: Go crypto/tls: Denial of Service via multiple TLS 1.3 key update messages (CVE-2026-32283)",
+        "yggdrasil-worker-forwarder: Go crypto/x509: Denial of Service via inefficient certificate chain validation (CVE-2026-32281)",
+        "python-pillow: Pillow: Denial of Service via decompression bomb in FITS image processing (CVE-2026-40192)",
+        "python-pyjwt: PyJWT: Authentication bypass due to forged JSON Web Tokens (CVE-2026-48526)",
+        "foreman: foreman: Cross-tenant private SSH key disclosure via taxonomy scoping bypass (CVE-2026-5142)",
+        "foreman: Foreman: Information disclosure via improper validation of nested request parameters (CVE-2026-5138)",
+        "foreman: Foreman: Privilege escalation to administrator-level access via usergroup role assignment manipulation (CVE-2026-5136)",
+        "foreman: Foreman: Unauthorized modification of host configurations via broken access control (CVE-2026-5135)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.19.1",
+     "date": "2026-06-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:22326",
+       "synopsis": "Moderate: Satellite 6.19.1 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2026-06-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:22326",
+       "items": [
+        "dynflow-utils: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "rubygem-katello: Katello: Denial of Service and potential information disclosure via SQL injection (CVE-2026-4324)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.19.0",
+     "date": "2026-05-06",
+     "errata": [
+      {
+       "id": "RHBA-2026:14131",
+       "synopsis": "Important: Satellite 6.19.0 new version release",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-05-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:14131"
+      }
+     ]
+    }
+   ],
+   "unversioned": [],
+   "features": [
+    {
+     "area": "Overview",
+     "items": [
+      {
+       "t": "Advisories You can view all advisories, including security and bug fixes, for major and\u2026",
+       "d": ""
+      },
+      {
+       "t": "Major changes in Red Hat Satellite 6.19 Red Hat Satellite 6.19 introduces the following\u2026",
+       "d": "Red Hat Lightspeed vulnerability service in Satellite (previously a Technology Preview feature) is fully supported. Additionally, the feature receives enhancements, such as improved role-based access control and control over vulnerability analysis on hosts (Section 2.2, \u201cRed Hat Lightspeed\u201d). Satellite provides Puppet functionality through OpenVox\u2026"
+      },
+      {
+       "t": "Red Hat Satellite With Red Hat Satellite, you can deploy, configure, and maintain your\u2026",
+       "d": "Red Hat Satellite provides provisioning, remote management and monitoring of multiple Red Hat Enterprise Linux deployments with a single, centralized tool. Red Hat Satellite Server synchronizes content from the Red Hat Customer Portal and other sources. It provides detailed lifecycle management, user and group role-based access control, integrated\u2026"
+      }
+     ]
+    },
+    {
+     "area": "New features and enhancements",
+     "items": [
+      {
+       "t": "Host provisioning and management Job templates can be cloned with Hammer CLI With this\u2026",
+       "d": "This is a CLI equivalent to the POST /api/job_templates/:id/clone API call. This enhancement streamlines workflows and aligns CLI capabilities with API functionality. Jira:SAT-34616 Cloned templates track the original template ID This update stores the original template reference in the new cloned_from metadata field. The source template is also\u2026"
+      },
+      {
+       "t": "Red Hat Lightspeed Enhanced role-based access control for Red Hat Lightspeed in Satellite\u2026",
+       "d": "edit_advisor view_advisor edit_vulnerability view_vulnerability Additionally, this update adds the ForemanRhCloud Read Only built-in role, which includes the new viewing permissions. The ForemanRHCloud built-in role now includes the new viewing and editing permissions. For more information, see Monitoring hosts by using Red Hat Lightspeed in\u2026"
+      },
+      {
+       "t": "Model Context Protocol Patch hosts and incrementally update, publish, and promote content\u2026",
+       "d": "You can use your AI application connected to the MCP server for Satellite to apply errata to hosts, incrementally update, publish, and promote actions on content views. This improvement streamlines patch management, minimizing the requirement for manual work and multiple steps. For more information, see the following updated documentation: Applying\u2026"
+      },
+      {
+       "t": "Web UI Compact table mode available in Satellite web UI to reduce table padding With this\u2026",
+       "d": "With Compact table mode enabled, Satellite web UI shows table rows with less space between items. As a result, you can view more data on the screen at once. To enable Compact table mode in the Satellite web UI, click the user menu in the top bar and select My Account. Under the UI Preferences tab, select Compact table mode. Jira:SAT-32173 Container\u2026"
+      },
+      {
+       "t": "Installation and upgrade Leapp host upgrades support target version selection When\u2026",
+       "d": "This enhancement provides more control and flexibility in host upgrades. For more information, see Upgrading hosts to next major Enterprise Linux release. Jira:SAT-38080"
+      },
+      {
+       "t": "Content management Satellite transitions to OpenVox 8 Satellite is transitioning to\u2026",
+       "d": "The implementation of OpenVox reduces operational risk and ensures security continuity. To install these packages on the clients, enable the Red Hat Satellite Client 6 OpenVox repository for the Red Hat Enterprise Linux version your clients use. For more information, see Upgrade Puppet agent 7 to OpenVox agent 8 in Upgrading connected Red Hat\u2026"
+      },
+      {
+       "t": "Documentation Source for documentation links in Satellite web UI can be configured for\u2026",
+       "d": "You can use the setting to provide the URL of your instance of the Red Hat Offline Knowledge Portal (RHOKP). When the RHOKP URL is provided, documentation links in the Satellite web UI point to the RHOKP instance rather than the default docs.redhat.com site. To view the Red Hat documentation server URL setting in the Satellite web UI, navigate to\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology Preview features",
+     "items": [
+      {
+       "t": "Model Context Protocol MCP server is available for Satellite (Technology Preview)\u2026",
+       "d": "The MCP server for Satellite is designed for advanced reporting and data analysis that leverages AI capabilities. You can use it to generate dynamic and comprehensive reports from your Satellite inventory. With the container image provided with Satellite 6.19, you can also use MCP to patch hosts and incrementally update, publish, and promote\u2026"
+      },
+      {
+       "t": "Host provisioning and management OpenShift Virtualization plugin (Technology Preview) You\u2026",
+       "d": "For more information, see Provisioning hosts. Jira:SAT-18663[1] Red Hat OpenShift Virtualization compute resource enhancements This update introduces many fixes and improvements for the Red Hat OpenShift Virtualization compute resource, which is a Technology Preview feature. This improves the stability and usability of this feature. Jira:SAT-41368\u2026"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.18",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.18/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.18.7",
+     "date": "2026-07-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:34368",
+       "synopsis": "Important: Satellite 6.18.7 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34368",
+       "items": [
+        "foreman: Unauthorized modification of host configurations via broken access control (CVE-2026-5135)",
+        "foreman: Privilege escalation to administrator-level access via usergroup role assignment manipulation (CVE-2026-5136)",
+        "foreman: Information disclosure via improper validation of nested request parameters (CVE-2026-5138)",
+        "foreman: Cross-tenant private SSH key disclosure via taxonomy scoping bypass (CVE-2026-5142)",
+        "yggdrasil-worker-forwarder: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "python-pillow: Pillow: Denial of Service via decompression bomb in FITS image processing (CVE-2026-40192)",
+        "orphan cleanup triggers CapsuleContent::UpdateContentCounts regardless of automatic_content_count_updates setting (SAT-47204)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.18.6",
+     "date": "2026-06-23",
+     "errata": [
+      {
+       "id": "RHSA-2026:28385",
+       "synopsis": "Important: Satellite 6.18.6 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-23",
+       "url": "https://access.redhat.com/errata/RHSA-2026:28385",
+       "items": [
+        "python3.12-pillow: Pillow: Out-of-bounds Write via Specially Crafted PSD Image (CVE-2026-25990)",
+        "candlepin: com.mchange/c3p0: c3p0: Arbitrary Code Execution via deserialization of crafted objects (CVE-2026-27830)",
+        "dynflow-utils: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.18.5",
+     "date": "2026-05-07",
+     "errata": [
+      {
+       "id": "RHSA-2026:14835",
+       "synopsis": "Important: Satellite 6.18.5 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-05-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:14835",
+       "items": [
+        "python3.12-django: Django: SQL Injection via crafted column aliases (CVE-2026-1287)",
+        "python3.12-django: Django: SQL Injection via RasterField band index parameter (CVE-2026-1207)",
+        "python3.12-django: Django: SQL injection via crafted column aliases in QuerySet.order_by() (CVE-2026-1312)",
+        "python3.12-django: Django: Denial of Service via crafted HTML inputs (CVE-2026-1285)",
+        "python3.12-django: Django: Denial of Service via crafted request with duplicate headers (CVE-2025-14550)",
+        "python3.12-markdown: markdown: Denial of Service via malformed HTML-like sequences (CVE-2025-69534)",
+        "python3.12-pyOpenSSL: pyOpenSSL: DTLS cookie callback buffer overflow (CVE-2026-27459)",
+        "rubygem-activesupport: Active Support: Denial of Service via large scientific notation strings (CVE-2026-33176)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.18.4",
+     "date": "2026-03-26",
+     "errata": [
+      {
+       "id": "RHSA-2026:5968",
+       "synopsis": "Important: Satellite 6.18.4 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-03-26",
+       "url": "https://access.redhat.com/errata/RHSA-2026:5968",
+       "items": [
+        "yggdrasil-worker-forwarder: Memory exhaustion in query parameter parsing in net/url (CVE-2025-61726)",
+        "yggdrasil-worker-forwarder: golang: Denial of Service due to excessive resource consumption via crafted certificate (CVE-2025-61729)",
+        "yggdrasil-worker-forwarder: Unexpected session resumption in crypto/tls (CVE-2025-68121)",
+        "rubygem-rubyipmi: Remote Code Execution in rubyipmi via malicious BMC username (CVE-2026-0980)",
+        "rubygem-foreman_kubevirt: foreman_kubevirt: Man-in-the-Middle due to insecure default SSL verification (CVE-2026-1531)",
+        "foreman: Foreman: Remote Code Execution via command injection in WebSocket proxy (CVE-2026-1961)",
+        "rubygem-katello: Katello: Denial of Service and potential information disclosure via SQL injection (CVE-2026-4324)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.18.3",
+     "date": "2026-02-16",
+     "errata": [
+      {
+       "id": "RHSA-2026:2760",
+       "synopsis": "Important: Satellite 6.18.3 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-02-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:2760",
+       "items": [
+        "python-aiohttp: AIOHTTP HTTP Request/Response Smuggling (CVE-2025-53643)",
+        "python3.12-urllib3: urllib3 vulnerable to decompression-bomb safeguard bypass when following HTTP redirects (streaming API) (CVE-2026-21441)",
+        "python3.12-urllib3: urllib3 Streaming API improperly handles highly compressed data (CVE-2025-66471)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.18.2",
+     "date": "2026-01-07",
+     "errata": [
+      {
+       "id": "RHBA-2026:0260",
+       "synopsis": "Satellite 6.18.2 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-01-07",
+       "url": "https://access.redhat.com/errata/RHBA-2026:0260"
+      }
+     ]
+    },
+    {
+     "version": "6.18.1",
+     "date": "2025-11-20",
+     "errata": [
+      {
+       "id": "RHSA-2025:21886",
+       "synopsis": "Moderate: Satellite 6.18.1 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-11-20",
+       "url": "https://access.redhat.com/errata/RHSA-2025:21886"
+      }
+     ]
+    },
+    {
+     "version": "6.18.0",
+     "date": "2025-11-04",
+     "errata": [
+      {
+       "id": "RHSA-2025:19721",
+       "synopsis": "Important: Satellite 6.18.0 new version release",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-11-04",
+       "url": "https://access.redhat.com/errata/RHSA-2025:19721",
+       "items": [
+        "foreman: OS command injection via ct_location and fcct_location parameters (CVE-2025-10622)"
+       ]
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHBA-2026:14135",
+     "synopsis": "Satellite 6 Client Bug Fix Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-05-06",
+     "url": "https://access.redhat.com/errata/RHBA-2026:14135"
+    },
+    {
+     "id": "RHBA-2026:3457",
+     "synopsis": "Satellite 6 Client Bug Fix Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-02-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:3457"
+    }
+   ],
+   "features": [
+    {
+     "area": "Overview",
+     "items": [
+      {
+       "t": "Advisories You can view all advisories, including security and bug fixes, for major and\u2026",
+       "d": ""
+      },
+      {
+       "t": "Major changes in Red Hat Satellite 6.18 Red Hat Satellite 6.18 introduces the following\u2026",
+       "d": "Red Hat Lightspeed advisor in Satellite is fully supported (SAT-30364). Flatpak content receives enhanced support (SAT-33259, SAT-29736). Rolling content views are available as a convenient method for providing the latest content (SAT-28495). Model Context Protocol (MCP) server for Satellite is available as a Technology Preview (SAT-35530). The Red\u2026"
+      },
+      {
+       "t": "Red Hat Satellite With Red Hat Satellite, you can deploy, configure, and maintain your\u2026",
+       "d": "Red Hat Satellite provides provisioning, remote management and monitoring of multiple Red Hat Enterprise Linux deployments with a single, centralized tool. Red Hat Satellite Server synchronizes content from the Red Hat Customer Portal and other sources. It provides detailed lifecycle management, user and group role-based access control, integrated\u2026"
+      },
+      {
+       "t": "Red Hat Customer Portal Labs Red Hat Customer Portal Labs provide applications to improve\u2026",
+       "d": "The following applications are available for Red Hat Satellite: Red Hat Satellite Upgrade Helper Red Hat Satellite Installation Helper"
+      }
+     ]
+    },
+    {
+     "area": "New features",
+     "items": [
+      {
+       "t": "Host provisioning and management Discovery image updated with RHEL 9.6.0 With this update\u2026",
+       "d": ""
+      },
+      {
+       "t": "Jira:SAT-34778 Ansible check mode in Ansible job templates With this update, you can\u2026",
+       "d": "This streamlines workflows, improves flexibility, and reduces manual configuration, allowing validation of changes before application. Jira:SAT-32223 Satellite validates snippets in provisioning templates With this update, a validation check validates all provisioning templates, including all snippets during host build submission. As a result\u2026"
+      },
+      {
+       "t": "Red Hat Lightspeed Red Hat Lightspeed advisor in Satellite is fully supported Red Hat\u2026",
+       "d": "Jira:SAT-30364[1] Insights rebranded as Red Hat Lightspeed in the Satellite UI In the Satellite UI, Red Hat Insights is rebranded to Red Hat Lightspeed in menus, tabs, and action links. This update ensures the UI reflects the current service name. Jira:SAT-34946[1] Minimal data collection for Red Hat Lightspeed With this update, you can configure\u2026"
+      },
+      {
+       "t": "Web UI Enhanced Red Hat subscription usage tracking and reporting With this update, you\u2026",
+       "d": "Each organization requires its own subscription allocation, which enables multiple organizations to maintain separate subscriptions. Satellite also supports future-dated subscriptions in a manifest, ensuring uninterrupted access to repositories. Additionally, you can track subscription usage through the subscriptions service on the Red Hat Hybrid\u2026"
+      },
+      {
+       "t": "Installation and upgrade Dual-stack networks partially supported With this update\u2026",
+       "d": "You can register hosts, manage content, and patch your hosts in dual-stack networks. Other features are not yet tested and are not supported with this release. Jira:SAT-30039 Satellite web UI links to Red Hat Satellite Upgrade Helper The new Administer > Satellite Upgrade item in the vertical navigation contains a link to the Red Hat Satellite\u2026"
+      },
+      {
+       "t": "Security and authentication Mosquitto follows the system-wide cryptographic policy\u2026",
+       "d": "As a result, you can configure the supported Transport Layer Security (TLS) protocols and ciphers in the system-wide policy and Mosquitto uses them. Jira:SAT-36284"
+      },
+      {
+       "t": "Content management Default mirroring policy settings for repositories With this update\u2026",
+       "d": "Default custom yum repository mirroring policy Default custom non-yum repository mirroring policy When you create a new custom repository, Satellite applies the default value automatically, which removes the need for manual adjustments. Jira:SAT-11875 Increased efficiency in publication tasks of Yum repositories This release improves the pulp-rpm\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology Preview features",
+     "items": [
+      {
+       "t": "Red Hat Lightspeed Red Hat Lightspeed vulnerability in Satellite (Technology Preview) You\u2026",
+       "d": "Total CVEs column on the Hosts index page; the column is hidden by default Vulnerabilities tab on the Host details page a CVE list by navigating to Red Hat Lightspeed > Vulnerability; click the CVE ID to view CVE details. Jira:SAT-30762[1]"
+      },
+      {
+       "t": "Host provisioning and management OpenShift Virtualization plugin (Technology Preview) You\u2026",
+       "d": "For more information, see Provisioning hosts. Jira:SAT-18663[1] Kernel execution template (Technology Preview) You can use the kernel execution (kexec) provisioning template for PXE-less boot methods. For more information, see Discovery in PXE-less mode. Jira:SAT-21012 MCP server is available for Satellite (Technology Preview) Satellite provides a\u2026"
+      },
+      {
+       "t": "Content management Support for Multiple Content View Environments in Hosts and Activation\u2026",
+       "d": "This is done in the Hammer CLI. For more information, see Managing content view environments in Managing content. Jira:SAT-20889"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.17",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.17/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.17.9",
+     "date": "2026-07-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:34366",
+       "synopsis": "Important: Satellite 6.17.9 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34366",
+       "items": [
+        "python-pillow: Pillow: Denial of Service via decompression bomb in FITS image processing (CVE-2026-40192)",
+        "dynflow-utils: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "yggdrasil-worker-forwarder: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "foreman: Foreman: Privilege escalation to administrator-level access via usergroup role assignment manipulation (CVE-2026-5136)",
+        "foreman: Foreman: Information disclosure via improper validation of nested request parameters (CVE-2026-5138)",
+        "foreman: Foreman: Unauthorized modification of host configurations via broken access control (CVE-2026-5135)",
+        "foreman: foreman: Cross-tenant private SSH key disclosure via taxonomy scoping bypass (CVE-2026-5142)",
+        "orphan cleanup triggers CapsuleContent::UpdateContentCounts regardless of automatic_content_count_updates setting (SAT-45923)",
+        "The custom repository fails to sync with the Capsule server, resulting in an error (SAT-44719)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.17.8",
+     "date": "2026-05-07",
+     "errata": [
+      {
+       "id": "RHSA-2026:14873",
+       "synopsis": "Important: Satellite 6.17.8 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-05-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:14873",
+       "items": [
+        "python-pillow: Pillow: Out-of-bounds Write via Specially Crafted PSD Image (CVE-2026-25990)",
+        "candlepin: mchange-commons-java: Arbitrary code execution via JNDI dereferencing of crafted objects (CVE-2026-27727)",
+        "python-markdown: denial of service via malformed HTML-like sequences (CVE-2025-69534)",
+        "python-pyOpenSSL: DTLS cookie callback buffer overflow (CVE-2026-27459)",
+        "rubygem-activesupport: Active Support: Denial of Service via large scientific notation strings (CVE-2026-33176)",
+        "Satellite manifest consumer profile cert and key found in satellite client rhsm cache (SAT-43920)",
+        "All communication should happen only over https during global registration execution (SAT-43921)",
+        "Impossible to generate registration command via REST API in isolated networks managed by external capsules (SAT-43922)",
+        "Errata applicability and Refresh applicability tasks for RHEL 7 hosts runs dnf command. (SAT-43923)",
+        "BIOS info is not populated in All hosts page and in Host Details tab (SAT-43925)",
+        "Executing the 'katello::clean_backend_objects' rake task takes a long time to complete (SAT-43926)",
+        "Puppet fact parser can't create OS entry blocking Satellite leapp upgrades (SAT-43928)",
+        "No repositories available through subscriptions on a cloud-instance host after registering it to Red Hat Satellite using global registration method (SAT-43929)",
+        "Proxy password shown in clear text in the Overview page of Virt-who Configuration (SAT-43931)",
+        "Non-admin users on Satellite with viewer role, unable to see the hostgroup. (SAT-44039)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.17.7",
+     "date": "2026-03-26",
+     "errata": [
+      {
+       "id": "RHSA-2026:5970",
+       "synopsis": "Important: Satellite 6.17.7 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-03-26",
+       "url": "https://access.redhat.com/errata/RHSA-2026:5970",
+       "items": [
+        "python-django: Django: SQL Injection via crafted column aliases (CVE-2026-1287)",
+        "python-django: Django: SQL Injection via RasterField band index parameter (CVE-2026-1207)",
+        "python-django: Django: Denial of Service via crafted HTML inputs (CVE-2026-1285)",
+        "python-django: Django: SQL injection via crafted column aliases in QuerySet.order_by() (CVE-2026-1312)",
+        "python-django: Django: Denial of Service via crafted request with duplicate headers (CVE-2025-14550)",
+        "python-brotli: Brotli decompression bomb DoS in scrapy/scrapy (CVE-2025-6176)",
+        "rubygem-foreman_kubevirt: foreman_kubevirt: Man-in-the-Middle due to insecure default SSL verification (CVE-2026-1531)",
+        "rubygem-fog-kubevirt: fog-kubevirt: Man-in-the-Middle vulnerability due to disabled certificate validation (CVE-2026-1530)",
+        "rubygem-rubyipmi: Red Hat Satellite: Remote Code Execution in rubyipmi via malicious BMC username (CVE-2026-0980)",
+        "foreman: Foreman: Remote Code Execution via command injection in WebSocket proxy (CVE-2026-1961)",
+        "yggdrasil-worker-forwarder: Unexpected session resumption in crypto/tls (CVE-2025-68121)",
+        "Katello: Denial of Service and potential information disclosure via SQL injection (CVE-2026-4324)",
+        "High memory usage of postgres processes on scaled Capsule (SAT-42871)",
+        "AttributeError: 'NoneType' object has no attribute '_artifacts' when running pulpcore-container-handle-image-metadata in the post-upgrade step for Satellite 6.17 (SAT-42873)",
+        "Lifecycle Environment shows 2 Library options (SAT-42881)",
+        "Executing foreman-rake command in the satellite, prints warning \"W, [2025-08-28T14:25:04.030121 #11656] WARN -- : Scoped order is ignored, it's forced to be batch order.\" (SAT-42882)",
+        "Upgrade to Sat 6.16 does not cleanup Postgresql12 which is reported as security risk/vulnerability by the scanners on Sat 6.17 & 6.18. (SAT-43118)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.17.6",
+     "date": "2025-11-05",
+     "errata": [
+      {
+       "id": "RHSA-2026:2764",
+       "synopsis": "Important: Satellite 6.17.6.3 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-02-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:2764",
+       "items": [
+        "python-urllib3: urllib3 Streaming API improperly handles highly compressed data (CVE-2025-66471)",
+        "python-urllib3: urllib3 vulnerable to decompression-bomb safeguard bypass when following HTTP redirects (streaming API) (CVE-2026-21441)",
+        "python-urllib3: urllib3: Unbounded decompression chain leads to resource exhaustion (CVE-2025-66418)",
+        "Satellite upgrade from 6.17.5 to 6.18 failed during Pulpcore database migration due to incompatible versions detected for some of the pulpcore plugins (SAT-41761)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:0389",
+       "synopsis": "Satellite 6.17.6.2 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-01-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:0389"
+      },
+      {
+       "id": "RHSA-2025:21893",
+       "synopsis": "Moderate: Satellite 6.17.6.1 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-11-20",
+       "url": "https://access.redhat.com/errata/RHSA-2025:21893",
+       "items": [
+        "GraphQL API permission bypass leads to information disclosure (CVE-2025-9572)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:19832",
+       "synopsis": "Important: Satellite 6.17.6 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-11-05",
+       "url": "https://access.redhat.com/errata/RHSA-2025:19832",
+       "items": [
+        "rubygem-rack: Unbounded read in `Rack::Request` form parsing can lead to memory exhaustion (CVE-2025-61919)",
+        "rubygem-rack: Rack QueryParser has an unsafe default allowing params_limit bypass via semicolon-separated parameters (CVE-2025-59830)",
+        "foreman: OS command injection via ct_location and fcct_location parameters (CVE-2025-10622)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.17.5",
+     "date": "2025-10-08",
+     "errata": [
+      {
+       "id": "RHSA-2025:17606",
+       "synopsis": "Important: Satellite 6.17.5 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-10-08",
+       "url": "https://access.redhat.com/errata/RHSA-2025:17606",
+       "items": [
+        "puppet-agent: incomplete fix for CVE-2024-49761 (CVE-2025-10990)",
+        "python-django: Django SQL injection in FilteredRelation column aliases (CVE-2025-57833)",
+        "cjson: out-of-bounds access in decode_array_index_from_pointer() in cJSON_Utils.c via crafted JSON pointer strings (CVE-2025-57052)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.17.4",
+     "date": "2025-09-03",
+     "errata": [
+      {
+       "id": "RHBA-2025:15120",
+       "synopsis": "Satellite 6.17.4 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-03",
+       "url": "https://access.redhat.com/errata/RHBA-2025:15120"
+      }
+     ]
+    },
+    {
+     "version": "6.17.3",
+     "date": "2025-08-07",
+     "errata": [
+      {
+       "id": "RHSA-2025:13269",
+       "synopsis": "Moderate: Satellite 6.17.3 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-08-07",
+       "url": "https://access.redhat.com/errata/RHSA-2025:13269",
+       "items": [
+        "puppetserver: REXML ReDoS vulnerability (CVE-2024-49761)",
+        "puppet-agent: REXML ReDoS vulnerability (CVE-2024-49761)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.17.2",
+     "date": "2025-07-10",
+     "errata": [
+      {
+       "id": "RHBA-2025:10810",
+       "synopsis": "Satellite 6.17.2 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-07-10",
+       "url": "https://access.redhat.com/errata/RHBA-2025:10810"
+      }
+     ]
+    },
+    {
+     "version": "6.17.1",
+     "date": "2025-06-12",
+     "errata": [
+      {
+       "id": "RHSA-2025:9022",
+       "synopsis": "Moderate: Satellite 6.17.1 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-06-12",
+       "url": "https://access.redhat.com/errata/RHSA-2025:9022",
+       "items": [
+        "cjson: segmentation violation trigger through the second parameter of function cJSON_SetValuestring at cJSON.c (CVE-2024-31755)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.17.0",
+     "date": "2025-05-06",
+     "errata": [
+      {
+       "id": "RHSA-2025:7604",
+       "synopsis": "Important: Satellite 6.17.0.1 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-05-14",
+       "url": "https://access.redhat.com/errata/RHSA-2025:7604",
+       "items": [
+        "rubygem-rack: Unbounded-Parameter DoS in Rack::QueryParser (CVE-2025-46727)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:4576",
+       "synopsis": "Important: Satellite 6.17.0 release",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-05-06",
+       "url": "https://access.redhat.com/errata/RHSA-2025:4576",
+       "items": [
+        "python-django: Potential denial-of-service vulnerability in IPv6 validation (CVE-2024-56374)",
+        "python-jinja2: Sandbox breakout through indirect reference to format method (CVE-2024-56326)",
+        "rubygem-rack: Local File Inclusion in Rack::Static (CVE-2025-27610)",
+        "rubygem-graphql: Remote code execution when loading a crafted GraphQL schema (CVE-2025-27407)"
+       ]
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2025:17693",
+     "synopsis": "Moderate: Satellite 6 Client Bug Fix Update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2025-10-09",
+     "url": "https://access.redhat.com/errata/RHSA-2025:17693",
+     "items": [
+      "puppet-agent: incomplete fix for CVE-2024-49761 (CVE-2025-10990)"
+     ]
+    },
+    {
+     "id": "RHSA-2025:15371",
+     "synopsis": "Moderate: Satellite 6 Client Bug Fix Update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2025-09-04",
+     "url": "https://access.redhat.com/errata/RHSA-2025:15371",
+     "items": [
+      "puppet-agent: REXML ReDoS vulnerability (CVE-2024-49761)"
+     ]
+    }
+   ],
+   "features": [
+    {
+     "area": "Overview",
+     "items": [
+      {
+       "t": "Advisories You can view all advisories, including security and bug fixes, for major and\u2026",
+       "d": ""
+      },
+      {
+       "t": "Major changes in 6.17 Satellite is no longer supported on RHEL 8 (SAT-29890)",
+       "d": "Satellite now supports RHEL 10 hosts (SAT-24693). Multiple content view environments in hosts and activation keys (SAT-20889). Deployment and operation in IPv6-only networks (SAT-19573). Secure Boot provisioning (SAT-23035). Invalidating JSON Web Tokens (JWT) for global registration (SAT-27385). Registering and managing image mode hosts\u2026"
+      },
+      {
+       "t": "Red Hat Satellite Red Hat Satellite is a system management solution that enables you to\u2026",
+       "d": "Red Hat Satellite provides provisioning, remote management and monitoring of multiple Red Hat Enterprise Linux deployments with a single, centralized tool. Red Hat Satellite Server synchronizes content from the Red Hat Customer Portal and other sources. It provides detailed lifecycle management, user and group role-based access control, integrated\u2026"
+      },
+      {
+       "t": "Red Hat Customer Portal Labs Red Hat Customer Portal Labs provide applications to improve\u2026",
+       "d": "The following applications are available for Red Hat Satellite: Red Hat Satellite Upgrade Helper Red Hat Satellite Installation Helper"
+      }
+     ]
+    },
+    {
+     "area": "New features",
+     "items": [
+      {
+       "t": "Host provisioning and management Image mode host registration and management You can now\u2026",
+       "d": "The Booted Container Images page provides an overview of the container images that hosts boot from, supporting management of image mode hosts. Jira:SAT-27153 Support for RHEL 10 hosts has been added You can now manage RHEL 10 hosts with Satellite. Jira:SAT-24693 Remote execution in pull mode is now compatible with clients running yggdrasil versions\u2026"
+      },
+      {
+       "t": "The parameter defines the URL of your Ansible Automation Platform, including the required\u2026",
+       "d": "It replaces the previously used ansible_tower_fqdn parameter. By default, the API path is set to /api/controller/v2. Note that if you are using Ansible Automation Platform 2.4 or earlier, you must update the API path manually to /api/v2. To confirm which Ansible Automation Platform version you are using, check the API endpoints on your Ansible\u2026"
+      },
+      {
+       "t": "Web UI Red Hat Offline Knowledge Portal is now available Satellite now offers Red Hat\u2026",
+       "d": "This capability enables users in air-gapped or disconnected environments to access an offline version of Red Hat\u2019s support knowledge and documentation alongside the existing content in Satellite. For more information, see the Red Hat Offline Knowledge Portal documentation. Jira:SAT-31166 Option to automatically update the default content HTTP proxy\u2026"
+      },
+      {
+       "t": "Installation and upgrade N-2 Capsule support You can now use Capsules that are up to two\u2026",
+       "d": ""
+      },
+      {
+       "t": "This allows you to upgrade your Capsules of versions 6.16 and 6.15 separately from the\u2026",
+       "d": "Note that N-2 Capsule support is only available with Satellite 6.17 and later versions. Jira:SAT-21968[1] Red Hat Satellite Installation Helper app is now available on the Red Hat Customer Portal With the Red Hat Satellite Installation Helper application, you can generate interactive customized instructions for installing a Satellite Server or\u2026"
+      },
+      {
+       "t": "Content management Flatpak support for applications Satellite now supports Flatpak\u2026",
+       "d": "Flatpak repositories function similarly to other content repositories in Satellite allowing you to synchronize them, manage access permissions, and assign repositories to specific lifecycle environments to control application availability. Managing Flatpak repositories is done using Hammer CLI. After you mirror a repository, you can manage it in\u2026"
+      },
+      {
+       "t": "Server administration Collecting usage metrics to understand how customers use Satellite\u2026",
+       "d": ""
+      }
+     ]
+    },
+    {
+     "area": "Technology previews",
+     "items": [
+      {
+       "t": "Web UI Support for Multiple Content View Environments in Hosts and Activation Keys in\u2026",
+       "d": "This is done in the Hammer CLI. For more information, see Managing content view environments in Managing content. Jira:SAT-20889 Enable Insights advisor in Satellite recommendations without connecting to console.redhat.com Satellite includes an installation option for enabling Insights advisor in Satellite recommendation capabilities without\u2026"
+      },
+      {
+       "t": "Host provisioning and management Kernel execution template (Technology Preview) You can\u2026",
+       "d": "Jira:SAT-21012"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.16",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.16/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.16.10",
+     "date": "2026-07-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:34367",
+       "synopsis": "Important: Satellite 6.16.10 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34367",
+       "items": [
+        "satellite-capsule:el8/foreman: Foreman: Privilege escalation to administrator-level access via usergroup role assignment manipulation (CVE-2026-5136)",
+        "foreman: Foreman: Privilege escalation to administrator-level access via usergroup role assignment manipulation (CVE-2026-5136)",
+        "foreman: Foreman: Information disclosure via improper validation of nested request parameters (CVE-2026-5138)",
+        "satellite-capsule:el8/foreman: Foreman: Information disclosure via improper validation of nested request parameters (CVE-2026-5138)",
+        "satellite-capsule:el8/foreman: Foreman: Unauthorized modification of host configurations via broken access control (CVE-2026-5135)",
+        "foreman: Foreman: Unauthorized modification of host configurations via broken access control (CVE-2026-5135)",
+        "foreman: foreman: Cross-tenant private SSH key disclosure via taxonomy scoping bypass (CVE-2026-5142)",
+        "satellite-capsule:el8/foreman: foreman: Cross-tenant private SSH key disclosure via taxonomy scoping bypass (CVE-2026-5142)",
+        "foreman-maintain from eus repository not enabling proper repos (SAT-47220)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.9",
+     "date": "2026-06-18",
+     "errata": [
+      {
+       "id": "RHSA-2026:27076",
+       "synopsis": "Important: Satellite 6.16.9 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-18",
+       "url": "https://access.redhat.com/errata/RHSA-2026:27076",
+       "items": [
+        "python-pillow: Pillow: Denial of Service via decompression bomb in FITS image processing (CVE-2026-40192)",
+        "yggdrasil-worker-forwarder: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "dynflow-utils: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "satellite:el8/yggdrasil-worker-forwarder: gRPC-Go: Authorization bypass due to improper HTTP/2 path validation (CVE-2026-33186)",
+        "yggdrasil-worker-forwarder: gRPC-Go: Authorization bypass due to improper HTTP/2 path validation (CVE-2026-33186)",
+        "yggdrasil-worker-forwarder: Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+        "satellite:el8/yggdrasil-worker-forwarder: Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+        "satellite:el8/yggdrasil-worker-forwarder: golang: Denial of Service due to excessive resource consumption via crafted certificate (CVE-2025-61729)",
+        "satellite:el8/yggdrasil-worker-forwarder: Go crypto/tls: Denial of Service via multiple TLS 1.3 key update messages (CVE-2026-32283)",
+        "yggdrasil-worker-forwarder: Go crypto/tls: Denial of Service via multiple TLS 1.3 key update messages  (CVE-2026-32283)",
+        "yggdrasil-worker-forwarder: Go: Denial of Service vulnerability in certificate chain building (CVE-2026-32280)",
+        "satellite:el8/yggdrasil-worker-forwarder: Go: Denial of Service vulnerability in certificate chain building (CVE-2026-32280)",
+        "satellite:el8/yggdrasil-worker-forwarder: Go crypto/x509: Denial of Service via inefficient certificate chain validation (CVE-2026-32281)",
+        "yggdrasil-worker-forwarder: Go crypto/x509: Denial of Service via inefficient certificate chain validation (CVE-2026-32281)",
+        "orphan cleanup triggers CapsuleContent::UpdateContentCounts regardless of automatic_content_count_updates setting (SAT-45906)",
+        "The custom repository fails to sync with the Capsule server, resulting in an error (SAT-44720)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.8",
+     "date": "2026-05-07",
+     "errata": [
+      {
+       "id": "RHSA-2026:14874",
+       "synopsis": "Important: Satellite 6.16.8 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-05-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:14874",
+       "items": [
+        "python-pillow: Pillow: Out-of-bounds Write via Specially Crafted PSD Image (CVE-2026-25990)",
+        "candlepin: mchange-commons-java: Arbitrary code execution via JNDI dereferencing of crafted objects (CVE-2026-27727)",
+        "python-markdown: denial of service via malformed HTML-like sequences (CVE-2025-69534)",
+        "python-pyOpenSSL: DTLS cookie callback buffer overflow (CVE-2026-27459)",
+        "rubygem-activesupport: Active Support: Denial of Service via large scientific notation strings (CVE-2026-33176)",
+        "Satellite manifest consumer profile cert and key found in satellite client rhsm cache (SAT-43030)",
+        "All communication should happen only over https during global registration execution (SAT-44031)",
+        "Impossible to generate registration command via REST API in isolated networks managed by external capsules (SAT-44032)",
+        "Executing the 'katello::clean_backend_objects' rake task takes a long time to complete (SAT-44033)",
+        "Puppet fact parser can't create OS entry blocking Satellite leapp upgrades (SAT-44035)",
+        "No repositories available through subscriptions on a cloud-instance host after registering it to Red Hat Satellite using global registration method (SAT-44036)",
+        "Proxy password shown in clear text in the Overview page of Virt-who Configuration (SAT-43834)",
+        "Non-admin users on Satellite with viewer role, unable to see the hostgroup. (SAT-44034)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.7",
+     "date": "2026-03-26",
+     "errata": [
+      {
+       "id": "RHSA-2026:5971",
+       "synopsis": "Important: Satellite 6.16.7 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-03-26",
+       "url": "https://access.redhat.com/errata/RHSA-2026:5971",
+       "items": [
+        "High memory usage of postgres processes on scaled Capsule (SAT-42870)",
+        "Lifecycle Environment shows 2 Library options (SAT-42880)",
+        "Executing foreman-rake command in the satellite, prints warning \"W, [2025-08-28T14:25:04.030121 #11656] WARN -- : Scoped order is ignored, it's forced to be batch order.\" (SAT-42883)",
+        "Add EUS information on EOL banner for Satellite 6.16 (SAT-43138)",
+        "python-django: Django: SQL Injection via crafted column aliases (CVE-2026-1287)",
+        "python-django: Django: SQL Injection via RasterField band index parameter (CVE-2026-1207)",
+        "python-django: Django: Denial of Service via crafted HTML inputs (CVE-2026-1285)",
+        "python-django: Django: SQL injection via crafted column aliases in QuerySet.order_by() (CVE-2026-1312)",
+        "python-django: Django: Denial of Service via crafted request with duplicate headers (CVE-2025-14550)",
+        "python-brotli: Brotli decompression bomb DoS in scrapy/scrapy (CVE-2025-6176)",
+        "rubygem-foreman_kubevirt: foreman_kubevirt: Man-in-the-Middle due to insecure default SSL verification (CVE-2026-1531)",
+        "rubygem-fog-kubevirt: fog-kubevirt: Man-in-the-Middle vulnerability due to disabled certificate validation (CVE-2026-1530)",
+        "rubygem-rubyipmi: Red Hat Satellite: Remote Code Execution in rubyipmi via malicious BMC username (CVE-2026-0980)",
+        "yggdrasil-worker-forwarder: Unexpected session resumption in crypto/tls (CVE-2025-68121)",
+        "foreman: Remote Code Execution via command injection in WebSocket proxy (CVE-2026-1961)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.6",
+     "date": "2026-01-08",
+     "errata": [
+      {
+       "id": "RHSA-2026:2765",
+       "synopsis": "Important: Satellite 6.16.6.1 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-02-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:2765",
+       "items": [
+        "Clean duplicate erratum packages before bigint migration (6.16) (SAT-41984)",
+        "python-urllib3: urllib3: Unbounded decompression chain leads to resource exhaustion (CVE-2025-66418)",
+        "python-urllib3: urllib3 vulnerable to decompression-bomb safeguard bypass when following HTTP redirects (streaming API) (CVE-2026-21441)",
+        "python-urllib3: urllib3 Streaming API improperly handles highly compressed data (CVE-2025-66471)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:0390",
+       "synopsis": "Satellite 6.16.6 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-01-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:0390",
+       "items": [
+        "Can't register systems with bond interface named bond-<something> AND a tagged vlan on the same interface (SAT-40670)",
+        "Repetitive recalculation of Katello::RepositoryTypeManager.enabled_repository_types makes katello:correct_repositories very slow (SAT-41005)",
+        "ERROR: nextval: reached maximum value of sequence \"katello_erratum_packages_id_seq\" during concurrent repository sync plan executions (SAT-41007)",
+        "Can't delete hosts due to type null host statuses (SAT-41008)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.5",
+     "date": "2025-05-05",
+     "errata": [
+      {
+       "id": "RHBA-2025:23136",
+       "synopsis": "Satellite 6.16.5.7 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-12-11",
+       "url": "https://access.redhat.com/errata/RHBA-2025:23136",
+       "items": [
+        "EOL banner has a broken link to Red Hat Satellite Upgrade Helper (SAT-40672).",
+        "Upgrade to 6.16 breaks webui due to the release of RHBA-2025:22621 (SAT-41037)."
+       ]
+      },
+      {
+       "id": "RHSA-2025:21894",
+       "synopsis": "Moderate: Satellite 6.16.5.6 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-11-20",
+       "url": "https://access.redhat.com/errata/RHSA-2025:21894",
+       "items": [
+        "GraphQL API permission bypass leads to information disclosure (CVE-2025-9572)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:19855",
+       "synopsis": "Important: Satellite 6.16.5.5 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2025:19855",
+       "items": [
+        "Host registration shows no errors even when built submission fails at the end of Global Registration process",
+        "rubygem-rack: Unbounded read in `Rack::Request` form parsing can lead to memory exhaustion (CVE-2025-61919)",
+        "rubygem-rack: Rack QueryParser has an unsafe default allowing params_limit bypass via semicolon-separated parameters (CVE-2025-59830)",
+        "foreman: OS command injection via ct_location and fcct_location parameters (CVE-2025-10622)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:17613",
+       "synopsis": "Important: Satellite 6.16.5.4 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-10-08",
+       "url": "https://access.redhat.com/errata/RHSA-2025:17613",
+       "items": [
+        "cjson: out-of-bounds access in decode_array_index_from_pointer() in cJSON_Utils.c via crafted JSON pointer strings (CVE-2025-57052)",
+        "python-django: Django SQL injection in FilteredRelation column aliases (CVE-2025-57833)",
+        "puppet-agent: incomplete fix for CVE-2024-49761 (CVE-2025-10990)",
+        "Fail to upgrade to Satellite 6.16 when Satellite has more than 520 users (SAT-38406)",
+        "Ensure host key cleanup of /usr/share/foreman-proxy/.ssh/known_hosts on the Satellite (or Capsule) server when first remote execution is using Ansible (SAT-38408)",
+        "Installer loads plugins from /opt/puppetlabs/puppet/cache/lib/, breaking PostgreSQL config updates and thus upgrades from 6.15 to 6.16 (max_connections is not updated) (SAT-38410)",
+        "Second container push set manifest size fields to -1, which breaks bootc (SAT-38411)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:15124",
+       "synopsis": "Moderate: Satellite 6.16.5.3 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-09-03",
+       "url": "https://access.redhat.com/errata/RHSA-2025:15124",
+       "items": [
+        "puppet-agent: REXML ReDoS vulnerability (CVE-2024-49761)",
+        "puppetserver: REXML ReDoS vulnerability (CVE-2024-49761)",
+        "After upgrading from RHEL8 to RHEL9, the webhooks stopped working (SAT-37580)",
+        "foreman-rake rh_cloud:hybridcloud_register task is broken (SAT-37586)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:9203",
+       "synopsis": "Moderate: Satellite 6.16.5.2 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-06-17",
+       "url": "https://access.redhat.com/errata/RHSA-2025:9203",
+       "items": [
+        "cjson: segmentation violation trigger through the second parameter of function cJSON_SetValuestring at cJSON.c (CVE-2024-31755)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:7605",
+       "synopsis": "Important: Satellite 6.16.5.1 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-05-14",
+       "url": "https://access.redhat.com/errata/RHSA-2025:7605",
+       "items": [
+        "rubygem-rack: Unbounded-Parameter DoS in Rack::QueryParser (CVE-2025-46727)"
+       ]
+      },
+      {
+       "id": "RHBA-2025:4472",
+       "synopsis": "Satellite 6.16.5 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-05-05",
+       "url": "https://access.redhat.com/errata/RHBA-2025:4472"
+      }
+     ]
+    },
+    {
+     "version": "6.16.4",
+     "date": "2025-04-01",
+     "errata": [
+      {
+       "id": "RHSA-2025:3490",
+       "synopsis": "Important: Satellite 6.16.4 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-04-01",
+       "url": "https://access.redhat.com/errata/RHSA-2025:3490",
+       "items": [
+        "rubygem-rack: Local File Inclusion in Rack::Static (CVE-2025-27610)",
+        "rubygem-graphql: Remote code execution when loading a crafted GraphQL schema (CVE-2025-27407)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.3",
+     "date": "2025-03-05",
+     "errata": [
+      {
+       "id": "RHSA-2025:2399",
+       "synopsis": "Moderate: Satellite 6.16.3 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-03-05",
+       "url": "https://access.redhat.com/errata/RHSA-2025:2399",
+       "items": [
+        "python-jinja2: Jinja has a sandbox breakout through indirect reference to format method (CVE-2024-56326)",
+        "python-django: potential denial-of-service vulnerability in IPv6 validation (CVE-2024-56374)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.2",
+     "date": "2025-02-04",
+     "errata": [
+      {
+       "id": "RHSA-2025:1019",
+       "synopsis": "Moderate: Satellite 6.16.2 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-02-04",
+       "url": "https://access.redhat.com/errata/RHSA-2025:1019",
+       "items": [
+        "python-grpcio: Denial of Service through Data corruption in gRPC-C++ (CVE-2024-11407)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.1",
+     "date": "2024-12-19",
+     "errata": [
+      {
+       "id": "RHSA-2024:11574",
+       "synopsis": "Moderate: Satellite 6.16.1 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-12-19",
+       "url": "https://access.redhat.com/errata/RHSA-2024:11574",
+       "items": [
+        "aiohttp: aiohttp vulnerable to request smuggling due to incorrect parsing of chunk extensions (CVE-2024-52304)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.16.0",
+     "date": "2024-11-05",
+     "errata": [
+      {
+       "id": "RHBA-2024:9968",
+       "synopsis": "Satellite 6.16.0.1 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-19",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9968"
+      },
+      {
+       "id": "RHSA-2024:8906",
+       "synopsis": "Critical: Satellite 6.16.0 release",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2024-11-05",
+       "url": "https://access.redhat.com/errata/RHSA-2024:8906",
+       "items": [
+        "mosquitto: sending specific sequences of packets may trigger memory leak (CVE-2024-8376)",
+        "micromatch: vulnerable to Regular Expression Denial of Service (CVE-2024-4067) urllib3: proxy-authorization request header is not stripped during cross-origin redirects (CVE-2024-37891)",
+        "node-tar: denial of service while parsing a tar file due to lack of folders depth validation (CVE-2024-28863)",
+        "python-django: Potential denial-of-service in django.utils.html.urlize() (CVE-2024-38875)",
+        "python-django: Username enumeration through timing difference for users with unusable passwords (CVE-2024-39329)",
+        "python-django: Potential directory-traversal in django.core.files.storage.Storage.save() (CVE-2024-39330)",
+        "python-django: Potential denial-of-service in django.utils.translation.get_supported_language_variant() (CVE-2024-39614)",
+        "github.com/jaraco/zipp: Denial of Service (infinite loop) via crafted zip file in jaraco/zipp (CVE-2024-5569)",
+        "puppet-foreman: An authentication bypass vulnerability exists in Foreman (CVE-2024-7012)",
+        "python-django: Potential SQL injection in QuerySet.values() and values_list() (CVE-2024-42005)",
+        "grpc: client communicating with a HTTP/2 proxy can poison the HPACK table between the proxy and the backend (CVE-2024-7246)",
+        "puppet-pulpcore: An authentication bypass vulnerability exists in pulpcore (CVE-2024-7923)",
+        "foreman: Read-only access to entire DB from templates (CVE-2024-8553)"
+       ]
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2025:7624",
+     "synopsis": "Moderate: Satellite 6 Client Bug Fix Update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2025-05-14",
+     "url": "https://access.redhat.com/errata/RHSA-2025:7624",
+     "items": [
+      "foreman_ygg_worker: net/http: sensitive headers incorrectly sent after cross-domain redirect (CVE-2024-45336)",
+      "foreman_ygg_worker: Golang FIPS zeroed buffer (CVE-2024-9355)",
+      "yggdrasil: net/http: sensitive headers incorrectly sent after cross-domain redirect (CVE-2024-45336)"
+     ]
+    }
+   ],
+   "features": [
+    {
+     "area": "Overview",
+     "items": [
+      {
+       "t": "Advisories You can view all advisories, including security and bug fixes, for major and\u2026",
+       "d": ""
+      },
+      {
+       "t": "Major changes in 6.16 Web UI OpenSCAP compliance remediation wizard (SAT-23240)",
+       "d": "Extended All Hosts page and redesigned Job details page, as Technology Previews (SAT-20041, SAT-18427). Installation and upgrade Upgrading to RHEL 9 is documented in See Upgrading Red Hat Enterprise Linux on Satellite or Capsule in Upgrading connected Red Hat Satellite to"
+      },
+      {
+       "t": "satellite-maintain update command for minor releases (SAT-21970)",
+       "d": "Puppet server 8 support (SAT-24140). PostgreSQL 13 support (SAT-23369, SAT-24414). Online backup replaces snapshot backup (SAT-20955). Capsule port 8443 disabled by default (SAT-24522). Content management Simple Content Access replaces entitlement-based subscription management (SAT-27936). Hammer command repairs corrupted Capsule content\u2026"
+      },
+      {
+       "t": "Red Hat Satellite Red Hat Satellite is a system management solution that enables you to\u2026",
+       "d": "Red Hat Satellite provides provisioning, remote management and monitoring of multiple Red Hat Enterprise Linux deployments with a single, centralized tool. Red Hat Satellite Server synchronizes content from the Red Hat Customer Portal and other sources. It provides detailed lifecycle management, user and group role-based access control, integrated\u2026"
+      },
+      {
+       "t": "Red Hat Customer Portal Labs Red Hat Customer Portal Labs provide applications to improve\u2026",
+       "d": "The following applications are available for Red Hat Satellite: Red Hat Satellite Upgrade Helper"
+      }
+     ]
+    },
+    {
+     "area": "New features",
+     "items": [
+      {
+       "t": "Web UI Compliance remediation wizard Previously, you had to remediate OpenSCAP compliance\u2026",
+       "d": "With this update, Satellite web UI provides a compliance remediation wizard that you can use to remediate OpenSCAP compliance failures. For more information, see Remediating compliance failures in Managing Security Compliance. Jira:SAT-23240[1] Manifest expiration warnings and extension of expiration date Users are now notified in the web UI before\u2026"
+      },
+      {
+       "t": "Installation and upgrade Extended Update Support available for Red Hat Satellite 6.16 The\u2026",
+       "d": "This offering ensures long-term stability and simplifies upgrade planning. For more information, see link: Red Hat Satellite Extended Update Support (EUS) Offering Overview + FAQ Jira:SAT-45362 RHEL 6 ELS Long-Life support added on Satellite 6.16 with limited functionality With this release, limited support for Red Hat Enterprise Linux 6 clients\u2026"
+      },
+      {
+       "t": "As a result, Satellite 6.16 supports all standard operations like host provisioning\u2026",
+       "d": "Ansible execution, tracer, and pull-mode functionalities are not supported. Jira:SAT-40438 satellite-maintain update command for minor releases The satellite-maintain update command replaces satellite-maintain upgrade with --target-version for updating minor (z-stream) versions. As the upgrade command is now dedicated to major upgrades, the\u2026"
+      },
+      {
+       "t": "Content management Content repair command for Capsule To repair all content on Capsule\u2026",
+       "d": "$ hammer capsule content verify-checksum \\ --id My_Capsule_ID Jira:SAT-16330[1] Publishing content views during repository synchronization is blocked to prevent incorrect metadata An error message is displayed if you try to publish a content view while a child repository is performing one of the following actions: Sync Upload content Remove content\u2026"
+      },
+      {
+       "t": "Host provisioning and management Provisioning templates for reconfiguring a self-signed CA\u2026",
+       "d": "You can use the templates to refresh your self-signed CA certificate on hosts when you renew the CA certificate on Satellite Server. You can use the following public provisioning templates: foreman_ca_refresh This template renders a shell script. You can use this template to execute the script on hosts, for example by using remote execution, to\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology previews",
+     "items": [
+      {
+       "t": "Web UI All Hosts page The new All Hosts page has the following features",
+       "d": "Bulk actions: You can now select one or more hosts and use the options menu to perform actions such as such as Build management, Change host group, Delete, Manage content, Packages (install/remove/upgrade), Errata, Content source, and Content view environments to change the content view and lifecycle environment of hosts. Single-host actions: You\u2026"
+      },
+      {
+       "t": "Host provisioning and management OpenShift Virtualization plugin You can provision virtual\u2026",
+       "d": "Jira:SAT-18663[1] Kernel execution template You can use the kernel execution (kexec) provisioning template for PXE-less boot methods. Jira:SAT-21012"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.15",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.15/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.15.5",
+     "date": "2024-12-04",
+     "errata": [
+      {
+       "id": "RHBA-2025:22621",
+       "synopsis": "Satellite 6.15.5.8 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-12-02",
+       "url": "https://access.redhat.com/errata/RHBA-2025:22621",
+       "items": [
+        "Satellite Banner gives a 404 error when clicking on the Upgrade link (JIRA:SAT-40198)."
+       ]
+      },
+      {
+       "id": "RHSA-2025:21897",
+       "synopsis": "Moderate: Satellite 6.15.5.7 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-11-20",
+       "url": "https://access.redhat.com/errata/RHSA-2025:21897",
+       "items": [
+        "foreman: Satellite: GraphQL API permission bypass leads to information disclosure (CVE-2025-9572)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:19856",
+       "synopsis": "Important: Satellite 6.15.5.6 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2025:19856",
+       "items": [
+        "rubygem-rack: Rack QueryParser has an unsafe default allowing params_limit bypass via semicolon-separated parameters (CVE-2025-59830)",
+        "rubygem-rack: Unbounded read in `Rack::Request` form parsing can lead to memory exhaustion (CVE-2025-61919)",
+        "foreman: OS command injection via ct_location and fcct_location parameters (CVE-2025-10622)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:17614",
+       "synopsis": "Important: Satellite 6.15.5.5 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-10-08",
+       "url": "https://access.redhat.com/errata/RHSA-2025:17614",
+       "items": [
+        "python-django: Django SQL injection in FilteredRelation column aliases (CVE-2025-57833)",
+        "cjson: out-of-bounds access in decode_array_index_from_pointer() in cJSON_Utils.c via crafted JSON pointer strings (CVE-2025-57052)",
+        "puppet-agent: REXML ReDoS vulnerability (CVE-2024-49761)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:15643",
+       "synopsis": "Important: Satellite 6.15.5.4 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-09-10",
+       "url": "https://access.redhat.com/errata/RHSA-2025:15643",
+       "items": [
+        "Jetty: Gzip Request Body Buffer Corruption (CVE-2024-13009)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:9838",
+       "synopsis": "Moderate: Satellite 6.15.5.3 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-06-26",
+       "url": "https://access.redhat.com/errata/RHSA-2025:9838",
+       "items": [
+        "cjson: segmentation violation in function cJSON_InsertItemInArray (CVE-2023-50471)",
+        "cjson: segmentation violation in function cJSON_SetValuestring (CVE-2023-50472)",
+        "cjson: segmentation violation trigger through the second parameter of function cJSON_SetValuestring at cJSON.c (CVE-2024-31755)",
+        "rubygem-rack: Unbounded-Parameter DoS in Rack::QueryParser (CVE-2025-46727)",
+        "python-sqlparse: sqlparse: parsing heavily nested list leads to denial of service (CVE-2024-4340)"
+       ]
+      },
+      {
+       "id": "RHSA-2025:3491",
+       "synopsis": "Important: Satellite 6.15.5.2 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-04-01",
+       "url": "https://access.redhat.com/errata/RHSA-2025:3491",
+       "items": [
+        "rubygem-graphql: Remote code execution when loading a crafted GraphQL schema (CVE-2025-27407)",
+        "rubygem-rack: Local File Inclusion in Rack::Static (CVE-2025-27610)",
+        "python-jinja2: Jinja has a sandbox breakout through malicious filenames (CVE-2024-56201)"
+       ]
+      },
+      {
+       "id": "RHBA-2024:11124",
+       "synopsis": "Satellite 6.15.5.1 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-12-16",
+       "url": "https://access.redhat.com/errata/RHBA-2024:11124"
+      },
+      {
+       "id": "RHSA-2024:10806",
+       "synopsis": "Moderate: Satellite 6.15.5 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-12-04",
+       "url": "https://access.redhat.com/errata/RHSA-2024:10806",
+       "items": [
+        "rubygem-activestorage: Possible Sensitive Session Information Leak in Active Storage (CVE-2024-26144)",
+        "rubygem-rack: Possible Denial of Service Vulnerability in Rack Header Parsing (CVE-2024-26146)",
+        "rubygem-rack: Possible DoS Vulnerability with Range Header in Rack (CVE-2024-26141)",
+        "rubygem-rack: Denial of Service Vulnerability in Rack Content-Type Parsing (CVE-2024-25126)",
+        "python-ecdsa: vulnerable to the Minerva attack (CVE-2024-23342)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.15.4",
+     "date": "2024-10-10",
+     "errata": [
+      {
+       "id": "RHSA-2024:8719",
+       "synopsis": "Important: Satellite 6.15.4.2 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-10-31",
+       "url": "https://access.redhat.com/errata/RHSA-2024:8719",
+       "items": [
+        "mosquitto: sending specific sequences of packets may trigger memory leak (CVE-2024-8376)",
+        "foreman: Read-only access to entire DB from templates (CVE-2024-8553)"
+       ]
+      },
+      {
+       "id": "RHBA-2024:8139",
+       "synopsis": "Satellite 6.15.4.1 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-10-15",
+       "url": "https://access.redhat.com/errata/RHBA-2024:8139"
+      },
+      {
+       "id": "RHSA-2024:7987",
+       "synopsis": "Moderate: Satellite 6.15.4 Security Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-10-10",
+       "url": "https://access.redhat.com/errata/RHSA-2024:7987",
+       "items": [
+        "python-gunicorn: HTTP Request Smuggling due to improper validation of Transfer-Encoding headers (CVE-2024-1135)",
+        "golang: net/netip: Unexpected behavior from Is methods for IPv4-mapped IPv6 addresses (CVE-2024-24790)",
+        "python-cryptography: NULL pointer dereference with pkcs12.serialize_key_and_certificates when called with a non-matching certificate and private key and an hmac_hash override (CVE-2024-26130)",
+        "python-django: Potential denial-of-service vulnerability in django.utils.html.urlize() and AdminURLFieldWidget (CVE-2024-41991)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.15.3",
+     "date": "2024-08-20",
+     "errata": [
+      {
+       "id": "RHSA-2024:6335",
+       "synopsis": "Important: Satellite 6.15.3.1 Security Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-09-04",
+       "url": "https://access.redhat.com/errata/RHSA-2024:6335"
+      },
+      {
+       "id": "RHSA-2024:5662",
+       "synopsis": "Moderate: Satellite 6.15.3 Security Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-08-20",
+       "url": "https://access.redhat.com/errata/RHSA-2024:5662"
+      }
+     ]
+    },
+    {
+     "version": "6.15.2",
+     "date": "2024-07-17",
+     "errata": [
+      {
+       "id": "RHBA-2024:4589",
+       "synopsis": "Satellite 6.15.2 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-07-17",
+       "url": "https://access.redhat.com/errata/RHBA-2024:4589"
+      }
+     ]
+    },
+    {
+     "version": "6.15.1",
+     "date": "2024-06-11",
+     "errata": [
+      {
+       "id": "RHBA-2024:4039",
+       "synopsis": "Satellite 6.15.1.1 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-06-20",
+       "url": "https://access.redhat.com/errata/RHBA-2024:4039"
+      },
+      {
+       "id": "RHBA-2024:3799",
+       "synopsis": "Satellite 6.15.1 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-06-11",
+       "url": "https://access.redhat.com/errata/RHBA-2024:3799"
+      }
+     ]
+    },
+    {
+     "version": "6.15.0",
+     "date": "2024-04-23",
+     "errata": [
+      {
+       "id": "RHSA-2024:2010",
+       "synopsis": "Important: Satellite 6.15.0 release",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-04-23",
+       "url": "https://access.redhat.com/errata/RHSA-2024:2010",
+       "items": [
+        "python-pygments: ReDoS in pygments (CVE-2022-40896)",
+        "python-pycryptodomex: Side-channel leakage for OAEP decryption in PyCryptodome and pycryptodomex (CVE-2023-52323)",
+        "satellite: Arithmetic overflow in satellite (CVE-2023-4320)",
+        "automation-hub: Ansible Automation Hub: insecure galaxy-importer tarfile extraction (CVE-2023-5189)",
+        "jetty: Improper addition of quotation marks to user inputs in CgiServlet (CVE-2023-36479)",
+        "python-aiohttp: HTTP request smuggling via llhttp HTTP request parser (CVE-2023-37276)",
+        "rubygem-activesupport: File Disclosure of Locally Encrypted Files (CVE-2023-38037)",
+        "jetty: Improper validation of HTTP/1 content-length (CVE-2023-40167)",
+        "python-django: Potential denial of service vulnerability in `django.utils.encoding.uri_to_iri()` (CVE-2023-41164)",
+        "python-django: Denial-of-service possibility in django.utils.text.Truncator (CVE-2023-43665)",
+        "python-aiohttp: Numerous issues in HTTP parser with header parsing (CVE-2023-47627)",
+        "python-aiohttp: HTTP request modification (CVE-2023-49081)",
+        "python-aiohttp: CRLF injection if user controls the HTTP method using aiohttp client (CVE-2023-49082)",
+        "rubygem-puma: HTTP request smuggling when parsing chunked Transfer-Encoding Bodies (CVE-2024-21647)",
+        "rubygem-audited: Race condition can lead to audit logs being incorrectly attributed to the wrong user (CVE-2024-22047)",
+        "python-jinja2: HTML attribute injection when passing user input as keys to xmlattr filter (CVE-2024-22195)",
+        "python-aiohttp: Follow_symlinks directory traversal vulnerability (CVE-2024-23334)",
+        "python-aiohttp: HTTP request smuggling (CVE-2024-23829)"
+       ]
+      }
+     ]
+    }
+   ],
+   "unversioned": [],
+   "features": [
+    {
+     "area": "New features",
+     "items": [
+      {
+       "t": "New features",
+       "d": "Command to refresh all/bulk ACS\u2019s using hammer Due to a potential conflict with an existing API endpoint, the correct command is: $ hammer alternate-content-source bulk refresh-all Jira:SAT-23132 Setting\u2019s behavior for Append domain names to the host changed The behavior of the Append domain names to the host setting was changed to save hosts with\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology previews",
+     "items": [
+      {
+       "t": "Technology previews",
+       "d": "For information on Red Hat scope of support for Technology Preview features, see Technology Preview Features Support Scope. OpenShift Virtualization plugin You can provision virtual machines by using the OpenShift Virtualization plugin. Jira:SAT-18663 OVAL / CVE Reporting Support Satellite now includes the ability to scan systems for\u2026"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.14",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.14/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.14.4",
+     "date": "2024-04-29",
+     "errata": [
+      {
+       "id": "RHSA-2025:3492",
+       "synopsis": "Important: Satellite 6.14.4.5 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-04-01",
+       "url": "https://access.redhat.com/errata/RHSA-2025:3492",
+       "items": [
+        "rubygem-graphql: Remote code execution when loading a crafted GraphQL schema (CVE-2025-27407)",
+        "rubygem-rack: Local File Inclusion in Rack::Static (CVE-2025-27610)"
+       ]
+      },
+      {
+       "id": "RHBA-2025:0793",
+       "synopsis": "Satellite 6.14.4.4 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-01-29",
+       "url": "https://access.redhat.com/errata/RHBA-2025:0793"
+      },
+      {
+       "id": "RHSA-2024:8718",
+       "synopsis": "Important: Satellite 6.14.4.3 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-10-31",
+       "url": "https://access.redhat.com/errata/RHSA-2024:8718",
+       "items": [
+        "mosquitto: sending specific sequences of packets may trigger memory leak (CVE-2024-8376)",
+        "foreman: Read-only access to entire DB from templates (CVE-2024-8553)"
+       ]
+      },
+      {
+       "id": "RHSA-2024:6336",
+       "synopsis": "Important: Satellite 6.14.4.2 Security Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-09-04",
+       "url": "https://access.redhat.com/errata/RHSA-2024:6336"
+      },
+      {
+       "id": "RHBA-2024:5098",
+       "synopsis": "Satellite 6.14.4.1 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-08-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:5098"
+      },
+      {
+       "id": "RHBA-2024:2099",
+       "synopsis": "Satellite 6.14.4 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-04-29",
+       "url": "https://access.redhat.com/errata/RHBA-2024:2099"
+      }
+     ]
+    },
+    {
+     "version": "6.14.3",
+     "date": "2024-03-27",
+     "errata": [
+      {
+       "id": "RHSA-2024:1536",
+       "synopsis": "Moderate: Satellite 6.14.3 Async Security Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-03-27",
+       "url": "https://access.redhat.com/errata/RHSA-2024:1536",
+       "items": [
+        "automation-hub: Ansible Automation Hub: insecure galaxy-importer tarfile extraction (CVE-2023-5189)",
+        "python-aiohttp: aiohttp: follow_symlinks directory traversal vulnerability (CVE-2024-23334)",
+        "python-aiohttp: http request smuggling (CVE-2024-23829)",
+        "python-aiohttp: numerous issues in HTTP parser with header parsing (CVE-2023-47627)",
+        "python-aiohttp: aiohttp: HTTP request modification (CVE-2023-49081)",
+        "python-django: Denial-of-service possibility in django.utils.text.Truncator (CVE-2023-43665)",
+        "python-jinja2: jinja2: HTML attribute injection when passing user input as keys to xmlattr filter (CVE-2024-22195)"
+       ]
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHBA-2024:3799",
+     "synopsis": "Satellite 6.15.1 Async Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2024-06-11",
+     "url": "https://access.redhat.com/errata/RHBA-2024:3799"
+    },
+    {
+     "id": "RHSA-2023:6818",
+     "synopsis": "Important: Satellite 6.14 security and bug fix update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2023-11-08",
+     "url": "https://access.redhat.com/errata/RHSA-2023:6818",
+     "items": [
+      "golang: net/http, x/net/http2: rapid stream resets can cause excessive work (CVE-2023-44487) (CVE-2023-39325)",
+      "HTTP/2: Multiple HTTP/2 enabled web servers are vulnerable to a DDoS attack (Rapid Reset Attack) (CVE-2023-44487)",
+      "GitPython: Insecure non-multi options in clone and clone_from is not blocked (CVE-2023-40267)",
+      "kubeclient: kubeconfig parsing error can lead to MITM attacks (CVE-2022-0759)",
+      "foreman: OS command injection via ct_command and fcct_command (CVE-2022-3874)",
+      "ruby-git: code injection vulnerability (CVE-2022-46648)",
+      "ruby-git: code injection vulnerability (CVE-2022-47318)",
+      "Foreman: Arbitrary code execution through templates (CVE-2023-0118)",
+      "rubygem-activerecord: SQL Injection (CVE-2023-22794)",
+      "openssl: c_rehash script allows command injection (CVE-2022-1292)",
+      "openssl: the c_rehash script allows command injection (CVE-2022-2068)",
+      "Pulp:Tokens stored in plaintext (CVE-2022-3644)",
+      "satellite: Blind SSRF via Referer header (CVE-2022-4130)",
+      "python-future: remote attackers can cause denial of service via crafted Set-Cookie header from malicious web server (CVE-2022-40899)",
+      "golang: net/http: excessive memory growth in a Go server accepting HTTP/2 requests (CVE-2022-41717)",
+      "rubygem-activerecord: Denial of Service (CVE-2022-44566)",
+      "rubygem-rack: denial of service in Content-Disposition parsing (CVE-2022-44570)",
+      "rubygem-rack: denial of service in Content-Disposition parsing (CVE-2022-44571)",
+      "rubygem-rack: denial of service in Content-Disposition parsing (CVE-2022-44572)",
+      "Foreman: Stored cross-site scripting in host tab (CVE-2023-0119)"
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.13",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.13/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.13.7",
+     "date": "2024-09-04",
+     "errata": [
+      {
+       "id": "RHSA-2024:8717",
+       "synopsis": "Moderate: Satellite 6.13.7.3 Async Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-10-31",
+       "url": "https://access.redhat.com/errata/RHSA-2024:8717",
+       "items": [
+        "foreman: Read-only access to entire DB from templates (CVE-2024-8553)"
+       ]
+      },
+      {
+       "id": "RHSA-2024:6337",
+       "synopsis": "Important: Satellite 6.13.7.2 Security Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-09-04",
+       "url": "https://access.redhat.com/errata/RHSA-2024:6337"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2024:1061",
+     "synopsis": "Moderate: Red Hat Satellite 6 security and bug fix update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2024-02-29",
+     "url": "https://access.redhat.com/errata/RHSA-2024:1061",
+     "items": [
+      "satellite: Blind SSRF via Referer header (CVE-2022-4130)",
+      "mosquitto: memory leak leads to unresponsive broker (CVE-2023-0809, CVE-2023-28366, CVE-2023-3592)",
+      "foreman: World readable file containing secrets (CVE-2023-4886)",
+      "Long running postgres threads during content-export (BZ#2257299)",
+      "After upstream repo switched to zst compression, Satellite 6.12.5.1 unable to sync (BZ#2257300)",
+      "Actions::ForemanLeapp::PreupgradeJob fails with null value in column \"preupgrade_report_id\" violates not-null constraint when run with non-admin user (BZ#2257302)",
+      "Puppet reports without any messages don't get an origin (BZ#2257314)",
+      "Provisioning vm host fails with error \"Failed to attach ISO image to CDROM drive of instance client.example.com: InvalidPowerState: The attempted operation cannot be performed in the current state (Powered on)\". (BZ#2257316)",
+      "[Improvement] RefreshRepos step in Capsule Sync to refresh just repos to sync (BZ#2260526)",
+      "Support Satellite Clone running on Python 3.12 (BZ#2264354)",
+      "Support Satellite Ansible Collection running on Python 3.12 (BZ#2264918)",
+      "Unable to sync library/busybox from gcr.io (BZ#2265149)"
+     ]
+    },
+    {
+     "id": "RHBA-2023:4044",
+     "synopsis": "Satellite 6 Client Bug Fix Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2023-07-12",
+     "url": "https://access.redhat.com/errata/RHBA-2023:4044"
+    },
+    {
+     "id": "RHSA-2023:2097",
+     "synopsis": "Important: Satellite 6.13 Release",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2023-05-03",
+     "url": "https://access.redhat.com/errata/RHSA-2023:2097",
+     "items": [
+      "CVE-2022-1471 CVE-2022-25857 CVE-2022-38749 CVE-2022-38750 CVE-2022-38751 CVE-2022-38752 candlepin and puppetserver: various flaws",
+      "CVE-2022-22577 tfm-rubygem-actionpack: rubygem-actionpack: Possible cross-site scripting vulnerability in Action Pack",
+      "CVE-2022-23514 rubygem-loofah: inefficient regular expression leading to denial of service",
+      "CVE-2022-23515 rubygem-loofah: rubygem-loofah: Improper neutralization of data URIs leading to Cross Site Scripting",
+      "CVE-2022-23516 rubygem-loofah: Uncontrolled Recursion leading to denial of service",
+      "CVE-2022-23517 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Inefficient Regular Expression leading to denial of service",
+      "CVE-2022-23518 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Improper neutralization of data URIs leading to Cross site scripting",
+      "CVE-2022-23519 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Cross site scripting vulnerability with certain configurations",
+      "CVE-2022-23520 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Cross site scripting vulnerability with certain configurations",
+      "CVE-2022-27777 tfm-rubygem-actionview: Possible cross-site scripting vulnerability in Action View tag helpers",
+      "CVE-2022-31163 rubygem-tzinfo: rubygem-tzinfo: arbitrary code execution",
+      "CVE-2022-32224 tfm-rubygem-activerecord: activerecord: Possible RCE escalation bug with Serialized Columns in Active Record",
+      "CVE-2022-33980 candlepin: apache-commons-configuration2: Apache Commons Configuration insecure interpolation defaults",
+      "CVE-2022-41323 satellite-capsule:el8/python-django: Potential denial-of-service vulnerability in internationalized URLs",
+      "CVE-2022-41946 candlepin: postgresql-jdbc: Information leak of prepared statement data due to insecure temporary file permissions",
+      "CVE-2022-42003 CVE-2022-42004 candlepin: various flaws",
+      "CVE-2022-42889 candlepin: apache-commons-text: variable interpolation RCE",
+      "CVE-2022-23514 rubygem-loofah: inefficient regular expression leading to denial of service",
+      "CVE-2023-23969 python-django: Potential denial-of-service via Accept-Language headers",
+      "CVE-2023-24580 python-django: Potential denial-of-service vulnerability in file uploads"
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.12",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.12/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.12.5",
+     "date": "2023-09-27",
+     "errata": [
+      {
+       "id": "RHBA-2024:1958",
+       "synopsis": "Satellite 6.12.5.3 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-04-22",
+       "url": "https://access.redhat.com/errata/RHBA-2024:1958"
+      },
+      {
+       "id": "RHBA-2023:5374",
+       "synopsis": "Satellite 6.12.5.1 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-09-27",
+       "url": "https://access.redhat.com/errata/RHBA-2023:5374"
+      }
+     ]
+    },
+    {
+     "version": "6.12.4",
+     "date": "2023-04-27",
+     "errata": [
+      {
+       "id": "RHBA-2023:2052",
+       "synopsis": "Satellite 6.12.4 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-04-27",
+       "url": "https://access.redhat.com/errata/RHBA-2023:2052"
+      }
+     ]
+    },
+    {
+     "version": "6.12.2",
+     "date": "2023-02-08",
+     "errata": [
+      {
+       "id": "RHBA-2023:0668",
+       "synopsis": "Satellite 6.12.2 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-02-08",
+       "url": "https://access.redhat.com/errata/RHBA-2023:0668"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2023:6818",
+     "synopsis": "Important: Satellite 6.14 security and bug fix update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2023-11-08",
+     "url": "https://access.redhat.com/errata/RHSA-2023:6818",
+     "items": [
+      "golang: net/http, x/net/http2: rapid stream resets can cause excessive work (CVE-2023-44487) (CVE-2023-39325)",
+      "HTTP/2: Multiple HTTP/2 enabled web servers are vulnerable to a DDoS attack (Rapid Reset Attack) (CVE-2023-44487)",
+      "GitPython: Insecure non-multi options in clone and clone_from is not blocked (CVE-2023-40267)",
+      "kubeclient: kubeconfig parsing error can lead to MITM attacks (CVE-2022-0759)",
+      "foreman: OS command injection via ct_command and fcct_command (CVE-2022-3874)",
+      "ruby-git: code injection vulnerability (CVE-2022-46648)",
+      "ruby-git: code injection vulnerability (CVE-2022-47318)",
+      "Foreman: Arbitrary code execution through templates (CVE-2023-0118)",
+      "rubygem-activerecord: SQL Injection (CVE-2023-22794)",
+      "openssl: c_rehash script allows command injection (CVE-2022-1292)",
+      "openssl: the c_rehash script allows command injection (CVE-2022-2068)",
+      "Pulp:Tokens stored in plaintext (CVE-2022-3644)",
+      "satellite: Blind SSRF via Referer header (CVE-2022-4130)",
+      "python-future: remote attackers can cause denial of service via crafted Set-Cookie header from malicious web server (CVE-2022-40899)",
+      "golang: net/http: excessive memory growth in a Go server accepting HTTP/2 requests (CVE-2022-41717)",
+      "rubygem-activerecord: Denial of Service (CVE-2022-44566)",
+      "rubygem-rack: denial of service in Content-Disposition parsing (CVE-2022-44570)",
+      "rubygem-rack: denial of service in Content-Disposition parsing (CVE-2022-44571)",
+      "rubygem-rack: denial of service in Content-Disposition parsing (CVE-2022-44572)",
+      "Foreman: Stored cross-site scripting in host tab (CVE-2023-0119)"
+     ]
+    },
+    {
+     "id": "RHSA-2022:8506",
+     "synopsis": "Important: Satellite 6.12 Release",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2022-11-16",
+     "url": "https://access.redhat.com/errata/RHSA-2022:8506",
+     "items": [
+      "netty-codec: Bzip2Decoder doesn't allow setting size restrictions for decompressed data (CVE-2021-37136)",
+      "netty-codec: SnappyFrameDecoder doesn't restrict chunk length and may buffer skippable chunks in an unnecessary way (CVE-2021-37137)",
+      "python3-django: Possible XSS via template tag (CVE-2022-22818)",
+      "tfm-rubygem-nokogiri: ReDoS in HTML encoding detection (CVE-2022-24836)",
+      "tfm-rubygem-sinatra: Path traversal possible outside of public_dir when serving static files (CVE-2022-29970)",
+      "tfm-rubygem-git: Package vulnerable to Command Injection via git argument injection (CVE-2022-25648)",
+      "rubygem-rails-html-sanitizer: Possible XSS with certain configurations (CVE-2022-32209)",
+      "python3-django: Potential SQL injection via Trunc and Extract arguments (CVE-2022-34265)"
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.11",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.11/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.11.5",
+     "date": "2023-03-20",
+     "errata": [
+      {
+       "id": "RHBA-2024:2716",
+       "synopsis": "Satellite 6.11.5.7 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-05-06",
+       "url": "https://access.redhat.com/errata/RHBA-2024:2716"
+      },
+      {
+       "id": "RHBA-2023:5378",
+       "synopsis": "Satellite 6.11.5.5 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-09-27",
+       "url": "https://access.redhat.com/errata/RHBA-2023:5378"
+      },
+      {
+       "id": "RHBA-2023:3631",
+       "synopsis": "Satellite 6.11.5.4 Async Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-06-15",
+       "url": "https://access.redhat.com/errata/RHBA-2023:3631"
+      },
+      {
+       "id": "RHBA-2023:1478",
+       "synopsis": "Satellite 6.11.5.2 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-03-27",
+       "url": "https://access.redhat.com/errata/RHBA-2023:1478"
+      },
+      {
+       "id": "RHBA-2023:1351",
+       "synopsis": "Satellite 6.11.5.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-03-20",
+       "url": "https://access.redhat.com/errata/RHBA-2023:1351"
+      }
+     ]
+    },
+    {
+     "version": "6.11.4",
+     "date": "2022-10-27",
+     "errata": [
+      {
+       "id": "RHBA-2022:8526",
+       "synopsis": "Satellite 6.11.4.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-11-17",
+       "url": "https://access.redhat.com/errata/RHBA-2022:8526"
+      },
+      {
+       "id": "RHSA-2022:7242",
+       "synopsis": "Important: Satellite 6.11.4 Async Security Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2022-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2022:7242"
+      }
+     ]
+    },
+    {
+     "version": "6.11.3",
+     "date": "2022-09-28",
+     "errata": [
+      {
+       "id": "RHBA-2022:6743",
+       "synopsis": "Satellite 6.11.3 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-09-28",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6743"
+      }
+     ]
+    },
+    {
+     "version": "6.11.2",
+     "date": "2022-08-30",
+     "errata": [
+      {
+       "id": "RHBA-2022:6233",
+       "synopsis": "Satellite 6.11.2 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-08-30",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6233"
+      }
+     ]
+    },
+    {
+     "version": "6.11.1",
+     "date": "2022-07-27",
+     "errata": [
+      {
+       "id": "RHBA-2022:5868",
+       "synopsis": "Satellite 6.11.1.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-08-02",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5868"
+      },
+      {
+       "id": "RHBA-2022:5742",
+       "synopsis": "Satellite 6.11.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-07-27",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5742"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2023:2097",
+     "synopsis": "Important: Satellite 6.13 Release",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2023-05-03",
+     "url": "https://access.redhat.com/errata/RHSA-2023:2097",
+     "items": [
+      "CVE-2022-1471 CVE-2022-25857 CVE-2022-38749 CVE-2022-38750 CVE-2022-38751 CVE-2022-38752 candlepin and puppetserver: various flaws",
+      "CVE-2022-22577 tfm-rubygem-actionpack: rubygem-actionpack: Possible cross-site scripting vulnerability in Action Pack",
+      "CVE-2022-23514 rubygem-loofah: inefficient regular expression leading to denial of service",
+      "CVE-2022-23515 rubygem-loofah: rubygem-loofah: Improper neutralization of data URIs leading to Cross Site Scripting",
+      "CVE-2022-23516 rubygem-loofah: Uncontrolled Recursion leading to denial of service",
+      "CVE-2022-23517 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Inefficient Regular Expression leading to denial of service",
+      "CVE-2022-23518 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Improper neutralization of data URIs leading to Cross site scripting",
+      "CVE-2022-23519 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Cross site scripting vulnerability with certain configurations",
+      "CVE-2022-23520 tfm-rubygem-rails-html-sanitizer: rubygem-rails-html-sanitizer: Cross site scripting vulnerability with certain configurations",
+      "CVE-2022-27777 tfm-rubygem-actionview: Possible cross-site scripting vulnerability in Action View tag helpers",
+      "CVE-2022-31163 rubygem-tzinfo: rubygem-tzinfo: arbitrary code execution",
+      "CVE-2022-32224 tfm-rubygem-activerecord: activerecord: Possible RCE escalation bug with Serialized Columns in Active Record",
+      "CVE-2022-33980 candlepin: apache-commons-configuration2: Apache Commons Configuration insecure interpolation defaults",
+      "CVE-2022-41323 satellite-capsule:el8/python-django: Potential denial-of-service vulnerability in internationalized URLs",
+      "CVE-2022-41946 candlepin: postgresql-jdbc: Information leak of prepared statement data due to insecure temporary file permissions",
+      "CVE-2022-42003 CVE-2022-42004 candlepin: various flaws",
+      "CVE-2022-42889 candlepin: apache-commons-text: variable interpolation RCE",
+      "CVE-2022-23514 rubygem-loofah: inefficient regular expression leading to denial of service",
+      "CVE-2023-23969 python-django: Potential denial-of-service via Accept-Language headers",
+      "CVE-2023-24580 python-django: Potential denial-of-service vulnerability in file uploads"
+     ]
+    },
+    {
+     "id": "RHSA-2023:1630",
+     "synopsis": "Important: Satellite 6.12.3 Async Security Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2023-04-04",
+     "url": "https://access.redhat.com/errata/RHSA-2023:1630",
+     "items": [
+      "Candlepin: PreparedStatement.setText(int, InputStream) will create a temporary file if the InputStream is larger than 2k (CVE-2022-41946)"
+     ]
+    },
+    {
+     "id": "RHBA-2022:8527",
+     "synopsis": "Satellite 6.10.7.1 Async Bug Fix Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2022-11-17",
+     "url": "https://access.redhat.com/errata/RHBA-2022:8527"
+    },
+    {
+     "id": "RHSA-2022:8506",
+     "synopsis": "Important: Satellite 6.12 Release",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2022-11-16",
+     "url": "https://access.redhat.com/errata/RHSA-2022:8506",
+     "items": [
+      "netty-codec: Bzip2Decoder doesn't allow setting size restrictions for decompressed data (CVE-2021-37136)",
+      "netty-codec: SnappyFrameDecoder doesn't restrict chunk length and may buffer skippable chunks in an unnecessary way (CVE-2021-37137)",
+      "python3-django: Possible XSS via template tag (CVE-2022-22818)",
+      "tfm-rubygem-nokogiri: ReDoS in HTML encoding detection (CVE-2022-24836)",
+      "tfm-rubygem-sinatra: Path traversal possible outside of public_dir when serving static files (CVE-2022-29970)",
+      "tfm-rubygem-git: Package vulnerable to Command Injection via git argument injection (CVE-2022-25648)",
+      "rubygem-rails-html-sanitizer: Possible XSS with certain configurations (CVE-2022-32209)",
+      "python3-django: Potential SQL injection via Trunc and Extract arguments (CVE-2022-34265)"
+     ]
+    },
+    {
+     "id": "RHSA-2022:5498",
+     "synopsis": "Moderate: Satellite 6.11 Release",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2022-07-05",
+     "url": "https://access.redhat.com/errata/RHSA-2022:5498",
+     "items": [
+      "libsolv: Heap-based buffer overflow in testcase_read() in src/testcase.c (CVE-2021-3200)",
+      "satellite: foreman: Authenticate remote code execution through Sendmail configuration (CVE-2021-3584)",
+      "candlepin: Allow unintended SCA certificate to authenticate Candlepin (CVE-2021-4142)",
+      "candlepin: netty: Information disclosure via the local system temporary directory (CVE-2021-21290)",
+      "candlepin: netty: Possible request smuggling in HTTP/2 due missing validation (CVE-2021-21295)",
+      "candlepin: netty: Request smuggling via content-length header (CVE-2021-21409)",
+      "tfm-rubygem-sidekiq: XSS via the queue name of the live-poll feature (CVE-2021-30151)",
+      "python-sqlparse: ReDoS via regular expression in StripComments filter (CVE-2021-32839)",
+      "libsolv: various flaws (CVE-2021-33928 CVE-2021-33929 CVE-2021-33930 CVE-2021-33938)",
+      "tfm-rubygem-puma: Inconsistent Interpretation of HTTP Requests in puma (CVE-2021-41136)",
+      "logback-classic: Remote code execution through JNDI call from within its configuration file (CVE-2021-42550)",
+      "candlepin: netty: Control chars in header names may lead to HTTP request smuggling (CVE-2021-43797)",
+      "python-lxml: HTML Cleaner allows crafted and SVG embedded scripts to pass through (CVE-2021-43818)",
+      "python3-django: Potential bypass of an upstream access control based on URL paths (CVE-2021-44420)",
+      "libsolv: Heap overflow (CVE-2021-44568)",
+      "python3-django: Various flaws (CVE-2021-45115 CVE-2021-45116 CVE-2021-45452 CVE-2022-22818)",
+      "tfm-rubygem-actionpack: Information leak between requests (CVE-2022-23633)",
+      "tfm-rubygem-puma: rubygem-rails: Information leak between requests (CVE-2022-23634)",
+      "python3-django: Denial-of-service possibility in file uploads (CVE-2022-23833)",
+      "tfm-rubygem-sidekiq: WebUI Denial of Service caused by number of days on graph (CVE-2022-23837)"
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.10",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.10/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.10.7",
+     "date": "2022-07-06",
+     "errata": [
+      {
+       "id": "RHBA-2023:1041",
+       "synopsis": "Satellite 6.10.7.2 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-03-01",
+       "url": "https://access.redhat.com/errata/RHBA-2023:1041"
+      },
+      {
+       "id": "RHBA-2022:5516",
+       "synopsis": "Satellite 6.10.7 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-07-06",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5516"
+      }
+     ]
+    },
+    {
+     "version": "6.10.6",
+     "date": "2022-05-31",
+     "errata": [
+      {
+       "id": "RHBA-2022:4850",
+       "synopsis": "Satellite 6.10.6 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-05-31",
+       "url": "https://access.redhat.com/errata/RHBA-2022:4850"
+      }
+     ]
+    },
+    {
+     "version": "6.10.5",
+     "date": "2022-05-04",
+     "errata": [
+      {
+       "id": "RHBA-2022:2203",
+       "synopsis": "Satellite 6.10.5.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-05-11",
+       "url": "https://access.redhat.com/errata/RHBA-2022:2203"
+      },
+      {
+       "id": "RHSA-2022:1708",
+       "synopsis": "Important: Satellite 6.10.5 Async Bug Fix Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2022-05-04",
+       "url": "https://access.redhat.com/errata/RHSA-2022:1708"
+      }
+     ]
+    },
+    {
+     "version": "6.10.4",
+     "date": "2022-03-29",
+     "errata": [
+      {
+       "id": "RHBA-2022:1149",
+       "synopsis": "Satellite 6.10.4 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-03-30",
+       "url": "https://access.redhat.com/errata/RHBA-2022:1149"
+      },
+      {
+       "id": "RHBA-2022:1116",
+       "synopsis": "Satellite 6.10.4 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-03-29",
+       "url": "https://access.redhat.com/errata/RHBA-2022:1116"
+      }
+     ]
+    },
+    {
+     "version": "6.10.3",
+     "date": "2022-03-08",
+     "errata": [
+      {
+       "id": "RHSA-2022:0790",
+       "synopsis": "Low: Satellite 6.10.3 Async Bug Fix Update",
+       "kind": "security",
+       "severity": "Low",
+       "date": "2022-03-08",
+       "url": "https://access.redhat.com/errata/RHSA-2022:0790"
+      }
+     ]
+    },
+    {
+     "version": "6.10.2",
+     "date": "2022-01-19",
+     "errata": [
+      {
+       "id": "RHSA-2022:0190",
+       "synopsis": "Moderate: Satellite 6.10.2 Async Bug Fix Update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2022-01-19",
+       "url": "https://access.redhat.com/errata/RHSA-2022:0190"
+      }
+     ]
+    },
+    {
+     "version": "6.10.1",
+     "date": "2021-11-18",
+     "errata": [
+      {
+       "id": "RHBA-2021:4737",
+       "synopsis": "Satellite 6.10.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-11-18",
+       "url": "https://access.redhat.com/errata/RHBA-2021:4737"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2021:4702",
+     "synopsis": "Moderate: Satellite 6.10 Release",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2021-11-16",
+     "url": "https://access.redhat.com/errata/RHSA-2021:4702",
+     "items": [
+      "python-ecdsa: Unexpected and undocumented exceptions during signature decoding (CVE-2019-14853)",
+      "python-ecdsa: DER encoding is not being verified in signatures (CVE-2019-14859)",
+      "rubygem-activerecord-session_store: hijack sessions by using timing attacks targeting the session id (CVE-2019-25025)",
+      "rake: OS Command Injection via egrep in Rake::FileList (CVE-2020-8130)",
+      "candlepin: guava - local information disclosure via temporary directory created with unsafe permissions (CVE-2020-8908)",
+      "PyYAML: incomplete fix for CVE-2020-1747 (CVE-2020-14343)",
+      "tfm-rubygem-nokogiri: XML external entity injection via Nokogiri::XML::Schema (CVE-2020-26247)",
+      "tfm-rubygem-foreman_azure_rm: Azure compute resource secret_key leak to authenticated users (CVE-2021-3413)",
+      "foreman: possible man-in-the-middle in smart_proxy realm_freeipa (CVE-2021-3494)",
+      "foreman: BMC controller credential leak via API (CVE-2021-20256)",
+      "python-aiohttp: Open redirect in aiohttp.web_middlewares.normalize_path_middleware (CVE-2021-21330)",
+      "rubygem-actionpack: Possible Information Disclosure / Unintended Method Execution in Action Pack (CVE-2021-22885)",
+      "tfm-rubygem-actionpack: rails: Possible Denial of Service vulnerability in Action Dispatch (CVE-2021-22902)",
+      "tfm-rubygem-actionpack: Possible DoS Vulnerability in Action Controller Token Authentication (CVE-2021-22904)",
+      "python-django: potential directory-traversal via uploaded files (CVE-2021-28658)",
+      "tfm-rubygem-puma: incomplete fix for CVE-2019-16770 allows Denial of Service (DoS) (CVE-2021-29509)",
+      "python-django: Potential directory-traversal via uploaded files (CVE-2021-31542)",
+      "tfm-rubygem-addressable: ReDoS in templates (CVE-2021-32740)",
+      "python-django: Potential directory traversal via ``admindocs`` (CVE-2021-33203)",
+      "python-urllib3: ReDoS in the parsing of authority part of URL (CVE-2021-33503)"
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6.9",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.9/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.9.10",
+     "date": "2022-11-17",
+     "errata": [
+      {
+       "id": "RHSA-2022:8532",
+       "synopsis": "Important: Satellite 6.9.10 Async Security Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2022-11-17",
+       "url": "https://access.redhat.com/errata/RHSA-2022:8532",
+       "items": [
+        "tfm-rubygem-puma: http request smuggling vulnerabilities (CVE-2022-24790)",
+        "2038995: When executing the content migration (pre-upgrade process), there is a PG query created by pulp that will be sitting forever",
+        "2074099: The errata migration continues to fail with \"pymongo.errors.DocumentTooLarge: BSON document too large\" error even after upgrading to Satellite 6.9.8",
+        "2081560: ForeignKeyViolation Error with docker_meta_tags",
+        "2091438: Use of content.count() in app/models/repository.py seems to hit an error",
+        "2093829: 'foreman-maintain content migration-stats' command stucks and consume all memory",
+        "2098221: Pulp 3 migration stats timing is too low for very large deployments",
+        "2141348: It appears that the egg is downloaded every time"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "6.9.9",
+     "date": "2022-04-20",
+     "errata": [
+      {
+       "id": "RHSA-2022:1478",
+       "synopsis": "Important: Satellite 6.9.9 Async Bug Fix Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2022-04-20",
+       "url": "https://access.redhat.com/errata/RHSA-2022:1478"
+      }
+     ]
+    },
+    {
+     "version": "6.9.8",
+     "date": "2022-01-27",
+     "errata": [
+      {
+       "id": "RHBA-2022:0320",
+       "synopsis": "Satellite 6.9.8 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-01-27",
+       "url": "https://access.redhat.com/errata/RHBA-2022:0320"
+      }
+     ]
+    },
+    {
+     "version": "6.9.7",
+     "date": "2021-11-10",
+     "errata": [
+      {
+       "id": "RHBA-2021:4612",
+       "synopsis": "Satellite 6.9.7 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-11-10",
+       "url": "https://access.redhat.com/errata/RHBA-2021:4612"
+      }
+     ]
+    },
+    {
+     "version": "6.9.6",
+     "date": "2021-09-21",
+     "errata": [
+      {
+       "id": "RHBA-2021:3654",
+       "synopsis": "Satellite 6.9.6.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-09-23",
+       "url": "https://access.redhat.com/errata/RHBA-2021:3654"
+      },
+      {
+       "id": "RHBA-2021:3628",
+       "synopsis": "Satellite 6.9.6 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-09-21",
+       "url": "https://access.redhat.com/errata/RHBA-2021:3628"
+      }
+     ]
+    },
+    {
+     "version": "6.9.5",
+     "date": "2021-08-31",
+     "errata": [
+      {
+       "id": "RHBA-2021:3387",
+       "synopsis": "Satellite 6.9.5 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-08-31",
+       "url": "https://access.redhat.com/errata/RHBA-2021:3387"
+      }
+     ]
+    },
+    {
+     "version": "6.9.4",
+     "date": "2021-07-29",
+     "errata": [
+      {
+       "id": "RHBA-2021:2948",
+       "synopsis": "Satellite 6.9.4 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-07-29",
+       "url": "https://access.redhat.com/errata/RHBA-2021:2948"
+      }
+     ]
+    },
+    {
+     "version": "6.9.3",
+     "date": "2021-07-01",
+     "errata": [
+      {
+       "id": "RHBA-2021:2636",
+       "synopsis": "Satellite 6.9.3 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-07-01",
+       "url": "https://access.redhat.com/errata/RHBA-2021:2636"
+      }
+     ]
+    },
+    {
+     "version": "6.9.2",
+     "date": "2021-05-20",
+     "errata": [
+      {
+       "id": "RHBA-2021:2074",
+       "synopsis": "Satellite 6.9.2 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-05-20",
+       "url": "https://access.redhat.com/errata/RHBA-2021:2074"
+      }
+     ]
+    },
+    {
+     "version": "6.9.1",
+     "date": "2021-04-26",
+     "errata": [
+      {
+       "id": "RHBA-2021:1371",
+       "synopsis": "Satellite 6.9.1 Async Bug Fix Update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-04-26",
+       "url": "https://access.redhat.com/errata/RHBA-2021:1371"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2022:8506",
+     "synopsis": "Important: Satellite 6.12 Release",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2022-11-16",
+     "url": "https://access.redhat.com/errata/RHSA-2022:8506",
+     "items": [
+      "netty-codec: Bzip2Decoder doesn't allow setting size restrictions for decompressed data (CVE-2021-37136)",
+      "netty-codec: SnappyFrameDecoder doesn't restrict chunk length and may buffer skippable chunks in an unnecessary way (CVE-2021-37137)",
+      "python3-django: Possible XSS via template tag (CVE-2022-22818)",
+      "tfm-rubygem-nokogiri: ReDoS in HTML encoding detection (CVE-2022-24836)",
+      "tfm-rubygem-sinatra: Path traversal possible outside of public_dir when serving static files (CVE-2022-29970)",
+      "tfm-rubygem-git: Package vulnerable to Command Injection via git argument injection (CVE-2022-25648)",
+      "rubygem-rails-html-sanitizer: Possible XSS with certain configurations (CVE-2022-32209)",
+      "python3-django: Potential SQL injection via Trunc and Extract arguments (CVE-2022-34265)"
+     ]
+    },
+    {
+     "id": "RHSA-2021:1313",
+     "synopsis": "Moderate: Satellite 6.9 Release",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2021-04-21",
+     "url": "https://access.redhat.com/errata/RHSA-2021:1313",
+     "items": [
+      "foreman: Managing repositories with their id via hammer does not respect the role filters (CVE-2017-2662)",
+      "python-psutil: Double free because of refcount mishandling (CVE-2019-18874)",
+      "candlepin: netty: compression/decompression codecs don't enforce limits on buffer allocation sizes (CVE-2020-11612)",
+      "foreman: world-readable OMAPI secret through the ISC DHCP server (CVE-2020-14335)",
+      "candlepin: resteasy-client: potential sensitive information leakage in JAX-RS RESTEasy Client's WebApplicationException handling (CVE-2020-25633)",
+      "python-django: potential SQL injection via \"tolerance\" parameter in GIS functions and aggregates on Oracle (CVE-2020-9402)",
+      "Usability enhancements to Red Hat's Simple Content Access mode and Satellite",
+      "Usability improvements to enabling Remote Execution on your hosts.",
+      "Notifications in the UI to warn users when subscriptions are expiring.",
+      "Usability enhancements to enable Insights integration with Satellite.",
+      "Performance improvements to various aspects of the user interface and API.",
+      "Added support for OpenID Connect for authentication.",
+      "Usability improvements to the Satellite Installer.",
+      "Updated Ruby web server to the modern Puma application server which replaces Passenger."
+     ]
+    }
+   ]
+  }
+ ]
+}

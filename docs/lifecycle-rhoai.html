@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RHOAI Lifecycle</title>
 <link rel="icon" type="image/svg+xml" href="static/icons/redhat-hat-red.svg">
-<script>(function(){var t=localStorage.getItem('lifecycle-theme'),d;if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;if(d){document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}})();</script>
+<script>(function(){function apply(d){if(d){document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}}var q=new URLSearchParams(location.search).get('theme');var t=localStorage.getItem('lifecycle-theme'),d;if(q==='dark'||q==='light')d=q==='dark';else if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;apply(d);window.addEventListener('message',function(e){var m=e.data;if(m&&m.type==='casedoctor-theme'&&(m.theme==='dark'||m.theme==='light'))apply(m.theme==='dark');});})();</script>
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly-addons.css">
-<link rel="stylesheet" href="static/css/chart.css?v=0.2.8">
+<link rel="stylesheet" href="static/css/chart.css?v=0.2.13">
 </head>
 <body>
 <div class="pf-v6-c-page">
@@ -28,11 +28,12 @@
       <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
         <div class="pf-v6-c-page__main-body">
           <div class="pf-v6-l-stack pf-m-gutter">
+<div class="details-topbar"><nav class="pf-v6-c-breadcrumb" aria-label="Breadcrumb"><ol class="pf-v6-c-breadcrumb__list" role="list"><li class="pf-v6-c-breadcrumb__item"><a class="pf-v6-c-breadcrumb__link" href="index.html"><svg class="bc-home-icon" width="12" height="12" viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>All products</a></li><li class="pf-v6-c-breadcrumb__item"><span class="pf-v6-c-breadcrumb__item-divider"><svg width="7" height="10" viewBox="0 0 256 512" fill="currentColor" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span><span class="pf-v6-c-breadcrumb__link pf-m-current" aria-current="page">Red Hat OpenShift AI lifecycle</span></li></ol></nav><div class="details-topbar__right"><div class="pf-v6-c-toggle-group" role="group" aria-label="View switcher"><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button pf-m-selected" href="lifecycle-rhoai.html" aria-current="page"><span class="pf-v6-c-toggle-group__text">Chart</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhoai-details.html"><span class="pf-v6-c-toggle-group__text">Details</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhoai-timeline.html"><span class="pf-v6-c-toggle-group__text">Timeline</span></a></div></div></div></div>
 <div class="card">
   <div class="card-header">
     <span class="card-title">
       <img class="card-title__icon" src="static/icons/products/rhoai.svg" alt="" width="20" height="20" loading="lazy">
-      Red Hat OpenShift AI <a href="https://access.redhat.com/support/policy/updates/rhoai-sm/lifecycle" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official Lifecycle Policy">↗ policy</a>
+      Red Hat OpenShift AI <a href="https://access.redhat.com/support/policy/updates/rhoai-sm/lifecycle" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official Lifecycle Policy">↗ policy</a> <a href="lifecycle-rhoai-details.html" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Z-stream releases &amp; errata">↗ details</a>
     </span>
     <div class="legend">
       <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="EUS-1"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bee1f4;border:1.5px solid #004080"></span>EUS-1</span>
@@ -52,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-17 08:20 UTC</div>
+  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-17 13:08 UTC</div>
 </div>
 </div>
         </div>
