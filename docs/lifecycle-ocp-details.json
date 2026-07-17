@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-17T13:07:31Z",
+ "generated": "2026-07-17T14:04:44Z",
  "minors": [
   {
    "minor": "4.22",
@@ -248,20 +248,20 @@
      "date": "2026-06-09",
      "errata": [
       {
-       "id": "RHEA-2026:5487",
-       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
-       "kind": "enhancement",
-       "severity": "None",
-       "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
-      },
-      {
        "id": "RHEA-2026:5486",
        "synopsis": "OpenShift Container Platform 4.22.0 packages update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
        "url": "https://access.redhat.com/errata/RHEA-2026:5486"
+      },
+      {
+       "id": "RHEA-2026:5487",
+       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
       },
       {
        "id": "RHEA-2026:24822",
@@ -28314,14 +28314,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -28331,6 +28323,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -51147,20 +51147,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5033",
-       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
-      },
-      {
        "id": "RHBA-2022:5032",
        "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5032"
+      },
+      {
+       "id": "RHBA-2022:5033",
+       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
       },
       {
        "id": "RHBA-2022:5031",
@@ -60567,20 +60567,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHEA-2021:0684",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "enhancement",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHEA-2021:0684"
-    },
-    {
      "id": "RHBA-2021:0683",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "bugfix",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHBA-2021:0683"
+    },
+    {
+     "id": "RHEA-2021:0684",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHEA-2021:0684"
     },
     {
      "id": "RHEA-2021:0598",

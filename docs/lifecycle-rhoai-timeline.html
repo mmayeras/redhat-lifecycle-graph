@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="pf-v6-theme-dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Red Hat OpenShift AI Release Timeline</title>
+<link rel="icon" type="image/svg+xml" href="static/icons/redhat-hat-red.svg">
+<script>(function(){function apply(d){if(d){document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}}var q=new URLSearchParams(location.search).get('theme');var t=localStorage.getItem('lifecycle-theme'),d;if(q==='dark'||q==='light')d=q==='dark';else if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;apply(d);window.addEventListener('message',function(e){var m=e.data;if(m&&m.type==='casedoctor-theme'&&(m.theme==='dark'||m.theme==='light'))apply(m.theme==='dark');});})();</script>
+<link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
+<link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly-addons.css">
+<link rel="stylesheet" href="static/css/chart.css?v=0.2.13">
+</head>
+<body>
+<div class="pf-v6-c-page">
+  <header class="pf-v6-c-masthead">
+    <div class="pf-v6-c-masthead__main">
+      <a class="pf-v6-c-masthead__brand pf-v6-l-flex pf-m-align-items-center pf-m-gap-sm pf-v6-u-text-color-regular" href="#">
+        <img src="static/icons/redhat-hat-red.svg" alt="Red Hat" width="28" height="28">
+        <span class="pf-v6-c-title pf-m-md">Red Hat OpenShift AI Release Timeline</span>
+      </a>
+    </div>
+    <div class="pf-v6-c-masthead__content"><div class="pf-v6-l-flex pf-m-align-items-center pf-m-justify-content-flex-end pf-m-flex-1 pf-m-gap-sm"><button class="pf-v6-c-button pf-m-plain" type="button" id="theme-toggle" aria-label="Toggle theme"><svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
+  </header>
+  <div class="pf-v6-c-page__main-container">
+    <main class="pf-v6-c-page__main" id="main-content">
+      
+      
+      <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
+        <div class="pf-v6-c-page__main-body">
+          <div class="pf-v6-l-stack pf-m-gutter">
+<div class="details-topbar"><nav class="pf-v6-c-breadcrumb" aria-label="Breadcrumb"><ol class="pf-v6-c-breadcrumb__list" role="list"><li class="pf-v6-c-breadcrumb__item"><a class="pf-v6-c-breadcrumb__link" href="index.html"><svg class="bc-home-icon" width="12" height="12" viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>All products</a></li><li class="pf-v6-c-breadcrumb__item"><span class="pf-v6-c-breadcrumb__item-divider"><svg width="7" height="10" viewBox="0 0 256 512" fill="currentColor" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span><a class="pf-v6-c-breadcrumb__link" href="lifecycle-rhoai.html">Red Hat OpenShift AI lifecycle</a></li><li class="pf-v6-c-breadcrumb__item"><span class="pf-v6-c-breadcrumb__item-divider"><svg width="7" height="10" viewBox="0 0 256 512" fill="currentColor" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span><span class="pf-v6-c-breadcrumb__link pf-m-current" aria-current="page">Release timeline</span></li></ol></nav><div class="details-topbar__right"><div class="pf-v6-c-toggle-group" role="group" aria-label="View switcher"><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhoai.html"><span class="pf-v6-c-toggle-group__text">Chart</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhoai-details.html"><span class="pf-v6-c-toggle-group__text">Details</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button pf-m-selected" href="lifecycle-rhoai-timeline.html" aria-current="page"><span class="pf-v6-c-toggle-group__text">Timeline</span></a></div></div><span class="details-topbar__generated">Data generated 2026-07-17T14:07:06Z</span></div></div>
+
+<div class="delta-bar"><span class="delta-bar__label">Filter:</span><label>Minor <select id="tl-minor" class="delta-select"><option value="">all</option><option value="3.4">3.4</option><option value="3.3">3.3</option><option value="3.2">3.2</option><option value="3.0">3.0</option><option value="2.25">2.25</option><option value="2.24">2.24</option><option value="2.23">2.23</option><option value="2.22">2.22</option><option value="2.20">2.20</option><option value="2.19">2.19</option><option value="2.18">2.18</option><option value="2.17">2.17</option><option value="2.16">2.16</option><option value="2.15">2.15</option><option value="2.14">2.14</option><option value="2.13">2.13</option><option value="2.12">2.12</option><option value="2.11">2.11</option><option value="2.10">2.10</option><option value="2.9">2.9</option><option value="2.8">2.8</option><option value="2.7">2.7</option></select></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="security" checked><span class="errata-badge errata-badge--security">Security</span></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="bugfix" checked><span class="errata-badge errata-badge--bugfix">Bug Fix</span></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="enhancement" checked><span class="errata-badge errata-badge--enhancement">Enhancement</span></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="other" checked><span class="errata-badge errata-badge--other">Advisory</span></label><span class="delta-summary" id="tl-count"></span><p class="delta-bar__hint">Z-stream releases and advisories newest first, grouped by month.</p></div>
+<div class="timeline"><div class="timeline-today">┆ Today (2026-07-17)</div><section class="timeline-month"><h3 class="timeline-month__label">July 2026</h3><details class="timeline-entry" data-minor="3.3" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">3.3.5</code><span class="timeline-entry__date">2026-07-09</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Critical</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:37275" target="_blank" rel="noopener">RHSA-2026:37275</a><span class="errata-row__synopsis">RHOAI 3.3.5 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-07-09</span></div></div></details><details class="timeline-entry" data-minor="3.4" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">3.4.2</code><span class="timeline-entry__date">2026-07-01</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Critical</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:34456" target="_blank" rel="noopener">RHSA-2026:34456</a><span class="errata-row__synopsis">RHOAI 3.4.2 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-07-01</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">June 2026</h3><details class="timeline-entry" data-minor="3.3" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">3.3.4</code><span class="timeline-entry__date">2026-06-25</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:30056" target="_blank" rel="noopener">RHSA-2026:30056</a><span class="errata-row__synopsis">RHOAI 3.3.4 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-06-25</span></div></div></details><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.8</code><span class="timeline-entry__date">2026-06-24</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:28960" target="_blank" rel="noopener">RHSA-2026:28960</a><span class="errata-row__synopsis">RHOAI 2.25.8 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-06-24</span></div></div></details><details class="timeline-entry" data-minor="3.4" data-kinds="bugfix security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">3.4.1</code><span class="timeline-entry__date">2026-06-22</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2026:27784" target="_blank" rel="noopener">RHBA-2026:27784</a><span class="errata-row__synopsis">RHOAI 3.4.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-06-22</span></div><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:27784" target="_blank" rel="noopener">RHSA-2026:27784</a><span class="errata-row__synopsis">RHOAI 3.4.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-06-22</span></div></div></details><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.7</code><span class="timeline-entry__date">2026-06-10</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:24977" target="_blank" rel="noopener">RHSA-2026:24977</a><span class="errata-row__synopsis">RHOAI 2.25.7 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-06-10</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">May 2026</h3><details class="timeline-entry" data-minor="3.3" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">3.3.3</code><span class="timeline-entry__date">2026-05-20</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Critical</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:19712" target="_blank" rel="noopener">RHSA-2026:19712</a><span class="errata-row__synopsis">RHOAI 3.3.3 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-05-20</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">April 2026</h3><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.6</code><span class="timeline-entry__date">2026-04-26</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:10698" target="_blank" rel="noopener">RHSA-2026:10698</a><span class="errata-row__synopsis">RHOAI 2.25.6 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-04-26</span></div></div></details><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.5</code><span class="timeline-entry__date">2026-04-23</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:10184" target="_blank" rel="noopener">RHSA-2026:10184</a><span class="errata-row__synopsis">RHOAI 2.25.5 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-04-23</span></div></div></details><details class="timeline-entry" data-minor="3.3" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">3.3.2</code><span class="timeline-entry__date">2026-04-17</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2026:8785" target="_blank" rel="noopener">RHBA-2026:8785</a><span class="errata-row__synopsis">RHOAI 3.3.2 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-04-17</span></div></div></details><details class="timeline-entry" data-minor="3.3" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">3.3.1</code><span class="timeline-entry__date">2026-04-10</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:7403" target="_blank" rel="noopener">RHSA-2026:7403</a><span class="errata-row__synopsis">RHOAI 3.3.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-04-10</span></div></div></details><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.4</code><span class="timeline-entry__date">2026-04-10</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:7398" target="_blank" rel="noopener">RHSA-2026:7398</a><span class="errata-row__synopsis">RHOAI 2.25.4 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-04-10</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">March 2026</h3><details class="timeline-entry" data-minor="2.16" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.16.4</code><span class="timeline-entry__date">2026-03-25</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">2 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:7397" target="_blank" rel="noopener">RHSA-2026:7397</a><span class="errata-row__synopsis">RHOAI 2.16.4 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-04-10</span></div><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:5807" target="_blank" rel="noopener">RHSA-2026:5807</a><span class="errata-row__synopsis">RHOAI 2.16.4 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-03-25</span></div></div></details><details class="timeline-entry" data-minor="3.4" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">3.4.0</code><span class="timeline-entry__date">2026-03-19</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:5119" target="_blank" rel="noopener">RHSA-2026:5119</a><span class="errata-row__synopsis">Red Hat OpenShift AI 3.4.0-ea.1 Release</span><span class="errata-row__date">2026-03-19</span></div></div></details><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.3</code><span class="timeline-entry__date">2026-03-04</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Critical</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:3782" target="_blank" rel="noopener">RHSA-2026:3782</a><span class="errata-row__synopsis">RHOAI 2.25.3 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-03-04</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">February 2026</h3><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.2</code><span class="timeline-entry__date">2026-02-05</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">2 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:2695" target="_blank" rel="noopener">RHSA-2026:2695</a><span class="errata-row__synopsis">RHOAI 2.25.2 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-02-12</span></div><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2026:2106" target="_blank" rel="noopener">RHSA-2026:2106</a><span class="errata-row__synopsis">RHOAI 2.25.2 - Red Hat OpenShift AI</span><span class="errata-row__date">2026-02-05</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">December 2025</h3><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.1</code><span class="timeline-entry__date">2025-12-17</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:23531" target="_blank" rel="noopener">RHSA-2025:23531</a><span class="errata-row__synopsis">RHOAI 2.25.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-12-17</span></div></div></details><details class="timeline-entry" data-minor="2.22" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.22.3</code><span class="timeline-entry__date">2025-12-04</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:22759" target="_blank" rel="noopener">RHSA-2025:22759</a><span class="errata-row__synopsis">RHOAI 2.22.3 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-12-04</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">October 2025</h3><details class="timeline-entry" data-minor="2.25" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.25.0</code><span class="timeline-entry__date">2025-10-22</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:18989" target="_blank" rel="noopener">RHSA-2025:18989</a><span class="errata-row__synopsis">RHOAI 2.25.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-10-22</span></div></div></details><details class="timeline-entry" data-minor="2.24" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.24.0</code><span class="timeline-entry__date">2025-10-07</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:17501" target="_blank" rel="noopener">RHSA-2025:17501</a><span class="errata-row__synopsis">RHOAI 2.24.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-10-07</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">September 2025</h3><details class="timeline-entry" data-minor="2.22" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.22.2</code><span class="timeline-entry__date">2025-09-29</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:16982" target="_blank" rel="noopener">RHSA-2025:16982</a><span class="errata-row__synopsis">RHOAI 2.22.2 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-09-29</span></div></div></details><details class="timeline-entry" data-minor="2.19" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.19.3</code><span class="timeline-entry__date">2025-09-29</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:16984" target="_blank" rel="noopener">RHSA-2025:16984</a><span class="errata-row__synopsis">RHOAI 2.19.3 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-09-29</span></div></div></details><details class="timeline-entry" data-minor="2.16" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.16.3</code><span class="timeline-entry__date">2025-09-29</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:16981" target="_blank" rel="noopener">RHSA-2025:16981</a><span class="errata-row__synopsis">RHOAI 2.16.3 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-09-29</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">August 2025</h3><details class="timeline-entry" data-minor="2.23" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.23.0</code><span class="timeline-entry__date">2025-08-14</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Moderate</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:13904" target="_blank" rel="noopener">RHSA-2025:13904</a><span class="errata-row__synopsis">RHOAI 2.23.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-08-14</span></div></div></details><details class="timeline-entry" data-minor="2.22" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.22.1</code><span class="timeline-entry__date">2025-08-07</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2025:13493" target="_blank" rel="noopener">RHBA-2025:13493</a><span class="errata-row__synopsis">RHOAI 2.22.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-08-07</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">July 2025</h3><details class="timeline-entry" data-minor="2.22" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.22.0</code><span class="timeline-entry__date">2025-07-17</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2025:11390" target="_blank" rel="noopener">RHBA-2025:11390</a><span class="errata-row__synopsis">RHOAI 2.22.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-07-17</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">May 2025</h3><details class="timeline-entry" data-minor="2.20" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.20.0</code><span class="timeline-entry__date">2025-05-12</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2025:4836" target="_blank" rel="noopener">RHBA-2025:4836</a><span class="errata-row__synopsis">RHOAI 2.20.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-05-12</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">April 2025</h3><details class="timeline-entry" data-minor="2.19" data-kinds="bugfix security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.19.0</code><span class="timeline-entry__date">2025-04-15</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span><span class="errata-badge errata-badge--bugfix">3 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2025:10906" target="_blank" rel="noopener">RHBA-2025:10906</a><span class="errata-row__synopsis">RHOAI 2.19.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-07-14</span></div><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2025:10131" target="_blank" rel="noopener">RHBA-2025:10131</a><span class="errata-row__synopsis">RHOAI 2.19.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-07-01</span></div><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2025:3995" target="_blank" rel="noopener">RHBA-2025:3995</a><span class="errata-row__synopsis">RHOAI 2.19.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-04-17</span></div><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:3886" target="_blank" rel="noopener">RHSA-2025:3886</a><span class="errata-row__synopsis">RHOAI 2.19.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-04-15</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">March 2025</h3><details class="timeline-entry" data-minor="2.18" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.18.0</code><span class="timeline-entry__date">2025-03-10</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:2588" target="_blank" rel="noopener">RHSA-2025:2588</a><span class="errata-row__synopsis">RHOAI 2.18.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-03-10</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">February 2025</h3><details class="timeline-entry" data-minor="2.17" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.17.0</code><span class="timeline-entry__date">2025-02-13</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">1 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:1448" target="_blank" rel="noopener">RHSA-2025:1448</a><span class="errata-row__synopsis">RHOAI 2.17.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-02-13</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">December 2024</h3><details class="timeline-entry" data-minor="2.16" data-kinds="security"><summary><span class="timeline-dot timeline-dot--security"></span><code class="timeline-entry__ver">2.16.0</code><span class="timeline-entry__date">2024-12-05</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--security">4 Security</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:3397" target="_blank" rel="noopener">RHSA-2025:3397</a><span class="errata-row__synopsis">RHOAI 2.16.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-03-31</span></div><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:3368" target="_blank" rel="noopener">RHSA-2025:3368</a><span class="errata-row__synopsis">RHOAI 2.16.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-03-27</span></div><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2025:0905" target="_blank" rel="noopener">RHSA-2025:0905</a><span class="errata-row__synopsis">RHOAI 2.16.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2025-02-03</span></div><div class="errata-row" data-kind="security"><span class="errata-badge errata-badge--security">Security · Important</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHSA-2024:10852" target="_blank" rel="noopener">RHSA-2024:10852</a><span class="errata-row__synopsis">RHOAI 2.16.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-12-05</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">November 2024</h3><details class="timeline-entry" data-minor="2.10" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.10.2</code><span class="timeline-entry__date">2024-11-20</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:10128" target="_blank" rel="noopener">RHBA-2024:10128</a><span class="errata-row__synopsis">RHOAI 2.10.2 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-11-20</span></div></div></details><details class="timeline-entry" data-minor="2.8" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.8.5</code><span class="timeline-entry__date">2024-11-13</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:9509" target="_blank" rel="noopener">RHBA-2024:9509</a><span class="errata-row__synopsis">RHOAI 2.8.5 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-11-13</span></div></div></details><details class="timeline-entry" data-minor="2.15" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.15.0</code><span class="timeline-entry__date">2024-11-13</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:9527" target="_blank" rel="noopener">RHBA-2024:9527</a><span class="errata-row__synopsis">RHOAI 2.15.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-11-13</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">October 2024</h3><details class="timeline-entry" data-minor="2.13" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.13.1</code><span class="timeline-entry__date">2024-10-24</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:8413" target="_blank" rel="noopener">RHBA-2024:8413</a><span class="errata-row__synopsis">RHOAI 2.13.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-10-24</span></div></div></details><details class="timeline-entry" data-minor="2.14" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.14.0</code><span class="timeline-entry__date">2024-10-17</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:8240" target="_blank" rel="noopener">RHBA-2024:8240</a><span class="errata-row__synopsis">RHOAI 2.14.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-10-17</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">September 2024</h3><details class="timeline-entry" data-minor="2.10" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.10.1</code><span class="timeline-entry__date">2024-09-19</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:6814" target="_blank" rel="noopener">RHBA-2024:6814</a><span class="errata-row__synopsis">RHOAI 2.10.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-09-19</span></div></div></details><details class="timeline-entry" data-minor="2.13" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.13.0</code><span class="timeline-entry__date">2024-09-16</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:6677" target="_blank" rel="noopener">RHBA-2024:6677</a><span class="errata-row__synopsis">RHOAI 2.13.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-09-16</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">August 2024</h3><details class="timeline-entry" data-minor="2.12" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.12.0</code><span class="timeline-entry__date">2024-08-26</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:5839" target="_blank" rel="noopener">RHBA-2024:5839</a><span class="errata-row__synopsis">RHOAI 2.12.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-08-26</span></div></div></details><details class="timeline-entry" data-minor="2.8" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.8.4</code><span class="timeline-entry__date">2024-08-08</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:5120" target="_blank" rel="noopener">RHBA-2024:5120</a><span class="errata-row__synopsis">RHOAI 2.8.4 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-08-08</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">July 2024</h3><details class="timeline-entry" data-minor="2.11" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.11.0</code><span class="timeline-entry__date">2024-07-16</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">2 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:7840" target="_blank" rel="noopener">RHBA-2024:7840</a><span class="errata-row__synopsis">RHOAI 2.11.0+0.1727935135.p - Red Hat OpenShift AI</span><span class="errata-row__date">2024-10-09</span></div><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:4558" target="_blank" rel="noopener">RHBA-2024:4558</a><span class="errata-row__synopsis">RHOAI 2.11.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-07-16</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">June 2024</h3><details class="timeline-entry" data-minor="2.10" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.10.0</code><span class="timeline-entry__date">2024-06-24</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:4069" target="_blank" rel="noopener">RHBA-2024:4069</a><span class="errata-row__synopsis">RHOAI 2.10.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-06-24</span></div></div></details><details class="timeline-entry" data-minor="2.8" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.8.3</code><span class="timeline-entry__date">2024-06-13</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:3930" target="_blank" rel="noopener">RHBA-2024:3930</a><span class="errata-row__synopsis">RHOAI 2.8.3 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-06-13</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">May 2024</h3><details class="timeline-entry" data-minor="2.9" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.9.1</code><span class="timeline-entry__date">2024-05-20</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:2928" target="_blank" rel="noopener">RHBA-2024:2928</a><span class="errata-row__synopsis">RHOAI 2.9.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-05-20</span></div></div></details><details class="timeline-entry" data-minor="2.8" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.8.2</code><span class="timeline-entry__date">2024-05-07</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:2745" target="_blank" rel="noopener">RHBA-2024:2745</a><span class="errata-row__synopsis">RHOAI 2.8.2 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-05-07</span></div></div></details><details class="timeline-entry" data-minor="2.9" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.9.0</code><span class="timeline-entry__date">2024-05-01</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:2644" target="_blank" rel="noopener">RHBA-2024:2644</a><span class="errata-row__synopsis">RHOAI 2.9.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-05-01</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">April 2024</h3><details class="timeline-entry" data-minor="2.8" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.8.1</code><span class="timeline-entry__date">2024-04-10</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:1748" target="_blank" rel="noopener">RHBA-2024:1748</a><span class="errata-row__synopsis">RHOAI 2.8.1 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-04-10</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">March 2024</h3><details class="timeline-entry" data-minor="2.8" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.8.0</code><span class="timeline-entry__date">2024-03-19</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:1371" target="_blank" rel="noopener">RHBA-2024:1371</a><span class="errata-row__synopsis">RHOAI 2.8.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-03-19</span></div></div></details></section><section class="timeline-month"><h3 class="timeline-month__label">February 2024</h3><details class="timeline-entry" data-minor="2.7" data-kinds="bugfix"><summary><span class="timeline-dot timeline-dot--bugfix"></span><code class="timeline-entry__ver">2.7.0</code><span class="timeline-entry__date">2024-02-27</span><span class="zstream-block__badges"><span class="errata-badge errata-badge--bugfix">1 Bug Fix</span></span></summary><div class="timeline-entry__body"><div class="errata-row" data-kind="bugfix"><span class="errata-badge errata-badge--bugfix">Bug Fix</span><a class="errata-row__id" href="https://access.redhat.com/errata/RHBA-2024:1001" target="_blank" rel="noopener">RHBA-2024:1001</a><span class="errata-row__synopsis">RHOAI 2.7.0 - Red Hat OpenShift AI</span><span class="errata-row__date">2024-02-27</span></div></div></details></section></div>
+<script>
+(function () {
+  var sel = document.getElementById('tl-minor');
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.tl-kind'));
+  var countEl = document.getElementById('tl-count');
+  if (!sel) return;
+
+  function applyFilters(push) {
+    var minor = sel.value;
+    var kinds = {};
+    boxes.forEach(function (b) { kinds[b.value] = b.checked; });
+    var shown = 0, total = 0;
+    document.querySelectorAll('.timeline-entry').forEach(function (el) {
+      total += 1;
+      var okMinor = !minor || el.dataset.minor === minor;
+      var okKind = el.dataset.kinds.split(' ').some(function (k) { return kinds[k]; });
+      var visible = okMinor && okKind;
+      el.hidden = !visible;
+      if (visible) shown += 1;
+      el.querySelectorAll('.errata-row').forEach(function (row) {
+        row.hidden = !kinds[row.dataset.kind];
+      });
+    });
+    document.querySelectorAll('.timeline-month').forEach(function (m) {
+      m.hidden = m.querySelectorAll('.timeline-entry:not([hidden])').length === 0;
+    });
+    countEl.textContent = shown === total
+      ? total + ' entries'
+      : shown + ' of ' + total + ' entries';
+    if (push) {
+      var off = boxes.filter(function (b) { return !b.checked; })
+                     .map(function (b) { return b.value; });
+      var p = new URLSearchParams();
+      if (minor) p.set('minor', minor);
+      if (off.length) p.set('hide', off.join(','));
+      var qs = p.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+  }
+
+  sel.addEventListener('change', function () { applyFilters(true); });
+  boxes.forEach(function (b) { b.addEventListener('change', function () { applyFilters(true); }); });
+
+  var q = new URLSearchParams(location.search);
+  var qm = q.get('minor');
+  if (qm) sel.value = qm;
+  var hide = (q.get('hide') || '').split(',');
+  boxes.forEach(function (b) { if (hide.indexOf(b.value) >= 0) b.checked = false; });
+  applyFilters(false);
+})();
+</script>
+</div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<script>
+function getStickyOffset() {
+  var offset = 16;
+  var masthead = document.querySelector('.pf-v6-c-masthead');
+  var subnav = document.querySelector('.pf-v6-c-page__main-subnav');
+  if (masthead) offset += masthead.getBoundingClientRect().height;
+  if (subnav) offset += subnav.getBoundingClientRect().height;
+  return offset;
+}
+function getScrollParent(el) {
+  var node = el.parentElement;
+  while (node) {
+    var style = window.getComputedStyle(node);
+    if (/(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight) {
+      return node;
+    }
+    node = node.parentElement;
+  }
+  return null;
+}
+function updateStickyOffset() {
+  document.documentElement.style.setProperty('--sticky-offset', getStickyOffset() + 'px');
+}
+function scrollToElement(el) {
+  if (!el) return;
+  updateStickyOffset();
+  requestAnimationFrame(function() {
+    updateStickyOffset();
+    var offset = getStickyOffset();
+    var parent = getScrollParent(el);
+    if (parent) {
+      var top = el.getBoundingClientRect().top - parent.getBoundingClientRect().top + parent.scrollTop - offset;
+      parent.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    } else {
+      var top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+  });
+}
+function findProductSection(target) {
+  return document.getElementById(target) || document.querySelector('[data-anchor="' + target + '"]');
+}
+function getNavButtons() {
+  return Array.from(document.querySelectorAll('.nav-toggle[data-target]'));
+}
+function isFilterActive() {
+  var nav = document.querySelector('.product-nav');
+  return nav && nav.classList.contains('is-filtered');
+}
+function getSelectedTargets() {
+  var selected = new Set();
+  getNavButtons().forEach(function(btn) {
+    if (btn.getAttribute('aria-pressed') === 'true') selected.add(btn.getAttribute('data-target'));
+  });
+  return selected;
+}
+function applyProductFilter(selected, scrollTarget) {
+  var nav = document.querySelector('.product-nav');
+  var resetBtn = document.getElementById('nav-reset');
+  var buttons = getNavButtons();
+  var allTargets = buttons.map(function(b) { return b.getAttribute('data-target'); });
+  if (!selected || selected.size === 0) {
+    allTargets.forEach(function(t) {
+      var sec = findProductSection(t);
+      if (sec) sec.style.display = '';
+    });
+    buttons.forEach(function(b) { b.setAttribute('aria-pressed', 'true'); });
+    if (nav) nav.classList.remove('is-filtered');
+    if (resetBtn) resetBtn.hidden = true;
+    updateNavFilterBadge(null);
+    return;
+  }
+  allTargets.forEach(function(t) {
+    var sec = findProductSection(t);
+    if (sec) sec.style.display = selected.has(t) ? '' : 'none';
+  });
+  buttons.forEach(function(b) {
+    b.setAttribute('aria-pressed', selected.has(b.getAttribute('data-target')) ? 'true' : 'false');
+  });
+  if (nav) nav.classList.add('is-filtered');
+  if (resetBtn) resetBtn.hidden = false;
+  updateNavFilterBadge(selected);
+  if (scrollTarget) {
+    var el = findProductSection(scrollTarget);
+    if (el) scrollToElement(el);
+  }
+}
+function updateNavFilterBadge(selected) {
+  var badge = document.getElementById('nav-filter-badge');
+  if (!badge) return;
+  if (!selected || selected.size === 0 || selected.size === getNavButtons().length) {
+    badge.hidden = true;
+    badge.textContent = '';
+    return;
+  }
+  badge.hidden = false;
+  badge.textContent = selected.size + ' selected';
+}
+function collapseMobileProductNav() {
+  var shell = document.getElementById('product-nav-shell');
+  if (!shell || !window.matchMedia('(max-width: 768px)').matches) return;
+  shell.removeAttribute('open');
+  localStorage.setItem('lifecycle-product-nav-open', 'false');
+  updateStickyOffset();
+}
+function onProductNavClick(btn) {
+  var target = btn.getAttribute('data-target');
+  if (!isFilterActive()) {
+    applyProductFilter(new Set([target]), target);
+    collapseMobileProductNav();
+    return;
+  }
+  var selected = getSelectedTargets();
+  if (selected.has(target)) {
+    selected.delete(target);
+    applyProductFilter(selected.size ? selected : null);
+  } else {
+    selected.add(target);
+    applyProductFilter(selected, target);
+    collapseMobileProductNav();
+  }
+}
+function resetProductFilter() {
+  applyProductFilter(null);
+}
+function initProductNav() {
+  var list = document.querySelector('.product-nav__list');
+  if (!list) return;
+  list.addEventListener('click', function(e) {
+    if (e.target.closest('#nav-reset')) {
+      resetProductFilter();
+      collapseMobileProductNav();
+      return;
+    }
+    var btn = e.target.closest('.nav-toggle[data-target]');
+    if (btn) onProductNavClick(btn);
+  });
+}
+function applyRowStripes(card) {
+  var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
+  var visible = rows.filter(function(r) { return r.style.display !== 'none'; });
+  rows.forEach(function(r) { r.classList.remove('row-alt'); });
+  visible.forEach(function(row, i) {
+    if (i % 2 === 1) row.classList.add('row-alt');
+  });
+}
+function filterCard(card) {
+  var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
+  if (!rows.length) return;
+  var fromSel = card.querySelector('.ctrl-from');
+  var toSel   = card.querySelector('.ctrl-to');
+  var eolCk   = card.querySelector('.ctrl-eol');
+  var showEol = eolCk ? eolCk.checked : false;
+  var fromIdx = 0, toIdx = rows.length - 1;
+  if (fromSel && fromSel.value) {
+    var fi = rows.findIndex(function(r) { return r.dataset.ver === fromSel.value; });
+    if (fi >= 0) fromIdx = fi;
+  }
+  if (toSel && toSel.value) {
+    var ti = rows.findIndex(function(r) { return r.dataset.ver === toSel.value; });
+    if (ti >= 0) toIdx = ti;
+  }
+  rows.forEach(function(row, i) {
+    var eol = row.dataset.eol === 'true';
+    var visible = i >= fromIdx && i <= toIdx && (showEol || !eol);
+    row.style.display = visible ? '' : 'none';
+    var group = row.nextElementSibling;
+    if (group && group.classList.contains('minor-group')) {
+      if (!visible) {
+        group.style.display = 'none';
+      } else {
+        group.style.display = group.classList.contains('visible') ? 'flex' : 'none';
+        group.querySelectorAll('.minor-row').forEach(function(mr) {
+          mr.style.display = (showEol || mr.dataset.eol !== 'true') ? '' : 'none';
+        });
+      }
+    }
+  });
+  applyRowStripes(card);
+}
+function toggleMinorRows(card) {
+  var show = card.querySelector('.ctrl-minor') && card.querySelector('.ctrl-minor').checked;
+  card.querySelectorAll('.minor-group').forEach(function(g) {
+    g.classList.toggle('visible', show);
+  });
+  filterCard(card);
+}
+function navigateToHash(hash) {
+  if (!hash) return;
+  var id = hash.replace(/^#/, '');
+  var el = document.getElementById(id);
+  if (!el) return;
+  var node = el;
+  while (node) {
+    if (node.tagName === 'DETAILS') node.open = true;
+    node = node.parentElement;
+  }
+  applyProductFilter(new Set([id]), id);
+  setTimeout(function() { scrollToElement(el); }, 50);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  updateStickyOffset();
+  initProductNav();
+  document.querySelectorAll('.card').forEach(function(card) { filterCard(card); });
+  navigateToHash(window.location.hash);
+});
+window.addEventListener('resize', updateStickyOffset);
+window.addEventListener('hashchange', function() { navigateToHash(window.location.hash); });
+(function() {
+  var tip = document.createElement('div');
+  tip.id = 'phase-tooltip';
+  document.body.appendChild(tip);
+  document.addEventListener('mouseover', function(e) {
+    var el = e.target.closest('[data-phase]');
+    if (el) { tip.textContent = el.dataset.phase; tip.style.display = 'block'; }
+    else { tip.style.display = 'none'; }
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (tip.style.display === 'block') {
+      var x = e.clientX + 14, y = e.clientY + 14;
+      if (x + 220 > window.innerWidth) x = e.clientX - tip.offsetWidth - 8;
+      if (y + 60 > window.innerHeight) y = e.clientY - tip.offsetHeight - 8;
+      tip.style.left = x + 'px'; tip.style.top = y + 'px';
+    }
+  });
+  document.addEventListener('mouseout', function(e) {
+    if (!e.relatedTarget || !e.relatedTarget.closest('[data-phase]')) tip.style.display = 'none';
+  });
+})();
+document.addEventListener('click', function(e) {
+  var warn = e.target.closest('.eol-warn');
+  if (warn) { warn.classList.toggle('pinned'); e.stopPropagation(); }
+  else { document.querySelectorAll('.eol-warn.pinned').forEach(function(w) { w.classList.remove('pinned'); }); }
+});
+(function(){
+  var shell = document.getElementById('disclaimer-sidebar-shell');
+  if (!shell) return;
+  var KEY = 'lifecycle-disclaimer-open';
+  var saved = localStorage.getItem(KEY);
+  if (saved === 'true') shell.setAttribute('open', '');
+  else if (saved === 'false') shell.removeAttribute('open');
+  shell.addEventListener('toggle', function() {
+    localStorage.setItem(KEY, shell.open ? 'true' : 'false');
+    updateStickyOffset();
+  });
+  updateStickyOffset();
+})();
+(function(){
+  var shell = document.getElementById('product-nav-shell');
+  if (!shell) return;
+  var mq = window.matchMedia('(min-width: 769px)');
+  var KEY = 'lifecycle-product-nav-open';
+  function syncProductNavShell() {
+    if (mq.matches) shell.setAttribute('open', '');
+    else {
+      var saved = localStorage.getItem(KEY);
+      if (saved === 'true') shell.setAttribute('open', '');
+      else shell.removeAttribute('open');
+    }
+    updateStickyOffset();
+  }
+  if (typeof mq.addEventListener === 'function') mq.addEventListener('change', syncProductNavShell);
+  else if (typeof mq.addListener === 'function') mq.addListener(syncProductNavShell);
+  shell.addEventListener('toggle', function() {
+    if (!mq.matches) localStorage.setItem(KEY, shell.open ? 'true' : 'false');
+    updateStickyOffset();
+  });
+  syncProductNavShell();
+})();
+(function(){
+  var btn = document.getElementById('theme-toggle');
+  var sunIcon = document.getElementById('theme-icon-sun');
+  var moonIcon = document.getElementById('theme-icon-moon');
+  function applyTheme(dark){
+    if(dark){
+      document.documentElement.classList.add('pf-v6-theme-dark');
+      document.documentElement.setAttribute('data-theme','dark');
+      sunIcon.style.display='inline';moonIcon.style.display='none';
+    }else{
+      document.documentElement.classList.remove('pf-v6-theme-dark');
+      document.documentElement.setAttribute('data-theme','light');
+      sunIcon.style.display='none';moonIcon.style.display='inline';
+    }
+  }
+  var cur = document.documentElement.getAttribute('data-theme')==='dark';
+  if (btn && sunIcon && moonIcon) {
+    applyTheme(cur);
+    btn.addEventListener('click',function(){
+      var isDark = document.documentElement.getAttribute('data-theme')==='dark';
+      var next = !isDark;
+      localStorage.setItem('lifecycle-theme', next?'dark':'light');
+      applyTheme(next);
+    });
+  }
+})();
+</script>
+</body>
+</html>

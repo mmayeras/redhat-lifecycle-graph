@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OpenStack on OpenShift</title>
+<title>Red Hat Enterprise Linux Release Timeline</title>
 <link rel="icon" type="image/svg+xml" href="static/icons/redhat-hat-red.svg">
 <script>(function(){function apply(d){if(d){document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}}var q=new URLSearchParams(location.search).get('theme');var t=localStorage.getItem('lifecycle-theme'),d;if(q==='dark'||q==='light')d=q==='dark';else if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;apply(d);window.addEventListener('message',function(e){var m=e.data;if(m&&m.type==='casedoctor-theme'&&(m.theme==='dark'||m.theme==='light'))apply(m.theme==='dark');});})();</script>
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
@@ -16,7 +16,7 @@
     <div class="pf-v6-c-masthead__main">
       <a class="pf-v6-c-masthead__brand pf-v6-l-flex pf-m-align-items-center pf-m-gap-sm pf-v6-u-text-color-regular" href="#">
         <img src="static/icons/redhat-hat-red.svg" alt="Red Hat" width="28" height="28">
-        <span class="pf-v6-c-title pf-m-md">OpenStack on OpenShift</span>
+        <span class="pf-v6-c-title pf-m-md">Red Hat Enterprise Linux Release Timeline</span>
       </a>
     </div>
     <div class="pf-v6-c-masthead__content"><div class="pf-v6-l-flex pf-m-align-items-center pf-m-justify-content-flex-end pf-m-flex-1 pf-m-gap-sm"><button class="pf-v6-c-button pf-m-plain" type="button" id="theme-toggle" aria-label="Toggle theme"><svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></div></div>
@@ -28,33 +28,61 @@
       <section class="pf-v6-c-page__main-section pf-m-limit-width pf-m-align-center">
         <div class="pf-v6-c-page__main-body">
           <div class="pf-v6-l-stack pf-m-gutter">
-<div class="details-topbar"><nav class="pf-v6-c-breadcrumb" aria-label="Breadcrumb"><ol class="pf-v6-c-breadcrumb__list" role="list"><li class="pf-v6-c-breadcrumb__item"><a class="pf-v6-c-breadcrumb__link" href="index.html"><svg class="bc-home-icon" width="12" height="12" viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>All products</a></li><li class="pf-v6-c-breadcrumb__item"><span class="pf-v6-c-breadcrumb__item-divider"><svg width="7" height="10" viewBox="0 0 256 512" fill="currentColor" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span><span class="pf-v6-c-breadcrumb__link pf-m-current" aria-current="page">OpenStack on OpenShift lifecycle</span></li></ol></nav><div class="details-topbar__right"><div class="pf-v6-c-toggle-group" role="group" aria-label="View switcher"><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button pf-m-selected" href="lifecycle-rhoso.html" aria-current="page"><span class="pf-v6-c-toggle-group__text">Chart</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhoso-details.html"><span class="pf-v6-c-toggle-group__text">Details</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhoso-timeline.html"><span class="pf-v6-c-toggle-group__text">Timeline</span></a></div></div></div></div>
-<div class="card">
-  <div class="card-header">
-    <span class="card-title">
-      <img class="card-title__icon" src="static/icons/products/osp.svg" alt="" width="20" height="20" loading="lazy">
-      OpenStack on OpenShift <a href="https://access.redhat.com/support/policy/updates/openstack/platform" target="_blank" rel="noopener" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Official Lifecycle Policy">↗ policy</a> <a href="lifecycle-rhoso-details.html" style="font-size:10px;color:var(--link-color);font-weight:400;text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" title="Z-stream releases &amp; errata">↗ details</a>
-    </span>
-    <div class="legend">
-      <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Full Support"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#bde5b8;border:1.5px solid #1e4f18"></span>Full Support</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="Maintenance"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f9e0a2;border:1.5px solid #795600"></span>Maintenance</span> <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-primary)" title="ELS"><span style="display:inline-block;width:14px;height:12px;border-radius:2px;background:#f5b8b4;border:1.5px solid #c9190b"></span>ELS</span>
-      <span class="legend-today">┆ Today (2026-07-17)</span>
-    </div>
-  </div>
-  <div class="card-controls"><span class="ctrl-label">Range:</span><select class="ctrl-from" onchange="filterCard(this.closest('.card'))"><option value="">All from</option><option value="18.0">18.0</option></select><span class="ctrl-label">→</span><select class="ctrl-to" onchange="filterCard(this.closest('.card'))"><option value="">All to</option><option value="18.0">18.0</option></select><label><input type="checkbox" class="ctrl-eol" onchange="filterCard(this.closest('.card'))"> Include EOL</label></div>
-  
-  <div class="chart-area">
-    <div class="chart-inner" style="--mobile-min-width:520px">
-      <div class="chart-grid">
-        <div style="position:absolute;left:9.661%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:9.661%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2025</div><div style="position:absolute;left:28.417%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:28.417%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2026</div><div style="position:absolute;left:47.174%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:47.174%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2027</div><div style="position:absolute;left:65.930%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:65.930%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2028</div><div style="position:absolute;left:84.738%;top:0;bottom:0;border-left:1px dashed var(--grid-line);z-index:0"></div><div style="position:absolute;left:84.738%;top:-20px;font-size:11px;color:var(--text-secondary);transform:translateX(-50%);font-weight:600;white-space:nowrap">2029</div>
-        <div class="chart-today-line" style="left:38.541%"></div><div class="chart-today-label" style="left:38.541%">Today</div>
-      </div>
-      <div class="chart-rows">
-        <div class="chart-row" data-ver="18.0" data-eol="false">  <div class="chart-row-label">    <code class="ver-code">18.0</code>  </div>  <div class="chart-row-bar">    <div style="position:absolute;left:3.083%;width:93.834%;height:100%;border-radius:4px;overflow:hidden;display:flex"><div data-phase="Full Support | 2024-08-26 → 2027-08-26" style="width:59.967%;height:100%;background:#bde5b8;border-top:1.5px solid #1e4f18;border-bottom:1.5px solid #1e4f18;border-left:1.5px solid #1e4f18;border-right:none;border-radius:4px 0 0 4px;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#1e4f18;font-weight:600">Full Support</span></div><div data-phase="Maintenance | 2027-08-26 → 2028-08-26" style="width:20.044%;height:100%;background:#f9e0a2;border-top:1.5px solid #795600;border-bottom:1.5px solid #795600;border-left:none;border-right:none;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#795600;font-weight:600">Maintenance</span></div><div data-phase="ELS | 2028-08-26 → 2029-08-26" style="width:19.989%;height:100%;background:#f5b8b4;border-top:1.5px solid #c9190b;border-bottom:1.5px solid #c9190b;border-left:none;border-right:1.5px solid #c9190b;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:center;overflow:hidden"><span class="phase-bar-label" style="font-size:11px;color:#a30000;font-weight:600">ELS</span></div></div>  </div>  <div class="chart-row-days"><span style="color:#1e4f18;font-weight:600;font-size:13px" title="Full Support — 405 days remaining">405d</span></div></div>
-      </div>
-    </div>
-  </div>
-  <div class="footer">Source: <a href="https://access.redhat.com/product-life-cycles/" target="_blank">Red Hat Product Life Cycles</a> &nbsp;·&nbsp; Generated 2026-07-17 14:07 UTC</div>
-</div>
+<div class="details-topbar"><nav class="pf-v6-c-breadcrumb" aria-label="Breadcrumb"><ol class="pf-v6-c-breadcrumb__list" role="list"><li class="pf-v6-c-breadcrumb__item"><a class="pf-v6-c-breadcrumb__link" href="index.html"><svg class="bc-home-icon" width="12" height="12" viewBox="0 0 576 512" fill="currentColor" aria-hidden="true"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>All products</a></li><li class="pf-v6-c-breadcrumb__item"><span class="pf-v6-c-breadcrumb__item-divider"><svg width="7" height="10" viewBox="0 0 256 512" fill="currentColor" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span><a class="pf-v6-c-breadcrumb__link" href="lifecycle-rhel.html">Red Hat Enterprise Linux lifecycle</a></li><li class="pf-v6-c-breadcrumb__item"><span class="pf-v6-c-breadcrumb__item-divider"><svg width="7" height="10" viewBox="0 0 256 512" fill="currentColor" aria-hidden="true"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span><span class="pf-v6-c-breadcrumb__link pf-m-current" aria-current="page">Release timeline</span></li></ol></nav><div class="details-topbar__right"><div class="pf-v6-c-toggle-group" role="group" aria-label="View switcher"><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhel.html"><span class="pf-v6-c-toggle-group__text">Chart</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button" href="lifecycle-rhel-details.html"><span class="pf-v6-c-toggle-group__text">Details</span></a></div><div class="pf-v6-c-toggle-group__item"><a class="pf-v6-c-toggle-group__button pf-m-selected" href="lifecycle-rhel-timeline.html" aria-current="page"><span class="pf-v6-c-toggle-group__text">Timeline</span></a></div></div><span class="details-topbar__generated">Data generated 2026-07-17T14:05:36Z</span></div></div>
+
+<div class="delta-bar"><span class="delta-bar__label">Filter:</span><label>Minor <select id="tl-minor" class="delta-select"><option value="">all</option><option value="10.0">10.0</option><option value="9.8">9.8</option><option value="9.7">9.7</option><option value="9.6">9.6</option><option value="9.5">9.5</option><option value="9.4">9.4</option><option value="9.3">9.3</option><option value="9.2">9.2</option><option value="9.1">9.1</option><option value="9.0">9.0</option><option value="8.10">8.10</option><option value="8.9">8.9</option><option value="8.8">8.8</option><option value="8.7">8.7</option><option value="8.6">8.6</option><option value="8.5">8.5</option><option value="8.4">8.4</option><option value="8.3">8.3</option><option value="8.2">8.2</option><option value="8.1">8.1</option><option value="8.0">8.0</option><option value="7.9">7.9</option><option value="7.8">7.8</option><option value="7.7">7.7</option><option value="7.6">7.6</option><option value="7.5">7.5</option><option value="7.4">7.4</option><option value="7.3">7.3</option><option value="7.2">7.2</option><option value="7.1">7.1</option></select></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="security" checked><span class="errata-badge errata-badge--security">Security</span></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="bugfix" checked><span class="errata-badge errata-badge--bugfix">Bug Fix</span></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="enhancement" checked><span class="errata-badge errata-badge--enhancement">Enhancement</span></label><label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="other" checked><span class="errata-badge errata-badge--other">Advisory</span></label><span class="delta-summary" id="tl-count"></span><p class="delta-bar__hint">Z-stream releases and advisories newest first, grouped by month.</p></div>
+<div class="timeline"><div class="timeline-today">┆ Today (2026-07-17)</div></div>
+<script>
+(function () {
+  var sel = document.getElementById('tl-minor');
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.tl-kind'));
+  var countEl = document.getElementById('tl-count');
+  if (!sel) return;
+
+  function applyFilters(push) {
+    var minor = sel.value;
+    var kinds = {};
+    boxes.forEach(function (b) { kinds[b.value] = b.checked; });
+    var shown = 0, total = 0;
+    document.querySelectorAll('.timeline-entry').forEach(function (el) {
+      total += 1;
+      var okMinor = !minor || el.dataset.minor === minor;
+      var okKind = el.dataset.kinds.split(' ').some(function (k) { return kinds[k]; });
+      var visible = okMinor && okKind;
+      el.hidden = !visible;
+      if (visible) shown += 1;
+      el.querySelectorAll('.errata-row').forEach(function (row) {
+        row.hidden = !kinds[row.dataset.kind];
+      });
+    });
+    document.querySelectorAll('.timeline-month').forEach(function (m) {
+      m.hidden = m.querySelectorAll('.timeline-entry:not([hidden])').length === 0;
+    });
+    countEl.textContent = shown === total
+      ? total + ' entries'
+      : shown + ' of ' + total + ' entries';
+    if (push) {
+      var off = boxes.filter(function (b) { return !b.checked; })
+                     .map(function (b) { return b.value; });
+      var p = new URLSearchParams();
+      if (minor) p.set('minor', minor);
+      if (off.length) p.set('hide', off.join(','));
+      var qs = p.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+  }
+
+  sel.addEventListener('change', function () { applyFilters(true); });
+  boxes.forEach(function (b) { b.addEventListener('change', function () { applyFilters(true); }); });
+
+  var q = new URLSearchParams(location.search);
+  var qm = q.get('minor');
+  if (qm) sel.value = qm;
+  var hide = (q.get('hide') || '').split(',');
+  boxes.forEach(function (b) { if (hide.indexOf(b.value) >= 0) b.checked = false; });
+  applyFilters(false);
+})();
+</script>
 </div>
         </div>
       </section>

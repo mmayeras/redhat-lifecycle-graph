@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-07-17T13:10:37Z",
+ "generated": "2026-07-17T14:07:37Z",
  "minors": [
   {
    "minor": "17.1",
@@ -4013,20 +4013,20 @@
        "url": "https://access.redhat.com/errata/RHEA-2022:8859"
       },
       {
-       "id": "RHBA-2022:8795",
-       "synopsis": "Red Hat OpenStack Platform 16.1.9 bug fix and enhancement advisory",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-12-07",
-       "url": "https://access.redhat.com/errata/RHBA-2022:8795"
-      },
-      {
        "id": "RHEA-2022:8858",
        "synopsis": "Red Hat OpenStack Platform 16.1.9 director images",
        "kind": "enhancement",
        "severity": "None",
        "date": "2022-12-07",
        "url": "https://access.redhat.com/errata/RHEA-2022:8858"
+      },
+      {
+       "id": "RHBA-2022:8795",
+       "synopsis": "Red Hat OpenStack Platform 16.1.9 bug fix and enhancement advisory",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-12-07",
+       "url": "https://access.redhat.com/errata/RHBA-2022:8795"
       }
      ]
     },
@@ -4815,17 +4815,6 @@
      ]
     },
     {
-     "id": "RHSA-2022:0989",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 16.1 (golang-qpid-apache) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2022-03-24",
-     "url": "https://access.redhat.com/errata/RHSA-2022:0989",
-     "items": [
-      "net: incorrect parsing of extraneous zero characters at the beginning of an IP address octet (CVE-2021-29923)"
-     ]
-    },
-    {
      "id": "RHSA-2022:0990",
      "synopsis": "Moderate: Red Hat OpenStack Platform 16.1 (openstack-neutron) security update",
      "kind": "security",
@@ -4834,6 +4823,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2022:0990",
      "items": [
       "Routes middleware memory leak for nonexistent controllers (CVE-2021-40797)"
+     ]
+    },
+    {
+     "id": "RHSA-2022:0989",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 16.1 (golang-qpid-apache) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2022-03-24",
+     "url": "https://access.redhat.com/errata/RHSA-2022:0989",
+     "items": [
+      "net: incorrect parsing of extraneous zero characters at the beginning of an IP address octet (CVE-2021-29923)"
      ]
     },
     {
@@ -8529,6 +8529,14 @@
      "url": "https://access.redhat.com/errata/RHBA-2018:2873"
     },
     {
+     "id": "RHBA-2018:2831",
+     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2018-09-27",
+     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
+    },
+    {
      "id": "RHSA-2018:2822",
      "synopsis": "Important: qemu-kvm-rhev security update",
      "kind": "security",
@@ -8538,14 +8546,6 @@
      "items": [
       "QEMU: slirp: heap buffer overflow while reassembling fragmented datagrams (CVE-2018-11806)"
      ]
-    },
-    {
-     "id": "RHBA-2018:2831",
-     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2018-09-27",
-     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
     },
     {
      "id": "RHBA-2018:2728",
