@@ -1,0 +1,945 @@
+{
+ "product": "rhoso",
+ "title": "OpenStack on OpenShift",
+ "generated": "2026-07-17T13:10:40Z",
+ "minors": [
+  {
+   "minor": "18.0",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openstack_services_on_openshift/18.0/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "18.0.21",
+     "date": "2026-07-15",
+     "errata": [
+      {
+       "id": "RHSA-2026:39894",
+       "synopsis": "Release of containers for RHOSO 18.0.21",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:39894",
+       "items": [
+        "opencontainers/selinux: container escape and denial of service due to arbitrary write gadgets and procfs write redirects (CVE-2025-52881)",
+        "Go: Denial of Service vulnerability in certificate chain building (CVE-2026-32280)",
+        "pyasn1: Denial of Service due to memory exhaustion from malformed RELATIVE-OID (CVE-2026-23490)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "18.0.18",
+     "date": "2026-04-29",
+     "errata": [
+      {
+       "id": "RHSA-2026:11747",
+       "synopsis": "Release of containers for RHOSO 18.0.18 security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-04-29",
+       "url": "https://access.redhat.com/errata/RHSA-2026:11747",
+       "items": [
+        "golang: Unexpected session resumption in crypto/tls (CVE-2025-68121)",
+        "golang: Memory exhaustion in query parameter parsing in net/url (CVE-2025-61726)",
+        "golang: Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:7886",
+       "synopsis": "Release of components for RHOSO 18.0.18",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-04-29",
+       "url": "https://access.redhat.com/errata/RHBA-2026:7886"
+      }
+     ]
+    },
+    {
+     "version": "18.0.17",
+     "date": "2026-03-18",
+     "errata": [
+      {
+       "id": "RHSA-2026:4936",
+       "synopsis": "Release of containers for RHOSO 18.0.17 security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-03-18",
+       "url": "https://access.redhat.com/errata/RHSA-2026:4936",
+       "items": [
+        "golang: Denial of Service due to excessive resource consumption via crafted certificate (CVE-2025-61729)",
+        "archive/tar: Unbounded allocation when parsing GNU sparse map (CVE-2025-58183)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:4934",
+       "synopsis": "Release of components for RHOSO 18.0.17",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-03-18",
+       "url": "https://access.redhat.com/errata/RHBA-2026:4934"
+      }
+     ]
+    },
+    {
+     "version": "18.0.16",
+     "date": "2026-02-12",
+     "errata": [
+      {
+       "id": "RHBA-2026:2683",
+       "synopsis": "Release of containers for RHOSO 18.0.16",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-02-12",
+       "url": "https://access.redhat.com/errata/RHBA-2026:2683"
+      },
+      {
+       "id": "RHBA-2026:1960",
+       "synopsis": "Release of components for RHOSO 18.0.16",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-02-12",
+       "url": "https://access.redhat.com/errata/RHBA-2026:1960"
+      }
+     ]
+    },
+    {
+     "version": "18.0.15",
+     "date": "2025-12-15",
+     "errata": [
+      {
+       "id": "RHBA-2025:23179",
+       "synopsis": "Release of containers for RHOSO 18.0.15",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-12-15",
+       "url": "https://access.redhat.com/errata/RHBA-2025:23179"
+      },
+      {
+       "id": "RHBA-2025:23151",
+       "synopsis": "Release of components for RHOSO 18.0.15",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-12-15",
+       "url": "https://access.redhat.com/errata/RHBA-2025:23151"
+      }
+     ]
+    },
+    {
+     "version": "18.0.14",
+     "date": "2025-11-12",
+     "errata": [
+      {
+       "id": "RHBA-2025:22144",
+       "synopsis": "Release of containers for RHOSO 18.0.14",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-11-25",
+       "url": "https://access.redhat.com/errata/RHBA-2025:22144"
+      },
+      {
+       "id": "RHSA-2025:21132",
+       "synopsis": "Release of containers for RHOSO 18.0.14",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-11-12",
+       "url": "https://access.redhat.com/errata/RHSA-2025:21132",
+       "items": [
+        "Postgres Scan Race Condition (CVE-2025-47907)"
+       ]
+      },
+      {
+       "id": "RHBA-2025:20964",
+       "synopsis": "Release of components for RHOSO 18.0.14 (Feature Release 4)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-11-12",
+       "url": "https://access.redhat.com/errata/RHBA-2025:20964"
+      }
+     ]
+    },
+    {
+     "version": "18.0.13",
+     "date": "2025-10-14",
+     "errata": [
+      {
+       "id": "RHBA-2025:17990",
+       "synopsis": "Release of containers for RHOSO 18.0.13",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-10-14",
+       "url": "https://access.redhat.com/errata/RHBA-2025:17990"
+      },
+      {
+       "id": "RHBA-2025:17561",
+       "synopsis": "Release of components for RHOSO 18.0.13",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-10-14",
+       "url": "https://access.redhat.com/errata/RHBA-2025:17561"
+      }
+     ]
+    },
+    {
+     "version": "18.0.12",
+     "date": "2025-09-17",
+     "errata": [
+      {
+       "id": "RHBA-2025:15803",
+       "synopsis": "Release of containers for RHOSO 18.0.12",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-17",
+       "url": "https://access.redhat.com/errata/RHBA-2025:15803"
+      },
+      {
+       "id": "RHBA-2025:15805",
+       "synopsis": "Release of components for RHOSO 18.0.12",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-17",
+       "url": "https://access.redhat.com/errata/RHBA-2025:15805"
+      }
+     ]
+    },
+    {
+     "version": "18.0.11",
+     "date": "2025-08-27",
+     "errata": [
+      {
+       "id": "RHBA-2025:14762",
+       "synopsis": "Release of containers for RHOSO 18.0.11.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-08-28",
+       "url": "https://access.redhat.com/errata/RHBA-2025:14762"
+      },
+      {
+       "id": "RHBA-2025:14763",
+       "synopsis": "Control plane Operators for RHOSO 18.0.11.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-08-28",
+       "url": "https://access.redhat.com/errata/RHBA-2025:14763"
+      },
+      {
+       "id": "RHBA-2025:14747",
+       "synopsis": "OpenShift Operators are available for the data plane of RHOSO 18.0.11.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-08-27",
+       "url": "https://access.redhat.com/errata/RHBA-2025:14747"
+      },
+      {
+       "id": "RHBA-2025:14745",
+       "synopsis": "Release of components for RHOSO 18.0.11.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-08-27",
+       "url": "https://access.redhat.com/errata/RHBA-2025:14745"
+      }
+     ]
+    },
+    {
+     "version": "18.0.10",
+     "date": "2025-07-31",
+     "errata": [
+      {
+       "id": "RHSA-2025:12091",
+       "synopsis": "Moderate: Security release of Control plane Operators: RHOSO 18.0.10 (Feature Release 3)",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-07-31",
+       "url": "https://access.redhat.com/errata/RHSA-2025:12091",
+       "items": [
+        "Request smuggling due to acceptance of invalid chunked data in net/http (CVE-2025-22871)"
+       ]
+      },
+      {
+       "id": "RHBA-2025:12090",
+       "synopsis": "Release of containers for RHOSO 18.0.10. (Feature Release 3)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-07-31",
+       "url": "https://access.redhat.com/errata/RHBA-2025:12090"
+      },
+      {
+       "id": "RHBA-2025:12092",
+       "synopsis": "OpenShift Operators for the data plane of RHOSO 18.0.10 (Feature Release 3)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-07-31",
+       "url": "https://access.redhat.com/errata/RHBA-2025:12092"
+      },
+      {
+       "id": "RHBA-2025:12089",
+       "synopsis": "Release of components for RHOSO 18.0.10. (Feature Release 3)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-07-31",
+       "url": "https://access.redhat.com/errata/RHBA-2025:12089"
+      }
+     ]
+    },
+    {
+     "version": "18.0.9",
+     "date": "2025-06-18",
+     "errata": [
+      {
+       "id": "RHBA-2025:9211",
+       "synopsis": "Control plane Operators for RHOSO 18.0.9",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-06-18",
+       "url": "https://access.redhat.com/errata/RHBA-2025:9211"
+      },
+      {
+       "id": "RHBA-2025:9212",
+       "synopsis": "Data plane Operators for RHOSO 18.0.9",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-06-18",
+       "url": "https://access.redhat.com/errata/RHBA-2025:9212"
+      },
+      {
+       "id": "RHBA-2025:9213",
+       "synopsis": "Release of containers for RHOSO 18.0.9",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-06-18",
+       "url": "https://access.redhat.com/errata/RHBA-2025:9213"
+      },
+      {
+       "id": "RHBA-2025:9214",
+       "synopsis": "Release of components for RHOSO 18.0.9",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-06-18",
+       "url": "https://access.redhat.com/errata/RHBA-2025:9214"
+      }
+     ]
+    },
+    {
+     "version": "18.0.8",
+     "date": "2025-05-21",
+     "errata": [
+      {
+       "id": "RHBA-2025:8036",
+       "synopsis": "Control plane Operators for RHOSO 18.0.8",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-05-21",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8036"
+      },
+      {
+       "id": "RHBA-2025:8038",
+       "synopsis": "Release of containers for RHOSO 18.0.8",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-05-21",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8038"
+      },
+      {
+       "id": "RHBA-2025:8037",
+       "synopsis": "Data plane Operators for RHOSO 18.0.8",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-05-21",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8037"
+      },
+      {
+       "id": "RHBA-2025:8039",
+       "synopsis": "Release of components for RHOSO 18.0.8",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-05-21",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8039"
+      }
+     ]
+    },
+    {
+     "version": "18.0.7",
+     "date": "2025-04-23",
+     "errata": [
+      {
+       "id": "RHBA-2025:4086",
+       "synopsis": "Control plane Operators for RHOSO 18.0.7",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-24",
+       "url": "https://access.redhat.com/errata/RHBA-2025:4086"
+      },
+      {
+       "id": "RHBA-2025:4084",
+       "synopsis": "Release of containers for RHOSO 18.0.7",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-24",
+       "url": "https://access.redhat.com/errata/RHBA-2025:4084"
+      },
+      {
+       "id": "RHBA-2025:4085",
+       "synopsis": "Data plane Operators for RHOSO 18.0.7",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-23",
+       "url": "https://access.redhat.com/errata/RHBA-2025:4085"
+      },
+      {
+       "id": "RHBA-2025:4083",
+       "synopsis": "Release of components for RHOSO 18.0.7",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-23",
+       "url": "https://access.redhat.com/errata/RHBA-2025:4083"
+      }
+     ]
+    },
+    {
+     "version": "18.0.6",
+     "date": "2025-03-19",
+     "errata": [
+      {
+       "id": "RHBA-2025:3033",
+       "synopsis": "Release of containers for RHOSO 18.0.6 (Feature Release 2)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-03-20",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3033"
+      },
+      {
+       "id": "RHBA-2025:3032",
+       "synopsis": "Control plane Operators for RHOSO 18.0.6 (Feature Release 2)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-03-20",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3032"
+      },
+      {
+       "id": "RHBA-2025:3030",
+       "synopsis": "Data plane Operators for RHOSO 18.0.6 (Feature Release 2)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-03-20",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3030"
+      },
+      {
+       "id": "RHBA-2025:3029",
+       "synopsis": "Release of components for RHOSO 18.0.6 (Feature Release 2)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-03-19",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3029"
+      },
+      {
+       "id": "RHBA-2025:3031",
+       "synopsis": "Release of operators for RHOSO 18.0.6 (Feature Release 2)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-03-19",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3031"
+      }
+     ]
+    },
+    {
+     "version": "18.0.4",
+     "date": "2025-01-22",
+     "errata": [
+      {
+       "id": "RHBA-2025:0437",
+       "synopsis": "Control plane Operators for RHOSO 18.0.4",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-01-23",
+       "url": "https://access.redhat.com/errata/RHBA-2025:0437"
+      },
+      {
+       "id": "RHBA-2025:0436",
+       "synopsis": "Release of containers for RHOSO 18.0.4",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-01-23",
+       "url": "https://access.redhat.com/errata/RHBA-2025:0436"
+      },
+      {
+       "id": "RHBA-2025:0438",
+       "synopsis": "Data plane Operators for RHOSO 18.0.4",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-01-22",
+       "url": "https://access.redhat.com/errata/RHBA-2025:0438"
+      },
+      {
+       "id": "RHSA-2025:0439",
+       "synopsis": "Moderate: Red Hat OpenStack Platform 18.0.4 (openstack-ironic) security update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-01-22",
+       "url": "https://access.redhat.com/errata/RHSA-2025:0439",
+       "items": [
+        "Lack of checksum validation on images (CVE-2024-47211)"
+       ]
+      },
+      {
+       "id": "RHBA-2025:0435",
+       "synopsis": "Release of components for RHOSO 18.0.4",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-01-22",
+       "url": "https://access.redhat.com/errata/RHBA-2025:0435"
+      }
+     ]
+    },
+    {
+     "version": "18.0.3",
+     "date": "2024-11-13",
+     "errata": [
+      {
+       "id": "RHBA-2024:11018",
+       "synopsis": "Updated release of containers for RHOSO 18.0.3",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-12-12",
+       "url": "https://access.redhat.com/errata/RHBA-2024:11018"
+      },
+      {
+       "id": "RHBA-2024:11017",
+       "synopsis": "Updated control plane Operators for RHOSO 18.0.3",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-12-12",
+       "url": "https://access.redhat.com/errata/RHBA-2024:11017"
+      },
+      {
+       "id": "RHBA-2024:11016",
+       "synopsis": "Updated data plane operators for RHOSO 18.0.3",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-12-12",
+       "url": "https://access.redhat.com/errata/RHBA-2024:11016"
+      },
+      {
+       "id": "RHBA-2024:9482",
+       "synopsis": "Release of containers for RHOSO 18.0.3 (Feature Release 1)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-13",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9482"
+      },
+      {
+       "id": "RHBA-2024:9486",
+       "synopsis": "Control plane Operators for RHOSO 18.0.3 (Feature Release 1)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-13",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9486"
+      },
+      {
+       "id": "RHBA-2024:9483",
+       "synopsis": "Data plane Operators for RHOSO 18.0.3 (Feature Release 1)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-13",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9483"
+      },
+      {
+       "id": "RHBA-2024:9484",
+       "synopsis": "Release of operators for RHOSO 18.0.3 (Feature Release 1)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-13",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9484"
+      },
+      {
+       "id": "RHSA-2024:9481",
+       "synopsis": "Moderate: Red Hat OpenStack Platform 18.0.3 (python-django) security update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-11-13",
+       "url": "https://access.redhat.com/errata/RHSA-2024:9481",
+       "items": [
+        "Potential denial-of-service in django.utils.html.urlize() (CVE-2024-38875)",
+        "Potential denial-of-service in django.utils.translation.get_supported_language_variant() (CVE-2024-39614)",
+        "Username enumeration through timing difference for users with unusable passwords (CVE-2024-39329)",
+        "Potential directory-traversal in django.core.files.storage.Storage.save() (CVE-2024-39330)"
+       ]
+      },
+      {
+       "id": "RHBA-2024:9480",
+       "synopsis": "Release of components for RHOSO 18.0.3 (Feature Release 1)",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-13",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9480"
+      }
+     ]
+    },
+    {
+     "version": "18.0.2",
+     "date": "2024-10-16",
+     "errata": [
+      {
+       "id": "RHBA-2024:8892",
+       "synopsis": "Release of containers for RHOSO 18.0.2",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-05",
+       "url": "https://access.redhat.com/errata/RHBA-2024:8892"
+      },
+      {
+       "id": "RHBA-2024:8153",
+       "synopsis": "Control plane Operators for RHOSO 18.0.2",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-10-17",
+       "url": "https://access.redhat.com/errata/RHBA-2024:8153"
+      },
+      {
+       "id": "RHBA-2024:8154",
+       "synopsis": "Data plane Operators for RHOSO 18.0.2",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-10-17",
+       "url": "https://access.redhat.com/errata/RHBA-2024:8154"
+      },
+      {
+       "id": "RHBA-2024:8151",
+       "synopsis": "Release of containers for RHOSO 18.0.2",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-10-16",
+       "url": "https://access.redhat.com/errata/RHBA-2024:8151"
+      },
+      {
+       "id": "RHBA-2024:8155",
+       "synopsis": "Release of components for RHOSO 18.0.2",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-10-16",
+       "url": "https://access.redhat.com/errata/RHBA-2024:8155"
+      },
+      {
+       "id": "RHBA-2024:8152",
+       "synopsis": "Release of components for RHOSO 18.0.2",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-10-16",
+       "url": "https://access.redhat.com/errata/RHBA-2024:8152"
+      }
+     ]
+    },
+    {
+     "version": "18.0.1",
+     "date": "2024-09-19",
+     "errata": [
+      {
+       "id": "RHBA-2024:6776",
+       "synopsis": "Control plane Operators for RHOSO 18.0.1",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-09-20",
+       "url": "https://access.redhat.com/errata/RHBA-2024:6776"
+      },
+      {
+       "id": "RHBA-2024:6773",
+       "synopsis": "Release of containers for RHOSO 18.0.1",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-09-20",
+       "url": "https://access.redhat.com/errata/RHBA-2024:6773"
+      },
+      {
+       "id": "RHBA-2024:6777",
+       "synopsis": "Data plane Operators for RHOSO 18.0.1",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-09-19",
+       "url": "https://access.redhat.com/errata/RHBA-2024:6777"
+      },
+      {
+       "id": "RHBA-2024:6778",
+       "synopsis": "Data plane Operators for RHOSO 18.0.1",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-09-19",
+       "url": "https://access.redhat.com/errata/RHBA-2024:6778"
+      },
+      {
+       "id": "RHBA-2024:6774",
+       "synopsis": "Release of components for RHOSO 18.0.1",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-09-19",
+       "url": "https://access.redhat.com/errata/RHBA-2024:6774"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHSA-2026:39812",
+     "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (openstack-glance) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-15",
+     "url": "https://access.redhat.com/errata/RHSA-2026:39812",
+     "items": [
+      "openstack-glance: OpenStack Glance \u2013 Unvalidated URI Fetch in OVF Processing (SSRF) ()",
+      "openstack-glance: OpenStack Glance \u2013 Redirect Validation Bypass in glance-download Import (SSRF) ()",
+      "OpenStack Glance: Server-Side Request Forgery leading to unauthorized internal network access (CVE-2026-34881)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:39811",
+     "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (openstack-ironic) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-15",
+     "url": "https://access.redhat.com/errata/RHSA-2026:39811",
+     "items": [
+      "Ironic: OpenStack Ironic: Information disclosure via credential forwarding during mold import (CVE-2026-42997)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:39810",
+     "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (golang-github-openstack-k8s-operators-os-diff) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-15",
+     "url": "https://access.redhat.com/errata/RHSA-2026:39810",
+     "items": [
+      "net/url: Memory exhaustion in query parameter parsing in net/url (CVE-2025-61726)",
+      "golang: Denial of Service due to excessive resource consumption via crafted certificate (CVE-2025-61729)",
+      "Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+      "Incorrect enforcement of email constraints in crypto/x509 (CVE-2026-27137)",
+      "crypto/tls: golang: Go: Denial of Service vulnerability in certificate chain building (CVE-2026-32280)",
+      "golang: Go crypto/tls: Denial of Service via multiple TLS 1.3 key update messages (CVE-2026-32283)",
+      "golang: Go crypto/x509: Certificate validation bypass due to incorrect DNS constraint application (CVE-2026-33810)",
+      "golang: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+      "golang: Go crypto/x509: Denial of Service via inefficient certificate chain validation (CVE-2026-32281)",
+      "internal/syscall/unix: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:39809",
+     "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (erlang) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-15",
+     "url": "https://access.redhat.com/errata/RHSA-2026:39809",
+     "items": [
+      "Erlang OTP public_key: Certificate chain forgery via improper trust chain validation (CVE-2026-42789)",
+      "Erlang OTP public_key: Certificate validation bypass allows hostname spoofing (CVE-2026-42790)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:39808",
+     "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (openstack-keystone) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-15",
+     "url": "https://access.redhat.com/errata/RHSA-2026:39808",
+     "items": [
+      "Keystone: OpenStack Keystone: Unauthorized cross-project access due to improper validation in EC2 credential creation (CVE-2026-43001)",
+      "Keystone: OpenStack Keystone: Unauthorized access due to incorrect LDAP user status handling (CVE-2026-40683)",
+      "OpenStack Keystone: Privilege escalation through EC2 credential creation (CVE-2026-33551)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:1958",
+     "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (openstack-keystone) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-02-12",
+     "url": "https://access.redhat.com/errata/RHSA-2026:1958",
+     "items": [
+      "OpenStack Keystone: Unauthorized access and privilege escalation via AWS signature validation flaw (CVE-2025-65073)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:1959",
+     "synopsis": "Moderate: Red Hat OpenStack Services on OpenShift 18.0 (python-eventlet) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2026-02-12",
+     "url": "https://access.redhat.com/errata/RHSA-2026:1959",
+     "items": [
+      "Eventlet HTTP request smuggling (CVE-2025-58068)"
+     ]
+    },
+    {
+     "id": "RHSA-2025:17500",
+     "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (python-django) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2025-10-07",
+     "url": "https://access.redhat.com/errata/RHSA-2025:17500",
+     "items": [
+      "Django SQL injection in FilteredRelation column aliases (CVE-2025-57833)"
+     ]
+    },
+    {
+     "id": "RHBA-2025:3680",
+     "synopsis": "Control plane Operators for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2025-04-08",
+     "url": "https://access.redhat.com/errata/RHBA-2025:3680"
+    },
+    {
+     "id": "RHBA-2025:3679",
+     "synopsis": "Release of containers for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2025-04-08",
+     "url": "https://access.redhat.com/errata/RHBA-2025:3679"
+    },
+    {
+     "id": "RHBA-2025:3677",
+     "synopsis": "Data plane Operators for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2025-04-08",
+     "url": "https://access.redhat.com/errata/RHBA-2025:3677"
+    },
+    {
+     "id": "RHBA-2025:1867",
+     "synopsis": "updated Red Hat OpenStack Services on OpenShift 18.0 container images",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2025-02-26",
+     "url": "https://access.redhat.com/errata/RHBA-2025:1867"
+    },
+    {
+     "id": "RHBA-2025:0899",
+     "synopsis": "updated Red Hat OpenStack Services on OpenShift 18.0 container images",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2025-02-03",
+     "url": "https://access.redhat.com/errata/RHBA-2025:0899"
+    },
+    {
+     "id": "RHBA-2024:6870",
+     "synopsis": "Data plane Operators for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2024-09-19",
+     "url": "https://access.redhat.com/errata/RHBA-2024:6870"
+    },
+    {
+     "id": "RHBA-2024:6830",
+     "synopsis": "Control plane Operators for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2024-09-19",
+     "url": "https://access.redhat.com/errata/RHBA-2024:6830"
+    },
+    {
+     "id": "RHBA-2024:6329",
+     "synopsis": "Release of containers for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2024-09-04",
+     "url": "https://access.redhat.com/errata/RHBA-2024:6329"
+    },
+    {
+     "id": "RHBA-2024:6328",
+     "synopsis": "Updated data plane Operators for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2024-09-04",
+     "url": "https://access.redhat.com/errata/RHBA-2024:6328"
+    },
+    {
+     "id": "RHBA-2024:6327",
+     "synopsis": "Updated control plane Operators for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2024-09-04",
+     "url": "https://access.redhat.com/errata/RHBA-2024:6327"
+    },
+    {
+     "id": "RHEA-2024:5248",
+     "synopsis": "Control plane Operators for RHOSO 18.0",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2024-08-13",
+     "url": "https://access.redhat.com/errata/RHEA-2024:5248"
+    },
+    {
+     "id": "RHEA-2024:5249",
+     "synopsis": "Release of components for RHOSO 18.0",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2024-08-13",
+     "url": "https://access.redhat.com/errata/RHEA-2024:5249"
+    },
+    {
+     "id": "RHEA-2024:5247",
+     "synopsis": "Data plane Operators for RHOSO 18.0",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2024-08-13",
+     "url": "https://access.redhat.com/errata/RHEA-2024:5247"
+    },
+    {
+     "id": "RHEA-2024:5246",
+     "synopsis": "Release of containers for RHOSO 18.0",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2024-08-13",
+     "url": "https://access.redhat.com/errata/RHEA-2024:5246"
+    },
+    {
+     "id": "RHEA-2024:5245",
+     "synopsis": "Release of components for RHOSO 18.0",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2024-08-13",
+     "url": "https://access.redhat.com/errata/RHEA-2024:5245"
+    }
+   ],
+   "features": [
+    {
+     "area": "New and enhanced features",
+     "items": [
+      {
+       "t": "New and enhanced features in 18.0.14 (FR4)",
+       "d": ""
+      },
+      {
+       "t": "Compute Erase all data on an NVMe device by using the NVMe cleanup agent You can now\u2026",
+       "d": ""
+      },
+      {
+       "t": "Data plane Deploy data plane nodes with Image Mode (bootc) images Deploying data plane\u2026",
+       "d": "Technology Preview features are not fully supported by Red Hat. It should only be used for testing, and should not be deployed in a production environment."
+      },
+      {
+       "t": "Documentation Documentation library restructured The documentation library page was\u2026",
+       "d": "The new structure includes the following enhancements: Validated Architectures were moved to a new category \"Deploy a Validated Architecture environment\". Several guides were moved to different categories to align with the actual user life cycle needs. The guide Deploying RHOSO at scale was renamed to Planning a large-scale RHOSO deployment. The\u2026"
+      },
+      {
+       "t": "High availability Configuring authentication for the memcached service Starting with RHOSO\u2026",
+       "d": "For more information, see Configuring authentication for the memcached service in Customizing the Red Hat OpenStack Services on OpenShift deployment. Configuring quorum queues for RabbitMQ in new deployments Starting with RHOSO 18.0.14 (Feature Release 4), RabbitMQ supports the use of the Quorum queues for new RHOSO deployments. A Quorum queue is a\u2026"
+      },
+      {
+       "t": "Migration Migrate VMs with VMware Migration Toolkit In RHOSO 18.0.14 (Feature Release 4)\u2026",
+       "d": ""
+      },
+      {
+       "t": "Networking Observability metrics expanded from data plane nodes to data plane and control\u2026",
+       "d": "Starting with RHOSO 18.0.14 (Feature Release 4), Prometheus OVS/OVN Exporter is also available on control plane pods. New groups of metrics are also included. For more information, see Network observability in Managing networking resources. Firewall-as-a-Service (FWaaS) Technology Preview In RHOSO 18.0.14 (Feature Release 4), you can test a\u2026"
+      },
+      {
+       "t": "Security Multi-realm federation support Starting with RHOSO 18.0.14 (Feature Release 4)\u2026",
+       "d": "For more information, see Configuring multi-realm federated authentication in Configuring security services."
+      },
+      {
+       "t": "Storage Notifications for events in the Block Storage service and Shared File Systems\u2026",
+       "d": ""
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

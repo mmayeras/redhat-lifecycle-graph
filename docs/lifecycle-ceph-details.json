@@ -1,0 +1,893 @@
+{
+ "product": "ceph",
+ "title": "Ceph Lifecycle",
+ "generated": "2026-07-17T13:10:14Z",
+ "minors": [
+  {
+   "minor": "9",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/9/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "9.1",
+     "date": "2026-06-24",
+     "errata": [
+      {
+       "id": "RHEA-2026:29057",
+       "synopsis": "Red Hat Ceph Storage 9.1 bug fix and enhancement update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-24",
+       "url": "https://access.redhat.com/errata/RHEA-2026:29057"
+      }
+     ]
+    },
+    {
+     "version": "9.0",
+     "date": "2026-02-26",
+     "errata": [
+      {
+       "id": "RHBA-2026:26316",
+       "synopsis": "Red Hat Ceph Storage 9.0 Bug Fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-16",
+       "url": "https://access.redhat.com/errata/RHBA-2026:26316"
+      },
+      {
+       "id": "RHBA-2026:8889",
+       "synopsis": "Red Hat Ceph Storage 9.0 bug fix and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-04-20",
+       "url": "https://access.redhat.com/errata/RHBA-2026:8889"
+      },
+      {
+       "id": "RHBA-2026:3389",
+       "synopsis": "Red Hat Ceph Storage 9.0 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-02-26",
+       "url": "https://access.redhat.com/errata/RHBA-2026:3389"
+      }
+     ]
+    }
+   ],
+   "unversioned": [],
+   "features": [
+    {
+     "area": "New features and enhancements",
+     "items": [
+      {
+       "t": "cephadm utility Learn about the key enhancements and new features for the cephadm utility\u2026",
+       "d": "New cephadm certificate lifecycle management for improved Ceph cluster security cephadm certificate lifecycle management was previously available as limited release. This enhancement provides full availability for new and existing customers in production environments. With this enhancement, cephadm now has certificate lifecycle management in the\u2026"
+      },
+      {
+       "t": "Ceph Dashboard New support for managing Ceph Object Gateway accounts Previously, managing\u2026",
+       "d": "With this enhancement, you can now view account details, create new accounts, manage quotas, and link users and buckets to an account directly from the Ceph Dashboard. As a result, Ceph Object Gateway environments align more closely with AWS-style account and IAM semantics, improving usability, scalability, and security governance. Bugzilla:2315832\u2026"
+      },
+      {
+       "t": "Ceph File System (CephFS) Learn about the key enhancements and new features for Ceph File\u2026",
+       "d": "Case sensitivity and Unicode normalization can now be configured during subvolume group creation Previously, it was possible to configure Unicode normalization and case sensitivity when creating a subvolume, but not when creating a subvolume group. To apply these settings, users had to run additional commands after the group was created. With this\u2026"
+      },
+      {
+       "t": "Ceph Object Gateway Learn about the key enhancements and new features for Ceph Object\u2026",
+       "d": "Bucket logging support for Ceph Object Gateway with bug fixes and enhancements Bucket logging was previously available as limited release. This enhancement provides full availability for new and existing customers in production environments. Bucket logging provides a mechanism for logging all access to a bucket. The log data can be used to monitor\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology preview",
+     "items": [
+      {
+       "t": "Ceph Object Gateway Get to know the Technology Preview features introduced or updated for\u2026",
+       "d": "New per-user and per-bucket usage counters in Prometheus Ceph Object Gateway now exports per-user and per-bucket usage counters via performance counters automatically collected by the ceph-exporter and made available in Prometheus. This provides low-overhead, real-time visibility into the following: Per-bucket metrics: used bytes, utilized bytes\u2026"
+      },
+      {
+       "t": "RADOS Get to know the Technology Preview features introduced or updated for RADOS in this\u2026",
+       "d": "Balanced primary placement groups can now be observed in a cluster Previously, users could only balance primaries with the offline osdmaptool. With this enhancement, autobalancing is available with the upmap balancer. Users can now choose between either the upmap-read or read mode. The upmap-read mode offers simultaneous upmap and read\u2026"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "8",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/8/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "8.1",
+     "date": "2025-06-26",
+     "errata": [
+      {
+       "id": "RHBA-2026:28174",
+       "synopsis": "Red Hat Ceph Storage 8.1 bug fix updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:28174"
+      },
+      {
+       "id": "RHBA-2026:15974",
+       "synopsis": "Red Hat Ceph Storage 8.1 bug fix and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-05-11",
+       "url": "https://access.redhat.com/errata/RHBA-2026:15974"
+      },
+      {
+       "id": "RHSA-2026:2711",
+       "synopsis": "Important: Red Hat Ceph Storage 8.1 security and bug fix update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-02-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:2711"
+      },
+      {
+       "id": "RHSA-2025:21068",
+       "synopsis": "Important: Red Hat Ceph Storage 8.1 bug fix update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-11-12",
+       "url": "https://access.redhat.com/errata/RHSA-2025:21068"
+      },
+      {
+       "id": "RHBA-2025:17048",
+       "synopsis": "Updated 8.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-30",
+       "url": "https://access.redhat.com/errata/RHBA-2025:17048"
+      },
+      {
+       "id": "RHBA-2025:17047",
+       "synopsis": "Red Hat Ceph Storage 8.1 security, bug fix and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-30",
+       "url": "https://access.redhat.com/errata/RHBA-2025:17047"
+      },
+      {
+       "id": "RHBA-2025:15739",
+       "synopsis": "Updated 8.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-15",
+       "url": "https://access.redhat.com/errata/RHBA-2025:15739"
+      },
+      {
+       "id": "RHBA-2025:14015",
+       "synopsis": "Red Hat Ceph Storage 8.1 security and bug fix updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-08-18",
+       "url": "https://access.redhat.com/errata/RHBA-2025:14015"
+      },
+      {
+       "id": "RHBA-2025:13981",
+       "synopsis": "new container image: rhceph-8.1",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-08-18",
+       "url": "https://access.redhat.com/errata/RHBA-2025:13981"
+      },
+      {
+       "id": "RHSA-2025:11749",
+       "synopsis": "Important: Updated 8.1 container image is now available: security and bug fix update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-07-24",
+       "url": "https://access.redhat.com/errata/RHSA-2025:11749"
+      },
+      {
+       "id": "RHSA-2025:9776",
+       "synopsis": "Important: New RHCS 8.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-06-26",
+       "url": "https://access.redhat.com/errata/RHSA-2025:9776"
+      },
+      {
+       "id": "RHSA-2025:9775",
+       "synopsis": "Important: Red Hat Ceph Storage 8.1 security, bug fix, and enhancement updates",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-06-26",
+       "url": "https://access.redhat.com/errata/RHSA-2025:9775"
+      }
+     ]
+    },
+    {
+     "version": "8.0",
+     "date": "2024-11-25",
+     "errata": [
+      {
+       "id": "RHBA-2025:8695",
+       "synopsis": "Updated 8.0 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-06-09",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8695"
+      },
+      {
+       "id": "RHBA-2025:8694",
+       "synopsis": "Red Hat Ceph Storage 8.0 bug fix updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-06-09",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8694"
+      },
+      {
+       "id": "RHBA-2025:8260",
+       "synopsis": "Updated 8.0 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-05-28",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8260"
+      },
+      {
+       "id": "RHBA-2025:8259",
+       "synopsis": "Red Hat Ceph Storage 8.0 bug fix updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-05-28",
+       "url": "https://access.redhat.com/errata/RHBA-2025:8259"
+      },
+      {
+       "id": "RHBA-2025:3638",
+       "synopsis": "Updated 8.0 container image is now available in the Red Hat Ecosystem Catalog",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-07",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3638"
+      },
+      {
+       "id": "RHSA-2025:3635",
+       "synopsis": "Important: Red Hat Ceph Storage 8.0 security, bug fix, and enhancement updates",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-04-07",
+       "url": "https://access.redhat.com/errata/RHSA-2025:3635"
+      },
+      {
+       "id": "RHBA-2025:2458",
+       "synopsis": "Updated 8.0 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-03-06",
+       "url": "https://access.redhat.com/errata/RHBA-2025:2458"
+      },
+      {
+       "id": "RHBA-2025:2457",
+       "synopsis": "Red Hat Ceph Storage 8.0 security, bug fixes, and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-03-06",
+       "url": "https://access.redhat.com/errata/RHBA-2025:2457"
+      },
+      {
+       "id": "RHSA-2024:10957",
+       "synopsis": "Important: Updated 8.0 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-12-11",
+       "url": "https://access.redhat.com/errata/RHSA-2024:10957"
+      },
+      {
+       "id": "RHSA-2024:10956",
+       "synopsis": "Important: Red Hat Ceph Storage 8.0 security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-12-11",
+       "url": "https://access.redhat.com/errata/RHSA-2024:10956"
+      },
+      {
+       "id": "RHBA-2024:10217",
+       "synopsis": "New Red Hat Ceph Storage 8.0 container image is now available.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-25",
+       "url": "https://access.redhat.com/errata/RHBA-2024:10217"
+      },
+      {
+       "id": "RHBA-2024:10216",
+       "synopsis": "Red Hat Ceph Storage 8.0 security, bug fix, and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-25",
+       "url": "https://access.redhat.com/errata/RHBA-2024:10216"
+      }
+     ]
+    }
+   ],
+   "unversioned": [],
+   "features": [
+    {
+     "area": "New features",
+     "items": [
+      {
+       "t": "The Cephadm utility High Availability can now be deployed for the Grafana, Prometheus, and\u2026",
+       "d": "High availability is crucial for maintaining visibility into the health and performance of the Ceph cluster and responding promptly to any issues. Use High Availability for continuous, uninterrupted operations to improve the stability and resilience of the Ceph cluster. For more information, see Using the Ceph Management gateway. Bugzilla:1878777\u2026"
+      },
+      {
+       "t": "Ceph Dashboard Added health warnings for when daemons are down Previously, there were no\u2026",
+       "d": "With this enhancement, health warnings are emitted when any of the mgr, mds, and rgw daemons are down. Bugzilla:2138386 Ceph Object Gateway NFS export management is now available through the Ceph Dashboard Previously, Ceph Object Gateway NFS export management was only available through the command-line interface. With this enhancement, the Ceph\u2026"
+      }
+     ]
+    },
+    {
+     "area": "New features",
+     "items": [
+      {
+       "t": "The Cephadm utility Added automation for the Ceph Object Gateway multi-site setup With\u2026",
+       "d": "Set the zonegroups_hostnames by using the specification file that is provided to the ceph rgw realm bootstrap command. This feature continues to add another setup option through the initial specification file that is passed to the bootstrap command, instead of requiring additional steps. Add the zonegroup_hostnames section to the spec section of\u2026"
+      },
+      {
+       "t": "Ceph Metrics New metric allows quick detection of Ceph daemon problems This enhancement\u2026",
+       "d": "The ceph_daemon_socket_up metric provides the health status of a Ceph daemon based on its ability to respond through the admin socket, where a value of 1 indicates a healthy state and 0 indicates an unhealthy state. The metric serves as a tool for quickly detecting problems in any of the main Ceph daemon. Note This metric does not provide\u2026"
+      },
+      {
+       "t": "Ceph Dashboard New bucket shard count displayed Previously, shard counts were not\u2026",
+       "d": "With this enhancement, the user can see the number of shards for every bucket in the Object > Buckets list. Bugzilla:2129325 Ceph Dashboard now supports managing Storage Classes through the UI Previously, users could not configure or manage Storage Classes through the Dashboard. Although Life Cycle (LC) policies introduced in 8.0 allowed data\u2026"
+      },
+      {
+       "t": "Ceph File System cephfs-mirror daemon only transfers changed blocks in a file Previously\u2026",
+       "d": "With this enhancement, the cephfs-mirror daemon uses the blockdiff API in the MDS to only transfer changed blocks in a file. As a result, sync performance is significantly improved in some circumstances, especially for large files. Bugzilla:2317735 Metadata and data pool names can now be used for creating the volume With this enhancement, the ceph\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology Previews",
+     "items": [
+      {
+       "t": "The Cephadm utility New Ceph Management gateway and the OAuth2 Proxy service for unified\u2026",
+       "d": "With the Ceph Management gateway (mgmt-gateway) and the OAuth2 Proxy (oauth2-proxy) in place, nginx automatically directs the user through the oauth2-proxy to the configured Identity Provider (IdP), when single sign-on (SSO) is configured. Bugzilla:2298666"
+      },
+      {
+       "t": "Ceph Dashboard New OAuth2 SSO OAuth2 SSO uses the oauth2-proxy service to work with the\u2026",
+       "d": "Bugzilla:2312560"
+      },
+      {
+       "t": "Ceph Object Gateway New bucket logging support for Ceph Object Gateway Bucket logging\u2026",
+       "d": "The log data can be used to monitor bucket activity, detect unauthorized access, get insights into the bucket usage and use the logs as a journal for bucket changes. The log records are stored in objects in a separate bucket and can be analyzed later. Logging configuration is done at the bucket level and can be enabled or disabled at any time. The\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology Previews",
+     "items": [
+      {
+       "t": "The Cephadm utility New Ceph Management gateway and the OAuth2 Proxy service for unified\u2026",
+       "d": "With the Ceph Management gateway (mgmt-gateway) and the OAuth2 Proxy (oauth2-proxy) in place, nginx automatically directs the user through the oauth2-proxy to the configured Identity Provider (IdP), when single sign-on (SSO) is configured. Bugzilla:2298666 New Cephadm certificate lifecycle management for improved Ceph cluster security With this\u2026"
+      },
+      {
+       "t": "Ceph Dashboard New OAuth2 SSO OAuth2 SSO uses the oauth2-proxy service to work with the\u2026",
+       "d": "Bugzilla:2312560"
+      },
+      {
+       "t": "Ceph Object Gateway Bucket logging support for Ceph Object Gateway with bug fixes and\u2026",
+       "d": ""
+      },
+      {
+       "t": "Bucket logging provides a mechanism for logging all access to a bucket",
+       "d": "The log data can be used to monitor bucket activity, detect unauthorized access, get insights into the bucket usage and use the logs as a journal for bucket changes. The log records are stored in objects in a separate bucket and can be analyzed later. Logging configuration is done at the bucket level and can be enabled or disabled at any time. The\u2026"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "7",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/7/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "7.1",
+     "date": "2024-06-13",
+     "errata": [
+      {
+       "id": "RHBA-2026:30902",
+       "synopsis": "Red Hat Ceph Storage 7.1 bug fix and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-29",
+       "url": "https://access.redhat.com/errata/RHBA-2026:30902"
+      },
+      {
+       "id": "RHSA-2026:2769",
+       "synopsis": "Important: Red Hat Ceph Storage 7.1 security and bug fix updates",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-02-17",
+       "url": "https://access.redhat.com/errata/RHSA-2026:2769"
+      },
+      {
+       "id": "RHBA-2025:17067",
+       "synopsis": "Updated 7.1 container image is now available in the Red Hat Ecosystem Catalog",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-30",
+       "url": "https://access.redhat.com/errata/RHBA-2025:17067"
+      },
+      {
+       "id": "RHBA-2025:17059",
+       "synopsis": "Red Hat Ceph Storage 7.1 security and bug fix updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-30",
+       "url": "https://access.redhat.com/errata/RHBA-2025:17059"
+      },
+      {
+       "id": "RHBA-2025:15703",
+       "synopsis": "Updated 7.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-09-11",
+       "url": "https://access.redhat.com/errata/RHBA-2025:15703"
+      },
+      {
+       "id": "RHSA-2025:11889",
+       "synopsis": "Important: 7.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2025:11889"
+      },
+      {
+       "id": "RHSA-2025:9340",
+       "synopsis": "Important: Updated 7.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-06-23",
+       "url": "https://access.redhat.com/errata/RHSA-2025:9340"
+      },
+      {
+       "id": "RHBA-2025:9335",
+       "synopsis": "Red Hat Ceph Storage 7.1 security and bug fix updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-06-23",
+       "url": "https://access.redhat.com/errata/RHBA-2025:9335"
+      },
+      {
+       "id": "RHSA-2025:4667",
+       "synopsis": "Moderate: Updated 7.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2025-05-07",
+       "url": "https://access.redhat.com/errata/RHSA-2025:4667"
+      },
+      {
+       "id": "RHSA-2025:4664",
+       "synopsis": "Important: Red Hat Ceph Storage 7.1 security, bug fix, and enhancement updates",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-05-07",
+       "url": "https://access.redhat.com/errata/RHSA-2025:4664"
+      },
+      {
+       "id": "RHBA-2025:1772",
+       "synopsis": "Updated 7.1 container image is now available in the Red Hat Ecosystem Catalog",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-02-24",
+       "url": "https://access.redhat.com/errata/RHBA-2025:1772"
+      },
+      {
+       "id": "RHBA-2025:1770",
+       "synopsis": "Red Hat Ceph Storage 7.1 security, bug fix, enhancement, and known issue updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-02-24",
+       "url": "https://access.redhat.com/errata/RHBA-2025:1770"
+      },
+      {
+       "id": "RHBA-2024:9011",
+       "synopsis": "Updated 7.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9011"
+      },
+      {
+       "id": "RHBA-2024:9010",
+       "synopsis": "Red Hat Ceph Storage 7.1 security, bug fix, and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-11-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:9010"
+      },
+      {
+       "id": "RHSA-2024:3927",
+       "synopsis": "Moderate: Red Hat Ceph Storage 7.1 container image security, and bug fix update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-06-13",
+       "url": "https://access.redhat.com/errata/RHSA-2024:3927"
+      }
+     ]
+    },
+    {
+     "version": "7.0",
+     "date": "2023-12-13",
+     "errata": [
+      {
+       "id": "RHBA-2024:1215",
+       "synopsis": "updated rhceph-7.0 container image",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-03-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:1215"
+      },
+      {
+       "id": "RHBA-2024:1214",
+       "synopsis": "Red Hat Ceph Storage 7.0 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-03-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:1214"
+      },
+      {
+       "id": "RHBA-2023:7781",
+       "synopsis": "new container image: rhceph-7.0",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-12-13",
+       "url": "https://access.redhat.com/errata/RHBA-2023:7781"
+      }
+     ]
+    }
+   ],
+   "unversioned": [],
+   "features": [
+    {
+     "area": "New features",
+     "items": [
+      {
+       "t": "The Cephadm utility Users can now configure various NFS options in idmap.conf With this\u2026",
+       "d": "Bugzilla:2068026 Client IP restriction is now possible over the new haproxy protocol mode for NFS Previously, client IP restriction did not work in setups using haproxy over NFS. With this enhancement, Cephadm deployed NFS supports the haproxy protocol. If users add enable_haproxy_protocol: True to both their ingress and haproxy specification or\u2026"
+      },
+      {
+       "t": "Cephadm deployed HAProxy will bind its front-end port to the VIP, allowing other services\u2026",
+       "d": "Bugzilla:2176297 Haproxy health check interval for ingress service is now customizable Previously, in some cases, the two second default health check interval was too frequent and it caused unnecessary traffic. With this enhancement, HAProxy health check interval for ingress service is customizable. By applying an ingress specification that\u2026"
+      },
+      {
+       "t": "This enables users to use the same port that Grafana uses for another service but on a\u2026",
+       "d": "If it is a specification update that does not cause them all to be moved, ceph orch redeploy grafana can be run to pick up the changes to the settings. Grafana specification file: service_type: grafana service_name: grafana placement: count: 1 networks: 192.168.122.0/24 spec: anonymous_access: true protocol: https only_bind_port_on_networks: true\u2026"
+      },
+      {
+       "t": "This enables users to use the same port that Prometheus uses for another service but on a\u2026",
+       "d": "If it is a specification update that does not cause them all to be moved, ceph orch redeploy prometheus can be run to pick up the changes to the settings. Prometheus specification file: service_type: prometheus service_name: prometheus placement: count: 1 networks: - 10.0.208.0/22 spec: only_bind_port_on_networks: true Bugzilla:2264812 Users can\u2026"
+      },
+      {
+       "t": "Ceph Dashboard CephFS snapshot schedules management on the Ceph dashboard Previously\u2026",
+       "d": "With this enhancement, CephFS snapshot schedules can be listed, created, edited, activated, deactivated, and removed from the Ceph dashboard. Bugzilla:2264145 Ceph dashboard now supports NFSv3-based exports in Ceph dashboard With this enhancement, support is enabled for NFSv3-based export management in the Ceph dashboard. Bugzilla:2267763 Ability\u2026"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minor": "6",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/6/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "6.1",
+     "date": "2023-08-03",
+     "errata": [
+      {
+       "id": "RHSA-2025:4240",
+       "synopsis": "Important: Updated 6.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-04-28",
+       "url": "https://access.redhat.com/errata/RHSA-2025:4240"
+      },
+      {
+       "id": "RHSA-2025:4238",
+       "synopsis": "Important: Red Hat Ceph Storage 6.1 bug fix update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2025-04-28",
+       "url": "https://access.redhat.com/errata/RHSA-2025:4238"
+      },
+      {
+       "id": "RHBA-2024:7259",
+       "synopsis": "Updated 6.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-09-26",
+       "url": "https://access.redhat.com/errata/RHBA-2024:7259"
+      },
+      {
+       "id": "RHBA-2024:5963",
+       "synopsis": "Updated 6.1 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-08-28",
+       "url": "https://access.redhat.com/errata/RHBA-2024:5963"
+      },
+      {
+       "id": "RHBA-2024:5960",
+       "synopsis": "Red Hat Ceph Storage 6.1 security, bug fix, and enhancement updates.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-08-28",
+       "url": "https://access.redhat.com/errata/RHBA-2024:5960"
+      },
+      {
+       "id": "RHSA-2024:2633",
+       "synopsis": "Important: updated rhceph-6.1 container image",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-05-01",
+       "url": "https://access.redhat.com/errata/RHSA-2024:2633"
+      },
+      {
+       "id": "RHBA-2024:2631",
+       "synopsis": "Red Hat Ceph Storage 6.1 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-05-01",
+       "url": "https://access.redhat.com/errata/RHBA-2024:2631"
+      },
+      {
+       "id": "RHSA-2024:2631",
+       "synopsis": "Critical: Red Hat Ceph Storage 6.1 security and bug fix update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2024-05-01",
+       "url": "https://access.redhat.com/errata/RHSA-2024:2631"
+      },
+      {
+       "id": "RHBA-2024:1581",
+       "synopsis": "new container image: rhceph-6.1",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-04-01",
+       "url": "https://access.redhat.com/errata/RHBA-2024:1581"
+      },
+      {
+       "id": "RHBA-2024:1580",
+       "synopsis": "Red Hat Ceph Storage 6.1 Bug Fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-04-01",
+       "url": "https://access.redhat.com/errata/RHBA-2024:1580"
+      },
+      {
+       "id": "RHBA-2024:0761",
+       "synopsis": "updated rhceph-6.1 container image",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-08",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0761"
+      },
+      {
+       "id": "RHBA-2024:0747",
+       "synopsis": "Red Hat Ceph Storage 6.1 Bug Fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-08",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0747"
+      },
+      {
+       "id": "RHBA-2024:0062",
+       "synopsis": "Red Hat Ceph Storage 6.1 Red Hat Enterprise Linux 8 client",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-01-04",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0062"
+      },
+      {
+       "id": "RHBA-2023:7868",
+       "synopsis": "Red Hat Ceph Storage 6.1 enhancements, and bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-12-15",
+       "url": "https://access.redhat.com/errata/RHBA-2023:7868"
+      },
+      {
+       "id": "RHBA-2023:7867",
+       "synopsis": "Red Hat Ceph Storage 6.1 bug fix and enhancement update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-12-15",
+       "url": "https://access.redhat.com/errata/RHBA-2023:7867"
+      },
+      {
+       "id": "RHSA-2023:7741",
+       "synopsis": "Important: Red Hat Ceph Storage 6.1 security, enhancements, and bug fix update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2023-12-12",
+       "url": "https://access.redhat.com/errata/RHSA-2023:7741"
+      },
+      {
+       "id": "RHSA-2023:7740",
+       "synopsis": "Moderate: Red Hat Ceph Storage 6.1 security, enhancements, and bug fix update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2023-12-12",
+       "url": "https://access.redhat.com/errata/RHSA-2023:7740"
+      },
+      {
+       "id": "RHSA-2023:5693",
+       "synopsis": "Moderate: Red Hat Ceph Storage 6.1 security, enhancement, and bug fix update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2023-10-12",
+       "url": "https://access.redhat.com/errata/RHSA-2023:5693"
+      },
+      {
+       "id": "RHBA-2023:5692",
+       "synopsis": "updated rhceph-6.1 container image",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-10-12",
+       "url": "https://access.redhat.com/errata/RHBA-2023:5692"
+      },
+      {
+       "id": "RHBA-2023:4474",
+       "synopsis": "updated rhceph-6.1 container image",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-08-03",
+       "url": "https://access.redhat.com/errata/RHBA-2023:4474"
+      }
+     ]
+    }
+   ],
+   "unversioned": []
+  },
+  {
+   "minor": "5",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/5/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "5.3",
+     "date": "2023-04-11",
+     "errata": [
+      {
+       "id": "RHBA-2025:1479",
+       "synopsis": "Updated 5.3 container image is now available in the Red Hat Ecosystem Catalog.",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-02-13",
+       "url": "https://access.redhat.com/errata/RHBA-2025:1479"
+      },
+      {
+       "id": "RHBA-2025:1478",
+       "synopsis": "Red Hat Ceph Storage 5.3 security and bug fix updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-02-13",
+       "url": "https://access.redhat.com/errata/RHBA-2025:1478"
+      },
+      {
+       "id": "RHSA-2024:0746",
+       "synopsis": "Important: new container image: rhceph-5.3",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2024-02-08",
+       "url": "https://access.redhat.com/errata/RHSA-2024:0746",
+       "items": [
+        "grafana: Use of Cache Containing Sensitive Information (CVE-2022-23498)",
+        "grafana: cross site scripting (CVE-2023-0507)",
+        "grafana: cross site scripting (CVE-2023-0594)",
+        "haproxy: request smuggling attack in HTTP/1 header parsing (CVE-2023-25725)",
+        "golang: net/http: excessive memory growth in a Go server accepting HTTP/2 requests (CVE-2022-41717)",
+        "haproxy: segfault DoS (CVE-2023-0056)",
+        "grafana: JWT token leak to data source (CVE-2023-1387)",
+        "grafana: stored XSS vulnerability affecting the core plugin \"Text\" (CVE-2023-22462)",
+        "golang: html/template: backticks not treated as string delimiters (CVE-2023-24538)"
+       ]
+      },
+      {
+       "id": "RHSA-2024:0745",
+       "synopsis": "Moderate: Red Hat Ceph Storage 5.3 Security update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2024-02-08",
+       "url": "https://access.redhat.com/errata/RHSA-2024:0745",
+       "items": [
+        "rgw: improperly verified POST keys (CVE-2023-43040)",
+        "ceph: RGW crash upon misconfigured CORS rule (CVE-2023-46159)"
+       ]
+      },
+      {
+       "id": "RHBA-2023:4773",
+       "synopsis": "updated rhceph-5.3 container image",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-08-28",
+       "url": "https://access.redhat.com/errata/RHBA-2023:4773"
+      },
+      {
+       "id": "RHBA-2023:4760",
+       "synopsis": "Red Hat Ceph Storage 5.3 Bug Fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-08-28",
+       "url": "https://access.redhat.com/errata/RHBA-2023:4760"
+      },
+      {
+       "id": "RHBA-2023:4214",
+       "synopsis": "updated rhceph-5.3 container image",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-07-19",
+       "url": "https://access.redhat.com/errata/RHBA-2023:4214"
+      },
+      {
+       "id": "RHBA-2023:4213",
+       "synopsis": "Red Hat Ceph Storage 5.3 Bug Fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-07-19",
+       "url": "https://access.redhat.com/errata/RHBA-2023:4213"
+      },
+      {
+       "id": "RHBA-2023:3266",
+       "synopsis": "updated rhceph-5.3 container image",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-05-23",
+       "url": "https://access.redhat.com/errata/RHBA-2023:3266"
+      },
+      {
+       "id": "RHBA-2023:3259",
+       "synopsis": "Red Hat Ceph Storage 5.3 Bug Fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-05-23",
+       "url": "https://access.redhat.com/errata/RHBA-2023:3259"
+      },
+      {
+       "id": "RHBA-2023:1732",
+       "synopsis": "Red Hat Ceph Storage 5.3 Bug Fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-04-11",
+       "url": "https://access.redhat.com/errata/RHBA-2023:1732"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHBA-2023:1360",
+     "synopsis": "Red Hat Ceph Storage 6.0 Bug Fix update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2023-03-20",
+     "url": "https://access.redhat.com/errata/RHBA-2023:1360"
+    }
+   ]
+  },
+  {
+   "minor": "4",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/4/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "4.2",
+     "date": "2021-06-15",
+     "errata": [
+      {
+       "id": "RHSA-2021:2445",
+       "synopsis": "Important: Red Hat Ceph Storage 4.2 Security and Bug Fix Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2021-06-15",
+       "url": "https://access.redhat.com/errata/RHSA-2021:2445",
+       "items": [
+        "ceph: Unauthorized global_id reuse in cephx (CVE-2021-20288)",
+        "ceph-dashboard: Don't use Browser's LocalStorage for storing JWT but Secure Cookies with proper HTTP Headers (CVE-2020-27839)",
+        "ceph-dashboard: Cross-site scripting via token Cookie (CVE-2021-3509)"
+       ]
+      }
+     ]
+    }
+   ],
+   "unversioned": []
+  }
+ ]
+}

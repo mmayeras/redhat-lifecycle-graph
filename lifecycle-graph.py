@@ -13,6 +13,8 @@ import re
 import shutil
 import subprocess
 import sys
+import time
+import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -356,6 +358,9 @@ def _apply_product_overrides(products: dict) -> None:
         for field in ("api_name", "title", "page_url", "info_html", "has_minors", "use_major_phases"):
             if field in raw:
                 cfg[field] = raw[field]
+        if "details" in raw:
+            cfg["details"] = dict(raw["details"])
+            cfg["details_url"] = f"lifecycle-{key}-details.html"
         preset = raw.get("phase_map_preset")
         if preset and preset in _PHASE_MAP_PRESETS:
             cfg["phase_map"] = dict(_PHASE_MAP_PRESETS[preset])
@@ -639,6 +644,488 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
     return dict(fallback)
 
 
+# ── Details pages: z-stream errata (Hydra search, no auth) ───────────────────
+
+_ERRATA_SEARCH_URL = "https://access.redhat.com/hydra/rest/search/kcs"
+_ERRATA_FIELDS = "id,portal_synopsis,portal_publication_date,portal_advisory_type,portal_severity,view_uri,portal_description"
+_ERRATA_KINDS = {
+    "Security Advisory": "security",
+    "Bug Fix Advisory": "bugfix",
+    "Product Enhancement Advisory": "enhancement",
+}
+_ERRATA_KIND_LABELS = {
+    "security": "Security",
+    "bugfix": "Bug Fix",
+    "enhancement": "Enhancement",
+    "other": "Advisory",
+}
+
+
+def _fetch_errata_page(query: str, start: int, rows: int = 100) -> dict:
+    """One page of Hydra errata search results (raises on failure)."""
+    params = urllib.parse.urlencode({
+        "q": f'"{query}"',
+        "fq": 'documentKind:("Errata")',
+        "rows": rows,
+        "start": start,
+        "sort": "portal_publication_date desc",
+        "fl": _ERRATA_FIELDS,
+    })
+    req = urllib.request.Request(
+        f"{_ERRATA_SEARCH_URL}?{params}",
+        headers={"User-Agent": "lifecycle-graph/1.0", "Accept": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        return json.loads(resp.read())
+
+
+def fetch_errata_for_minor(query: str) -> list[dict] | None:
+    """All errata docs matching query, paginated. None on any failure."""
+    docs: list[dict] = []
+    start, rows, cap = 0, 100, 1000
+    try:
+        while start < cap:
+            payload = _fetch_errata_page(query, start, rows)
+            resp = payload["response"]
+            docs.extend(resp.get("docs", []))
+            start += rows
+            if start >= resp.get("numFound", 0):
+                break
+            time.sleep(0.2)
+    except Exception as exc:
+        print(f"Errata fetch failed for {query!r}: {exc}", file=sys.stderr)
+        return None
+    return docs
+
+
+def _parse_zstream(synopsis: str, minor: str) -> str | None:
+    """Extract 'X.Y.Z' from an errata synopsis, anchored to a known minor."""
+    m = re.search(rf"\b{re.escape(minor)}\.(\d+)\b", synopsis)
+    return f"{minor}.{m.group(1)}" if m else None
+
+
+def _advisory_kind(advisory_type: str) -> str:
+    return _ERRATA_KINDS.get(advisory_type, "other")
+
+
+def _extract_bullets(text: str, max_items: int = 20, max_len: int = 250) -> list[dict]:
+    """Pull '* item' bullet lines (with continuations) out of an erratum description."""
+    items: list[str] = []
+    current: list[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("* "):
+            if current:
+                items.append(" ".join(current))
+            current = [stripped[2:].strip()]
+        elif current and stripped:
+            current.append(stripped)
+        elif current:
+            items.append(" ".join(current))
+            current = []
+    if current:
+        items.append(" ".join(current))
+    return [_trunc(i, max_len) for i in items[:max_items]]
+
+
+def _doc_to_erratum(doc: dict) -> dict:
+    erratum = {
+        "id": doc.get("id", ""),
+        "synopsis": doc.get("portal_synopsis", ""),
+        "kind": _advisory_kind(doc.get("portal_advisory_type", "")),
+        "severity": doc.get("portal_severity", "") or "",
+        "date": (doc.get("portal_publication_date", "") or "")[:10],
+        "url": doc.get("view_uri", ""),
+    }
+    items = _extract_bullets(doc.get("portal_description", "") or "")
+    if items:
+        erratum["items"] = items
+    return erratum
+
+
+def _trunc(s: str, limit: int) -> str:
+    """Truncate at a word boundary with an ellipsis (no mid-word cuts)."""
+    if len(s) <= limit:
+        return s
+    cut = s[:limit]
+    if s[limit] != " " and " " in cut:
+        cut = cut.rsplit(" ", 1)[0]
+    return cut.rstrip(",;:. ") + "…"
+
+
+def _fmt_minor(tpl: str, minor: str) -> str:
+    """Substitute {minor}, {minor_dash} (4-19), {minor_nodot} (26) and {major} (9 for 9.6)."""
+    return tpl.format(minor=minor, minor_dash=minor.replace(".", "-"),
+                      minor_nodot=minor.replace(".", ""),
+                      major=minor.split(".")[0])
+
+
+_DOCS_FEATURE_KEYWORDS = ("new feature", "enhancement", "what", "major change",
+                          "overview", "technology preview")
+
+
+def fetch_features_docs_search(details: dict, minor: str) -> list[dict] | None:
+    """Feature entries from the portal search index of docs.redhat.com chapters.
+
+    Fallback source for products whose release-notes asciidoc is not in a public
+    repo (docs.redhat.com itself blocks non-browser clients). Chapter-level
+    granularity: title + abstract snippet + link.
+    """
+    pattern = _fmt_minor(details["features_search"], minor)
+    params = urllib.parse.urlencode([
+        ("q", minor),
+        ("fq", 'documentKind:("Documentation")'),
+        ("fq", 'language:("en")'),
+        ("fq", f"view_uri:{pattern}"),
+        ("rows", 100),
+        ("fl", "view_uri,allTitle,abstract"),
+    ])
+    try:
+        req = urllib.request.Request(
+            f"{_ERRATA_SEARCH_URL}?{params}",
+            headers={"User-Agent": "lifecycle-graph/1.0", "Accept": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            docs = json.loads(resp.read())["response"].get("docs", [])
+    except Exception as exc:
+        print(f"Docs-search features fetch failed for {minor}: {exc}", file=sys.stderr)
+        return None
+    groups = []
+    seen: set[str] = set()
+    for doc in docs:
+        uri = doc.get("view_uri", "")
+        title = doc.get("allTitle", "") or ""
+        if "/en/" not in uri or uri in seen:
+            continue
+        seen.add(uri)
+        lt, lu = title.lower(), uri.lower()
+        if not (any(k in lt for k in _DOCS_FEATURE_KEYWORDS)
+                or "new-feature" in lu or "enhancement" in lu):
+            continue
+        short = title.split(" - ")[0].strip()
+        short = re.sub(r"^(Chapter\s+)?[\d.]+\s*", "", short) or short
+        desc = " ".join((doc.get("abstract") or "").split())
+        groups.append({"area": short, "items": _split_chapter_abstract(short, desc),
+                       "_sort": title})
+    groups.sort(key=lambda g: g.pop("_sort"))
+    groups = [g for g in groups if g["items"]]
+    return groups or None
+
+
+_ABSTRACT_BOILERPLATE = re.compile(
+    r"^(Important\s+)?(This (part|section|document|chapter)|These release notes)\b.*?\.(?=\s|$)\s*"
+)
+_ITEM_NOISE_PREFIXES = ("For information", "Additional resources", "See ", "For more information")
+
+
+def _split_chapter_abstract(chapter_title: str, abstract: str) -> list[dict]:
+    """Break a docs-index chapter abstract into per-subsection feature lines.
+
+    Chapter abstracts flatten numbered subsections ("6.1. Installer and image
+    creation Review new features … <feature text>"); split on the numbering
+    markers so each subsection renders as one plain line, OCP-card style.
+    Per RELEASE_NOTE_TEMPLATE.md items carry no links — the minor header's
+    "release notes" link is the single way out.
+    """
+    abstract = _ABSTRACT_BOILERPLATE.sub("", abstract)
+    segs = re.split(r"\s(?=\d+(?:\.\d+)+\.\s)", " " + abstract)
+    items = []
+    for seg in segs:
+        m = re.match(r"\s*\d+(?:\.\d+)+\.\s+(.*)", seg)
+        if not m:
+            continue
+        body = m.group(1)
+        cut = len(body)
+        for marker in (": ", " Review ", " Key highlights", ". "):
+            i = body.find(marker)
+            if 0 < i < cut:
+                cut = i
+        title = body[:cut].strip().rstrip(".")
+        desc = body[cut:].lstrip()
+        desc = re.sub(r"^(Review|Key highlights)\b(.*?\.(?=\s)|.*$)\s*", "", desc)
+        desc = desc.lstrip(".: ")
+        if title and not any(title.startswith(p) for p in _ITEM_NOISE_PREFIXES):
+            items.append({"t": _trunc(title, 90), "d": _trunc(desc, 350)})
+    if not items and abstract.strip():
+        items = [{"t": chapter_title, "d": _trunc(abstract, 350)}]
+    return items
+
+
+def _fetch_text(url: str) -> str:
+    req = urllib.request.Request(url, headers={"User-Agent": "lifecycle-graph/1.0"})
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+
+def _parse_adoc_attributes(text: str) -> dict[str, str]:
+    """Parse ':name: value' asciidoc attribute definitions, resolving nested refs."""
+    attrs: dict[str, str] = {}
+    for line in text.splitlines():
+        m = re.match(r"^:([A-Za-z0-9_-]+):\s*(.*)$", line)
+        if m:
+            attrs[m.group(1)] = m.group(2).strip()
+    for _ in range(3):
+        changed = False
+        for k, v in attrs.items():
+            nv = re.sub(r"\{([A-Za-z0-9_-]+)\}", lambda m: attrs.get(m.group(1), m.group(0)), v)
+            if nv != v:
+                attrs[k] = nv
+                changed = True
+        if not changed:
+            break
+    return attrs
+
+
+def _clean_adoc_inline(s: str, attrs: dict[str, str]) -> str:
+    for _ in range(2):  # attr values may themselves contain {refs}
+        s = re.sub(r"\{([A-Za-z0-9_-]+)\}", lambda m: attrs.get(m.group(1), m.group(0)), s)
+    s = re.sub(r"(?:link|xref):[^\[\]]+\[([^\]]*)\]", r"\1", s)
+    s = re.sub(r"\*([^*]+)\*", r"\1", s)
+    s = s.replace("`", "")
+    s = re.sub(r"\{([A-Za-z0-9_-]+)\}", r"\1", s)  # unresolved attrs: keep name, drop braces
+    return " ".join(s.split())
+
+
+_ADOC_SKIP_PREFIXES = ("[", "//", "ifdef", "ifndef", "endif", "include::", "image::", "|", "'''", "+")
+# Sections that live inside "New features" docs but are not features
+_FEATURE_TITLE_SKIP = ("Upgrade", "Upgrading", "Migration")
+
+
+def _parse_adoc_features(text: str, attrs: dict[str, str],
+                         section: str = "new features and enhancements",
+                         flat: bool = False) -> list[dict]:
+    """Extract feature entries (area → title + first paragraph) from a release-notes adoc.
+
+    Level-aware: works both on book files (section at `==`) and standalone
+    modules (section at `=`); areas/features sit one/two levels below it.
+    flat=True treats section+1 headings as feature titles directly (no area
+    level) — the AAP release-notes module layout.
+    """
+    lines = text.splitlines()
+    heading_re = re.compile(r"^(=+)\s+(\S.*)$")
+    sec_level = None
+    start = 0
+    for i, line in enumerate(lines):
+        m = heading_re.match(line.rstrip())
+        if m and section in _clean_adoc_inline(m.group(2), attrs).lower():
+            sec_level, start = len(m.group(1)), i + 1
+            break
+    if sec_level is None:
+        return []
+
+    groups: list[dict] = []
+    bullets: list[dict] = []
+    in_code = False
+    in_comment = False
+    saw_title = False
+    title: str | None = None
+    desc: list[str] = []
+
+    def flush() -> None:
+        nonlocal title, desc, saw_title
+        if title:
+            saw_title = True
+            t = _trunc(_clean_adoc_inline(title, attrs), 200)
+            d = _trunc(_clean_adoc_inline(" ".join(desc), attrs), 400)
+            # In flat mode a heading without body text is an area, not a feature;
+            # upgrade/migration sections inside "New features" docs are not features.
+            if not (flat and not d) and not t.startswith(_FEATURE_TITLE_SKIP):
+                if not groups:
+                    groups.append({"area": "General", "items": []})
+                groups[-1]["items"].append({"t": t, "d": d})
+        title, desc = None, []
+
+    for line in lines[start:]:
+        stripped = line.rstrip()
+        if stripped == "////":  # block comment fence
+            in_comment = not in_comment
+            continue
+        if in_comment:
+            continue
+        if stripped in ("----", "...."):  # code fences
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        m = heading_re.match(stripped)
+        if m:
+            level = len(m.group(1))
+            if level <= sec_level:
+                break
+            flush()
+            if level == sec_level + 1:
+                if flat:
+                    title = m.group(2)
+                else:
+                    groups.append({"area": _clean_adoc_inline(m.group(2), attrs), "items": []})
+            elif level == sec_level + 2 and not flat:
+                title = m.group(2)
+            continue
+        if stripped in ("====", "--"):  # admonition / open-block fences
+            continue
+        if any(stripped.startswith(p) for p in _ADOC_SKIP_PREFIXES):
+            continue
+        m_def = re.match(r"^(\S.*?)::\s*$", stripped)
+        if m_def:  # definition-list entry: "Feature title::" (OCP 4.21+ modules)
+            flush()
+            title = m_def.group(1)
+            continue
+        if title is not None:
+            if not stripped:
+                if desc:
+                    flush()  # first paragraph only
+                continue
+            if stripped.startswith(("* ", ". ")):
+                desc.append(stripped[2:].strip())
+            else:
+                desc.append(stripped.strip())
+        elif stripped.startswith("* ") and not saw_title:
+            # buffered: only used when the section turns out to be bullet-only
+            bullet = _clean_adoc_inline(stripped[2:], attrs)
+            if bullet:
+                bullets.append({"t": _trunc(bullet, 200), "d": ""})
+    flush()
+    groups = [g for g in groups if g["items"]]
+    if bullets and not saw_title and not groups:
+        # bullet-only sections (e.g. AAP 2.4): each bullet is a feature line
+        groups = [{"area": "General", "items": bullets}]
+    return groups
+
+
+def fetch_release_features(details: dict, minor: str) -> list[dict] | None:
+    """Feature entries for one minor from its docs source repo. None on any failure."""
+    url = _fmt_minor(details["features_url"], minor)
+    try:
+        attrs: dict[str, str] = {}
+        attrs_url = details.get("attributes_url")
+        if attrs_url:
+            attrs = _parse_adoc_attributes(_fetch_text(_fmt_minor(attrs_url, minor)))
+        attrs.update(details.get("attributes") or {})  # YAML overrides win
+        attrs.setdefault("product-version", minor)
+        attrs.setdefault("nbsp", " ")
+        for k in list(attrs):  # docs sometimes use {Capitalized-attr} refs
+            if k and k[0].islower():
+                attrs.setdefault(k[0].upper() + k[1:], attrs[k])
+        def best_parse(t: str) -> list[dict]:
+            # Nested (areas + feature headings) is the canonical layout; use the
+            # flat reading only when nested finds nothing or clearly misreads the
+            # document (e.g. AAP, where features sit at the area level and nested
+            # only picks up a few stray sub-headings).
+            nested = _parse_adoc_features(t, attrs)
+            flat = _parse_adoc_features(t, attrs, flat=True)
+            n_count = sum(len(g["items"]) for g in nested)
+            f_count = sum(len(g["items"]) for g in flat)
+            return flat if (n_count == 0 or f_count > 2 * n_count) else nested
+
+        text = _fetch_text(url)
+        groups = best_parse(text)
+        if not groups:
+            # Modularized books (OCP 4.21+): content lives in an included module.
+            m = re.search(r"^include::(\S*new-features\S*?)\[", text, re.M)
+            if m:
+                repo_root = url.rsplit("/", 2)[0]
+                groups = best_parse(_fetch_text(f"{repo_root}/{m.group(1)}"))
+        return groups or None
+    except Exception as exc:
+        print(f"Release-notes features fetch failed for {minor}: {exc}", file=sys.stderr)
+        return None
+
+
+def build_details_data(key: str, cfg: dict, versions: list[dict]) -> dict | None:
+    """Fetch + group errata per minor/z-stream. None if any fetch fails.
+
+    errata_query containing "{minor}" → one Hydra query per minor (unmatched
+    synopses kept as per-minor "unversioned"). Without "{minor}" → a single
+    product-wide query; docs are attributed to minors by version parsing and
+    unmatched docs are dropped (they can't be tied to a minor).
+    """
+    details = cfg["details"]
+    q_template = details.get("errata_query")
+    shared_query = bool(q_template) and "{minor}" not in q_template
+    if details.get("minors_from") == "rhel_minors":
+        minors = sorted(
+            {m for data in _RHEL_MINOR_DATA.values() for m in data},
+            key=lambda v: tuple(int(p) for p in v.split(".")), reverse=True,
+        )
+    else:
+        minors = [v["version"] for v in versions]
+    # Older EOL minors beyond the chart's min_version — full history coverage.
+    for extra in details.get("extra_minors", []):
+        if str(extra) not in minors:
+            minors.append(str(extra))
+    shared_docs: list[dict] | None = None
+    if shared_query:
+        shared_docs = fetch_errata_for_minor(q_template)
+        if shared_docs is None:
+            return None
+    minors_out = []
+    for minor in minors:
+        if q_template is None:
+            docs = []
+        elif shared_docs is not None:
+            docs = shared_docs
+        else:
+            docs = fetch_errata_for_minor(_fmt_minor(q_template, minor))
+            if docs is None:
+                return None
+        zstreams: dict[str, list[dict]] = {}
+        unversioned: list[dict] = []
+        for doc in docs:
+            synopsis = doc.get("portal_synopsis", "")
+            zver = _parse_zstream(synopsis, minor)
+            if zver:
+                zstreams.setdefault(zver, []).append(_doc_to_erratum(doc))
+            elif not shared_query:
+                unversioned.append(_doc_to_erratum(doc))
+        zstream_list = [
+            {
+                "version": zver,
+                "date": min((e["date"] for e in errata if e["date"]), default=""),
+                "errata": sorted(errata, key=lambda e: e["date"], reverse=True),
+            }
+            for zver, errata in zstreams.items()
+        ]
+        zstream_list.sort(key=lambda z: int(z["version"].rsplit(".", 1)[1]), reverse=True)
+        rn_tpl = details.get("release_notes_url", "")
+        minor_entry = {
+            "minor": minor,
+            "release_notes_url": _fmt_minor(rn_tpl, minor) if rn_tpl else "",
+            "zstreams": zstream_list,
+            "unversioned": unversioned,
+        }
+        features = None
+        if details.get("features_url"):
+            features = fetch_release_features(details, minor)
+        if features is None and details.get("features_search"):
+            features = fetch_features_docs_search(details, minor)
+            time.sleep(0.2)
+        if features:
+            minor_entry["features"] = features
+        if not (zstream_list or unversioned or features):
+            continue  # nothing known about this minor — no empty section
+        minors_out.append(minor_entry)
+        attributed = sum(len(z["errata"]) for z in zstream_list) + len(unversioned)
+        print(f"Errata: {minor} → {len(zstream_list)} z-streams, {attributed} advisories.", file=sys.stderr)
+    try:
+        minors_out.sort(key=lambda m: tuple(int(p) for p in m["minor"].split(".")), reverse=True)
+    except ValueError:
+        pass  # non-numeric versions keep chart order
+    return {
+        "product": key,
+        "title": cfg.get("title", key),
+        "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "minors": minors_out,
+    }
+
+
+def _load_cached_details(out_dir: Path, key: str) -> dict | None:
+    """Previously committed sidecar JSON — fallback when the live fetch fails."""
+    cache = out_dir / f"lifecycle-{key}-details.json"
+    try:
+        return json.loads(cache.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
 
 def build_versions(
     lifecycle: dict[str, dict],
@@ -792,13 +1279,13 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
-_ASSET_VERSION = "0.2.8"  # bump when static/css or icons change (cache bust)
+_ASSET_VERSION = "0.2.13"  # bump when static/css or icons change (cache bust)
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
                  show_footer: bool = True, show_controls: bool = False,
                  minor_data: dict[str, list[dict]] | None = None,
-                 page_url: str = "", info_html: str = "",
+                 page_url: str = "", info_html: str = "", details_url: str = "",
                  static_prefix: str = _STATIC_PREFIX) -> str:
     today = date.today()
     pad = timedelta(days=60)
@@ -1011,6 +1498,13 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         f'title="Official Lifecycle Policy">↗ policy</a>'
     ) if page_url else ""
 
+    details_link_html = (
+        f' <a href="{details_url}" '
+        f'style="font-size:10px;color:var(--link-color);font-weight:400;'
+        f'text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" '
+        f'title="Z-stream releases &amp; errata">↗ details</a>'
+    ) if details_url else ""
+
     anchor_link_html = (
         f' <a href="#{anchor}" '
         f'onclick="var u=location.href.split(\'#\')[0]+\'#{anchor}\';navigator.clipboard.writeText(u);event.preventDefault()" '
@@ -1039,7 +1533,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
   <div class="card-header">
     <span class="card-title">
       {title_icon}
-      {heading_label}{page_link_html}{anchor_link_html}
+      {heading_label}{page_link_html}{details_link_html}{anchor_link_html}
     </span>
     <div class="legend">
       {legend_html}
@@ -1361,7 +1855,7 @@ def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str 
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <link rel="icon" type="image/svg+xml" href="{static_prefix}/icons/redhat-hat-red.svg">
-<script>(function(){{var t=localStorage.getItem('lifecycle-theme'),d;if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;if(d){{document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}}else{{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}}}})();</script>
+<script>(function(){{function apply(d){{if(d){{document.documentElement.classList.add('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','dark');}}else{{document.documentElement.classList.remove('pf-v6-theme-dark');document.documentElement.setAttribute('data-theme','light');}}}}var q=new URLSearchParams(location.search).get('theme');var t=localStorage.getItem('lifecycle-theme'),d;if(q==='dark'||q==='light')d=q==='dark';else if(t==='light')d=false;else if(t==='dark')d=true;else d=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;apply(d);window.addEventListener('message',function(e){{var m=e.data;if(m&&m.type==='casedoctor-theme'&&(m.theme==='dark'||m.theme==='light'))apply(m.theme==='dark');}});}})();</script>
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css">
 <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6/patternfly-addons.css">
 <link rel="stylesheet" href="{static_prefix}/css/chart.css?v={_ASSET_VERSION}">
@@ -1700,10 +2194,21 @@ def _rhel_minor_data(versions: list[dict]) -> dict[str, list[dict]]:
 
 def render_html(versions: list[dict], chart_label: str, show_footer: bool = True,
                 minor_data: dict[str, list[dict]] | None = None,
-                page_url: str = "", info_html: str = "") -> str:
+                page_url: str = "", info_html: str = "", details_url: str = "") -> str:
     card = _render_card(versions, chart_label, show_footer=show_footer, show_controls=True,
-                        minor_data=minor_data, page_url=page_url, info_html=info_html)
-    return _page_wrap(chart_label, card)
+                        minor_data=minor_data, page_url=page_url, info_html=info_html,
+                        details_url=details_url)
+    heading = _chart_display_heading(chart_label)
+    crumb = _breadcrumb([
+        (f"{_BC_HOME_ICON}All products", "index.html"),
+        (f"{_html.escape(heading)} lifecycle", ""),
+    ])
+    toggle = ""
+    if details_url:
+        key = details_url.removeprefix("lifecycle-").removesuffix("-details.html")
+        toggle = f'<div class="details-topbar__right">{_view_toggle("chart", key)}</div>'
+    topbar = f'<div class="details-topbar">{crumb}{toggle}</div>'
+    return _page_wrap(chart_label, f"{topbar}\n{card}")
 
 
 def render_combined_html(
@@ -1776,7 +2281,8 @@ def render_combined_html(
                      show_footer=False, show_controls=True,
                      minor_data=_rhel_minor_data(versions) if label == "RHEL Lifecycle" else None,
                      page_url=cfg.get("page_url", ""),
-                     info_html=cfg.get("info_html", ""))
+                     info_html=cfg.get("info_html", ""),
+                     details_url=cfg.get("details_url", ""))
         for label, versions, cfg in product_list
     )
     operators_section = _render_operator_section(operators_data or [])
@@ -2093,9 +2599,13 @@ def _generate_product(
 
     minor_data = _rhel_minor_data(versions_html) if cfg.get("has_minors") else None
     html = render_html(versions_html, chart_label, minor_data=minor_data,
-                       page_url=cfg.get("page_url", ""), info_html=cfg.get("info_html", ""))
+                       page_url=cfg.get("page_url", ""), info_html=cfg.get("info_html", ""),
+                       details_url=cfg.get("details_url", ""))
     out_html.write_text(html, encoding="utf-8")
     print(f"HTML: {out_html}  ({len(versions_html)} versions)")
+
+    if cfg.get("details") and not getattr(args, "skip_details", False):
+        _generate_details_page(out_html.parent, product, cfg, versions_html)
 
     if args.png:
         versions_svg = _svg_versions(versions_html, args.include_eol)
@@ -2410,9 +2920,17 @@ body{margin:0;background:var(--bg);color:var(--text);
 }
 </style>
 <script>(function(){
+  function apply(d){document.documentElement.setAttribute('data-theme',d?'dark':'light');}
+  var q=new URLSearchParams(location.search).get('theme');
   var s=localStorage.getItem('lifecycle-theme');
-  var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme',d?'dark':'light');
+  var d;
+  if(q==='dark'||q==='light')d=q==='dark';
+  else d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  apply(d);
+  window.addEventListener('message',function(e){
+    var m=e.data;
+    if(m&&m.type==='casedoctor-theme'&&(m.theme==='dark'||m.theme==='light'))apply(m.theme==='dark');
+  });
 })();</script>
 </head>
 <body>
@@ -2507,6 +3025,578 @@ window.addEventListener('scroll',function(){
     path.write_text(html, encoding="utf-8")
 
 
+# ── Details page rendering ───────────────────────────────────────────────────
+
+_DETAILS_JS = """
+(function () {
+  var idxEl = document.getElementById('details-index');
+  if (!idxEl) return;
+  var IDX = JSON.parse(idxEl.textContent);
+  var selFrom = document.getElementById('delta-from');
+  var selTo = document.getElementById('delta-to');
+  var reset = document.getElementById('delta-reset');
+  var summary = document.getElementById('delta-summary');
+
+  function fill(sel, placeholder) {
+    var opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = placeholder;
+    sel.appendChild(opt);
+    IDX.forEach(function (z) {
+      var o = document.createElement('option');
+      o.value = z.v;
+      o.textContent = z.v;
+      sel.appendChild(o);
+    });
+  }
+  fill(selFrom, 'version…');
+  fill(selTo, 'version…');
+
+  function cmpVer(a, b) {
+    var pa = a.split('.').map(Number), pb = b.split('.').map(Number);
+    for (var i = 0; i < 3; i++) {
+      if ((pa[i] || 0) !== (pb[i] || 0)) return (pa[i] || 0) - (pb[i] || 0);
+    }
+    return 0;
+  }
+
+  function applyDelta(push) {
+    var from = selFrom.value, to = selTo.value;
+    var active = from && to;
+    var lo = from, hi = to;
+    if (active && cmpVer(from, to) > 0) { lo = to; hi = from; }
+    var counts = { n: 0, security: 0, bugfix: 0, enhancement: 0, other: 0 };
+    var inRange = {};
+    IDX.forEach(function (z) {
+      var keep = !active || (cmpVer(z.v, lo) > 0 && cmpVer(z.v, hi) <= 0);
+      inRange[z.v] = keep;
+      if (active && keep) {
+        counts.n += 1;
+        counts.security += z.sec; counts.bugfix += z.bug;
+        counts.enhancement += z.enh; counts.other += z.oth;
+      }
+    });
+    document.querySelectorAll('.zstream-block').forEach(function (el) {
+      el.hidden = !inRange[el.dataset.zver];
+    });
+    document.querySelectorAll('.unversioned-block').forEach(function (el) {
+      el.hidden = !!active;
+    });
+    document.querySelectorAll('.minor-block').forEach(function (el) {
+      var visible = el.querySelectorAll('.zstream-block:not([hidden])').length;
+      el.hidden = active && visible === 0;
+      if (active && visible > 0) el.open = true;
+    });
+    if (active) {
+      summary.hidden = false;
+      summary.textContent = counts.n + ' z-stream release' + (counts.n === 1 ? '' : 's') + ' \\u00b7 '
+        + counts.security + ' Security \\u00b7 ' + counts.bugfix + ' Bug Fix \\u00b7 '
+        + counts.enhancement + ' Enhancement'
+        + (counts.other ? ' \\u00b7 ' + counts.other + ' other' : '')
+        + ' between ' + lo + ' and ' + hi;
+      reset.hidden = false;
+    } else {
+      summary.hidden = true;
+      reset.hidden = true;
+    }
+    if (push) {
+      var url = location.pathname + (active ? '?from=' + from + '&to=' + to : '') + location.hash;
+      history.replaceState(null, '', url);
+    }
+  }
+
+  selFrom.addEventListener('change', function () { applyDelta(true); });
+  selTo.addEventListener('change', function () { applyDelta(true); });
+  reset.addEventListener('click', function () {
+    selFrom.value = ''; selTo.value = '';
+    applyDelta(true);
+  });
+
+  var q = new URLSearchParams(location.search);
+  var qf = q.get('from'), qt = q.get('to');
+  if (qf) selFrom.value = qf;
+  if (qt) selTo.value = qt;
+  if (selFrom.value && selTo.value) applyDelta(false);
+})();
+"""
+
+
+def _errata_badge(kind: str, label: str) -> str:
+    return f'<span class="errata-badge errata-badge--{kind}">{_html.escape(label)}</span>'
+
+
+def _render_errata_rows(errata: list[dict]) -> str:
+    rows = []
+    for e in errata:
+        label = _ERRATA_KIND_LABELS.get(e["kind"], "Advisory")
+        if e["kind"] == "security" and e["severity"] and e["severity"] != "None":
+            label += f' · {e["severity"]}'
+        rows.append(
+            f'<div class="errata-row" data-kind="{e["kind"]}">'
+            f'{_errata_badge(e["kind"], label)}'
+            f'<a class="errata-row__id" href="{_html.escape(e["url"])}" target="_blank" rel="noopener">'
+            f'{_html.escape(e["id"])}</a>'
+            f'<span class="errata-row__synopsis">{_html.escape(e["synopsis"])}</span>'
+            f'<span class="errata-row__date">{_html.escape(e["date"])}</span>'
+            f'</div>'
+        )
+    return "".join(rows)
+
+
+def _zstream_count_badges(errata: list[dict]) -> str:
+    counts: dict[str, int] = {}
+    for e in errata:
+        counts[e["kind"]] = counts.get(e["kind"], 0) + 1
+    return "".join(
+        _errata_badge(kind, f"{counts[kind]} {_ERRATA_KIND_LABELS[kind]}")
+        for kind in ("security", "bugfix", "enhancement", "other")
+        if counts.get(kind)
+    )
+
+
+_NOTE_CARD_META = {
+    "enhancement": ("✨", "New Features & Enhancements"),
+    "security": ("🔒", "Security Fixes"),
+    "bugfix": ("🔧", "Bug Fixes"),
+    "other": ("ℹ️", "Notes"),
+}
+
+
+def _render_highlight_cards(errata: list[dict]) -> str:
+    """whatsnew-style colored cards built from erratum description bullets."""
+    cards = []
+    for kind, (emoji, label) in _NOTE_CARD_META.items():
+        seen: set[str] = set()
+        items: list[str] = []
+        for e in errata:
+            if e["kind"] != kind:
+                continue
+            for item in e.get("items", []):
+                if item not in seen:
+                    seen.add(item)
+                    items.append(item)
+        if not items:
+            continue
+        lis = "".join(f"<li>{_html.escape(i)}</li>" for i in items)
+        cards.append(
+            f'<details class="note-card note-card--{kind}" open>'
+            f'<summary><span class="note-card__emoji">{emoji}</span>'
+            f'<span class="note-card__title">{label}</span>'
+            f'{_errata_badge(kind, str(len(items)))}'
+            f'</summary>'
+            f'<ul class="note-card__items">{lis}</ul>'
+            f'</details>'
+        )
+    return "".join(cards)
+
+
+def _render_zstream_body(errata: list[dict]) -> str:
+    return _render_highlight_cards(errata) + _render_errata_rows(errata)
+
+
+def _render_features_card(features: list[dict] | None, minor: str) -> str:
+    """Minor-level '✨ New Features & Enhancements' card from the release-notes source."""
+    if not features:
+        return ""
+    total = sum(len(g["items"]) for g in features)
+    sections = []
+    for group in features:
+        # Plain titles only — per RELEASE_NOTE_TEMPLATE.md the sole link is
+        # the minor header's "release notes".
+        lis = "".join(
+            f'<li><b>{_html.escape(item["t"])}</b>'
+            + (f' — {_html.escape(item["d"])}' if item["d"] else "")
+            + '</li>'
+            for item in group["items"]
+        )
+        area_heading = (
+            f'<h4 class="features-card__area">{_html.escape(group["area"])}</h4>'
+            if group["area"] != "General" else ""
+        )
+        sections.append(f'{area_heading}<ul class="note-card__items">{lis}</ul>')
+    return (
+        f'<details class="note-card note-card--enhancement features-card">'
+        f'<summary><span class="note-card__emoji">✨</span>'
+        f'<span class="note-card__title">What\'s new in {_html.escape(minor)}</span>'
+        f'{_errata_badge("enhancement", f"{total} features")}'
+        f'<span class="features-card__src">from release notes</span>'
+        f'</summary>'
+        f'<div class="features-card__body">{"".join(sections)}</div>'
+        f'</details>'
+    )
+
+
+_BC_HOME_ICON = (
+    '<svg class="bc-home-icon" width="12" height="12" viewBox="0 0 576 512" '
+    'fill="currentColor" aria-hidden="true">'
+    '<path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 '
+    '15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 '
+    '16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 '
+    '251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 '
+    '43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 '
+    '301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 '
+    '12 0 0 0-1.7-16.93z"/></svg>'
+)
+
+_BC_DIVIDER = (
+    '<span class="pf-v6-c-breadcrumb__item-divider">'
+    '<svg width="7" height="10" viewBox="0 0 256 512" fill="currentColor" aria-hidden="true">'
+    '<path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 '
+    '0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 '
+    '0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>'
+)
+
+
+def _breadcrumb(items: list[tuple[str, str]]) -> str:
+    """PatternFly v6 breadcrumb. items = (label_html, href); last item is current page."""
+    lis = []
+    for i, (label, href) in enumerate(items):
+        divider = _BC_DIVIDER if i else ""
+        if i == len(items) - 1:
+            lis.append(
+                f'<li class="pf-v6-c-breadcrumb__item">{divider}'
+                f'<span class="pf-v6-c-breadcrumb__link pf-m-current" aria-current="page">{label}</span></li>'
+            )
+        else:
+            lis.append(
+                f'<li class="pf-v6-c-breadcrumb__item">{divider}'
+                f'<a class="pf-v6-c-breadcrumb__link" href="{href}">{label}</a></li>'
+            )
+    return (
+        '<nav class="pf-v6-c-breadcrumb" aria-label="Breadcrumb">'
+        f'<ol class="pf-v6-c-breadcrumb__list" role="list">{"".join(lis)}</ol></nav>'
+    )
+
+
+def _view_toggle(current: str, key: str) -> str:
+    """PatternFly v6 toggle group switching between Chart / Details / Timeline."""
+    views = (
+        ("chart", "Chart", f"lifecycle-{key}.html"),
+        ("details", "Details", f"lifecycle-{key}-details.html"),
+        ("timeline", "Timeline", f"lifecycle-{key}-timeline.html"),
+    )
+    items = []
+    for view, label, href in views:
+        selected = " pf-m-selected" if view == current else ""
+        aria = ' aria-current="page"' if view == current else ""
+        items.append(
+            f'<div class="pf-v6-c-toggle-group__item">'
+            f'<a class="pf-v6-c-toggle-group__button{selected}" href="{href}"{aria}>'
+            f'<span class="pf-v6-c-toggle-group__text">{label}</span></a></div>'
+        )
+    return (
+        f'<div class="pf-v6-c-toggle-group" role="group" aria-label="View switcher">'
+        f'{"".join(items)}</div>'
+    )
+
+
+def _details_topbar(key: str, cfg: dict, data: dict | None, current: str) -> str:
+    """Shared header bar (breadcrumb + view switcher) for the details/timeline pages."""
+    heading = _chart_display_heading(cfg.get("title", key))
+    page_label = "Release details" if current == "details" else "Release timeline"
+    crumb = _breadcrumb([
+        (f"{_BC_HOME_ICON}All products", "index.html"),
+        (f"{_html.escape(heading)} lifecycle", f"lifecycle-{key}.html"),
+        (page_label, ""),
+    ])
+    generated = (
+        f'<span class="details-topbar__generated">Data generated {_html.escape(data["generated"])}</span>'
+        if data and data.get("generated") else ""
+    )
+    return (
+        f'<div class="details-topbar">{crumb}'
+        f'<div class="details-topbar__right">{_view_toggle(current, key)}{generated}</div>'
+        f'</div>'
+    )
+
+
+_TIMELINE_JS = """
+(function () {
+  var sel = document.getElementById('tl-minor');
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.tl-kind'));
+  var countEl = document.getElementById('tl-count');
+  if (!sel) return;
+
+  function applyFilters(push) {
+    var minor = sel.value;
+    var kinds = {};
+    boxes.forEach(function (b) { kinds[b.value] = b.checked; });
+    var shown = 0, total = 0;
+    document.querySelectorAll('.timeline-entry').forEach(function (el) {
+      total += 1;
+      var okMinor = !minor || el.dataset.minor === minor;
+      var okKind = el.dataset.kinds.split(' ').some(function (k) { return kinds[k]; });
+      var visible = okMinor && okKind;
+      el.hidden = !visible;
+      if (visible) shown += 1;
+      el.querySelectorAll('.errata-row').forEach(function (row) {
+        row.hidden = !kinds[row.dataset.kind];
+      });
+    });
+    document.querySelectorAll('.timeline-month').forEach(function (m) {
+      m.hidden = m.querySelectorAll('.timeline-entry:not([hidden])').length === 0;
+    });
+    countEl.textContent = shown === total
+      ? total + ' entries'
+      : shown + ' of ' + total + ' entries';
+    if (push) {
+      var off = boxes.filter(function (b) { return !b.checked; })
+                     .map(function (b) { return b.value; });
+      var p = new URLSearchParams();
+      if (minor) p.set('minor', minor);
+      if (off.length) p.set('hide', off.join(','));
+      var qs = p.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+  }
+
+  sel.addEventListener('change', function () { applyFilters(true); });
+  boxes.forEach(function (b) { b.addEventListener('change', function () { applyFilters(true); }); });
+
+  var q = new URLSearchParams(location.search);
+  var qm = q.get('minor');
+  if (qm) sel.value = qm;
+  var hide = (q.get('hide') || '').split(',');
+  boxes.forEach(function (b) { if (hide.indexOf(b.value) >= 0) b.checked = false; });
+  applyFilters(false);
+})();
+"""
+
+_TIMELINE_DOT_ORDER = ("security", "bugfix", "enhancement", "other")
+
+
+def render_timeline_html(data: dict | None, key: str, cfg: dict, notice_html: str = "") -> str:
+    heading = _chart_display_heading(cfg.get("title", key))
+    page_title = f"{heading} Release Timeline"
+    topbar = _details_topbar(key, cfg, data, current="timeline")
+
+    if not data or not data.get("minors"):
+        return _page_wrap(page_title, f"{topbar}\n{notice_html}")
+
+    entries = []  # (minor, sort_date, sort_ver, z_or_none, erratum_or_none)
+    minors_seen = []
+    for minor in data["minors"]:
+        minors_seen.append(minor["minor"])
+        for z in minor["zstreams"]:
+            entries.append((minor["minor"], z["date"], z["version"], z, None))
+        for e in minor["unversioned"]:
+            # products without x.y.z-versioned erratas (AAP, OSP…) still get a
+            # timeline: each advisory is its own dated entry
+            entries.append((minor["minor"], e["date"], "", None, e))
+    entries.sort(key=lambda t: (t[1], t[2]), reverse=True)
+
+    months: list[tuple[str, list[str]]] = []  # (label, entry_html list) newest first
+    current_month = None
+    for minor_ver, date_str, _ver, z, erratum in entries:
+        if z is not None:
+            kinds_present = []
+            for e in z["errata"]:
+                if e["kind"] not in kinds_present:
+                    kinds_present.append(e["kind"])
+            label_html = f'<code class="timeline-entry__ver">{_html.escape(z["version"])}</code>'
+            badges = _zstream_count_badges(z["errata"])
+            body = _render_zstream_body(z["errata"])
+        else:
+            kinds_present = [erratum["kind"]]
+            label_html = (
+                f'<code class="timeline-entry__ver">{_html.escape(minor_ver)}</code>'
+                f'<span class="timeline-entry__syn">{_html.escape(_trunc(erratum["synopsis"], 110))}</span>'
+            )
+            badges = _zstream_count_badges([erratum])
+            body = _render_zstream_body([erratum])
+        dot_kind = next((k for k in _TIMELINE_DOT_ORDER if k in kinds_present), "other")
+        month_key = date_str[:7] if date_str else "unknown"
+        if month_key != current_month:
+            if month_key == "unknown":
+                label = "Undated"
+            else:
+                y, m = month_key.split("-")
+                label = f"{calendar.month_name[int(m)]} {y}"
+            months.append((label, []))
+            current_month = month_key
+        entry_html = (
+            f'<details class="timeline-entry" data-minor="{_html.escape(minor_ver)}" '
+            f'data-kinds="{" ".join(kinds_present)}">'
+            f'<summary>'
+            f'<span class="timeline-dot timeline-dot--{dot_kind}"></span>'
+            f'{label_html}'
+            f'<span class="timeline-entry__date">{_html.escape(date_str)}</span>'
+            f'<span class="zstream-block__badges">{badges}</span>'
+            f'</summary>'
+            f'<div class="timeline-entry__body">{body}</div>'
+            f'</details>'
+        )
+        months[-1][1].append(entry_html)
+
+    month_sections = "".join(
+        f'<section class="timeline-month">'
+        f'<h3 class="timeline-month__label">{_html.escape(label)}</h3>'
+        f'{"".join(items)}'
+        f'</section>'
+        for label, items in months
+    )
+
+    kind_boxes = "".join(
+        f'<label class="tl-filter__kind"><input type="checkbox" class="tl-kind" value="{kind}" checked>'
+        f'{_errata_badge(kind, _ERRATA_KIND_LABELS[kind])}</label>'
+        for kind in _TIMELINE_DOT_ORDER
+    )
+    minor_options = "".join(
+        f'<option value="{_html.escape(m)}">{_html.escape(m)}</option>' for m in minors_seen
+    )
+    filter_bar = (
+        '<div class="delta-bar">'
+        '<span class="delta-bar__label">Filter:</span>'
+        f'<label>Minor <select id="tl-minor" class="delta-select">'
+        f'<option value="">all</option>{minor_options}</select></label>'
+        f'{kind_boxes}'
+        '<span class="delta-summary" id="tl-count"></span>'
+        '<p class="delta-bar__hint">Z-stream releases and advisories newest first, grouped by month.</p>'
+        '</div>'
+    )
+
+    today_html = (
+        f'<div class="timeline-today">┆ Today ({date.today().isoformat()})</div>'
+    )
+    body = (
+        f'{topbar}\n{notice_html}\n{filter_bar}\n'
+        f'<div class="timeline">{today_html}{month_sections}</div>\n'
+        f'<script>{_TIMELINE_JS}</script>'
+    )
+    return _page_wrap(page_title, body)
+
+
+def _minor_meta(minor: dict, adv_total: int) -> str:
+    parts = []
+    if minor["zstreams"] or minor["unversioned"]:
+        parts.append(f'{len(minor["zstreams"])} z-streams')
+        parts.append(f"{adv_total} advisories")
+    if minor.get("features"):
+        parts.append(f'{sum(len(g["items"]) for g in minor["features"])} features')
+    return " · ".join(parts)
+
+
+def render_details_html(data: dict | None, key: str, cfg: dict, notice_html: str = "") -> str:
+    heading = _chart_display_heading(cfg.get("title", key))
+    page_title = f"{heading} Release Details"
+
+    topbar = _details_topbar(key, cfg, data, current="details")
+
+    if not data or not data.get("minors"):
+        body = f"{topbar}\n{notice_html}"
+        return _page_wrap(page_title, body)
+
+    index_entries = []
+    minor_sections = []
+    for i, minor in enumerate(data["minors"]):
+        zblocks = []
+        adv_total = 0
+        for z in minor["zstreams"]:
+            counts = {"security": 0, "bugfix": 0, "enhancement": 0, "other": 0}
+            for e in z["errata"]:
+                counts[e["kind"]] = counts.get(e["kind"], 0) + 1
+            adv_total += len(z["errata"])
+            index_entries.append({
+                "v": z["version"], "m": minor["minor"], "d": z["date"],
+                "sec": counts["security"], "bug": counts["bugfix"],
+                "enh": counts["enhancement"], "oth": counts["other"],
+            })
+            zblocks.append(
+                f'<details class="zstream-block" data-zver="{_html.escape(z["version"])}">'
+                f'<summary>'
+                f'<code class="zstream-block__ver">{_html.escape(z["version"])}</code>'
+                f'<span class="zstream-block__date">{_html.escape(z["date"])}</span>'
+                f'<span class="zstream-block__badges">{_zstream_count_badges(z["errata"])}</span>'
+                f'</summary>'
+                f'<div class="zstream-block__errata">{_render_zstream_body(z["errata"])}</div>'
+                f'</details>'
+            )
+        unversioned_html = ""
+        if minor.get("unversioned"):
+            adv_total += len(minor["unversioned"])
+            unversioned_html = (
+                f'<details class="zstream-block unversioned-block">'
+                f'<summary>'
+                f'<span class="zstream-block__ver zstream-block__ver--other">Other {_html.escape(minor["minor"])} advisories</span>'
+                f'<span class="zstream-block__badges">{_zstream_count_badges(minor["unversioned"])}</span>'
+                f'</summary>'
+                f'<div class="zstream-block__errata">{_render_zstream_body(minor["unversioned"])}</div>'
+                f'</details>'
+            )
+        rn_url = minor.get("release_notes_url", "")
+        rn_link = (
+            f'<a class="minor-block__rn" href="{_html.escape(rn_url)}" target="_blank" rel="noopener" '
+            f'onclick="event.stopPropagation()">↗ release notes</a>'
+        ) if rn_url else ""
+        minor_sections.append(
+            f'<details class="minor-block" data-minor="{_html.escape(minor["minor"])}"{" open" if i == 0 else ""}>'
+            f'<summary>'
+            f'<span class="minor-block__title">{_html.escape(minor["minor"])}</span>'
+            f'<span class="minor-block__meta">{_minor_meta(minor, adv_total)}</span>'
+            f'{rn_link}'
+            f'</summary>'
+            f'<div class="minor-block__body">'
+            f'{_render_features_card(minor.get("features"), minor["minor"])}'
+            f'{"".join(zblocks)}{unversioned_html}</div>'
+            f'</details>'
+        )
+
+    delta_bar = (
+        '<div class="delta-bar">'
+        '<span class="delta-bar__label">Delta between versions:</span>'
+        '<label>From <select id="delta-from" class="delta-select"></select></label>'
+        '<span class="delta-bar__arrow">→</span>'
+        '<label>To <select id="delta-to" class="delta-select"></select></label>'
+        '<button type="button" class="pf-v6-c-button pf-m-secondary pf-m-small" id="delta-reset" hidden>Reset</button>'
+        '<span class="delta-summary" id="delta-summary" hidden></span>'
+        '<p class="delta-bar__hint">Shows every z-stream release and advisory after From up to and including To.</p>'
+        '</div>'
+    )
+
+    if index_entries:
+        index_json = json.dumps(index_entries, separators=(",", ":"))
+        script_html = (
+            f'\n<script type="application/json" id="details-index">{index_json}</script>\n'
+            f'<script>{_DETAILS_JS}</script>'
+        )
+    else:
+        delta_bar = ""  # feature-only product (no versioned errata): no delta filter
+        script_html = ""
+    body = (
+        f'{topbar}\n{notice_html}\n{delta_bar}\n'
+        f'<div class="details-minors">{"".join(minor_sections)}</div>'
+        f'{script_html}'
+    )
+    return _page_wrap(page_title, body)
+
+
+def _generate_details_page(out_dir: Path, key: str, cfg: dict, versions: list[dict]) -> None:
+    out_html = (out_dir / f"lifecycle-{key}-details.html").resolve()
+    out_json = (out_dir / f"lifecycle-{key}-details.json").resolve()
+    data = build_details_data(key, cfg, versions)
+    notice = ""
+    if data is not None:
+        out_json.write_text(json.dumps(data, indent=1), encoding="utf-8")
+    else:
+        data = _load_cached_details(out_dir, key)
+        if data is not None:
+            notice = (
+                '<div class="details-notice">⚠ Live errata refresh failed at build time — showing '
+                f'cached data from {_html.escape(str(data.get("generated", "an earlier run")))}.</div>'
+            )
+        else:
+            notice = (
+                '<div class="details-notice">⚠ Errata data could not be fetched and no cached data '
+                'is available yet. Lifecycle charts are unaffected — this page will fill in on the '
+                'next successful build.</div>'
+            )
+    out_html.write_text(render_details_html(data, key, cfg, notice_html=notice), encoding="utf-8")
+    print(f"HTML: {out_html}  (details)")
+    out_timeline = (out_dir / f"lifecycle-{key}-timeline.html").resolve()
+    out_timeline.write_text(render_timeline_html(data, key, cfg, notice_html=notice), encoding="utf-8")
+    print(f"HTML: {out_timeline}  (timeline)")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Generate Red Hat product lifecycle Gantt charts as HTML + PNG")
     ap.add_argument("-o", "--output", default=None,
@@ -2527,7 +3617,13 @@ def main() -> None:
                     help="Output directory (default: current dir; CI uses docs/)")
     ap.add_argument("--validate-phases", action="store_true",
                     help="Audit phase_map coverage against the Red Hat API and exit")
+    ap.add_argument("--skip-details", dest="skip_details", action="store_true",
+                    help="Skip errata Details pages (faster test runs, no details links)")
     args = ap.parse_args()
+
+    if args.skip_details:
+        for _cfg in PRODUCT_CONFIGS.values():
+            _cfg.pop("details_url", None)
 
     if args.validate_phases:
         sys.exit(1 if validate_phases() else 0)
@@ -2569,9 +3665,12 @@ def main() -> None:
             out = (out_dir / f"lifecycle-{cfg_key}.html").resolve()
             minor_data = _rhel_minor_data(versions) if pcfg.get("has_minors") else None
             html = render_html(versions, label, minor_data=minor_data,
-                               page_url=pcfg.get("page_url", ""), info_html=pcfg.get("info_html", ""))
+                               page_url=pcfg.get("page_url", ""), info_html=pcfg.get("info_html", ""),
+                               details_url=pcfg.get("details_url", ""))
             out.write_text(html, encoding="utf-8")
             print(f"HTML: {out}  ({len(versions)} versions)")
+            if pcfg.get("details") and not args.skip_details:
+                _generate_details_page(out_dir, cfg_key, pcfg, versions)
         if middleware_data:
             mw_out = (out_dir / "lifecycle-middleware.html").resolve()
             mw_combined = render_combined_html([], title="Red Hat Middleware Lifecycle",

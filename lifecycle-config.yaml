@@ -113,6 +113,19 @@ products:
     info_html: "<b>EUS-1</b> (Extended Update Support, Term 1) is included in OpenShift Premium and Self-Managed Premium subscriptions at no extra cost. <b>EUS-2</b> (Term 2) requires an additional EUS add-on subscription. See the <a href=\"https://access.redhat.com/support/policy/updates/openshift\" target=\"_blank\">OCP lifecycle policy</a> for full details."
     version_strategy: ocp-minor
     min_version: "4.12"
+    # Optional z-stream Details page (errata + release notes). {minor} is
+    # substituted per minor version (e.g. "4.19") at build time.
+    details:
+      errata_query: "OpenShift Container Platform {minor}"
+      release_notes_url: "https://docs.redhat.com/en/documentation/openshift_container_platform/{minor}/html/release_notes/"
+      # Feature cards scraped from the open-source docs repo (docs.redhat.com blocks bots).
+      # {minor_dash} = minor with dots as dashes (4-19).
+      features_url: "https://raw.githubusercontent.com/openshift/openshift-docs/enterprise-{minor}/release_notes/ocp-{minor_dash}-release-notes.adoc"
+      attributes_url: "https://raw.githubusercontent.com/openshift/openshift-docs/enterprise-{minor}/_attributes/common-attributes.adoc"
+      attributes:
+        product-title: "OpenShift Container Platform"
+      # Full-history coverage: EOL minors below chart min_version
+      extra_minors: ["4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "4.10", "4.11"]
     phase_map:
       "General availability": ga
       "Full support": fs_end
@@ -136,6 +149,12 @@ products:
   rhel:
     api_name: "Red Hat Enterprise Linux"
     title: "RHEL Lifecycle"
+    # Feature-only details page: no errata_query (RHEL erratas are not x.y.z
+    # versioned and volume is huge); minors come from the rhel_minors block (8+).
+    details:
+      minors_from: rhel_minors
+      features_search: "*red_hat_enterprise_linux*{minor}_release_notes*"
+      release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/{major}/html/{minor}_release_notes/"
     page_url: "https://access.redhat.com/support/policy/updates/errata"
     info_html: "<b>Standard subscription</b> covers each minor release (~6 months). <b>Premium subscription additional maintenance</b> extends even minors by 2 years (EUS). <b>Extended Life Cycle, Premium subscription additional maintenance</b> (ELC) adds 6 years from GA on even minors from RHEL 9.2+, 8.10, and 10.2+. <b>Long Life add-on terms</b> extend the last minor of a major (8.10, 9.10, 10.10). RHEL 7 uses the legacy <b>Extended life cycle support (ELS) add-on</b> instead of ELC. Dates are from the <a href=\"https://access.redhat.com/support/policy/updates/errata\" target=\"_blank\">errata policy</a>, not the lifecycle API."
     version_strategy: rhel-major
@@ -149,6 +168,14 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/ansible-automation-platform"
     version_strategy: aap
     min_version: "2.0"
+    details:
+      errata_query: "Red Hat Ansible Automation Platform {minor}"
+      # Feature entries from the public aap-docs repo (branch per minor); the
+      # docs-index search below is the fallback for minors without a branch.
+      features_url: "https://raw.githubusercontent.com/ansible/aap-docs/{minor}/downstream/titles/release-notes/topics/aap-{minor_nodot}.adoc"
+      attributes_url: "https://raw.githubusercontent.com/ansible/aap-docs/{minor}/downstream/attributes/attributes.adoc"
+      features_search: "*red_hat_ansible_automation_platform*{minor}*release_notes*"
+      release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/{minor}/html/release_notes/"
     phase_map:
       "General availability": ga
       "Full support": fs_end
@@ -169,6 +196,13 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/rhoai-sm/lifecycle"
     version_strategy: rhoai
     min_version: "2.19"
+    # Synopses look like "RHOAI 3.3.5 - Red Hat OpenShift AI" — per-minor phrase
+    # queries miss them, so use a single product-wide query (no {minor}).
+    details:
+      errata_query: "Red Hat OpenShift AI"
+      features_search: "*red_hat_openshift_ai_self-managed*{minor}*release_notes*"
+      extra_minors: ["2.7", "2.8", "2.9", "2.10", "2.11", "2.12", "2.13", "2.14", "2.15", "2.16", "2.17", "2.18"]
+      release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/{minor}/html/release_notes/"
     phase_map:
       "General availability": ga
       "Full support": fs_end
@@ -193,6 +227,10 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/ceph-storage"
     version_strategy: ceph
     min_version: "4"
+    details:
+      errata_query: "Red Hat Ceph Storage {minor}"
+      features_search: "*red_hat_ceph_storage*{minor}*release_notes*"
+      release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/{minor}/html/release_notes/"
     phase_map:
       "General availability": ga
       "End of Life": fs_end
@@ -212,6 +250,11 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/openstack/platform"
     version_strategy: xy
     min_version: "16.1"
+    details:
+      errata_query: "Red Hat OpenStack Platform {minor}"
+      features_search: "*red_hat_openstack_platform*{minor}*release_notes*"
+      extra_minors: ["13.0"]
+      release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_openstack_platform/{minor}/html/release_notes/"
     phase_map_preset: osp-els3
     fallback:
       "16.1": { ga: "2020-07-29", fs_end: "2022-04-30", mnt_end: "2024-04-30" }
@@ -224,6 +267,10 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/openstack/platform"
     version_strategy: xy
     min_version: "18.0"
+    details:
+      errata_query: "Red Hat OpenStack Services on OpenShift {minor}"
+      features_search: "*red_hat_openstack_services_on_openshift*{minor}*release_notes*"
+      release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_openstack_services_on_openshift/{minor}/html/release_notes/"
     phase_map:
       "General availability": ga
       "Full support": fs_end
@@ -238,6 +285,11 @@ products:
     page_url: "https://access.redhat.com/support/policy/updates/satellite"
     version_strategy: xy
     min_version: "6.13"
+    details:
+      errata_query: "Red Hat Satellite {minor}"
+      features_search: "*red_hat_satellite*{minor}*release_notes*"
+      extra_minors: ["6.9", "6.10", "6.11", "6.12"]
+      release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_satellite/{minor}/html/release_notes/"
     phase_map_preset: op-standard
     fallback:
       # fs_end/mnt_end marked "Estimated" in API for recent versions — use known dates

@@ -34,6 +34,14 @@ pip install pyyaml
 
 No virtual environment needed. Python 3.12+ required.
 
+## Tests
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+Offline (fetchers monkeypatched). Run after any change to parsers, details data, or rendering; CI runs it before generation. When changing a parser for a new document layout, add a fixture to `tests/test_lifecycle_graph.py` first. Human-oriented contributor guide: `DEVELOPMENT.md`.
+
 ## Architecture
 
 ```
@@ -53,6 +61,36 @@ Key functions:
 - `build_versions(raw, cfg)` — filters by min_version, detects EUS, builds phase segments
 - `render_combined_html()` — assembles all charts + nav into `lifecycle.html`
 - `_generate_lifecycle_about(path)` — renders LIFECYCLE.md → `lifecycle-about.html` (stdlib Markdown converter)
+- `_generate_details_page(out_dir, key, cfg, versions)` — z-stream/errata Details page (see below)
+
+## Details pages (z-stream errata)
+
+Products with a `details:` block in YAML (all main products, RHEL included) get two static pages built from one errata fetch: `lifecycle-{key}-details.html` (z-stream releases per minor with errata badges, highlight cards, a From→To version delta filter, release-notes links) and `lifecycle-{key}-timeline.html` (month-grouped vertical timeline of z-stream releases with minor/kind filters). The card gains a `↗ details` link automatically; the two pages cross-link via their topbar.
+
+```yaml
+products:
+  ocp:
+    details:
+      errata_query: "OpenShift Container Platform {minor}"   # Hydra search query, {minor} substituted
+      release_notes_url: "https://docs.redhat.com/.../{minor}/html/release_notes/"
+```
+
+If `errata_query` contains no `{minor}` (e.g. RHOAI, whose synopses read "RHOAI 3.3.5 - …"), a single product-wide query is run and docs are attributed to minors by version parsing; unmatched docs are dropped. Per-minor queries keep unmatched docs as a per-minor "unversioned" list.
+
+Each z-stream body shows **highlight cards** (🔒 Security Fixes / 🔧 Bug Fixes / ✨ Enhancements) built from `* ` bullet lists in `portal_description` — deduplicated across the z-stream's errata. Cards appear only when bullets exist (some products, e.g. RHOAI, have empty descriptions in the search index). Note: docs.redhat.com cannot be scraped at build time (Akamai blocks non-browser clients) — release-notes URLs are link-outs only.
+
+**Feature cards** ("What's new in X.Y", per minor) have two sources, chosen per product in YAML:
+
+- `features_url` (best; OCP): the release-notes *source* asciidoc fetched from the product's public docs repo (openshift/openshift-docs, `enterprise-{minor}` branch — `{minor_dash}` = dots→dashes, `{major}` = major part). The "New features and enhancements" section is parsed into area-grouped title+description entries. The parser (`_parse_adoc_features`) is level-aware (book files and standalone modules), follows one `include::…new-features…` indirection (4.21+ modular books), and handles both `==== Title` headings and `Title::` definition lists. Asciidoc attributes come from `details.attributes_url` plus explicit `details.attributes:` overrides in YAML (e.g. `product-title`).
+- `features_search` (all other products): the portal search index (`documentKind:Documentation`, `language:en`, `view_uri:` wildcard from the template) — the only reachable form of docs.redhat.com content. English docs are indexed at *chapter* granularity, so entries are release-notes chapters (Overview / New features / Technology previews, keyword-filtered) with title, abstract snippet, and link.
+
+Either way failures are non-fatal — the minor just has no features card.
+
+Card look & feel is standardized in `RELEASE_NOTE_TEMPLATE.md` — any new feature source must map into that schema/rendering (never add a new rendering path).
+
+**RHEL special case**: `details` with no `errata_query` (RHEL erratas aren't x.y.z-versioned and volume is huge) makes a feature-only details page — no z-streams, no delta filter. `minors_from: rhel_minors` sources the minor list from the `rhel_minors:` YAML block (majors ≥ 8) instead of chart versions.
+
+Data comes from the unauthenticated Hydra errata search (`access.redhat.com/hydra/rest/search/kcs`) at build time — no runtime fetches; the page works over `file://`. A sidecar `lifecycle-{key}-details.json` is written next to the HTML and serves as the fallback cache: if the live fetch fails, the page is rebuilt from the last committed JSON with a stale-data notice, and chart generation is never blocked. `--skip-details` skips these pages (and the card links) for faster test runs.
 
 ## Version strategies (`version_strategy` in YAML)
 

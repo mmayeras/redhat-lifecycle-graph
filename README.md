@@ -1,6 +1,8 @@
 # lifecycle-graph
 
-Standalone Python script that generates Red Hat product lifecycle Gantt charts (OCP, RHEL, AAP, RHOAI, Ceph, operators, middleware) as interactive HTML.
+Standalone Python script that generates Red Hat product lifecycle Gantt charts (OCP, RHEL, AAP, RHOAI, Ceph, OSP, RHOSO, Satellite, operators, middleware) as interactive HTML — plus, per product, static **Details** pages (z-stream releases, errata highlight cards, release-notes feature cards, From→To delta compare) and a **Timeline** view. Everything is static: no backend, no auth, works over `file://`.
+
+**Working on the code?** Start with [DEVELOPMENT.md](DEVELOPMENT.md) — architecture, function index, recipes, tests.
 
 **One optional dependency**: `pip install pyyaml` — required for config loading from `lifecycle-config.yaml`.  
 PNG export requires `rsvg-convert` (`brew install librsvg` / `apt install librsvg2-bin`).
@@ -98,6 +100,7 @@ python3 lifecycle-graph.py --product rhel --png --open
 | `--title TEXT` | product title | Override card header title |
 | `--validate-phases` | off | Audit API `phase_map` coverage (exit 1 on gaps) |
 | `--output-dir DIR` | `.` | Output directory (`docs/` for GitHub Pages) |
+| `--skip-details` | off | Skip errata Details/Timeline pages (faster test runs) |
 
 ## Outputs
 
@@ -175,8 +178,9 @@ The workflow at [`.github/workflows/update-lifecycle.yml`](.github/workflows/upd
 
 1. Checks out the repo
 2. Installs `pyyaml` and `librsvg2-bin`
-3. Runs `python3 lifecycle-graph.py --product all --output-dir docs --png` — fetches live data, generates HTML + SVG + PNG for all products
-4. Commits and pushes updated files only if the chart data changed
+3. Runs the offline test suite (`python3 -m unittest discover -s tests`)
+4. Runs `python3 lifecycle-graph.py --product all --output-dir docs --png` — fetches live data, generates HTML + SVG + PNG for all products
+5. Commits and pushes updated files only if the chart data changed
 
 ### Setup
 
