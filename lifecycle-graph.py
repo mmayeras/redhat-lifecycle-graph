@@ -2641,7 +2641,13 @@ def _markdown_to_html(text: str) -> str:
     def _inline(s: str) -> str:
         s = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', s)
         s = re.sub(r'`([^`]+)`', lambda m: f'<code>{_html.escape(m.group(1))}</code>', s)
-        s = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2" target="_blank">\1</a>', s)
+
+        def _link(m: re.Match) -> str:
+            label, href = m.group(1), m.group(2)
+            target = '' if href.startswith('#') else ' target="_blank"'
+            return f'<a href="{href}"{target}>{label}</a>'
+
+        s = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', _link, s)
         return s
 
     lines = text.splitlines()
@@ -2682,7 +2688,11 @@ def _markdown_to_html(text: str) -> str:
         if hm:
             flush_list()
             lvl = len(hm.group(1))
-            out.append(f'<h{lvl}>{_inline(hm.group(2))}</h{lvl}>')
+            heading = hm.group(2)
+            slug = re.sub(r'[^a-z0-9 -]', '', re.sub(r'`([^`]*)`', r'\1', heading).lower())
+            slug = re.sub(r'\s+', '-', slug.strip())
+            id_attr = f' id="{slug}"' if slug else ''
+            out.append(f'<h{lvl}{id_attr}>{_inline(heading)}</h{lvl}>')
             i += 1
             continue
 

@@ -22,6 +22,47 @@ _render_card(versions)    →  HTML Gantt chart
 
 ---
 
+## Network endpoints
+
+All network access happens at **build time**, from `lifecycle-graph.py`. The generated HTML makes no data requests — every page works over `file://`. Three endpoints are fetched; everything else is a link-out.
+
+### Fetched at build time
+
+| # | Endpoint | Serves | Called by | On failure |
+|---|----------|--------|-----------|------------|
+| 1 | `https://access.redhat.com/product-life-cycles/api/v1/products?name=<api_name>` | Lifecycle phases and dates for every API-backed product, operator, and middleware entry | `_fetch_api_product()` | YAML `fallback:` block |
+| 2 | `https://access.redhat.com/hydra/rest/search/kcs` | Details pages: z-stream errata lists and release-notes feature chapters (public portal search index) | `fetch_errata_for_minor()`, `fetch_features_docs_search()` | page rebuilt from committed `lifecycle-<key>-details.json` sidecar, stale-data notice shown |
+| 3 | `https://raw.githubusercontent.com/<org>/<repo>/<branch>/<path>.adoc` | Details pages: release-notes asciidoc source for feature cards (`features_url`, `attributes_url`) | `fetch_release_features()` | that minor has no feature card |
+
+All requests are plain unauthenticated GETs with `User-Agent: lifecycle-graph/1.0`; endpoints 1–2 use a 15 s timeout, endpoint 3 uses 20 s.
+
+**1 — Product Life Cycles API.** One request per entry, `?name=` set to the YAML `api_name` (spaces `+`-encoded). Sent with `Accept-Language: en-US,en;q=0.9` to prevent localised phase names. **Never called for RHEL** — `use_major_phases: true` reads `rhel_majors` / `rhel_minors` from YAML instead.
+
+**2 — Hydra portal search.** One endpoint, two query shapes (the `kcs` path name is historical — it searches the whole portal index, filtered by `documentKind`):
+
+| Use | Query parameters |
+|-----|------------------|
+| Errata per minor | `q="<errata_query>"` · `fq=documentKind:("Errata")` · `sort=portal_publication_date desc` · paginated 100 rows/page, capped at 1000 docs, 0.2 s pause between pages |
+| Feature chapters (`features_search`) | `q=<minor>` · `fq=documentKind:("Documentation")` · `fq=language:("en")` · `fq=view_uri:<pattern>` · 100 rows |
+
+**3 — GitHub raw asciidoc.** URL templates live in YAML (`{minor}`, `{minor_dash}`, `{minor_nodot}`, `{major}` substituted per minor). Current sources: OCP → `openshift/openshift-docs`, branch `enterprise-{minor}`; AAP → `ansible/aap-docs`, branch `{minor}`. `attributes_url` is fetched the same way to resolve asciidoc attributes.
+
+### Linked but never fetched
+
+| URL | Where it appears | Why not fetched |
+|-----|------------------|-----------------|
+| `https://access.redhat.com/errata/<ADVISORY-ID>` | per-erratum links on Details pages (the `view_uri` field from search results) | all metadata is already in the search response |
+| `https://docs.redhat.com/…/release_notes/` | "release notes" links per minor (`release_notes_url`) | Akamai blocks non-browser clients at build time |
+| `https://access.redhat.com/support/policy/updates/…` | policy links in card headers (`page_url`) | reference only |
+
+### Loaded by the browser (page assets)
+
+| URL | Used by |
+|-----|---------|
+| `https://unpkg.com/@patternfly/patternfly@6/patternfly.min.css` and `patternfly-addons.css` | chart-page styling — the only external asset; all data and scripts are inline or local |
+
+---
+
 ## Configuration (`lifecycle-config.yaml`)
 
 All product, operator, and middleware data lives in `lifecycle-config.yaml`, alongside `lifecycle-graph.py`. The Python script starts with empty dicts and loads everything from this file at startup. **To change lifecycle data or add new entries, edit only the YAML — no Python changes are needed.**
@@ -332,6 +373,48 @@ Versions are `X.x` strings (e.g. `8.x`, `7.x`). `version_strategy: x-dotx` extra
 
 ---
 
+## Details pages (z-streams, errata, features)
+
+Products with a `details:` block in YAML get two extra static pages, built at generation time from one errata fetch:
+
+- `lifecycle-<key>-details.html` — z-stream releases grouped per minor, errata badges, highlight cards (🔒 Security / 🔧 Bug Fixes / ✨ Enhancements), From→To delta filter, release-notes links
+- `lifecycle-<key>-timeline.html` — month-grouped vertical timeline of z-streams with minor/kind filters
+
+Every page element maps to exactly one endpoint (numbers refer to the [Network endpoints](#network-endpoints) table):
+
+| Page element | Source | Endpoint |
+|--------------|--------|----------|
+| Z-stream list + errata badges | Hydra errata search with `errata_query` (`{minor}` substituted per minor; no `{minor}` → one product-wide query, docs attributed to minors by version parsing) | 2 |
+| Highlight cards | `* ` bullet lists in `portal_description` of the same errata docs, deduplicated per z-stream | 2 |
+| Feature cards — products with `features_url` (OCP, AAP) | release-notes asciidoc from the public docs repo, parsed by `_parse_adoc_features` | 3 |
+| Feature cards — products with `features_search` (all others) | docs.redhat.com chapter index via portal search | 2 |
+| "release notes" link-outs | `release_notes_url` template | never fetched |
+
+### Per-product search queries
+
+Current `details:` configuration in `lifecycle-config.yaml` (`{minor}` substituted per minor at build time):
+
+| Product | Errata query (Hydra) | Feature source | Release-notes link-out |
+|---------|----------------------|----------------|------------------------|
+| OCP | `OpenShift Container Platform {minor}` | asciidoc: `openshift/openshift-docs`, branch `enterprise-{minor}` | `docs.redhat.com/…/openshift_container_platform/{minor}/html/release_notes/` |
+| RHEL | — (feature-only page) | search: `*red_hat_enterprise_linux*{minor}_release_notes*` | `docs.redhat.com/…/red_hat_enterprise_linux/{major}/html/{minor}_release_notes/` |
+| AAP | `Red Hat Ansible Automation Platform {minor}` | asciidoc: `ansible/aap-docs`, branch `{minor}` (search fallback) | `docs.redhat.com/…/red_hat_ansible_automation_platform/{minor}/html/release_notes/` |
+| RHOAI | `Red Hat OpenShift AI` (product-wide, no `{minor}` — docs attributed to minors by version parsing) | search: `*red_hat_openshift_ai_self-managed*{minor}*release_notes*` | `docs.redhat.com/…/red_hat_openshift_ai_self-managed/{minor}/html/release_notes/` |
+| Ceph | `Red Hat Ceph Storage {minor}` | search: `*red_hat_ceph_storage*{minor}*release_notes*` | `docs.redhat.com/…/red_hat_ceph_storage/{minor}/html/release_notes/` |
+| OSP | `Red Hat OpenStack Platform {minor}` | search: `*red_hat_openstack_platform*{minor}*release_notes*` | `docs.redhat.com/…/red_hat_openstack_platform/{minor}/html/release_notes/` |
+| RHOSO | `Red Hat OpenStack Services on OpenShift {minor}` | search: `*red_hat_openstack_services_on_openshift*{minor}*release_notes*` | `docs.redhat.com/…/red_hat_openstack_services_on_openshift/{minor}/html/release_notes/` |
+| Satellite | `Red Hat Satellite {minor}` | search: `*red_hat_satellite*{minor}*release_notes*` | `docs.redhat.com/…/red_hat_satellite/{minor}/html/release_notes/` |
+
+"search:" patterns are Hydra `view_uri:` wildcards (`features_search`, endpoint 2); "asciidoc:" sources are GitHub raw fetches (`features_url`, endpoint 3). Errata queries run against Hydra with `documentKind:("Errata")`.
+
+**Caching and failure**: each build writes a sidecar `lifecycle-<key>-details.json` next to the HTML — it is the fallback cache. If the live Hydra fetch fails, the page is rebuilt from the last committed JSON with a stale-data notice; chart generation is never blocked. Feature-fetch failures are non-fatal — the minor just has no feature card. `--skip-details` skips all details/timeline pages for faster test runs.
+
+**RHEL special case**: a `details:` block with no `errata_query` builds a feature-only page (RHEL errata are not `x.y.z`-versioned and volume is huge) — no z-streams, no delta filter. `minors_from: rhel_minors` sources the minor list from the `rhel_minors:` YAML block (majors ≥ 8).
+
+Card look & feel is standardized in `RELEASE_NOTE_TEMPLATE.md` — any new feature source must map into that schema and rendering; never add a new rendering path.
+
+---
+
 ## Phase palette
 
 All phases are defined in the `PHASES` dict in `lifecycle-graph.py`. Each entry:
@@ -346,9 +429,11 @@ The `PHASE_KEYS` list defines the chronological order phases are checked when bu
 
 ## Data sources and fallbacks
 
+Endpoint URLs, query shapes, and headers: see [Network endpoints](#network-endpoints). This section covers how chart data is merged.
+
 | Priority | Source | When used |
 |----------|--------|-----------|
-| 1st | Red Hat Product Life Cycles API | Always attempted first |
+| 1st | Red Hat Product Life Cycles API (endpoint 1) | Always attempted first |
 | 2nd | `fallback:` blocks in `lifecycle-config.yaml` | API unreachable or returns 0 versions |
 
 **API-first rule:** when the API returns a version, only phases present in the API response are used. The `fallback:` dict is **not** merged field-by-field to fill missing phases. If the API omits a phase date (N/A or unparseable), that segment is simply omitted from the chart.
