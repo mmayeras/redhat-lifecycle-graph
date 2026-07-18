@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-17T14:46:57Z",
+ "generated": "2026-07-18T08:03:28Z",
  "minors": [
   {
    "minor": "4.22",
@@ -25652,6 +25652,14 @@
        "severity": "None",
        "date": "2026-07-16",
        "url": "https://access.redhat.com/errata/RHBA-2026:36613"
+      },
+      {
+       "id": "RHSA-2026:36611",
+       "synopsis": "OpenShift Container Platform 4.14.69 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:36611"
       },
       {
        "id": "RHBA-2026:36612",
