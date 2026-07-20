@@ -322,6 +322,8 @@ Ceph uses integer version strings (4, 5, 6, 7). The API returns "End of Life" as
 
 **Policy**: https://access.redhat.com/support/policy/updates/openshift_operators
 
+Each operator in the chart carries a tier badge — **OCP-aligned**, **Version-agnostic**, or **Rolling-Stream**. The first two are read straight from the lifecycle API's per-version `tier` field (`Aligned` / `Agnostic`; the newest version with a non-`N/A` value wins); **Rolling-Stream** comes from `version_strategy: rolling-eol` in YAML and takes precedence over the API tier. The badge is display-only and never affects date parsing. "Aligned" operators share the Full Support / Maintenance / EUS windows of the OpenShift minor they ship with; "agnostic" operators run an independent lifecycle; "rolling-stream" operators support each version until the next one ships rather than on fixed dates.
+
 Three tiers with different lifecycle models:
 
 ### Platform-Aligned operators

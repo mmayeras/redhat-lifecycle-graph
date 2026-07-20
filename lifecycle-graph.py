@@ -401,6 +401,7 @@ def _apply_operator_overrides(operators: dict) -> None:
         else:
             cfg.setdefault("fallback", {})
         strat = raw.get("version_strategy")
+        cfg["version_strategy"] = strat
         if strat and strat in _VERSION_STRATEGIES:
             vs = _VERSION_STRATEGIES[strat]
             cfg["parse_ver"] = vs["parse_ver"]
@@ -625,6 +626,13 @@ def fetch_lifecycle(cfg: dict) -> dict[str, dict]:
     if product is None:
         print(f"API fetch failed for {cfg['title']}, using fallback.", file=sys.stderr)
         return dict(fallback)
+    # Capture the operator lifecycle tier (versions are newest-first, so the first
+    # meaningful value reflects the current alignment). "Aligned" = tied to the OCP
+    # release it ships with; "Agnostic" = independent lifecycle.
+    cfg["_api_tier"] = next(
+        (v["tier"] for v in product["versions"] if v.get("tier") and v["tier"] != "N/A"),
+        None,
+    )
     ga_index = _build_ga_index(product["versions"], name_transform, min_filter)
     result: dict[str, dict] = {}
     for ver_data in product["versions"]:
@@ -1279,7 +1287,36 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
-_ASSET_VERSION = "0.2.13"  # bump when static/css or icons change (cache bust)
+_ASSET_VERSION = "0.2.16"  # bump when static/css or icons change (cache bust)
+
+# Inline SVG icon bodies (16x16 viewBox, stroke-based) for card-header chip links.
+_CHIP_ICONS = {
+    "document": (
+        '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>'
+        '<path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h8"/><path d="M8 9h2"/>'
+    ),
+    "external": (
+        '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'
+        '<path d="M15 3h6v6"/><path d="M10 14 21 3"/>'
+    ),
+}
+
+
+def _chip_link(href: str, label: str, icon: str, *, external: bool = False,
+               extra_cls: str = "", title: str = "", onclick: str = "") -> str:
+    """Render a pill-style card-header link (Policy / Details / Release notes)."""
+    if not href:
+        return ""
+    cls = "card-chip" + (f" {extra_cls}" if extra_cls else "")
+    tgt = ' target="_blank" rel="noopener"' if external else ""
+    ttl = f' title="{_html.escape(title)}"' if title else ""
+    oc = f' onclick="{onclick}"' if onclick else ""
+    svg = (
+        f'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+        f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        f'{_CHIP_ICONS[icon]}</svg>'
+    )
+    return f'<a href="{_html.escape(href)}" class="{cls}"{tgt}{ttl}{oc}>{svg}{label}</a>'
 
 
 def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
@@ -1491,19 +1528,15 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
     else:
         controls_html = ""
 
-    page_link_html = (
-        f' <a href="{page_url}" target="_blank" rel="noopener" '
-        f'style="font-size:10px;color:var(--link-color);font-weight:400;'
-        f'text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" '
-        f'title="Official Lifecycle Policy">↗ policy</a>'
-    ) if page_url else ""
+    page_link_html = (" " + _chip_link(
+        page_url, "Policy", "external", external=True,
+        extra_cls="card-chip--policy", title="Official Lifecycle Policy",
+    )) if page_url else ""
 
-    details_link_html = (
-        f' <a href="{details_url}" '
-        f'style="font-size:10px;color:var(--link-color);font-weight:400;'
-        f'text-decoration:none;white-space:nowrap;margin-left:6px;vertical-align:middle" '
-        f'title="Z-stream releases &amp; errata">↗ details</a>'
-    ) if details_url else ""
+    details_link_html = (" " + _chip_link(
+        details_url, "Details", "document",
+        extra_cls="card-chip--details", title="Z-stream releases & errata",
+    )) if details_url else ""
 
     anchor_link_html = (
         f' <a href="#{anchor}" '
@@ -1557,7 +1590,41 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
 </div>"""
 
 
-def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> str:
+_TIER_BADGES = {
+    "aligned": (
+        "op-tier--aligned", "OCP-aligned",
+        "Lifecycle aligned to the OpenShift Container Platform release it ships with "
+        "(same Full Support / Maintenance / EUS windows as the underlying OCP minor).",
+    ),
+    "agnostic": (
+        "op-tier--agnostic", "Version-agnostic",
+        "Independent lifecycle, not tied to a specific OpenShift Container Platform version.",
+    ),
+    "rolling": (
+        "op-tier--rolling", "Rolling-Stream",
+        "Rolling release cadence — each version is supported until the next one ships, "
+        "rather than on fixed calendar dates.",
+    ),
+}
+
+
+def _operator_tier_key(cfg: dict) -> str | None:
+    """Resolve an operator's badge category. Rolling-stream (a config-level release
+    model) takes precedence over the API's Aligned/Agnostic tier."""
+    if cfg.get("version_strategy") == "rolling-eol":
+        return "rolling"
+    return {"Aligned": "aligned", "Agnostic": "agnostic"}.get(cfg.get("_api_tier") or "")
+
+
+def _tier_badge_html(tier_key: str | None) -> str:
+    entry = _TIER_BADGES.get(tier_key or "")
+    if not entry:
+        return ""
+    cls, label, tip = entry
+    return f'<span class="op-tier {cls}" title="{_html.escape(tip)}">{label}</span>'
+
+
+def _render_operator_section(operators_data: list[tuple[str, list[dict], str | None]]) -> str:
     if not operators_data:
         return ""
     _anchor_icon = (
@@ -1567,7 +1634,7 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
         '</svg>'
     )
     items = []
-    for label, versions in operators_data:
+    for label, versions, tier in operators_data:
         if not versions:
             continue
         slug = "op-" + label.lower().replace(" ", "-")
@@ -1575,6 +1642,7 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
         meta = f"{len(versions)} version{'s' if len(versions) != 1 else ''}"
         if n_active:
             meta += f" · {n_active} active"
+        tier_badge = _tier_badge_html(tier)
         anchor_link = (
             f' <a href="#{slug}" '
             f'onclick="var u=location.href.split(\'#\')[0]+\'#{slug}\';navigator.clipboard.writeText(u);event.preventDefault()" '
@@ -1587,7 +1655,7 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict]]]) -> st
             f'<details id="{slug}" class="op-details">'
             f'<summary class="op-summary">'
             f'<span class="op-name">{label}{anchor_link}</span>'
-            f'<span class="op-meta">{meta}</span>'
+            f'<span class="op-summary__right">{tier_badge}<span class="op-meta">{meta}</span></span>'
             f'</summary>'
             f'{card}'
             f'</details>'
@@ -1637,10 +1705,10 @@ def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict
         if n_active:
             meta += f" · {n_active} active"
         page_url = cfg.get("page_url", "")
-        page_link = (
-            f' <a href="{page_url}" target="_blank" rel="noopener" '
-            f'style="font-size:10px;color:var(--link-color)" title="Lifecycle policy">↗ policy</a>'
-        ) if page_url else ""
+        page_link = (" " + _chip_link(
+            page_url, "Policy", "external", external=True,
+            extra_cls="card-chip--policy", title="Lifecycle policy",
+        )) if page_url else ""
         anchor_link = (
             f' <a href="#{slug}" '
             f'onclick="var u=location.href.split(\'#\')[0]+\'#{slug}\';navigator.clipboard.writeText(u);event.preventDefault()" '
@@ -2214,7 +2282,7 @@ def render_html(versions: list[dict], chart_label: str, show_footer: bool = True
 def render_combined_html(
     product_list: list[tuple[str, list[dict], dict]],
     title: str = "Red Hat Product Lifecycle",
-    operators_data: list[tuple[str, list[dict]]] | None = None,
+    operators_data: list[tuple[str, list[dict], str | None]] | None = None,
     middleware_data: list[tuple[str, list[dict], dict]] | None = None,
 ) -> str:
     _btn_cls = "pf-v6-c-button pf-m-secondary nav-toggle"
@@ -2550,12 +2618,12 @@ def _fetch_all(
         else:
             print(f"No versions matched for {product}.", file=sys.stderr)
 
-    operators_data: list[tuple[str, list[dict]]] = []
+    operators_data: list[tuple[str, list[dict], str | None]] = []
     for op_cfg in OPERATOR_CONFIGS.values():
         lifecycle = fetch_lifecycle(op_cfg)
         versions = build_versions(lifecycle, op_cfg, include_eol=True)
         if versions:
-            operators_data.append((op_cfg["title"], versions))
+            operators_data.append((op_cfg["title"], versions, _operator_tier_key(op_cfg)))
     operators_data.sort(key=lambda t: t[0].lower())
 
     middleware_data: list[tuple[str, list[dict], dict]] = []
@@ -3534,10 +3602,11 @@ def render_details_html(data: dict | None, key: str, cfg: dict, notice_html: str
                 f'</details>'
             )
         rn_url = minor.get("release_notes_url", "")
-        rn_link = (
-            f'<a class="minor-block__rn" href="{_html.escape(rn_url)}" target="_blank" rel="noopener" '
-            f'onclick="event.stopPropagation()">↗ release notes</a>'
-        ) if rn_url else ""
+        rn_link = _chip_link(
+            rn_url, "Release notes", "external", external=True,
+            extra_cls="card-chip--rn minor-block__rn", title="Release notes on docs.redhat.com",
+            onclick="event.stopPropagation()",
+        )
         minor_sections.append(
             f'<details class="minor-block" data-minor="{_html.escape(minor["minor"])}"{" open" if i == 0 else ""}>'
             f'<summary>'

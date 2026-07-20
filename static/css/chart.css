@@ -127,6 +127,7 @@ html[data-theme="light"] {
   --input-bg: #fff;
   --muted: var(--pf-t--global--text--color--subtle, #6a6e73);
   --accent: var(--pf-t--global--text--color--link--default, #0066cc);
+  --tier-rolling: #8250df;
   --border-color: var(--pf-t--global--border--color--default, #d2d2d2);
   --card-bg: var(--pf-t--global--background--color--primary--default, #fff);
   --phase-sup-badge: #1e4f18;
@@ -159,6 +160,7 @@ html.pf-v6-theme-dark {
   --text-secondary: var(--pf-t--global--text--color--subtle, #8a8e93);
   --text-controls: var(--pf-t--global--text--color--subtle, #c8cacc);
   --link-color: var(--pf-t--global--text--color--link--default, #5b9bd5);
+  --tier-rolling: #c8a2ff;
   --grid-line: var(--pf-t--global--border--color--default);
   --grid-year-text: var(--pf-t--global--text--color--subtle);
   --today-color: #ef4444;
@@ -324,7 +326,59 @@ html.pf-v6-theme-dark {
 .op-name::before { content: "▶"; font-size: 9px; color: var(--text-secondary); transition: transform 0.15s; }
 .op-details[open] .op-name::before { transform: rotate(90deg); }
 .op-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+.op-summary__right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.op-tier {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 1px 8px;
+  border-radius: 20px;
+  border: 1px solid;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  cursor: help;
+}
+.op-tier--aligned {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.op-tier--agnostic {
+  color: var(--text-secondary);
+  border-color: var(--border-base);
+  background: transparent;
+}
+.op-tier--rolling {
+  color: var(--tier-rolling);
+  border-color: color-mix(in srgb, var(--tier-rolling) 40%, transparent);
+  background: color-mix(in srgb, var(--tier-rolling) 8%, transparent);
+}
 .op-details .card { border: none; border-radius: 0; box-shadow: none; }
+
+/* ── Card header chip links (e.g. "Details") ───────────────────────────── */
+.card-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 3px 9px;
+  margin-left: 8px;
+  border-radius: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid color-mix(in srgb, var(--link-color) 35%, transparent);
+  color: var(--link-color);
+  background: color-mix(in srgb, var(--link-color) 8%, transparent);
+  transition: background 0.12s, border-color 0.12s;
+}
+.card-chip:hover {
+  background: color-mix(in srgb, var(--link-color) 16%, transparent);
+  border-color: color-mix(in srgb, var(--link-color) 55%, transparent);
+}
+.card-chip svg { flex-shrink: 0; }
 
 /* ── RHEL minor release rows ───────────────────────────────────────────── */
 .minor-group { display: none; flex-direction: column; gap: 2px; }
@@ -1036,15 +1090,7 @@ a.pf-v6-c-toggle-group__button {
 }
 
 .minor-block__rn {
-  margin-left: auto;
-  font-size: 12px;
-  color: var(--link-color);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.minor-block__rn:hover {
-  text-decoration: underline;
+  margin-left: auto;   /* push chip to the right edge of the minor header */
 }
 
 .minor-block__body {
