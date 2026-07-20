@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-07-19T08:31:33Z",
+ "generated": "2026-07-20T08:53:41Z",
  "minors": [
   {
    "minor": "17.1",
@@ -8529,6 +8529,14 @@
      "url": "https://access.redhat.com/errata/RHBA-2018:2873"
     },
     {
+     "id": "RHBA-2018:2831",
+     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2018-09-27",
+     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
+    },
+    {
      "id": "RHSA-2018:2822",
      "synopsis": "Important: qemu-kvm-rhev security update",
      "kind": "security",
@@ -8538,14 +8546,6 @@
      "items": [
       "QEMU: slirp: heap buffer overflow while reassembling fragmented datagrams (CVE-2018-11806)"
      ]
-    },
-    {
-     "id": "RHBA-2018:2831",
-     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2018-09-27",
-     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
     },
     {
      "id": "RHBA-2018:2728",

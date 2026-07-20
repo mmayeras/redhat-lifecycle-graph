@@ -346,6 +346,7 @@ _render_card(versions)    →  HTML Gantt chart
 <hr>
 <h2 id="openshift-operators">OpenShift Operators</h2>
 <p><strong>Policy</strong>: https://access.redhat.com/support/policy/updates/openshift_operators</p>
+<p>Each operator in the chart carries a tier badge — <strong>OCP-aligned</strong>, <strong>Version-agnostic</strong>, or <strong>Rolling-Stream</strong>. The first two are read straight from the lifecycle API's per-version <code>tier</code> field (<code>Aligned</code> / <code>Agnostic</code>; the newest version with a non-<code>N/A</code> value wins); <strong>Rolling-Stream</strong> comes from <code>version_strategy: rolling-eol</code> in YAML and takes precedence over the API tier. The badge is display-only and never affects date parsing. "Aligned" operators share the Full Support / Maintenance / EUS windows of the OpenShift minor they ship with; "agnostic" operators run an independent lifecycle; "rolling-stream" operators support each version until the next one ships rather than on fixed dates.</p>
 <p>Three tiers with different lifecycle models:</p>
 <h3 id="platform-aligned-operators">Platform-Aligned operators</h3>
 <p>Track OCP minor releases 1:1. Examples: Virtualization, Pipelines, GitOps, ODF, RHACS.</p>
