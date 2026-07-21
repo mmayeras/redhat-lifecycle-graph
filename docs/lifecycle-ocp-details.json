@@ -1,12 +1,26 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-20T09:28:16Z",
+ "generated": "2026-07-21T08:39:32Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.6",
+     "date": "2026-07-21",
+     "errata": [
+      {
+       "id": "RHBA-2026:40769",
+       "synopsis": "OpenShift Container Platform 4.22.6 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40769"
+      }
+     ]
+    },
     {
      "version": "4.22.5",
      "date": "2026-07-14",
@@ -299,6 +313,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:42073",
+     "synopsis": "Advisory for publishing Helm 3.21.2 GA release for OCP 4.22.",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHEA-2026:42073"
+    },
+    {
+     "id": "RHBA-2026:42046",
+     "synopsis": "Red Hat Web Terminal Operator 1.17.0 release.",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHBA-2026:42046"
+    },
     {
      "id": "RHBA-2026:39344",
      "synopsis": "Logging for Red Hat OpenShift - 6.6.0",
@@ -1013,6 +1043,10 @@
       {
        "t": "Install Helm charts from a direct URL",
        "d": "In the web console, you can now install a Helm chart directly from a URL, without first adding the chart to a Helm chart repository or the console catalog. Both oci:// and https:// URLs are supported. Installing a Helm chart from a direct URL bypasses the validation checks provided by the developer catalog. Install charts only from URLs you trust, because unverified charts can introduce security\u2026"
+      },
+      {
+       "t": "*Configure Basic HTTP authentication for namespace-scoped ProjectHelmChartRepository objects in the web console*",
+       "d": "The creation form for namespace-scoped ProjectHelmChartRepository objects in the OpenShift Container Platform web console now includes a *Basic HTTP authentication* field. As a result, you can select a secret that has Basic authentication credentials when you create the object. Because transmitting credentials requires a secure connection, you must use HTTPS for the repository URL when you\u2026"
       }
      ]
     }
@@ -2295,6 +2329,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:42048",
+     "synopsis": "Red Hat Web Terminal Operator 1.16.1 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42048"
+    },
     {
      "id": "RHBA-2026:37265",
      "synopsis": "OpenShift Container Platform 4.21 NUMA resources operator extras update",
@@ -5162,6 +5204,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:42049",
+     "synopsis": "Red Hat Web Terminal Operator 1.15.1 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42049"
+    },
     {
      "id": "RHBA-2026:39898",
      "synopsis": "OpenShift Container Platform 4.20 NUMA resources operator extras update",
@@ -8579,6 +8629,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:42051",
+     "synopsis": "Red Hat Web Terminal Operator 1.14.0 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42051"
+    },
     {
      "id": "RHBA-2026:27777",
      "synopsis": "OpenShift Container Platform 4.19 dpdk-base extras update",
@@ -12120,6 +12178,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:42050",
+     "synopsis": "Red Hat Web Terminal Operator 1.13.0 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42050"
+    },
     {
      "id": "RHBA-2026:39124",
      "synopsis": "OpenShift Container Platform 4.18 dpdk-base extras update",
@@ -16253,6 +16319,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:42047",
+     "synopsis": "Red Hat Web Terminal Operator 1.12.1 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42047"
+    },
     {
      "id": "RHSA-2026:22958",
      "synopsis": "Red Hat Web Terminal Operator 1.12.1 release.",
@@ -20523,6 +20597,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:42043",
+     "synopsis": "Red Hat Web Terminal Operator 1.11.1 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42043"
+    },
     {
      "id": "RHSA-2026:36808",
      "synopsis": "DevWorkspace Operator 0.42.0 release.",
@@ -32150,6 +32232,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -32159,14 +32249,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -60586,20 +60668,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",

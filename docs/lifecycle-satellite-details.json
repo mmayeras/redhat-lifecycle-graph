@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-07-20T09:31:13Z",
+ "generated": "2026-07-21T08:42:36Z",
  "minors": [
   {
    "minor": "6.19",
@@ -11,6 +11,21 @@
      "version": "6.19.2",
      "date": "2026-07-01",
      "errata": [
+      {
+       "id": "RHSA-2026:42240",
+       "synopsis": "Important: Satellite 6.19.2.1 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:42240",
+       "items": [
+        "python3.12-pulpcore: pulpcore: relative_path_validator bypass via directory traversal in FilesystemExport (CVE-2026-12701)",
+        "yggdrasil-worker-forwarder: golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries (CVE-2026-27145)",
+        "yggdrasil-worker-forwarder: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+        "yggdrasil-worker-forwarder: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "yggdrasil-worker-forwarder: gRPC-Go: Authorization bypass due to improper HTTP/2 path validation (CVE-2026-33186)"
+       ]
+      },
       {
        "id": "RHSA-2026:34365",
        "synopsis": "Important: Satellite 6.19.2 Async Update",
@@ -144,6 +159,22 @@
      "version": "6.18.7",
      "date": "2026-07-01",
      "errata": [
+      {
+       "id": "RHSA-2026:42151",
+       "synopsis": "Important: Satellite 6.18.7.1 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:42151",
+       "items": [
+        "yggdrasil-worker-forwarder: gRPC-Go: Authorization bypass due to improper HTTP/2 path validation (CVE-2026-33186)",
+        "yggdrasil-worker-forwarder: Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+        "yggdrasil-worker-forwarder: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "yggdrasil-worker-forwarder: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+        "yggdrasil-worker-forwarder: golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries (CVE-2026-27145)",
+        "python3.12-pulpcore: pulpcore: relative_path_validator bypass via directory traversal in FilesystemExport (CVE-2026-12701)"
+       ]
+      },
       {
        "id": "RHSA-2026:34368",
        "synopsis": "Important: Satellite 6.18.7 Async Update",
@@ -394,6 +425,23 @@
      "version": "6.17.9",
      "date": "2026-07-01",
      "errata": [
+      {
+       "id": "RHSA-2026:42150",
+       "synopsis": "Important: Satellite 6.17.9.1 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:42150",
+       "items": [
+        "pulpcore: relative_path_validator bypass via directory traversal in FilesystemExport (CVE-2026-12701)",
+        "yggdrasil-worker-forwarder: Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+        "yggdrasil-worker-forwarder: gRPC-Go: Authorization bypass due to improper HTTP/2 path validation (CVE-2026-33186)",
+        "yggdrasil-worker-forwarder: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "yggdrasil-worker-forwarder: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+        "yggdrasil-worker-forwarder: golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries (CVE-2026-27145)",
+        "Satellite 6.16\u21926.17 upgrade fails: pulpcore-manager rpm-datarepair 4073 CommandError: Unknown issue: '4073' (SAT-47477)"
+       ]
+      },
       {
        "id": "RHSA-2026:34366",
        "synopsis": "Important: Satellite 6.17.9 Async Update",
@@ -743,6 +791,26 @@
    "minor": "6.16",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.16/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.16.11",
+     "date": "2026-07-20",
+     "errata": [
+      {
+       "id": "RHSA-2026:42082",
+       "synopsis": "Important: Satellite 6.16.11 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:42082",
+       "items": [
+        "yggdrasil-worker-forwarder: golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries (CVE-2026-27145)",
+        "yggdrasil-worker-forwarder: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+        "yggdrasil-worker-forwarder: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "python-pulpcore: pulpcore: relative_path_validator bypass via directory traversal in FilesystemExport (CVE-2026-12701)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.16.10",
      "date": "2026-07-01",
