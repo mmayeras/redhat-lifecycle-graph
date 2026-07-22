@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-21T08:39:32Z",
+ "generated": "2026-07-22T08:38:53Z",
  "minors": [
   {
    "minor": "4.22",
@@ -11,6 +11,46 @@
      "version": "4.22.6",
      "date": "2026-07-21",
      "errata": [
+      {
+       "id": "RHSA-2026:40764",
+       "synopsis": "Important: OpenShift Container Platform 4.22.6 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40764",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "kernel: eventpoll: fix ep_remove struct eventpoll / struct file UAF (CVE-2026-46242)",
+        "kernel: KVM: arm64: vgic-its: Drop the translation cache reference only for the erased entry (CVE-2026-46316)",
+        "kernel: KVM: x86: Fix shadow paging use-after-free due to unexpected role (CVE-2026-53359)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:40763",
+       "synopsis": "OpenShift Container Platform 4.22.6 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40763"
+      },
+      {
+       "id": "RHBA-2026:40770",
+       "synopsis": "OpenShift Container Platform 4.22.6 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40770"
+      },
+      {
+       "id": "RHSA-2026:40768",
+       "synopsis": "OpenShift Container Platform 4.22.6 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40768"
+      },
       {
        "id": "RHBA-2026:40769",
        "synopsis": "OpenShift Container Platform 4.22.6 extras update",
@@ -1056,6 +1096,57 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.25",
+     "date": "2026-07-21",
+     "errata": [
+      {
+       "id": "RHSA-2026:40779",
+       "synopsis": "Important: OpenShift Container Platform 4.21.25 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40779",
+       "items": [
+        "kernel: eventpoll: fix ep_remove struct eventpoll / struct file UAF (CVE-2026-46242)",
+        "kernel: KVM: arm64: vgic-its: Drop the translation cache reference only for the erased entry (CVE-2026-46316)",
+        "kernel: KVM: x86: Fix shadow paging use-after-free due to unexpected role (CVE-2026-53359)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:40778",
+       "synopsis": "OpenShift Container Platform 4.21.25 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40778"
+      },
+      {
+       "id": "RHBA-2026:40796",
+       "synopsis": "OpenShift Container Platform 4.21.25 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40796"
+      },
+      {
+       "id": "RHSA-2026:40792",
+       "synopsis": "OpenShift Container Platform 4.21.25 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40792"
+      },
+      {
+       "id": "RHBA-2026:40794",
+       "synopsis": "OpenShift Container Platform 4.21.25 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40794"
+      }
+     ]
+    },
     {
      "version": "4.21.24",
      "date": "2026-07-14",
@@ -3716,6 +3807,49 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.30",
+     "date": "2026-07-21",
+     "errata": [
+      {
+       "id": "RHSA-2026:40787",
+       "synopsis": "Important: OpenShift Container Platform 4.20.30 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40787",
+       "items": [
+        "kernel: eventpoll: fix ep_remove struct eventpoll / struct file UAF (CVE-2026-46242)",
+        "kernel: KVM: arm64: vgic-its: Drop the translation cache reference only for the erased entry (CVE-2026-46316)",
+        "kernel: KVM: x86: Fix shadow paging use-after-free due to unexpected role (CVE-2026-53359)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:40798",
+       "synopsis": "OpenShift Container Platform 4.20.30 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40798"
+      },
+      {
+       "id": "RHSA-2026:40795",
+       "synopsis": "OpenShift Container Platform 4.20.30 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40795"
+      },
+      {
+       "id": "RHBA-2026:40797",
+       "synopsis": "OpenShift Container Platform 4.20.30 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40797"
+      }
+     ]
+    },
     {
      "version": "4.20.29",
      "date": "2026-07-14",

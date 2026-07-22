@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-07-21T08:42:07Z",
+ "generated": "2026-07-22T08:41:25Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2365,20 +2365,20 @@
        "url": "https://access.redhat.com/errata/RHEA-2022:8843"
       },
       {
-       "id": "RHBA-2022:8794",
-       "synopsis": "Release of components for Red Hat OpenStack Platform 16.2.4",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-12-07",
-       "url": "https://access.redhat.com/errata/RHBA-2022:8794"
-      },
-      {
        "id": "RHEA-2022:8842",
        "synopsis": "Red Hat OpenStack Platform 16.2.4 director images",
        "kind": "enhancement",
        "severity": "None",
        "date": "2022-12-07",
        "url": "https://access.redhat.com/errata/RHEA-2022:8842"
+      },
+      {
+       "id": "RHBA-2022:8794",
+       "synopsis": "Release of components for Red Hat OpenStack Platform 16.2.4",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-12-07",
+       "url": "https://access.redhat.com/errata/RHBA-2022:8794"
       }
      ]
     },

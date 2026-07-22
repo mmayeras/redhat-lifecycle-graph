@@ -1,13 +1,24 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-07-21T08:40:29Z",
+ "generated": "2026-07-22T08:39:53Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:43154",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:43154",
+     "items": [
+      "Containers: RHSA-2026:42142"
+     ]
+    },
     {
      "id": "RHSA-2026:42142",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
@@ -187,6 +198,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:43153",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:43153",
+     "items": [
+      "RPMs: RHSA-2026:42079",
+      "Containers: RHSA-2026:42132"
+     ]
+    },
     {
      "id": "RHSA-2026:42132",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
@@ -1085,6 +1108,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:43152",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:43152",
+     "items": [
+      "RPMs: RHSA-2026:42078",
+      "Containers: RHSA-2026:42144"
+     ]
+    },
     {
      "id": "RHSA-2026:42144",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
@@ -3708,6 +3743,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:43151",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:43151",
+     "items": [
+      "RPMs: RHBA-2026:42077",
+      "Containers: RHBA-2026:42133"
+     ]
+    },
     {
      "id": "RHBA-2026:42133",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
@@ -9031,6 +9078,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:42815",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.2 security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-21",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42815"
+    },
     {
      "id": "RHBA-2026:34962",
      "synopsis": "Red Hat Ansible Automation Platform 2.2 bug fix and enhancement update",
