@@ -1,7 +1,7 @@
 {
  "product": "ceph",
  "title": "Ceph Lifecycle",
- "generated": "2026-07-22T08:41:06Z",
+ "generated": "2026-07-23T08:42:54Z",
  "minors": [
   {
    "minor": "9",
@@ -11,6 +11,14 @@
      "version": "9.1",
      "date": "2026-06-24",
      "errata": [
+      {
+       "id": "RHBA-2026:44305",
+       "synopsis": "Red Hat Ceph Storage 9.1 bug fix and enhancement updates",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:44305"
+      },
       {
        "id": "RHEA-2026:29057",
        "synopsis": "Red Hat Ceph Storage 9.1 bug fix and enhancement update",

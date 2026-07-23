@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-07-22T08:39:53Z",
+ "generated": "2026-07-23T08:41:45Z",
  "minors": [
   {
    "minor": "2.7",
@@ -9078,6 +9078,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:43429",
+     "synopsis": "Red Hat Ansible Automation Platform 2.2 bug fix and enhancement update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:43429"
+    },
     {
      "id": "RHSA-2026:42815",
      "synopsis": "Important: Red Hat Ansible Automation Platform 2.2 security update",
