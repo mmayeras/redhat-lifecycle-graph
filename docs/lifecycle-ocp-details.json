@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-23T08:40:45Z",
+ "generated": "2026-07-24T08:36:26Z",
  "minors": [
   {
    "minor": "4.22",
@@ -353,6 +353,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:44296",
+     "synopsis": "OpenShift Container Platform 4.22 CNF IBU extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-23",
+     "url": "https://access.redhat.com/errata/RHBA-2026:44296"
+    },
     {
      "id": "RHBA-2026:43849",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -29299,6 +29307,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHEA-2026:44736",
+     "synopsis": "Advisory for publishing Helm 3.15.4.1 (re-versioned CVE fix) for OCP 4.14",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-07-23",
+     "url": "https://access.redhat.com/errata/RHEA-2026:44736"
+    },
+    {
      "id": "RHBA-2026:43813",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
      "kind": "bugfix",
@@ -30938,6 +30954,14 @@
      "date": "2026-07-23",
      "errata": [
       {
+       "id": "RHBA-2026:40024",
+       "synopsis": "OpenShift Container Platform 4.13.69 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40024"
+      },
+      {
        "id": "RHSA-2026:40021",
        "synopsis": "Important: OpenShift Container Platform 4.13.69 bug fix and security update",
        "kind": "security",
@@ -30950,6 +30974,14 @@
         "kernel: net/sched: act_pedit: extend the writable skb range per key (CVE-2026-46331)",
         "kernel: Linux kernel: smb: client: reject userspace cifs.spnego descriptions (CVE-2026-46243)"
        ]
+      },
+      {
+       "id": "RHSA-2026:40022",
+       "synopsis": "OpenShift Container Platform 4.13.69 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-23",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40022"
       },
       {
        "id": "RHSA-2026:40023",
@@ -35109,6 +35141,30 @@
      "date": "2026-07-23",
      "errata": [
       {
+       "id": "RHBA-2026:40029",
+       "synopsis": "OpenShift Container Platform 4.12.94 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40029"
+      },
+      {
+       "id": "RHBA-2026:40032",
+       "synopsis": "OpenShift Container Platform 4.12.94 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40032"
+      },
+      {
+       "id": "RHSA-2026:40030",
+       "synopsis": "OpenShift Container Platform 4.12.94 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-23",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40030"
+      },
+      {
        "id": "RHBA-2026:40031",
        "synopsis": "OpenShift Container Platform 4.12.94 extras update",
        "kind": "bugfix",
@@ -39009,6 +39065,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:44471",
+     "synopsis": "Advisory for publishing Helm 3.13.3 CVE fix release for OCP 4.12",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-07-23",
+     "url": "https://access.redhat.com/errata/RHEA-2026:44471"
+    },
     {
      "id": "RHBA-2026:44140",
      "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
