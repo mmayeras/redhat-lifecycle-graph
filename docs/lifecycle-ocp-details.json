@@ -1,12 +1,32 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-27T10:03:46Z",
+ "generated": "2026-07-28T08:46:22Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.7",
+     "date": "2026-07-28",
+     "errata": [
+      {
+       "id": "RHSA-2026:44239",
+       "synopsis": "OpenShift Container Platform 4.22.7 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44239",
+       "items": [
+        "golang.org/x/net/html: golang.org/x/net/html: Arbitrary code execution via Cross-Site Scripting (CVE-2026-25681)",
+        "fast-uri: fast-uri: Security policy bypass due to improper Unicode hostname canonicalization (CVE-2026-13676)",
+        "brace-expansion: Brace-expansion: Denial of Service due to exponential-time complexity (CVE-2026-13149)",
+        "golang.org/x/net/html: golang: golang.org/x/net/html: Cross-Site Scripting via HTML parsing bypass (CVE-2026-27136)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.22.6",
      "date": "2026-07-21",
@@ -353,6 +373,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:47006",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47006"
+    },
     {
      "id": "RHBA-2026:44296",
      "synopsis": "OpenShift Container Platform 4.22 CNF IBU extras update",
@@ -1112,6 +1140,24 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.26",
+     "date": "2026-07-28",
+     "errata": [
+      {
+       "id": "RHSA-2026:44268",
+       "synopsis": "OpenShift Container Platform 4.21.26 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44268",
+       "items": [
+        "fast-uri: fast-uri: Security policy bypass due to improper Unicode hostname canonicalization (CVE-2026-13676)",
+        "brace-expansion: Brace-expansion: Denial of Service due to exponential-time complexity (CVE-2026-13149)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.21.25",
      "date": "2026-07-21",
@@ -3456,7 +3502,7 @@
       },
       {
        "t": "ConsoleLink support for email links",
-       "d": "The ConsoleLink Custom Resource Definition supports mailto: links. You can create email links in the OpenShift web console that open the default email client."
+       "d": "The ConsoleLink Custom Resource Definition supports mailto: links. The contact email link displays in the *User menu under the username* and opens the default email client with the email address prefilled."
       },
       {
        "t": "Impersonating a user with multiple group memberships in the console",
@@ -3472,7 +3518,7 @@
       },
       {
        "t": "Grouping Helm charts under the Ecosystem header",
-       "d": "Before this update, the OpenShift Console introduced the unified view in 4.19, and the Helm UI displayed in the Admin view but outside the Ecosystem menu. With this update, the OpenShift Console displays Helm under Ecosystem, centralizing software management navigation in one location within the unified view."
+       "d": "Before this update, the OpenShift Console introduced the unified view in 4.19, and the Helm UI displayed in the Core platform view but outside the Ecosystem menu. With this update, the OpenShift Console displays Helm under Ecosystem, centralizing software management navigation in one location within the unified view."
       }
      ]
     },
@@ -61076,20 +61122,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHEA-2021:0684",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "enhancement",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHEA-2021:0684"
-    },
-    {
      "id": "RHBA-2021:0683",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "bugfix",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHBA-2021:0683"
+    },
+    {
+     "id": "RHEA-2021:0684",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHEA-2021:0684"
     },
     {
      "id": "RHEA-2021:0598",
