@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-28T08:46:22Z",
+ "generated": "2026-07-29T08:50:51Z",
  "minors": [
   {
    "minor": "4.22",
@@ -11,6 +11,35 @@
      "version": "4.22.7",
      "date": "2026-07-28",
      "errata": [
+      {
+       "id": "RHSA-2026:44232",
+       "synopsis": "Critical: OpenShift Container Platform 4.22.7 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44232",
+       "items": [
+        "kernel: ip6_tunnel: clear skb2->cb[] in ip4ip6_err() (CVE-2026-43037)",
+        "cifs-utils: local privilege escalation via forged cifs.spnego key description in cifs.upcall (CVE-2026-12505)",
+        "podman: Podman: Information disclosure via malicious container image environment variables (CVE-2026-57231)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:44241",
+       "synopsis": "OpenShift Container Platform 4.22.7 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHBA-2026:44241"
+      },
+      {
+       "id": "RHSA-2026:44237",
+       "synopsis": "OpenShift Container Platform 4.22.7 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44237"
+      },
       {
        "id": "RHSA-2026:44239",
        "synopsis": "OpenShift Container Platform 4.22.7 security and extras update",
@@ -373,6 +402,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:47677",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47677"
+    },
+    {
+     "id": "RHBA-2026:47041",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47041"
+    },
     {
      "id": "RHBA-2026:47006",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -1144,6 +1189,34 @@
      "version": "4.21.26",
      "date": "2026-07-28",
      "errata": [
+      {
+       "id": "RHSA-2026:44262",
+       "synopsis": "Important: OpenShift Container Platform 4.21.26 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44262",
+       "items": [
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "kernel: Linux kernel: Use-After-Free in net/gro due to improper handling of zerocopy skbs (CVE-2026-46323)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:44269",
+       "synopsis": "OpenShift Container Platform 4.21.26 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHBA-2026:44269"
+      },
+      {
+       "id": "RHSA-2026:44267",
+       "synopsis": "OpenShift Container Platform 4.21.26 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44267"
+      },
       {
        "id": "RHSA-2026:44268",
        "synopsis": "OpenShift Container Platform 4.21.26 security and extras update",
@@ -2482,6 +2555,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:47673",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47673"
+    },
     {
      "id": "RHBA-2026:46439",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -3893,6 +3974,51 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.31",
+     "date": "2026-07-28",
+     "errata": [
+      {
+       "id": "RHBA-2026:44265",
+       "synopsis": "OpenShift Container Platform 4.20.31 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHBA-2026:44265"
+      },
+      {
+       "id": "RHSA-2026:44259",
+       "synopsis": "Important: OpenShift Container Platform 4.20.31 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44259",
+       "items": [
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "kernel: Linux kernel: Use-After-Free in net/gro due to improper handling of zerocopy skbs (CVE-2026-46323)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:44263",
+       "synopsis": "OpenShift Container Platform 4.20.31 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44263"
+      },
+      {
+       "id": "RHSA-2026:44264",
+       "synopsis": "OpenShift Container Platform 4.20.31 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44264",
+       "items": [
+        "brace-expansion: Brace-expansion: Denial of Service due to exponential-time complexity (CVE-2026-13149)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.20.30",
      "date": "2026-07-21",
@@ -29368,6 +29494,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:47675",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47675"
+    },
     {
      "id": "RHEA-2026:44736",
      "synopsis": "Advisory for publishing Helm 3.15.4.1 (re-versioned CVE fix) for OCP 4.14",
@@ -61122,20 +61256,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",
