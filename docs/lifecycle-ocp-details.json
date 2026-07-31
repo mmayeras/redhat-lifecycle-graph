@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-07-30T08:40:26Z",
+ "generated": "2026-07-31T09:11:44Z",
  "minors": [
   {
    "minor": "4.22",
@@ -18097,6 +18097,44 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.16.67",
+     "date": "2026-07-30",
+     "errata": [
+      {
+       "id": "RHBA-2026:43333",
+       "synopsis": "OpenShift Container Platform 4.16.67 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:43333"
+      },
+      {
+       "id": "RHBA-2026:43330",
+       "synopsis": "OpenShift Container Platform 4.16.67 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:43330"
+      },
+      {
+       "id": "RHSA-2026:43331",
+       "synopsis": "OpenShift Container Platform 4.16.67 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:43331"
+      },
+      {
+       "id": "RHBA-2026:43332",
+       "synopsis": "OpenShift Container Platform 4.16.67 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:43332"
+      }
+     ]
+    },
+    {
      "version": "4.16.66",
      "date": "2026-07-16",
      "errata": [
@@ -22745,6 +22783,49 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.15/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.15.67",
+     "date": "2026-07-30",
+     "errata": [
+      {
+       "id": "RHBA-2026:43229",
+       "synopsis": "OpenShift Container Platform 4.15.67 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:43229"
+      },
+      {
+       "id": "RHSA-2026:43226",
+       "synopsis": "Important: OpenShift Container Platform 4.15.67 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:43226",
+       "items": [
+        "bind: BIND: Denial of Service via maliciously crafted DNSSEC-validated zone (CVE-2026-1519)",
+        "glibc: glibc: Heap Buffer Overflow in `scanf` with `%mc` format specifier and large width (CVE-2026-5450)",
+        "openssl: openssl: Information Disclosure from Uninitialized Memory via Invalid RSA Public Key (CVE-2026-31790)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:43227",
+       "synopsis": "OpenShift Container Platform 4.15.67 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:43227"
+      },
+      {
+       "id": "RHBA-2026:43228",
+       "synopsis": "OpenShift Container Platform 4.15.67 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:43228"
+      }
+     ]
+    },
+    {
      "version": "4.15.66",
      "date": "2026-07-01",
      "errata": [
@@ -26331,6 +26412,35 @@
      "date": "2026-07-30",
      "errata": [
       {
+       "id": "RHBA-2026:43255",
+       "synopsis": "OpenShift Container Platform 4.14.70 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:43255"
+      },
+      {
+       "id": "RHSA-2026:43252",
+       "synopsis": "Important: OpenShift Container Platform 4.14.70 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:43252",
+       "items": [
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "glibc: glibc: Heap Buffer Overflow in `scanf` with `%mc` format specifier and large width (CVE-2026-5450)",
+        "openssl: openssl: Information Disclosure from Uninitialized Memory via Invalid RSA Public Key (CVE-2026-31790)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:43253",
+       "synopsis": "OpenShift Container Platform 4.14.70 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:43253"
+      },
+      {
        "id": "RHBA-2026:43254",
        "synopsis": "OpenShift Container Platform 4.14.70 extras update",
        "kind": "bugfix",
@@ -29645,6 +29755,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:48666",
+     "synopsis": "Red Hat OpenShift Container Platform 4.14 three month notice end of Extended Update Support Term 2",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:48666"
+    },
     {
      "id": "RHBA-2026:48499",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
