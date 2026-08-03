@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-08-02T08:33:59Z",
+ "generated": "2026-08-03T09:59:53Z",
  "minors": [
   {
    "minor": "2.7",
@@ -233,6 +233,27 @@
      "severity": "Important",
      "date": "2026-07-20",
      "url": "https://access.redhat.com/errata/RHSA-2026:42132"
+    },
+    {
+     "id": "RHSA-2026:42079",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42079",
+     "items": [
+      "ansible-core: argument injection in ansible-galaxy role install leads to arbitrary code execution (CVE-2026-11332)",
+      "automation-controller: Path traversal via malicious entry point name in pip wheel installation allows arbitrary file overwrite (CVE-2026-8643)",
+      "automation-controller: urllib3: Denial of Service due to excessive HTTP response decompression (CVE-2026-44432)",
+      "automation-platform-ui: fast-uri: Path traversal vulnerability allows bypass of security policies (CVE-2026-6321)",
+      "python3.12-pulpcore: relative_path_validator bypass via directory traversal in FilesystemExport (CVE-2026-12701)",
+      "receptor: golang.org/x/net/html: Cross-Site Scripting via HTML parsing bypass (CVE-2026-27136)",
+      "receptor: golang.org/x/net/html: Arbitrary code execution via Cross-Site Scripting (CVE-2026-25681)",
+      "receptor: golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries (CVE-2026-27145)",
+      "receptor: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+      "receptor: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+      "receptor: Go crypto/x509: Denial of Service via inefficient certificate chain validation (CVE-2026-32281)"
+     ]
     },
     {
      "id": "RHBA-2026:36324",
@@ -1151,6 +1172,36 @@
      "severity": "Moderate",
      "date": "2026-07-20",
      "url": "https://access.redhat.com/errata/RHSA-2026:42141"
+    },
+    {
+     "id": "RHSA-2026:42078",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.5 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:42078",
+     "items": [
+      "ansible-core: argument injection in ansible-galaxy role install leads to arbitrary code execution (CVE-2026-11332)",
+      "automation-controller: Path traversal via malicious entry point name in pip wheel installation allows arbitrary file overwrite (CVE-2026-8643)",
+      "automation-controller: urllib3: Denial of Service due to excessive HTTP response decompression (CVE-2026-44432)",
+      "automation-gateway: Axios: Proxy bypass via IPv4-mapped IPv6 address non-normalization (CVE-2026-44492)",
+      "automation-gateway: Axios: Client-side Denial of Service via unescaped regex metacharacters in XSRF cookie name (CVE-2026-44496)",
+      "automation-gateway: Axios: Man-in-the-Middle (MITM) attack via Prototype Pollution (CVE-2026-44494)",
+      "automation-gateway: Axios: Information disclosure of proxy credentials via HTTP redirects (CVE-2026-44486)",
+      "automation-gateway: Axios: Information disclosure of proxy credentials via redirect flows (CVE-2026-44487)",
+      "automation-gateway: Axios: Denial of Service due to unenforced request and response size limits (CVE-2026-44488)",
+      "automation-gateway: Axios: Information disclosure due to prototype pollution vulnerability (CVE-2026-44495)",
+      "automation-gateway: fast-uri: URI authority bypass due to improper delimiter handling (CVE-2026-6322)",
+      "automation-gateway: Axios: Invisible JSON Response Tampering via Prototype Pollution Gadget (CVE-2026-42044)",
+      "automation-gateway: fast-uri: Path traversal vulnerability allows bypass of security policies (CVE-2026-6321)",
+      "automation-gateway: lodash: Arbitrary code execution via untrusted input in template imports (CVE-2026-4800)",
+      "automation-gateway: missing requestHeadersToRemove allows mTLS bypass via Subject header spoofing (CVE-2026-12382)",
+      "python3.12-pulpcore: relative_path_validator bypass via directory traversal in FilesystemExport (CVE-2026-12701)",
+      "receptor: golang.org/x/net/html: Arbitrary code execution via Cross-Site Scripting (CVE-2026-25681)",
+      "receptor: golang.org/x/net/html: Cross-Site Scripting via HTML parsing bypass (CVE-2026-27136)",
+      "receptor: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+      "receptor: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)"
+     ]
     },
     {
      "id": "RHBA-2026:29527",

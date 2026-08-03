@@ -1,7 +1,7 @@
 {
  "product": "rhoso",
  "title": "OpenStack on OpenShift",
- "generated": "2026-08-02T08:35:30Z",
+ "generated": "2026-08-03T10:01:22Z",
  "minors": [
   {
    "minor": "18.0",
@@ -742,6 +742,14 @@
       "Keystone: OpenStack Keystone: Unauthorized access due to incorrect LDAP user status handling (CVE-2026-40683)",
       "OpenStack Keystone: Privilege escalation through EC2 credential creation (CVE-2026-33551)"
      ]
+    },
+    {
+     "id": "RHBA-2026:39807",
+     "synopsis": "Release of components for RHOSO 18.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-15",
+     "url": "https://access.redhat.com/errata/RHBA-2026:39807"
     },
     {
      "id": "RHSA-2026:1958",
