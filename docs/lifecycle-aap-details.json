@@ -1,13 +1,32 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-08-04T08:50:19Z",
+ "generated": "2026-08-05T08:47:43Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:50340",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50340"
+    },
+    {
+     "id": "RHSA-2026:50318",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.7 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50318",
+     "items": [
+      "receptor: quic-go: Denial of Service via excessive memory allocation in HTTP/3 trailers (CVE-2026-40898)"
+     ]
+    },
     {
      "id": "RHBA-2026:46509",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
@@ -206,6 +225,38 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:50479",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50479"
+    },
+    {
+     "id": "RHSA-2026:50336",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50336",
+     "items": [
+      "automation-controller: PyJWT: Authentication bypass due to forged JSON Web Tokens (CVE-2026-48526)",
+      "automation-eda-controller: ExternalEventStreamViewSet trusts Subject header without validation and leaks expected DN (CVE-2026-12383)",
+      "automation-eda-controller: Authentication bypass in Event-Driven Ansible via forged HTTP header (CVE-2026-18141)",
+      "automation-gateway-proxy: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+      "python3.12-aiohttp: Arbitrary code execution via untrusted input to CookieJar.load() (CVE-2026-34993)",
+      "python3.12-daphne: daphne: Denial of Service via excessive WebSocket message size (CVE-2026-44545)",
+      "python3.12-pillow: Denial of Service via crafted GD 2.x image file (CVE-2026-55380)",
+      "python3.12-pillow: Denial of Service via crafted BDF font file (CVE-2026-55379)",
+      "python3.12-pillow: Denial of Service via excessive memory allocation when processing font files (CVE-2026-54060)",
+      "python3.12-pillow: Denial of Service via crafted PCF font data (CVE-2026-54059)",
+      "python3.12-pillow: Native heap out-of-bounds write (CVE-2026-59197)",
+      "python3.12-pyasn1: Denial of Service via crafted ASN.1 REAL values (CVE-2026-59886)",
+      "python3.12-pyasn1: Denial of Service via crafted ASN.1 OBJECT IDENTIFIER (CVE-2026-59885)",
+      "receptor: quic-go: Denial of Service via excessive memory allocation in HTTP/3 trailers (CVE-2026-40898)"
+     ]
+    },
     {
      "id": "RHBA-2026:46514",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
@@ -1145,6 +1196,22 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:50357",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50357"
+    },
+    {
+     "id": "RHSA-2026:50344",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50344"
+    },
     {
      "id": "RHBA-2026:43152",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
@@ -3810,6 +3877,30 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:50352",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50352"
+    },
+    {
+     "id": "RHBA-2026:50341",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50341"
+    },
+    {
+     "id": "RHBA-2026:50320",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Product Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50320"
+    },
     {
      "id": "RHBA-2026:43151",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",

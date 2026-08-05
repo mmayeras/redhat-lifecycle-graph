@@ -1,12 +1,48 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-08-04T08:52:12Z",
+ "generated": "2026-08-05T08:50:02Z",
  "minors": [
   {
    "minor": "6.19",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.19/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.19.3",
+     "date": "2026-08-04",
+     "errata": [
+      {
+       "id": "RHSA-2026:50221",
+       "synopsis": "Important: Satellite 6.19.3 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHSA-2026:50221",
+       "items": [
+        "rubygem-katello: missing repository authorization in content_uploads exposes cross-product content existence (CVE-2026-12515)",
+        "openvox-server: HTTP request smuggling via chunked extension quoted-string parsing (CVE-2026-2332)",
+        "rubygem-faraday: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday_middleware: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-cookie_jar: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-em_http: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-em_synchrony: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-excon: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-httpclient: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-multipart: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-net_http: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-net_http_persistent: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-patron: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-rack: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-retry: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-nokogiri: Nokogiri: Denial of Service or Information Disclosure via invalid encoding handling (CVE-2026-57236)",
+        "python-pillow: Pillow: Denial of Service via crafted PCF font data (CVE-2026-54059)",
+        "python-pillow: Pillow: Denial of Service via excessive memory allocation when processing font files (CVE-2026-54060)",
+        "python-pillow: Pillow: Denial of Service via crafted BDF font file (CVE-2026-55379)",
+        "python-pillow: Pillow: Denial of Service via crafted GD 2.x image file (CVE-2026-55380)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.19.2",
      "date": "2026-07-01",
@@ -155,6 +191,37 @@
    "minor": "6.18",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.18/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.18.8",
+     "date": "2026-08-04",
+     "errata": [
+      {
+       "id": "RHSA-2026:50263",
+       "synopsis": "Important: Satellite 6.18.8 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHSA-2026:50263",
+       "items": [
+        "puppetserver: HTTP request smuggling via chunked extension quoted-string parsing (CVE-2026-2332)",
+        "python-pyjwt: PyJWT: Authentication bypass due to forged JSON Web Tokens (CVE-2026-48526)",
+        "rubygem-katello: missing repository authorization in content_uploads exposes cross-product content existence (CVE-2026-12515)",
+        "rubygem-faraday-rack: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "python3.12-pillow: Pillow: Denial of Service via crafted BDF font file (CVE-2026-55379)",
+        "python3.12-pillow: Pillow: Denial of Service via crafted GD 2.x image file (CVE-2026-55380)",
+        "python3.12-pillow: Pillow: Denial of Service via crafted PCF font data (CVE-2026-54059)",
+        "python3.12-pillow: Pillow: Denial of Service via excessive memory allocation when processing font files (CVE-2026-54060)",
+        "rubygem-nokogiri: Nokogiri: Denial of Service or Information Disclosure via invalid encoding handling (CVE-2026-57236)",
+        "puppet-agent: Out-of-bounds read & write in RFC 3211 KEK Unwrap (CVE-2025-9230)",
+        "Backport OpenVox Server and Agent Packaging to Satellite and Capsule 6.18 (SAT-44866)",
+        "Update of scap-security-guide-satellite package sources (SAT-48160)",
+        "API endpoint GET /api/host_packages/installed_packages in apidoc is wrong (SAT-48161)",
+        "Unable to save bookmark report under  Hosts \u2192 All Hosts \u2192 Compliance \u2192 Reports (SAT-48162)",
+        "'Katello::Errors::Pulp3Error: nextval: reached maximum value of sequence \"container_blobmanifest_id_seq\"' during container image sync (SAT-48302)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.18.7",
      "date": "2026-07-01",
@@ -421,6 +488,37 @@
    "minor": "6.17",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.17/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.17.10",
+     "date": "2026-08-04",
+     "errata": [
+      {
+       "id": "RHSA-2026:50222",
+       "synopsis": "Important: Satellite 6.17.10 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHSA-2026:50222",
+       "items": [
+        "puppet-agent: Out-of-bounds read & write in RFC 3211 KEK Unwrap (CVE-2025-9230)",
+        "rubygem-katello: missing repository authorization in content_uploads exposes cross-product content existence (CVE-2026-12515)",
+        "puppetserver: HTTP request smuggling via chunked extension quoted-string parsing (CVE-2026-2332)",
+        "python-pyjwt: PyJWT: Authentication bypass due to forged JSON Web Tokens (CVE-2026-48526)",
+        "python-pillow: Pillow: Denial of Service via crafted PCF font data (CVE-2026-54059)",
+        "python-pillow: Pillow: Denial of Service via excessive memory allocation when processing font files (CVE-2026-54060)",
+        "rubygem-faraday-cookie_jar: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "python-pillow: Pillow: Denial of Service via crafted BDF font file (CVE-2026-55379)",
+        "python-pillow: Pillow: Denial of Service via crafted GD 2.x image file (CVE-2026-55380)",
+        "rubygem-nokogiri: Nokogiri: Denial of Service or Information Disclosure via invalid encoding handling (CVE-2026-57236)",
+        "API endpoint GET /api/host_packages/installed_packages in apidoc is wrong (SAT-48096)",
+        "Unable to save bookmark report under Hosts > All Hosts > Compliance > Reports (SAT-48150)",
+        "Update of scap-security-guide-satellite package sources (SAT-48147)",
+        "Switch Satellite 6.17 to OpenVox (SAT-44867)",
+        "Katello::Errors::Pulp3Error: nextval: reached maximum value of sequence \"container_blobmanifest_id_seq\"' during container image sync (SAT-48303)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.17.9",
      "date": "2026-07-01",
@@ -791,6 +889,42 @@
    "minor": "6.16",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.16/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.16.12",
+     "date": "2026-08-04",
+     "errata": [
+      {
+       "id": "RHSA-2026:50223",
+       "synopsis": "Important: Satellite 6.16.12 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHSA-2026:50223",
+       "items": [
+        "puppet-agent: Out-of-bounds read & write in RFC 3211 KEK Unwrap (CVE-2025-9230)",
+        "puppetserver: HTTP request smuggling via chunked extension quoted-string parsing (CVE-2026-2332)",
+        "python-pillow: Pillow: Denial of Service via crafted BDF font file (CVE-2026-55379)",
+        "python-pillow: Pillow: Denial of Service via crafted GD 2.x image file (CVE-2026-55380)",
+        "python-pillow: Pillow: Denial of Service via crafted PCF font data (CVE-2026-54059)",
+        "python-pillow: Pillow: Denial of Service via excessive memory allocation when processing font files (CVE-2026-54060)",
+        "python-pillow: Pillow: Native heap out-of-bounds write (CVE-2026-59197)",
+        "python-pyjwt: PyJWT: Authentication bypass due to forged JSON Web Tokens (CVE-2026-48526)",
+        "rubygem-faraday-cookie_jar: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-em_http: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-em_synchrony: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-excon: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-httpclient: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday_middleware: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-multipart: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-net_http: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-net_http_persistent: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-patron: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)",
+        "rubygem-faraday-rack: Faraday: Denial of Service via crafted nested query strings (CVE-2026-54297)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.16.11",
      "date": "2026-07-20",
