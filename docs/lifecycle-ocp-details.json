@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-05T08:46:38Z",
+ "generated": "2026-08-06T08:48:15Z",
  "minors": [
   {
    "minor": "4.22",
@@ -448,6 +448,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:50977",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-06",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50977"
+    },
     {
      "id": "RHBA-2026:50260",
      "synopsis": "OpenShift Container Platform 4.22 O-Cloud Manager extras update",
@@ -1267,6 +1275,14 @@
      "version": "4.21.27",
      "date": "2026-08-04",
      "errata": [
+      {
+       "id": "RHBA-2026:48669",
+       "synopsis": "OpenShift Container Platform 4.21.27 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-05",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48669"
+      },
       {
        "id": "RHBA-2026:48672",
        "synopsis": "OpenShift Container Platform 4.21.27 OLM Operators metadata update",
@@ -2671,6 +2687,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:50976",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-06",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50976"
+    },
     {
      "id": "RHBA-2026:49615",
      "synopsis": "OpenShift Container Platform 4.21 ztp-site-generate container",
@@ -4126,6 +4150,14 @@
      "version": "4.20.32",
      "date": "2026-08-04",
      "errata": [
+      {
+       "id": "RHBA-2026:48674",
+       "synopsis": "OpenShift Container Platform 4.20.32 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-05",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48674"
+      },
       {
        "id": "RHBA-2026:48678",
        "synopsis": "OpenShift Container Platform 4.20.32 OLM Operators metadata update",
@@ -7220,6 +7252,14 @@
      "version": "4.19.41",
      "date": "2026-08-05",
      "errata": [
+      {
+       "id": "RHBA-2026:48656",
+       "synopsis": "OpenShift Container Platform 4.19.41 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-05",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48656"
+      },
       {
        "id": "RHBA-2026:48655",
        "synopsis": "OpenShift Container Platform 4.19.41 packages update",
@@ -10531,12 +10571,28 @@
      "date": "2026-08-05",
      "errata": [
       {
+       "id": "RHBA-2026:48697",
+       "synopsis": "OpenShift Container Platform 4.18.51 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-05",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48697"
+      },
+      {
        "id": "RHBA-2026:48696",
        "synopsis": "OpenShift Container Platform 4.18.51 packages update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2026-08-05",
        "url": "https://access.redhat.com/errata/RHBA-2026:48696"
+      },
+      {
+       "id": "RHBA-2026:48701",
+       "synopsis": "OpenShift Container Platform 4.18.51 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-05",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48701"
       },
       {
        "id": "RHSA-2026:48699",
@@ -14445,6 +14501,23 @@
    "minor": "4.17",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.17.56",
+     "date": "2026-08-06",
+     "errata": [
+      {
+       "id": "RHSA-2026:47729",
+       "synopsis": "OpenShift Container Platform 4.17.56 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:47729",
+       "items": [
+        "Kubelet: CRI-O: kube-apiserver: Kubelet, CRI-O, kube-apiserver: Denial of Service via SPDY streaming code (CVE-2026-35469)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.17.55",
      "date": "2026-07-09",
@@ -21492,6 +21565,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:50843",
+     "synopsis": "Logging for Red Hat OpenShift - 6.0.16",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50843"
+    },
     {
      "id": "RHBA-2026:49620",
      "synopsis": "OpenShift Container Platform 4.16 ztp-site-generate container",

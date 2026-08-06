@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-08-05T08:47:43Z",
+ "generated": "2026-08-06T08:49:22Z",
  "minors": [
   {
    "minor": "2.7",
@@ -9237,6 +9237,22 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:50913",
+     "synopsis": "Red Hat Ansible Automation Platform 2.2 bug fix and enhancement update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50913"
+    },
+    {
+     "id": "RHSA-2026:50839",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.2 security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50839"
+    },
+    {
      "id": "RHBA-2026:43429",
      "synopsis": "Red Hat Ansible Automation Platform 2.2 bug fix and enhancement update",
      "kind": "bugfix",
@@ -9979,6 +9995,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:50915",
+     "synopsis": "Red Hat Ansible Automation Platform 2.1 bug fix and enhancement update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50915"
+    },
+    {
+     "id": "RHSA-2026:50850",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.1 security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:50850"
+    },
     {
      "id": "RHBA-2026:20502",
      "synopsis": "Red Hat Ansible Automation Platform 2.1 bug fix and enhancement update",
