@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-06T08:48:15Z",
+ "generated": "2026-08-08T07:04:02Z",
  "minors": [
   {
    "minor": "4.22",
@@ -14505,6 +14505,35 @@
      "version": "4.17.56",
      "date": "2026-08-06",
      "errata": [
+      {
+       "id": "RHSA-2026:47727",
+       "synopsis": "Important: OpenShift Container Platform 4.17.56 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:47727",
+       "items": [
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "kernel: Linux kernel: smb: client: reject userspace cifs.spnego descriptions (CVE-2026-46243)",
+        "kernel: Linux kernel: Use-After-Free in net/gro due to improper handling of zerocopy skbs (CVE-2026-46323)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:47730",
+       "synopsis": "OpenShift Container Platform 4.17.56 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:47730"
+      },
+      {
+       "id": "RHSA-2026:47728",
+       "synopsis": "OpenShift Container Platform 4.17.56 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:47728"
+      },
       {
        "id": "RHSA-2026:47729",
        "synopsis": "OpenShift Container Platform 4.17.56 security and extras update",
@@ -35968,6 +35997,44 @@
    "minor": "4.12",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.12/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.12.95",
+     "date": "2026-08-06",
+     "errata": [
+      {
+       "id": "RHBA-2026:47705",
+       "synopsis": "OpenShift Container Platform 4.12.95 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:47705"
+      },
+      {
+       "id": "RHSA-2026:47702",
+       "synopsis": "Important: OpenShift Container Platform 4.12.95 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:47702"
+      },
+      {
+       "id": "RHSA-2026:47703",
+       "synopsis": "OpenShift Container Platform 4.12.95 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:47703"
+      },
+      {
+       "id": "RHBA-2026:47704",
+       "synopsis": "OpenShift Container Platform 4.12.95 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:47704"
+      }
+     ]
+    },
     {
      "version": "4.12.94",
      "date": "2026-07-23",
