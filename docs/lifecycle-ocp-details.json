@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-08T07:04:02Z",
+ "generated": "2026-08-09T07:06:14Z",
  "minors": [
   {
    "minor": "4.22",
@@ -12761,20 +12761,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2025:3295"
       },
       {
-       "id": "RHBA-2025:3292",
-       "synopsis": "OpenShift Container Platform 4.18.7 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2025-04-03",
-       "url": "https://access.redhat.com/errata/RHBA-2025:3292"
-      },
-      {
        "id": "RHBA-2025:3293",
        "synopsis": "OpenShift Container Platform 4.18.7 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2025-04-03",
        "url": "https://access.redhat.com/errata/RHBA-2025:3293"
+      },
+      {
+       "id": "RHBA-2025:3292",
+       "synopsis": "OpenShift Container Platform 4.18.7 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-03",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3292"
       }
      ]
     },
@@ -23180,6 +23180,17 @@
        ]
       },
       {
+       "id": "RHSA-2026:43225",
+       "synopsis": "Important: OpenShift Container Platform 4.15.67 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:43225",
+       "items": [
+        "google.golang.org/grpc/grpc-go: google.golang.org/grpc/authz: gRPC-Go: Authorization bypass due to improper HTTP/2 path validation (CVE-2026-33186)"
+       ]
+      },
+      {
        "id": "RHSA-2026:43227",
        "synopsis": "OpenShift Container Platform 4.15.67 bug fix and security update",
        "kind": "security",
@@ -26803,6 +26814,14 @@
         "glibc: glibc: Heap Buffer Overflow in `scanf` with `%mc` format specifier and large width (CVE-2026-5450)",
         "openssl: openssl: Information Disclosure from Uninitialized Memory via Invalid RSA Public Key (CVE-2026-31790)"
        ]
+      },
+      {
+       "id": "RHBA-2026:43251",
+       "synopsis": "OpenShift Container Platform 4.14.70 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:43251"
       },
       {
        "id": "RHSA-2026:43253",
@@ -43526,20 +43545,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:6808"
       },
       {
-       "id": "RHBA-2022:6809",
-       "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-10-12",
-       "url": "https://access.redhat.com/errata/RHBA-2022:6809"
-      },
-      {
        "id": "RHBA-2022:6810",
        "synopsis": "OpenShift Container Platform 4.11.8 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-10-12",
        "url": "https://access.redhat.com/errata/RHBA-2022:6810"
+      },
+      {
+       "id": "RHBA-2022:6809",
+       "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-10-12",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6809"
       }
      ]
     },
@@ -45854,20 +45873,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:9101"
       },
       {
-       "id": "RHBA-2022:9099",
-       "synopsis": "OpenShift Container Platform 4.10.46 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2023-01-04",
-       "url": "https://access.redhat.com/errata/RHBA-2022:9099"
-      },
-      {
        "id": "RHBA-2022:9100",
        "synopsis": "OpenShift Container Platform 4.10.46 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2023-01-04",
        "url": "https://access.redhat.com/errata/RHBA-2022:9100"
+      },
+      {
+       "id": "RHBA-2022:9099",
+       "synopsis": "OpenShift Container Platform 4.10.46 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-01-04",
+       "url": "https://access.redhat.com/errata/RHBA-2022:9099"
       },
       {
        "id": "RHSA-2022:9098",
@@ -56189,20 +56208,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2021:4887"
       },
       {
-       "id": "RHBA-2021:4885",
-       "synopsis": "OpenShift Container Platform 4.7.39 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2021-12-08",
-       "url": "https://access.redhat.com/errata/RHBA-2021:4885"
-      },
-      {
        "id": "RHBA-2021:4886",
        "synopsis": "OpenShift Container Platform 4.7.39 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2021-12-08",
        "url": "https://access.redhat.com/errata/RHBA-2021:4886"
+      },
+      {
+       "id": "RHBA-2021:4885",
+       "synopsis": "OpenShift Container Platform 4.7.39 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2021-12-08",
+       "url": "https://access.redhat.com/errata/RHBA-2021:4885"
       },
       {
        "id": "RHBA-2021:4884",
