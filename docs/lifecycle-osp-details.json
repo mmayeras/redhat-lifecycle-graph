@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-08-10T07:56:10Z",
+ "generated": "2026-08-11T07:21:01Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2047,17 +2047,6 @@
      ]
     },
     {
-     "id": "RHSA-2023:0274",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2023-01-25",
-     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
-     "items": [
-      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
-     ]
-    },
-    {
      "id": "RHSA-2023:0275",
      "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
      "kind": "security",
@@ -2066,6 +2055,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2023:0275",
      "items": [
       "unrestricted creation of security groups (CVE-2022-3277)"
+     ]
+    },
+    {
+     "id": "RHSA-2023:0274",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2023-01-25",
+     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
+     "items": [
+      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
      ]
     },
     {
@@ -7743,6 +7743,18 @@
      ]
     },
     {
+     "id": "RHBA-2019:0928",
+     "synopsis": "python-django-horizon bug fix advisory",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2019-04-30",
+     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
+     "items": [
+      "OpenStack Dashboard",
+      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
+     ]
+    },
+    {
      "id": "RHBA-2019:0929",
      "synopsis": "openstack-cinder bug fix advisory",
      "kind": "bugfix",
@@ -7754,18 +7766,6 @@
       "Previously, when `destroy_empty_storage_group` was enabled and a storage group was destroyed after it was emptied, the VNX driver or storops cache was not updated and the driver did not recreate the storage group upon subsequent attachment. The\u2026",
       "Previously, when authenticating, a string match was performed on the `response-type` string. Performance with this mechanism was not consistent.",
       "The following issues with multi-attach have been fixed:"
-     ]
-    },
-    {
-     "id": "RHBA-2019:0928",
-     "synopsis": "python-django-horizon bug fix advisory",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2019-04-30",
-     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
-     "items": [
-      "OpenStack Dashboard",
-      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
      ]
     },
     {

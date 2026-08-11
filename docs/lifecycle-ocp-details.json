@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-10T07:53:37Z",
+ "generated": "2026-08-11T07:18:19Z",
  "minors": [
   {
    "minor": "4.22",
@@ -448,6 +448,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:53258",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-11",
+     "url": "https://access.redhat.com/errata/RHBA-2026:53258"
+    },
+    {
+     "id": "RHBA-2026:53252",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-11",
+     "url": "https://access.redhat.com/errata/RHBA-2026:53252"
+    },
     {
      "id": "RHBA-2026:50977",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -3935,6 +3951,10 @@
       {
        "t": "Installing a cluster on Microsoft Azure with a user-provisioned DNS (Technology Preview)",
        "d": "You can enable a user-provisioned domain name server (DNS) instead of the default cluster-provisioned DNS solution. For example, your organization's security policies might not allow the use of public DNS services such as Microsoft Azure DNS. You can manage your DNS only for the IP addresses of the API and Ingress servers. If you use this feature, you must provide your own DNS solution that\u2026"
+      },
+      {
+       "t": "Updated minimum version requirements for Nutanix AOS and Prism Central",
+       "d": "With this release, the minimum supported versions for Nutanix AOS and Prism Central are updated to version 7.3 or later. Ensure that your Nutanix environment meets these requirements before installing OpenShift Container Platform. For more information, see Nutanix version requirements."
       }
      ]
     },
@@ -5768,6 +5788,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:53270",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-11",
+     "url": "https://access.redhat.com/errata/RHBA-2026:53270"
+    },
     {
      "id": "RHBA-2026:52454",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
@@ -30154,6 +30182,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:52927",
+     "synopsis": "Advisory for publishing Helm 3.15.4.2 CVE fix release for OCP 4.14",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-08-10",
+     "url": "https://access.redhat.com/errata/RHEA-2026:52927"
+    },
     {
      "id": "RHBA-2026:50584",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
