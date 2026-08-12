@@ -1,12 +1,26 @@
 {
  "product": "rhoai",
  "title": "RHOAI Lifecycle",
- "generated": "2026-08-11T07:20:27Z",
+ "generated": "2026-08-12T07:44:51Z",
  "minors": [
   {
    "minor": "3.4",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.4/html/release_notes/",
    "zstreams": [
+    {
+     "version": "3.4.3",
+     "date": "2026-08-11",
+     "errata": [
+      {
+       "id": "RHSA-2026:53262",
+       "synopsis": "RHOAI 3.4.3 - Red Hat OpenShift AI",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHSA-2026:53262"
+      }
+     ]
+    },
     {
      "version": "3.4.2",
      "date": "2026-07-01",
@@ -109,6 +123,20 @@
    "minor": "3.3",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.3/html/release_notes/",
    "zstreams": [
+    {
+     "version": "3.3.6",
+     "date": "2026-08-11",
+     "errata": [
+      {
+       "id": "RHSA-2026:53263",
+       "synopsis": "RHOAI 3.3.6 - Red Hat OpenShift AI",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHSA-2026:53263"
+      }
+     ]
+    },
     {
      "version": "3.3.5",
      "date": "2026-07-09",
@@ -321,6 +349,20 @@
    "minor": "2.25",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.25/html/release_notes/",
    "zstreams": [
+    {
+     "version": "2.25.10",
+     "date": "2026-08-11",
+     "errata": [
+      {
+       "id": "RHSA-2026:53261",
+       "synopsis": "RHOAI 2.25.10 - Red Hat OpenShift AI",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHSA-2026:53261"
+      }
+     ]
+    },
     {
      "version": "2.25.9",
      "date": "2026-07-21",
