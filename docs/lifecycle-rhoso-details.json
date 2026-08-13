@@ -1,7 +1,7 @@
 {
  "product": "rhoso",
  "title": "OpenStack on OpenShift",
- "generated": "2026-08-12T07:45:29Z",
+ "generated": "2026-08-13T07:46:34Z",
  "minors": [
   {
    "minor": "18.0",
@@ -11,6 +11,14 @@
      "version": "18.0.21",
      "date": "2026-07-15",
      "errata": [
+      {
+       "id": "RHBA-2026:54266",
+       "synopsis": "Release of containers for RHOSO 18.0.21",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-12",
+       "url": "https://access.redhat.com/errata/RHBA-2026:54266"
+      },
       {
        "id": "RHSA-2026:39894",
        "synopsis": "Release of containers for RHOSO 18.0.21",
