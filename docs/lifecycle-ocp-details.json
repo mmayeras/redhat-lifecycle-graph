@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-13T07:43:56Z",
+ "generated": "2026-08-14T07:41:45Z",
  "minors": [
   {
    "minor": "4.22",
@@ -40396,6 +40396,22 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:54661",
+     "synopsis": "OpenShift Container Platform 4.12 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:54661"
+    },
+    {
+     "id": "RHBA-2026:54657",
+     "synopsis": "OpenShift Container Platform 4.12 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:54657"
+    },
+    {
      "id": "RHBA-2026:54470",
      "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
      "kind": "bugfix",
@@ -52978,20 +52994,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5033",
-       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
-      },
-      {
        "id": "RHBA-2022:5032",
        "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5032"
+      },
+      {
+       "id": "RHBA-2022:5033",
+       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
       },
       {
        "id": "RHBA-2022:5031",
