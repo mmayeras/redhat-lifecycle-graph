@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-08-15T06:52:55Z",
+ "generated": "2026-08-16T06:54:00Z",
  "minors": [
   {
    "minor": "17.1",
@@ -7743,6 +7743,18 @@
      ]
     },
     {
+     "id": "RHBA-2019:0928",
+     "synopsis": "python-django-horizon bug fix advisory",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2019-04-30",
+     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
+     "items": [
+      "OpenStack Dashboard",
+      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
+     ]
+    },
+    {
      "id": "RHBA-2019:0929",
      "synopsis": "openstack-cinder bug fix advisory",
      "kind": "bugfix",
@@ -7754,18 +7766,6 @@
       "Previously, when `destroy_empty_storage_group` was enabled and a storage group was destroyed after it was emptied, the VNX driver or storops cache was not updated and the driver did not recreate the storage group upon subsequent attachment. The\u2026",
       "Previously, when authenticating, a string match was performed on the `response-type` string. Performance with this mechanism was not consistent.",
       "The following issues with multi-attach have been fixed:"
-     ]
-    },
-    {
-     "id": "RHBA-2019:0928",
-     "synopsis": "python-django-horizon bug fix advisory",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2019-04-30",
-     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
-     "items": [
-      "OpenStack Dashboard",
-      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
      ]
     },
     {
