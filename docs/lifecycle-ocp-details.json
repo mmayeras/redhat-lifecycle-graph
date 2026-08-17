@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-16T06:51:23Z",
+ "generated": "2026-08-17T07:07:44Z",
  "minors": [
   {
    "minor": "4.22",
@@ -2819,6 +2819,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:55500",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-17",
+     "url": "https://access.redhat.com/errata/RHBA-2026:55500"
+    },
     {
      "id": "RHBA-2026:54471",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -5974,6 +5982,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:55502",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-17",
+     "url": "https://access.redhat.com/errata/RHBA-2026:55502"
+    },
     {
      "id": "RHBA-2026:54139",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
