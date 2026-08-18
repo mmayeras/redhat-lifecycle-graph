@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-17T07:07:44Z",
+ "generated": "2026-08-18T06:54:49Z",
  "minors": [
   {
    "minor": "4.22",
@@ -7133,7 +7133,7 @@
        "d": "With this release, you can specify the location of a DNS private zone when installing a cluster on Google Cloud into a shared VPC. The private zone can be located in a service project that is distinct from the host project or main service project."
       },
       {
-       "t": "Dell iDRAC10 supported for bare metal installation using Redfish virtual media",
+       "t": "Dell iDRAC10 supported for bare-metal installation using Redfish virtual media",
        "d": "Dell iDRAC10 versions 1.20.25.00, 1.20.60.50, and 1.20.70.50 have been tested and verified to work for installer-provisioned OpenShift Container Platform clusters deployed by using Redfish virtual media. iDRAC10 has not been tested with installations that use a provisioning network."
       },
       {
@@ -7233,7 +7233,7 @@
       },
       {
        "t": "Changes to alerting rules",
-       "d": "Red Hat does not guarantee backward compatibility for recording rules or alerting rules."
+       "d": "=== Red Hat does not guarantee backward compatibility for recording rules or alerting rules. ==="
       },
       {
        "t": "Support log verbosity configuration for Metrics Server",
