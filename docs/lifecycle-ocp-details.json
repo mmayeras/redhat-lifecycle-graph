@@ -1,12 +1,56 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-18T06:54:49Z",
+ "generated": "2026-08-19T06:56:14Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.10",
+     "date": "2026-08-18",
+     "errata": [
+      {
+       "id": "RHSA-2026:54769",
+       "synopsis": "Important: OpenShift Container Platform 4.22.10 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54769",
+       "items": [
+        "kernel: xen: AMD Zen 2 Processors: Privilege escalation via improper CPU cache isolation (CVE-2025-54518)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "rsync: TOCTOU symlink race condition allowing local privilege escalation in daemon mode without chroot. (CVE-2026-29518)",
+        "unbound: Unbound: Denial of Service via excessive EDNS options (CVE-2026-41292)",
+        "vim: Vim: Arbitrary Code Execution via crafted directory names (CVE-2026-47162)",
+        "vim: Vim: Arbitrary code execution via crafted step-definition patterns (CVE-2026-47167)",
+        "vim: Vim: Arbitrary code execution via Python omni-completion (CVE-2026-52858)",
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "vim: Vim: Arbitrary code execution via malicious docstrings in Python omni-completion (CVE-2026-57456)",
+        "openssh: OpenSSH: Use-after-free vulnerability during host key re-exchange on the client side (CVE-2026-60002)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)",
+        "unbound: Unbound: Cache manipulation via 'ghost domain names' attack (CVE-2026-40622)",
+        "vim: Vim: Out-of-bounds Write in Spell File Word Count (CVE-2026-55693)",
+        "vim: Vim: Denial of Service via stack out-of-bounds write in spell_soundfold_sofo() (CVE-2026-57455)",
+        "vim: Vim: Arbitrary code execution via crafted PHP file in omni-completion (CVE-2026-59856)",
+        "vim: Vim: Arbitrary command execution via crafted tags file in C omni-completion (CVE-2026-59858)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:54768",
+       "synopsis": "OpenShift Container Platform 4.22.10 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHBA-2026:54768"
+      }
+     ]
+    },
     {
      "version": "4.22.9",
      "date": "2026-08-11",
@@ -1357,6 +1401,27 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.29",
+     "date": "2026-08-18",
+     "errata": [
+      {
+       "id": "RHSA-2026:54599",
+       "synopsis": "Important: OpenShift Container Platform 4.21.29 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54599",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.21.28",
      "date": "2026-08-11",
@@ -4322,6 +4387,28 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.34",
+     "date": "2026-08-18",
+     "errata": [
+      {
+       "id": "RHSA-2026:54581",
+       "synopsis": "Important: OpenShift Container Platform 4.20.34 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54581",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "icu: Stack buffer overflow in the SRBRoot::addTag function (CVE-2025-5222)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.20.33",
      "date": "2026-08-11",
@@ -9650,6 +9737,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHEA-2026:56248",
+     "synopsis": "Advisory for publishing Helm 3.20.2.1 CVE fix release for OCP 4.19",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-08-18",
+     "url": "https://access.redhat.com/errata/RHEA-2026:56248"
+    },
+    {
      "id": "RHBA-2026:49635",
      "synopsis": "OpenShift Container Platform 4.19 ztp-site-generate container",
      "kind": "bugfix",
@@ -13382,6 +13477,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:56031",
+     "synopsis": "Advisory for publishing Helm 3.19.5.1 CVE fix release for OCP 4.18",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-08-18",
+     "url": "https://access.redhat.com/errata/RHEA-2026:56031"
+    },
     {
      "id": "RHBA-2026:49613",
      "synopsis": "OpenShift Container Platform 4.18 ztp-site-generate container",
@@ -53010,20 +53113,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5032",
-       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
-      },
-      {
        "id": "RHBA-2022:5033",
        "synopsis": "OpenShift Container Platform 4.8.44 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5033"
+      },
+      {
+       "id": "RHBA-2022:5032",
+       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
       },
       {
        "id": "RHBA-2022:5031",
