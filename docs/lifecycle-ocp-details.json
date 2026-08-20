@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-19T06:56:14Z",
+ "generated": "2026-08-20T06:56:43Z",
  "minors": [
   {
    "minor": "4.22",
@@ -7582,6 +7582,28 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.19.43",
+     "date": "2026-08-19",
+     "errata": [
+      {
+       "id": "RHSA-2026:54553",
+       "synopsis": "Important: OpenShift Container Platform 4.19.43 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-19",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54553",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "icu: Stack buffer overflow in the SRBRoot::addTag function (CVE-2025-5222)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "dnsmasq: dnsmasq: heap buffer overflow in cache via NAME_ESCAPE expansion (CVE-2026-2291)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
+       ]
+      }
+     ]
+    },
+    {
      "version": "4.19.42",
      "date": "2026-08-12",
      "errata": [
@@ -10948,6 +10970,25 @@
    "minor": "4.18",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.18.53",
+     "date": "2026-08-19",
+     "errata": [
+      {
+       "id": "RHSA-2026:54544",
+       "synopsis": "Important: OpenShift Container Platform 4.18.53 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-19",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54544",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "icu: Stack buffer overflow in the SRBRoot::addTag function (CVE-2025-5222)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.18.52",
      "date": "2026-08-12",
@@ -22072,6 +22113,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHEA-2026:57039",
+     "synopsis": "Advisory for publishing Helm 3.17.4.1 CVE fix release for OCP 4.16",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-08-19",
+     "url": "https://access.redhat.com/errata/RHEA-2026:57039"
+    },
+    {
      "id": "RHSA-2026:50843",
      "synopsis": "Logging for Red Hat OpenShift - 6.0.16",
      "kind": "security",
@@ -30048,6 +30097,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
+      },
+      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -30057,14 +30114,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -53113,20 +53162,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5033",
-       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
-      },
-      {
        "id": "RHBA-2022:5032",
        "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5032"
+      },
+      {
+       "id": "RHBA-2022:5033",
+       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
       },
       {
        "id": "RHBA-2022:5031",
