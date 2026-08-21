@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-20T06:56:43Z",
+ "generated": "2026-08-21T06:57:32Z",
  "minors": [
   {
    "minor": "4.22",
@@ -30097,14 +30097,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -30114,6 +30106,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -32393,6 +32393,20 @@
    "minor": "4.13",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.13/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.13.70",
+     "date": "2026-08-20",
+     "errata": [
+      {
+       "id": "RHSA-2026:54187",
+       "synopsis": "Important: OpenShift Container Platform 4.13.70 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54187"
+      }
+     ]
+    },
     {
      "version": "4.13.69",
      "date": "2026-07-23",
@@ -36588,6 +36602,20 @@
    "minor": "4.12",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.12/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.12.96",
+     "date": "2026-08-20",
+     "errata": [
+      {
+       "id": "RHSA-2026:54205",
+       "synopsis": "Important: OpenShift Container Platform 4.12.96 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54205"
+      }
+     ]
+    },
     {
      "version": "4.12.95",
      "date": "2026-08-06",

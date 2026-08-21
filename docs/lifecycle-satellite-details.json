@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-08-20T06:59:59Z",
+ "generated": "2026-08-21T07:00:51Z",
  "minors": [
   {
    "minor": "6.19",
@@ -862,11 +862,7 @@
       },
       {
        "t": "Content management Flatpak support for applications Satellite now supports Flatpak\u2026",
-       "d": "Flatpak repositories function similarly to other content repositories in Satellite allowing you to synchronize them, manage access permissions, and assign repositories to specific lifecycle environments to control application availability. Managing Flatpak repositories is done using Hammer CLI. After you mirror a repository, you can manage it in\u2026"
-      },
-      {
-       "t": "Server administration Collecting usage metrics to understand how customers use Satellite\u2026",
-       "d": ""
+       "d": "Flatpak repositories function similarly to other content repositories in Satellite allowing you to synchronize them, manage access permissions, and assign repositories to specific lifecycle environments to control application availability."
       }
      ]
     },

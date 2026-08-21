@@ -1,13 +1,29 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-08-20T06:57:52Z",
+ "generated": "2026-08-21T06:58:33Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:57644",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Azure Billing Operator Bundle Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-20",
+     "url": "https://access.redhat.com/errata/RHBA-2026:57644"
+    },
+    {
+     "id": "RHBA-2026:57557",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Azure Billing Operator Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-20",
+     "url": "https://access.redhat.com/errata/RHBA-2026:57557"
+    },
     {
      "id": "RHBA-2026:51390",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
