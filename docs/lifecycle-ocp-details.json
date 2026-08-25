@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-24T07:10:55Z",
+ "generated": "2026-08-25T06:58:35Z",
  "minors": [
   {
    "minor": "4.22",
@@ -13518,6 +13518,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:59275",
+     "synopsis": "Red Hat OpenShift Container Platform 4.18 notice end of Maintenance support",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-25",
+     "url": "https://access.redhat.com/errata/RHBA-2026:59275"
+    },
     {
      "id": "RHEA-2026:56031",
      "synopsis": "Advisory for publishing Helm 3.19.5.1 CVE fix release for OCP 4.18",

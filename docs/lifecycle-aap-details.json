@@ -1,13 +1,26 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-08-24T07:11:57Z",
+ "generated": "2026-08-25T06:59:35Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:59137",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.7 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-24",
+     "url": "https://access.redhat.com/errata/RHSA-2026:59137",
+     "items": [
+      "automation-controller-cli: path traversal via YAML !include directive (CVE-2026-52902)",
+      "python-django: Django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)",
+      "python3.12-django: Django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)"
+     ]
+    },
     {
      "id": "RHBA-2026:57644",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Azure Billing Operator Bundle Update",
@@ -252,6 +265,36 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:59136",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-24",
+     "url": "https://access.redhat.com/errata/RHSA-2026:59136",
+     "items": [
+      "automation-controller: notification backends allow SSRF and credential leakage (CVE-2026-71366)",
+      "automation-controller: webhook status callback SSRF leaks the Git PAT (CVE-2026-71365)",
+      "automation-controller: project archive extraction allows path traversal file writes (CVE-2026-71364)",
+      "automation-controller: AIOHTTP: HTTP Request Smuggling via WebSocket Upgrade (CVE-2026-69243)",
+      "automation-controller: AIOHTTP: Denial of Service via malformed HTTP responses (CVE-2026-69244)",
+      "automation-controller: pyasn1: Denial of Service via crafted ASN.1 REAL values (CVE-2026-59886)",
+      "automation-controller: path traversal via YAML !include directive (CVE-2026-52902)",
+      "automation-controller: AIOHTTP: Arbitrary code execution via untrusted input to CookieJar.load() (CVE-2026-34993)",
+      "automation-controller: daphne: Denial of Service via excessive WebSocket message size (CVE-2026-44545)",
+      "automation-controller: JWCrypto: Memory exhaustion via crafted compressed JWE tokens (CVE-2026-39373)",
+      "automation-platform-ui: form-data: Form field override via CRLF injection (CVE-2026-12143)",
+      "automation-platform-ui: path Traversal via unsanitized prefix/postfix enables directory escape (CVE-2026-44705)",
+      "python-django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)",
+      "python3.12-aiohttp: HTTP Request Smuggling via WebSocket Upgrade (CVE-2026-69243)",
+      "python3.12-aiohttp: Denial of Service via malformed HTTP responses (CVE-2026-69244)",
+      "python3.12-django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)",
+      "python3.12-gitpython: Command Injection via Git option prefix abbreviation (CVE-2026-67325)",
+      "python3.12-gitpython: Arbitrary Code Execution via Joined Short Options Bypass (CVE-2026-67324)",
+      "python3.12-gitpython: Arbitrary code execution via command injection due to unguarded Git options (CVE-2026-67323)",
+      "python3.12-gitpython: Environment variable exfiltration via attacker-controlled clone URL (CVE-2026-67322)"
+     ]
+    },
     {
      "id": "RHBA-2026:51389",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
@@ -1235,6 +1278,33 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:59135",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.5 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-08-24",
+     "url": "https://access.redhat.com/errata/RHSA-2026:59135",
+     "items": [
+      "automation-controller: notification backends allow SSRF and credential leakage (CVE-2026-71366)",
+      "automation-controller: webhook status callback SSRF leaks the Git PAT (CVE-2026-71365)",
+      "automation-controller: project archive extraction allows path traversal file writes (CVE-2026-71364)",
+      "automation-controller: AIOHTTP: Denial of Service via malformed HTTP responses (CVE-2026-69244)",
+      "automation-controller: pyasn1: Denial of Service via crafted ASN.1 REAL values (CVE-2026-59886)",
+      "automation-controller: AIOHTTP: Arbitrary code execution via untrusted input to CookieJar.load() (CVE-2026-34993)",
+      "automation-controller: path traversal via YAML !include directive (CVE-2026-52902)",
+      "automation-controller: JWCrypto: Memory exhaustion via crafted compressed JWE tokens (CVE-2026-39373)",
+      "automation-gateway: path Traversal via unsanitized prefix/postfix enables directory escape (CVE-2026-44705)",
+      "python3.12-aiohttp: HTTP Request Smuggling via WebSocket Upgrade (CVE-2026-69243)",
+      "python3.12-aiohttp: Denial of Service via malformed HTTP responses (CVE-2026-69244)",
+      "python3.12-django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)",
+      "python3.12-gitpython: Command Injection via Git option prefix abbreviation (CVE-2026-67325)",
+      "python3.12-gitpython: Arbitrary Code Execution via Joined Short Options Bypass (CVE-2026-67324)",
+      "python3.12-gitpython: Arbitrary code execution via command injection due to unguarded Git options (CVE-2026-67323)",
+      "python3.12-gitpython: Environment variable exfiltration via attacker-controlled clone URL (CVE-2026-67322)",
+      "python3.12-gitpython: Arbitrary file overwrite and read via unsafe git option forwarding (CVE-2026-73620)"
+     ]
+    },
     {
      "id": "RHBA-2026:51388",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
