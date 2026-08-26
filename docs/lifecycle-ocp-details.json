@@ -1,12 +1,46 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-25T06:58:35Z",
+ "generated": "2026-08-26T06:59:19Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.11",
+     "date": "2026-08-25",
+     "errata": [
+      {
+       "id": "RHSA-2026:57362",
+       "synopsis": "Important: OpenShift Container Platform 4.22.11 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHSA-2026:57362",
+       "items": [
+        "bind: bind9: Potential memory usage beyond configured limits (CVE-2026-11622)",
+        "bind: bind9: Cache poisoning via label count discrepancy, RRSIG, wildcards (CVE-2026-11721)",
+        "bind: bind9: Unexpected exit with NSEC and NSEC3 both present (CVE-2026-13204)",
+        "bind: bind9: DNSSEC Validation Bypass via Out-of-Zone NSEC Next Field (CVE-2026-13321)",
+        "kernel: net: openvswitch: reject oversized nested action attrs (CVE-2026-64531)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:57361",
+       "synopsis": "Important: OpenShift Container Platform 4.22.11 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHSA-2026:57361",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "golang: Go os.Root: Symlink following vulnerability allows directory traversal (CVE-2026-39822)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.22.10",
      "date": "2026-08-18",
@@ -1401,6 +1435,36 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.30",
+     "date": "2026-08-25",
+     "errata": [
+      {
+       "id": "RHSA-2026:57457",
+       "synopsis": "Important: OpenShift Container Platform 4.21.30 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHSA-2026:57457",
+       "items": [
+        "kernel: xen: AMD Zen 2 Processors: Privilege escalation via improper CPU cache isolation (CVE-2025-54518)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "vim: command injection when decompressing .tgz archives (CVE-2026-46483)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:57456",
+       "synopsis": "Important: OpenShift Container Platform 4.21.30 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHSA-2026:57456",
+       "items": [
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.21.29",
      "date": "2026-08-18",
@@ -4387,6 +4451,25 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.35",
+     "date": "2026-08-25",
+     "errata": [
+      {
+       "id": "RHSA-2026:57543",
+       "synopsis": "Important: OpenShift Container Platform 4.20.35 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHSA-2026:57543",
+       "items": [
+        "kernel: xen: AMD Zen 2 Processors: Privilege escalation via improper CPU cache isolation (CVE-2025-54518)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "vim: command injection when decompressing .tgz archives (CVE-2026-46483)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.20.34",
      "date": "2026-08-18",

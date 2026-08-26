@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-08-25T06:59:35Z",
+ "generated": "2026-08-26T07:00:20Z",
  "minors": [
   {
    "minor": "2.7",
@@ -265,6 +265,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:59667",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:59667",
+     "items": [
+      "RPMs: RHSA-2026:59136",
+      "Containers: RHSA-2026:59155"
+     ]
+    },
     {
      "id": "RHSA-2026:59136",
      "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
@@ -1278,6 +1290,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:59666",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:59666",
+     "items": [
+      "RPMs: RHSA-2026:59135",
+      "Containers: RHSA-2026:59159"
+     ]
+    },
     {
      "id": "RHSA-2026:59135",
      "synopsis": "Important: Red Hat Ansible Automation Platform 2.5 Product Security and Bug Fix Update",
@@ -3998,6 +4022,17 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:59664",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:59664",
+     "items": [
+      "Containers: RHBA-2026:59150"
+     ]
+    },
     {
      "id": "RHBA-2026:51387",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",
