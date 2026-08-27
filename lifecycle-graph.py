@@ -1432,12 +1432,22 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
                 f'title="{ph["label"]} — {_open_tip}">{_open_label}</span>'
             )
         elif v["days_left"] <= 30:
-            _eol_date = v["last_end"].isoformat()
-            _eol_days = v["days_left"]
-            _msg = f"EOL on {_eol_date} ({_eol_days} days) — Please plan an upgrade and/or contact your support representative for assistance about this version before due date."
+            _cur_seg = next(s for s in v["segments"] if s["key"] == v["phase_key"])
+            _seg_idx = v["segments"].index(_cur_seg)
+            _is_final_phase = _cur_seg is v["segments"][-1]
+            _end_date = _cur_seg["end"].isoformat()
+            _days = v["days_left"]
+            if _is_final_phase:
+                _msg = f"EOL on {_end_date} ({_days} days) — Please plan an upgrade and/or contact your support representative for assistance about this version before due date."
+                _warn_color = "var(--red)"
+            else:
+                _cur_label = PHASES[_cur_seg["key"]]["label"]
+                _next_label = PHASES[v["segments"][_seg_idx + 1]["key"]]["label"]
+                _msg = f"{_cur_label} ends {_end_date} ({_days} days) — moves into {_next_label}, not end of support."
+                _warn_color = "#795600"
             days_badge = (
                 f'<span class="eol-warn">'
-                f'<span style="color:var(--red);font-weight:700;font-size:13px">⚠️ {_eol_days}d</span>'
+                f'<span style="color:{_warn_color};font-weight:700;font-size:13px">⚠️ {_days}d</span>'
                 f'<span class="eol-tip">{_msg}</span>'
                 f'</span>'
             )

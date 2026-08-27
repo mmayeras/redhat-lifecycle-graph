@@ -9,6 +9,7 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 ### Fixed
 - **RHEL major-chart ELS/Long Life dates** — `rhel_majors.elc_end` for RHEL 8/9/10 now matches the lifecycle API's own major-level phase dates (RHEL 8 was wrong: 2030-05-22 → 2033-05-31). Long Life add-on has no `end_date` in the API (Ongoing) — dropped the fixed `ll_end` field; `build_rhel_major_versions()` now draws Long Life open-ended (`phase_open`) once `elc_end` passes, same treatment as other ongoing phases.
 - **RHEL Long Life bar was invisible until reached** — Long Life now always renders as a projected future bar past `elc_end` (like every other phase on this chart), capped at a fixed 3-year width for plotting since it has no real end date; tooltip shows "Ongoing" instead of the synthetic cap date, and the version badge switches to "Ongoing" once the phase actually starts.
+- **False "EOL" warning on mid-lifecycle phase transitions** — the ⚠️ badge fired whenever *any* phase (not just the final one) was within 30 days of ending, but always labeled it "EOL on {last_end}" using the version's true final end date paired with the current (earlier) phase's days-left — mismatched date/countdown, and wrong wording when more support phases follow (e.g. Full Support → Maintenance). Now only the truly final phase says "EOL"; earlier phase transitions show "{phase} ends {date} ({days} days) — moves into {next phase}, not end of support" in amber instead of red.
 
 ---
 
