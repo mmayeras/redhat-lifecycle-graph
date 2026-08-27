@@ -1,12 +1,26 @@
 {
  "product": "rhoso",
  "title": "OpenStack on OpenShift",
- "generated": "2026-08-26T07:02:00Z",
+ "generated": "2026-08-27T07:29:48Z",
  "minors": [
   {
    "minor": "18.0",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openstack_services_on_openshift/18.0/html/release_notes/",
    "zstreams": [
+    {
+     "version": "18.0.22",
+     "date": "2026-08-26",
+     "errata": [
+      {
+       "id": "RHBA-2026:60162",
+       "synopsis": "Release of components for RHOSO 18.0.22",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-26",
+       "url": "https://access.redhat.com/errata/RHBA-2026:60162"
+      }
+     ]
+    },
     {
      "version": "18.0.21",
      "date": "2026-07-15",
