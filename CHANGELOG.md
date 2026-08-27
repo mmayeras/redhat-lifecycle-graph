@@ -6,6 +6,9 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ## [Unreleased]
 
+### Fixed
+- **RHEL major-chart ELS/Long Life dates** — `rhel_majors.elc_end` for RHEL 8/9/10 now matches the lifecycle API's own major-level phase dates (RHEL 8 was wrong: 2030-05-22 → 2033-05-31). Long Life add-on has no `end_date` in the API (Ongoing) — dropped the fixed `ll_end` field; `build_rhel_major_versions()` now draws Long Life open-ended (`phase_open`) once `elc_end` passes, same treatment as other ongoing phases.
+
 ---
 
 ## [0.2.6] — 2026-07-07

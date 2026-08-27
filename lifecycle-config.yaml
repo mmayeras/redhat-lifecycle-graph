@@ -88,17 +88,23 @@ rhel_minors:
     "10.0": { ga: "2025-05-20" }
 
 # ── RHEL major release lifecycle (major-level view) ───────────────────────────
-# RHEL bypasses the lifecycle API (use_major_phases: true) — API Full support /
-# Maintenance / ELS names do not match the subscription model below.
-# Source: https://access.redhat.com/support/policy/updates/errata
+# RHEL still bypasses the lifecycle API for minors (use_major_phases: true), but
+# the major-level ELS/Long Life dates below are sourced directly from the API's
+# per-major `phases[]` array, which now carries real dates for these phases:
+#   https://access.redhat.com/product-life-cycles/api/v1/products?name=Red+Hat+Enterprise+Linux
 #
 # std_end:  end of Standard subscription (= major Maintenance support end, year 10)
-# els_end:  end of Extended life cycle support (ELS) add-on (RHEL 7 only)
-# elc_end:  end of Extended Life Cycle, Premium subscription additional maintenance
-# ll_end:   end of Long Life add-on terms (majors with a .10 minor: 8, 9, 10)
+# els_end:  end of "Extended life cycle support (ELS) add-on" — RHEL 7 only
+#           (API display_name "Extended Life Cycle (ELC)")
+# elc_end:  end of the RHEL 8/9/10 "Extended life cycle support (ELS) add-on" window
+#           (API display_name "Extended Life Cycle (ELC)")
+#
+# Long Life add-on ("Extended life phase" in the API) has NO end_date — the API
+# marks it Ongoing. There is no ll_end field: once elc_end passes, the chart
+# draws Long Life open-ended (same treatment as other open/ongoing phases).
 rhel_majors:
   "7":  { ga: "2014-06-10", std_end: "2024-06-30", els_end: "2029-05-31" }
-  "8":  { ga: "2019-05-07", std_end: "2029-05-31", elc_end: "2030-05-22", ll_end: "2033-05-31" }
+  "8":  { ga: "2019-05-07", std_end: "2029-05-31", elc_end: "2033-05-31" }
   "9":  { ga: "2022-05-18", std_end: "2032-05-31", elc_end: "2036-05-31" }
   "10": { ga: "2025-05-20", std_end: "2035-05-31", elc_end: "2039-05-31" }
 
