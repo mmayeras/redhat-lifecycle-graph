@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-27T07:27:11Z",
+ "generated": "2026-08-27T07:46:36Z",
  "minors": [
   {
    "minor": "4.22",
@@ -30344,14 +30344,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -30361,6 +30353,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -34283,6 +34283,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -34292,14 +34300,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",

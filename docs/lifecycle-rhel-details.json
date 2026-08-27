@@ -1,7 +1,7 @@
 {
  "product": "rhel",
  "title": "RHEL Lifecycle",
- "generated": "2026-08-27T07:27:51Z",
+ "generated": "2026-08-27T07:47:17Z",
  "minors": [
   {
    "minor": "10.0",
