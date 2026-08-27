@@ -123,7 +123,7 @@ Major-version bars (RHEL 7, 8, 9, 10). Used when `use_major_phases: true` — th
 
 ```yaml
 rhel_majors:
-  "8": { ga: "2019-05-07", std_end: "2029-05-31", elc_end: "2030-05-22", ll_end: "2033-05-31" }
+  "8": { ga: "2019-05-07", std_end: "2029-05-31", elc_end: "2033-05-31" }
   "7": { ga: "2014-06-10", std_end: "2024-06-30", els_end: "2029-05-31" }
 ```
 
@@ -132,8 +132,9 @@ rhel_majors:
 | `ga` | yes | Major release GA |
 | `std_end` | yes | End of Standard subscription (= year 10 / Maintenance support end) |
 | `els_end` | no | End of Extended life cycle support (ELS) add-on — **RHEL 7 only** |
-| `elc_end` | no | End of Extended Life Cycle, Premium subscription additional maintenance |
-| `ll_end` | no | End of Long Life add-on terms (majors with a `.10` minor) |
+| `elc_end` | no | End of the RHEL 8/9/10 ELS/ELC add-on window |
+
+No `ll_end` field: per the lifecycle API, Long Life add-on ("Extended life phase") has no `end_date` — it's Ongoing. Once `elc_end` passes, `build_rhel_major_versions()` draws Long Life open-ended (`rhel_ll`, `phase_open: true`) instead of reading a fixed end date.
 
 > **Date format**: always quote dates as strings — `"2024-05-18"` not `2024-05-18`. Bare dates are auto-converted to Python `datetime.date` objects by PyYAML, which breaks string comparisons.
 
@@ -229,7 +230,7 @@ Add a `fallback:` block with known dates to protect against API downtime (see ot
 
 **Policy**: https://access.redhat.com/support/policy/updates/errata
 
-RHEL is **not** driven by the [Product Life Cycles API](https://access.redhat.com/product-life-cycles/api/v1/products?name=Red+Hat+Enterprise+Linux). That API returns legacy phase names (Full support, Maintenance support, ELS add-on) that do not match the current **subscription model**. Instead, RHEL uses `use_major_phases: true` and reads dates from `rhel_majors` and `rhel_minors` in YAML.
+RHEL is **not** fetched live from the [Product Life Cycles API](https://access.redhat.com/product-life-cycles/api/v1/products?name=Red+Hat+Enterprise+Linux) at build time — the API's `Full support`/`Maintenance support` phase names don't match the current **subscription model**, and it has no per-minor breakdown. Instead, RHEL uses `use_major_phases: true` and reads dates from `rhel_majors` and `rhel_minors` in YAML. The API's major-level `phases[]` array *does* carry accurate ELS ("Extended Life Cycle (ELC)") and Long Life ("Extended life phase") dates for RHEL 8/9/10 — those are the source for `elc_end` in `rhel_majors`, kept as a manually-updated snapshot rather than a live fetch.
 
 Reference: [RHEL in a nutshell — Extended Life Cycle](https://docs.google.com/presentation/d/1GEVy4z9j2eUOFTuLODywBc9p1cDIp0oUTyZkiczknBs/edit?slide=id.g3d84542a08c_0_266).
 
@@ -254,7 +255,7 @@ These four phases apply at **minor** release level.
 | Standard subscription | `rhel_std` | years 1–10 (Full + Maintenance support combined) |
 | Extended life cycle support (ELS) add-on | `rhel_els` | **RHEL 7 only** |
 | Extended Life Cycle, Premium subscription additional maintenance | `rhel_elcp` | RHEL 8/9/10 — extended maintenance after year 10 |
-| Long Life add-on terms | `rhel_ll` | RHEL 8+ when `.10` minor dates are known |
+| Long Life add-on terms | `rhel_ll` | RHEL 8/9/10 — open-ended once `elc_end` passes (no `end_date` in the API; Ongoing) |
 
 `build_rhel_major_versions()` reads `_RHEL_MAJOR_DATA` (from `rhel_majors`).  
 `build_rhel_minor_versions(major)` reads `_RHEL_MINOR_DATA` (from `rhel_minors`).
@@ -266,7 +267,7 @@ These four phases apply at **minor** release level.
 | **ELS** | Extended life cycle support (ELS) add-on | RHEL **7** major only | `els_end` in `rhel_majors` |
 | **ELC** | Extended Life Cycle, Premium subscription additional maintenance | RHEL **8/9/10** minors and majors | `elc_end` in `rhel_minors` / `rhel_majors` |
 
-The lifecycle API conflates these programs and returns inaccurate major-level dates. Maintain RHEL dates manually from the [errata policy page](https://access.redhat.com/support/policy/updates/errata).
+Minor-level ELC dates still come from the [errata policy page](https://access.redhat.com/support/policy/updates/errata) (no per-minor breakdown in the API). Major-level ELS/ELC and Long Life dates (`rhel_majors.elc_end`) come from the lifecycle API's `phases[]` array, which does carry accurate major-level dates for these programs — just not the minor-level split. Maintain both manually in `lifecycle-config.yaml`.
 
 ### RHEL minor versions (the "Show minor releases" toggle)
 
