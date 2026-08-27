@@ -100,8 +100,9 @@ rhel_minors:
 #           (API display_name "Extended Life Cycle (ELC)")
 #
 # Long Life add-on ("Extended life phase" in the API) has NO end_date — the API
-# marks it Ongoing. There is no ll_end field: once elc_end passes, the chart
-# draws Long Life open-ended (same treatment as other open/ongoing phases).
+# marks it Ongoing. There is no ll_end field: the chart always draws it as a
+# projected future bar once elc_end is set (capped for plotting, tooltip shows
+# "Ongoing"); once today reaches elc_end the version badge switches to "Ongoing".
 rhel_majors:
   "7":  { ga: "2014-06-10", std_end: "2024-06-30", els_end: "2029-05-31" }
   "8":  { ga: "2019-05-07", std_end: "2029-05-31", elc_end: "2033-05-31" }
