@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-08-26T07:01:58Z",
+ "generated": "2026-08-27T07:29:46Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2047,17 +2047,6 @@
      ]
     },
     {
-     "id": "RHSA-2023:0275",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2023-01-25",
-     "url": "https://access.redhat.com/errata/RHSA-2023:0275",
-     "items": [
-      "unrestricted creation of security groups (CVE-2022-3277)"
-     ]
-    },
-    {
      "id": "RHSA-2023:0274",
      "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
      "kind": "security",
@@ -2066,6 +2055,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2023:0274",
      "items": [
       "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
+     ]
+    },
+    {
+     "id": "RHSA-2023:0275",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2023-01-25",
+     "url": "https://access.redhat.com/errata/RHSA-2023:0275",
+     "items": [
+      "unrestricted creation of security groups (CVE-2022-3277)"
      ]
     },
     {
