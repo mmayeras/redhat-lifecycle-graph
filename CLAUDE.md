@@ -130,7 +130,7 @@ curl "https://access.redhat.com/product-life-cycles/api/v1/products?name=My+Oper
 
 RHEL bypasses the lifecycle API for minors (`use_major_phases: true`). All dates live in two YAML blocks:
 
-**Major versions** — `rhel_majors:` (`std_end`, `els_end` for RHEL 7, `elc_end` for 8/9/10). No `ll_end` field: the lifecycle API's `phases[]` array gives Long Life ("Extended life phase") no `end_date` — it's Ongoing — so `build_rhel_major_versions()` draws it open-ended once `elc_end` passes, same as other open/ongoing phases. Source for `elc_end`: the API's own major-level phase dates (`https://access.redhat.com/product-life-cycles/api/v1/products?name=Red+Hat+Enterprise+Linux`), which — unlike its minor-level data — are accurate for ELS/ELC and Long Life.
+**Major versions** — `rhel_majors:` (`std_end`, `els_end` for RHEL 7, `elc_end` for 8/9/10). No `ll_end` field: the lifecycle API's `phases[]` array gives Long Life ("Extended life phase") no `end_date` — it's Ongoing — so `build_rhel_major_versions()` always draws it as a projected bar once `elc_end` is set (capped at a fixed 3-year width for plotting, tooltip shows "Ongoing"); once `today` reaches `elc_end` the badge shows `Ongoing` instead of a countdown. Source for `elc_end`: the API's own major-level phase dates (`https://access.redhat.com/product-life-cycles/api/v1/products?name=Red+Hat+Enterprise+Linux`), which — unlike its minor-level data — are accurate for ELS/ELC and Long Life.
 
 **Minor versions** — `rhel_minors:` per the field reference below.
 

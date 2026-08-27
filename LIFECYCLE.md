@@ -134,7 +134,7 @@ rhel_majors:
 | `els_end` | no | End of Extended life cycle support (ELS) add-on — **RHEL 7 only** |
 | `elc_end` | no | End of the RHEL 8/9/10 ELS/ELC add-on window |
 
-No `ll_end` field: per the lifecycle API, Long Life add-on ("Extended life phase") has no `end_date` — it's Ongoing. Once `elc_end` passes, `build_rhel_major_versions()` draws Long Life open-ended (`rhel_ll`, `phase_open: true`) instead of reading a fixed end date.
+No `ll_end` field: per the lifecycle API, Long Life add-on ("Extended life phase") has no `end_date` — it's Ongoing. `build_rhel_major_versions()` always draws it once `elc_end` is set (a normal projected future bar, like every other phase on this chart), capped at a fixed 3-year width for plotting (`end_label: "Ongoing"` overrides the tooltip's date). Once `today` actually reaches `elc_end`, the version's badge shows `Ongoing` (`phase_open: true`) instead of a days-left countdown.
 
 > **Date format**: always quote dates as strings — `"2024-05-18"` not `2024-05-18`. Bare dates are auto-converted to Python `datetime.date` objects by PyYAML, which breaks string comparisons.
 
@@ -255,7 +255,7 @@ These four phases apply at **minor** release level.
 | Standard subscription | `rhel_std` | years 1–10 (Full + Maintenance support combined) |
 | Extended life cycle support (ELS) add-on | `rhel_els` | **RHEL 7 only** |
 | Extended Life Cycle, Premium subscription additional maintenance | `rhel_elcp` | RHEL 8/9/10 — extended maintenance after year 10 |
-| Long Life add-on terms | `rhel_ll` | RHEL 8/9/10 — open-ended once `elc_end` passes (no `end_date` in the API; Ongoing) |
+| Long Life add-on terms | `rhel_ll` | RHEL 8/9/10 — always drawn as a projected future bar past `elc_end`, capped for plotting (no `end_date` in the API; Ongoing) |
 
 `build_rhel_major_versions()` reads `_RHEL_MAJOR_DATA` (from `rhel_majors`).  
 `build_rhel_minor_versions(major)` reads `_RHEL_MINOR_DATA` (from `rhel_minors`).

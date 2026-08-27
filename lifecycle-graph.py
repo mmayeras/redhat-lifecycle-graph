@@ -1249,6 +1249,11 @@ def build_rhel_minor_versions(major_ver: str) -> list[dict]:
 def build_rhel_major_versions() -> list[dict]:
     """Build major-version dicts for RHEL using subscription phase keys from rhel_majors."""
     today = date.today()
+    # Long Life add-on ("Extended life phase") has no end_date in the API — it's
+    # Ongoing (indefinite, yearly renewal). Draw it like every other future-dated
+    # phase on this chart (projected ahead of time) rather than hiding it until
+    # reached; cap its plotted width since "forever" isn't a real coordinate.
+    OPEN_PHASE_CAP = timedelta(days=365 * 3)
     result = []
     for ver in sorted(_RHEL_MAJOR_DATA.keys(), key=lambda v: int(v), reverse=True):
         m = _RHEL_MAJOR_DATA[ver]
@@ -1258,29 +1263,30 @@ def build_rhel_major_versions() -> list[dict]:
         elc_end = _d(m["elc_end"]) if "elc_end" in m else None
         segments = [{"key": "rhel_std", "start": ga, "end": std_end}]
         ext_start = std_end
-        phase_open = False
+        ongoing_start = None
         if els_end and els_end > ext_start:
             segments.append({"key": "rhel_els", "start": ext_start, "end": els_end})
             ext_start = els_end
         if elc_end and elc_end > ext_start:
             segments.append({"key": "rhel_elcp", "start": ext_start, "end": elc_end})
             ext_start = elc_end
-            # Long Life add-on has no end_date in the API (Ongoing) — once it
-            # starts, draw it open-ended up to today rather than a fixed end.
-            if ext_start <= today:
-                segments.append({"key": "rhel_ll", "start": ext_start, "end": today})
-                phase_open = True
+            ongoing_start = elc_end
+            segments.append({
+                "key": "rhel_ll", "start": elc_end, "end": elc_end + OPEN_PHASE_CAP,
+                "end_label": "Ongoing",
+            })
         last_end = segments[-1]["end"]
         phase_key = "eol"
         days_left = 0
-        if phase_open:
-            phase_key = "rhel_ll"
-        else:
-            for seg in segments:
-                if today <= seg["end"]:
-                    phase_key = seg["key"]
+        phase_open = False
+        for seg in segments:
+            if today <= seg["end"]:
+                phase_key = seg["key"]
+                if phase_key == "rhel_ll" and ongoing_start and today >= ongoing_start:
+                    phase_open = True
+                else:
                     days_left = (seg["end"] - today).days
-                    break
+                break
         is_eol = phase_key == "eol"
         result.append({
             "version": ver, "ga": ga, "last_end": last_end,
@@ -1393,7 +1399,8 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
                 f'<span class="phase-bar-label" style="font-size:{fs};color:{ph["text"]};font-weight:600">'
                 f'{bar_text}</span>'
             ) if show_label and bar_text else ""
-            _tip_text = f'{ph["label"]} | {seg["start"].isoformat()} → {seg["end"].isoformat()}'
+            _end_label = seg.get("end_label", seg["end"].isoformat())
+            _tip_text = f'{ph["label"]} | {seg["start"].isoformat()} → {_end_label}'
             segs_html += (
                 f'<div data-phase="{_tip_text}" '
                 f'style="width:{w:.3f}%;height:100%;background:{ph["bg"]};'
@@ -1413,14 +1420,16 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
             days_badge = '<span style="color:var(--red);font-weight:700;font-size:13px">EOL</span>'
         elif v.get("phase_open"):
             ph = PHASES[v["phase_key"]]
+            _is_rhel_ll = v["phase_key"] == "rhel_ll"
             _open_tip = (
                 "no fixed end date per the lifecycle API"
-                if v["phase_key"] == "rhel_ll"
+                if _is_rhel_ll
                 else "ongoing until the referenced release is published"
             )
+            _open_label = "Ongoing" if _is_rhel_ll else "active"
             days_badge = (
                 f'<span style="color:{ph["text"]};font-weight:600;font-size:13px" '
-                f'title="{ph["label"]} — {_open_tip}">active</span>'
+                f'title="{ph["label"]} — {_open_tip}">{_open_label}</span>'
             )
         elif v["days_left"] <= 30:
             _eol_date = v["last_end"].isoformat()
@@ -2545,7 +2554,8 @@ def render_svg(versions: list[dict], chart_label: str, width: int = 1400,
             els.append(f'<text x="{chart_right + 8}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="12" font-weight="700" fill="{C_EOL}">EOL</text>')
         elif v.get("phase_open"):
             ph = PHASES[v["phase_key"]]
-            els.append(f'<text x="{chart_right + 8}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="12" font-weight="600" fill="{ph["text"]}">active</text>')
+            _open_label = "Ongoing" if v["phase_key"] == "rhel_ll" else "active"
+            els.append(f'<text x="{chart_right + 8}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="12" font-weight="600" fill="{ph["text"]}">{_open_label}</text>')
         else:
             ph = PHASES[v["phase_key"]]
             els.append(f'<text x="{chart_right + 8}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="12" font-weight="600" fill="{ph["text"]}">{v["days_left"]}d</text>')
