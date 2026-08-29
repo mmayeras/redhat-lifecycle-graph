@@ -1,8 +1,42 @@
 {
  "product": "rhoai",
  "title": "RHOAI Lifecycle",
- "generated": "2026-08-28T18:31:34Z",
+ "generated": "2026-08-29T12:37:18Z",
  "minors": [
+  {
+   "minor": "3.5",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.5/html/release_notes/",
+   "zstreams": [],
+   "unversioned": [],
+   "features": [
+    {
+     "area": "New features and enhancements",
+     "items": [
+      {
+       "t": "New features 3.5 GA new features Migration guide using rhai-cli for upgrading from\u2026",
+       "d": "This guide walks administrators through the pre-upgrade migration assessment process by using the rhai-cli command-line tool, including guidance for side-by-side and in-place migration approaches, Kueue management-state prerequisites, and component-specific rhai-cli migrate actions for Kueue/RHBOK, AI Pipelines, Model Serving, Workbenches\u2026"
+      },
+      {
+       "t": "This new guide is a parallel edition for customers migrating to OpenShift AI",
+       "d": ""
+      },
+      {
+       "t": "After upgrading to 3.5, move away from the support-required-upgrade-3.5 update channel\u2026",
+       "d": "Select an appropriate supported update channel for your environment, such as stable-3.5, stable-3.x, or eus-3.5, according to your update and lifecycle requirements. For information about available update channels and their lifecycle, see Red Hat OpenShift AI Self-Managed Life Cycle. External OIDC authentication for Models-as-a-Service You can\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Technology Preview features",
+     "items": [
+      {
+       "t": "3.5 GA Technology Preview features MCP gateway Operator as an external dependency for MCP\u2026",
+       "d": "The MCP gateway Operator must be installed, configured, and upgraded independently from the OpenShift AI operator lifecycle. Cluster administrators are responsible for its full lifecycle management. Unified dashboard experience for generative AI model deployment workflows Generative AI model deployment workflows are in a unified dashboard\u2026"
+      }
+     ]
+    }
+   ]
+  },
   {
    "minor": "3.4",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.4/html/release_notes/",
