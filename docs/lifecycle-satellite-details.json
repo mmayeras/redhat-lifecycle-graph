@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-08-30T11:46:10Z",
+ "generated": "2026-08-31T13:23:50Z",
  "minors": [
   {
    "minor": "6.19",
@@ -120,7 +120,16 @@
      ]
     }
    ],
-   "unversioned": [],
+   "unversioned": [
+    {
+     "id": "RHBA-2026:51087",
+     "synopsis": "Satellite 6 Client Bug Fix Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-06",
+     "url": "https://access.redhat.com/errata/RHBA-2026:51087"
+    }
+   ],
    "features": [
     {
      "area": "Overview",

@@ -1,7 +1,7 @@
 {
  "product": "rhoso",
  "title": "OpenStack on OpenShift",
- "generated": "2026-08-30T11:45:42Z",
+ "generated": "2026-08-31T13:23:20Z",
  "minors": [
   {
    "minor": "18.0",
@@ -925,49 +925,6 @@
      "severity": "None",
      "date": "2024-08-13",
      "url": "https://access.redhat.com/errata/RHEA-2024:5245"
-    }
-   ],
-   "features": [
-    {
-     "area": "New and enhanced features",
-     "items": [
-      {
-       "t": "New and enhanced features in 18.0.14 (FR4)",
-       "d": ""
-      },
-      {
-       "t": "Compute Erase all data on an NVMe device by using the NVMe cleanup agent You can now\u2026",
-       "d": ""
-      },
-      {
-       "t": "Data plane Deploy data plane nodes with Image Mode (bootc) images Deploying data plane\u2026",
-       "d": "Technology Preview features are not fully supported by Red Hat. It should only be used for testing, and should not be deployed in a production environment."
-      },
-      {
-       "t": "Documentation Documentation library restructured The documentation library page was\u2026",
-       "d": "The new structure includes the following enhancements: Validated Architectures were moved to a new category \"Deploy a Validated Architecture environment\". Several guides were moved to different categories to align with the actual user life cycle needs. The guide Deploying RHOSO at scale was renamed to Planning a large-scale RHOSO deployment. The\u2026"
-      },
-      {
-       "t": "High availability Configuring authentication for the memcached service Starting with RHOSO\u2026",
-       "d": "For more information, see Configuring authentication for the memcached service in Customizing the Red Hat OpenStack Services on OpenShift deployment. Configuring quorum queues for RabbitMQ in new deployments Starting with RHOSO 18.0.14 (Feature Release 4), RabbitMQ supports the use of the Quorum queues for new RHOSO deployments. A Quorum queue is a\u2026"
-      },
-      {
-       "t": "Migration Migrate VMs with VMware Migration Toolkit In RHOSO 18.0.14 (Feature Release 4)\u2026",
-       "d": ""
-      },
-      {
-       "t": "Networking Observability metrics expanded from data plane nodes to data plane and control\u2026",
-       "d": "Starting with RHOSO 18.0.14 (Feature Release 4), Prometheus OVS/OVN Exporter is also available on control plane pods. New groups of metrics are also included. For more information, see Network observability in Managing networking resources. Firewall-as-a-Service (FWaaS) Technology Preview In RHOSO 18.0.14 (Feature Release 4), you can test a\u2026"
-      },
-      {
-       "t": "Security Multi-realm federation support Starting with RHOSO 18.0.14 (Feature Release 4)\u2026",
-       "d": "For more information, see Configuring multi-realm federated authentication in Configuring security services."
-      },
-      {
-       "t": "Storage Notifications for events in the Block Storage service and Shared File Systems\u2026",
-       "d": ""
-      }
-     ]
     }
    ]
   }

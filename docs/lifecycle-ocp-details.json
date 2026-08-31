@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-08-30T11:43:07Z",
+ "generated": "2026-08-31T13:20:36Z",
  "minors": [
   {
    "minor": "4.22",
@@ -106,6 +106,18 @@
        "url": "https://access.redhat.com/errata/RHBA-2026:51037"
       },
       {
+       "id": "RHSA-2026:51036",
+       "synopsis": "Important: OpenShift Container Platform 4.22.9 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHSA-2026:51036",
+       "items": [
+        "golang.org/x/crypto/ssh: golang: golang.org/x/crypto/ssh: Denial of Service via crafted SSH certificate (CVE-2026-39835)",
+        "golang.org/x/crypto/ssh: golang.org/x/crypto/ssh: Denial of Service via crafted AES-GCM packet decoder inputs (CVE-2026-46597)"
+       ]
+      },
+      {
        "id": "RHSA-2026:51038",
        "synopsis": "OpenShift Container Platform 4.22.9 bug fix and security update",
        "kind": "security",
@@ -142,6 +154,14 @@
        "severity": "None",
        "date": "2026-08-04",
        "url": "https://access.redhat.com/errata/RHBA-2026:48692"
+      },
+      {
+       "id": "RHBA-2026:48691",
+       "synopsis": "OpenShift Container Platform 4.22.8 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48691"
       },
       {
        "id": "RHSA-2026:48693",
@@ -564,6 +584,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:58557",
+     "synopsis": "Advisory for publishing Helm 3.21.2.1 FIPS re-release for OCP 4.22.",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-08-24",
+     "url": "https://access.redhat.com/errata/RHEA-2026:58557"
+    },
     {
      "id": "RHBA-2026:54475",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -1087,7 +1115,7 @@
      "items": [
       {
        "t": "The IBM Power(R) release on OpenShift Container Platform 4.22 adds improvements and new capabilities to OpenShift Container Platform components",
-       "d": "New features on IBM Power(R) include: Installer-provisioned infrastructure for IBM PowerVC is now generally available. Enforce RSA key format for Installer-provisioned infrastructure on IBM Power(R) Virtual Server. Harden the destroy logic for Installer-provisioned infrastructure on IBM Power(R) Virtual Server to simplify removing a cluster."
+       "d": "New features on IBM Power(R) include: Installer-provisioned infrastructure for IBM PowerVC is now generally available. Enforce RSA key format for Installer-provisioned infrastructure on IBM Power(R) Virtual Server. Harden the destroy logic for Installer-provisioned infrastructure on IBM Power(R) Virtual Server to simplify removing a cluster. Add DAL14 region to the Installer-provisioned\u2026"
       }
      ]
     },
@@ -1483,6 +1511,14 @@
         "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
         "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
        ]
+      },
+      {
+       "id": "RHBA-2026:54598",
+       "synopsis": "OpenShift Container Platform 4.21.29 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHBA-2026:54598"
       }
      ]
     },
@@ -1551,6 +1587,14 @@
        "severity": "None",
        "date": "2026-08-04",
        "url": "https://access.redhat.com/errata/RHBA-2026:48672"
+      },
+      {
+       "id": "RHBA-2026:48668",
+       "synopsis": "OpenShift Container Platform 4.21.27 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48668"
       },
       {
        "id": "RHSA-2026:48670",
@@ -4489,6 +4533,17 @@
         "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
         "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
        ]
+      },
+      {
+       "id": "RHSA-2026:54580",
+       "synopsis": "Important: OpenShift Container Platform 4.20.34 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54580",
+       "items": [
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)"
+       ]
       }
      ]
     },
@@ -4503,6 +4558,14 @@
        "severity": "None",
        "date": "2026-08-11",
        "url": "https://access.redhat.com/errata/RHBA-2026:51024"
+      },
+      {
+       "id": "RHBA-2026:51018",
+       "synopsis": "OpenShift Container Platform 4.20.33 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHBA-2026:51018"
       },
       {
        "id": "RHBA-2026:51019",
@@ -4534,6 +4597,14 @@
      "version": "4.20.32",
      "date": "2026-08-04",
      "errata": [
+      {
+       "id": "RHBA-2026:48673",
+       "synopsis": "OpenShift Container Platform 4.20.32 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-05",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48673"
+      },
       {
        "id": "RHBA-2026:48674",
        "synopsis": "OpenShift Container Platform 4.20.32 bug fix update",
@@ -7721,6 +7792,19 @@
         "dnsmasq: dnsmasq: heap buffer overflow in cache via NAME_ESCAPE expansion (CVE-2026-2291)",
         "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
        ]
+      },
+      {
+       "id": "RHSA-2026:54552",
+       "synopsis": "Important: OpenShift Container Platform 4.19.43 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-19",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54552",
+       "items": [
+        "net: golang: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+        "net/mail: golang: Go net/mail: Denial of Service via crafted email inputs (CVE-2026-39820)",
+        "net/mail: golang: net/mail: Denial of Service via pathological email address parsing (CVE-2026-42499)"
+       ]
       }
      ]
     },
@@ -7743,6 +7827,14 @@
        "severity": "None",
        "date": "2026-08-12",
        "url": "https://access.redhat.com/errata/RHBA-2026:51006"
+      },
+      {
+       "id": "RHBA-2026:51005",
+       "synopsis": "OpenShift Container Platform 4.19.42 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-12",
+       "url": "https://access.redhat.com/errata/RHBA-2026:51005"
       },
       {
        "id": "RHSA-2026:51007",
@@ -11184,6 +11276,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2026:51012"
       },
       {
+       "id": "RHBA-2026:51011",
+       "synopsis": "OpenShift Container Platform 4.18.52 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-12",
+       "url": "https://access.redhat.com/errata/RHBA-2026:51011"
+      },
+      {
        "id": "RHSA-2026:51013",
        "synopsis": "OpenShift Container Platform 4.18.52 bug fix and security update",
        "kind": "security",
@@ -13399,20 +13499,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2025:3295"
       },
       {
-       "id": "RHBA-2025:3293",
-       "synopsis": "OpenShift Container Platform 4.18.7 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2025-04-03",
-       "url": "https://access.redhat.com/errata/RHBA-2025:3293"
-      },
-      {
        "id": "RHBA-2025:3292",
        "synopsis": "OpenShift Container Platform 4.18.7 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2025-04-03",
        "url": "https://access.redhat.com/errata/RHBA-2025:3292"
+      },
+      {
+       "id": "RHBA-2025:3293",
+       "synopsis": "OpenShift Container Platform 4.18.7 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-03",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3293"
       }
      ]
     },
@@ -15171,6 +15271,14 @@
         "kernel: Linux kernel: smb: client: reject userspace cifs.spnego descriptions (CVE-2026-46243)",
         "kernel: Linux kernel: Use-After-Free in net/gro due to improper handling of zerocopy skbs (CVE-2026-46323)"
        ]
+      },
+      {
+       "id": "RHBA-2026:47726",
+       "synopsis": "OpenShift Container Platform 4.17.56 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:47726"
       },
       {
        "id": "RHBA-2026:47730",
@@ -19110,6 +19218,36 @@
      "version": "4.16.69",
      "date": "2026-08-26",
      "errata": [
+      {
+       "id": "RHSA-2026:56853",
+       "synopsis": "Important: OpenShift Container Platform 4.16.69 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-31",
+       "url": "https://access.redhat.com/errata/RHSA-2026:56853",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "samba: Remote Code Execution in SAMR (CVE-2026-4408)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "gnutls: GnuTLS: Denial of Service via DTLS zero-length fragment (CVE-2026-33845)",
+        "gnutls: GnuTLS: Denial of Service via heap buffer overflow in DTLS handshake fragment reassembly (CVE-2026-33846)",
+        "vim: arbitrary command execution via modeline sandbox bypass (CVE-2026-34982)",
+        "gnutls: gnutls: Denial of Service via DTLS packet reordering vulnerability (CVE-2026-42009)",
+        "gnutls: gnutls: Authentication Bypass via NUL Character in Username (CVE-2026-42010)",
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "kernel: net: openvswitch: reject oversized nested action attrs (CVE-2026-64531)",
+        "icu: Stack buffer overflow in the SRBRoot::addTag function (CVE-2025-5222)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "gnutls: gnutls: Information disclosure via heap overread in RSA key exchange (CVE-2026-5260)",
+        "glibc: glibc: Heap Buffer Overflow in `scanf` with `%mc` format specifier and large width (CVE-2026-5450)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)",
+        "vim: zip.vim: Vim zip.vim plugin: Arbitrary file overwrite via path traversal bypass (CVE-2026-35177)",
+        "vim: Vim: Command injection allows arbitrary code execution via malicious tag files (CVE-2026-41411)"
+       ]
+      },
       {
        "id": "RHSA-2026:56852",
        "synopsis": "Important: OpenShift Container Platform 4.16.69 packages and security update",
@@ -23889,6 +24027,34 @@
      "date": "2026-08-26",
      "errata": [
       {
+       "id": "RHSA-2026:56911",
+       "synopsis": "Important: OpenShift Container Platform 4.15.68 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-31",
+       "url": "https://access.redhat.com/errata/RHSA-2026:56911",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "samba: Remote Code Execution in SAMR (CVE-2026-4408)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "gnutls: GnuTLS: Denial of Service via DTLS zero-length fragment (CVE-2026-33845)",
+        "gnutls: GnuTLS: Denial of Service via heap buffer overflow in DTLS handshake fragment reassembly (CVE-2026-33846)",
+        "vim: arbitrary command execution via modeline sandbox bypass (CVE-2026-34982)",
+        "gnutls: gnutls: Denial of Service via DTLS packet reordering vulnerability (CVE-2026-42009)",
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "icu: Stack buffer overflow in the SRBRoot::addTag function (CVE-2025-5222)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)",
+        "vim: zip.vim: Vim zip.vim plugin: Arbitrary file overwrite via path traversal bypass (CVE-2026-35177)",
+        "vim: Vim: Command injection allows arbitrary code execution via malicious tag files (CVE-2026-41411)",
+        "vim: command injection when decompressing .tgz archives (CVE-2026-46483)",
+        "libsolv: Heap buffer overflow in libsolv repopagestore via unchecked decompression of malicious .solv page data (CVE-2026-48864)"
+       ]
+      },
+      {
        "id": "RHSA-2026:56910",
        "synopsis": "Important: OpenShift Container Platform 4.15.68 packages and security update",
        "kind": "security",
@@ -27547,6 +27713,34 @@
      "date": "2026-08-26",
      "errata": [
       {
+       "id": "RHSA-2026:56786",
+       "synopsis": "Important: OpenShift Container Platform 4.14.72 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-31",
+       "url": "https://access.redhat.com/errata/RHSA-2026:56786",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "samba: Remote Code Execution in SAMR (CVE-2026-4408)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "gnutls: GnuTLS: Denial of Service via DTLS zero-length fragment (CVE-2026-33845)",
+        "gnutls: GnuTLS: Denial of Service via heap buffer overflow in DTLS handshake fragment reassembly (CVE-2026-33846)",
+        "vim: arbitrary command execution via modeline sandbox bypass (CVE-2026-34982)",
+        "gnutls: gnutls: Denial of Service via DTLS packet reordering vulnerability (CVE-2026-42009)",
+        "kernel: net: openvswitch: reject oversized nested action attrs (CVE-2026-64531)",
+        "icu: Stack buffer overflow in the SRBRoot::addTag function (CVE-2025-5222)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)",
+        "vim: zip.vim: Vim zip.vim plugin: Arbitrary file overwrite via path traversal bypass (CVE-2026-35177)",
+        "vim: Vim: Command injection allows arbitrary code execution via malicious tag files (CVE-2026-41411)",
+        "vim: command injection when decompressing .tgz archives (CVE-2026-46483)",
+        "libsolv: Heap buffer overflow in libsolv repopagestore via unchecked decompression of malicious .solv page data (CVE-2026-48864)"
+       ]
+      },
+      {
        "id": "RHSA-2026:56785",
        "synopsis": "Important: OpenShift Container Platform 4.14.72 packages and security update",
        "kind": "security",
@@ -27574,6 +27768,14 @@
        "severity": "None",
        "date": "2026-08-13",
        "url": "https://access.redhat.com/errata/RHBA-2026:50680"
+      },
+      {
+       "id": "RHBA-2026:50679",
+       "synopsis": "OpenShift Container Platform 4.14.71 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-13",
+       "url": "https://access.redhat.com/errata/RHBA-2026:50679"
       },
       {
        "id": "RHBA-2026:50683",
@@ -30344,6 +30546,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
+      },
+      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -30353,14 +30563,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -30957,6 +31159,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:61573",
+     "synopsis": "Red Hat OpenShift Container Platform 4.14 two month notice end of Extended Update Support Term 2",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-31",
+     "url": "https://access.redhat.com/errata/RHBA-2026:61573"
+    },
     {
      "id": "RHEA-2026:52927",
      "synopsis": "Advisory for publishing Helm 3.15.4.2 CVE fix release for OCP 4.14",
@@ -32651,6 +32861,14 @@
        "severity": "Important",
        "date": "2026-08-20",
        "url": "https://access.redhat.com/errata/RHSA-2026:54187"
+      },
+      {
+       "id": "RHBA-2026:54186",
+       "synopsis": "OpenShift Container Platform 4.13.70 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-20",
+       "url": "https://access.redhat.com/errata/RHBA-2026:54186"
       }
      ]
     },
@@ -36882,6 +37100,14 @@
        "severity": "Important",
        "date": "2026-08-06",
        "url": "https://access.redhat.com/errata/RHSA-2026:47702"
+      },
+      {
+       "id": "RHBA-2026:47701",
+       "synopsis": "OpenShift Container Platform 4.12.95 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:47701"
       },
       {
        "id": "RHSA-2026:47703",
@@ -44416,20 +44642,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:6808"
       },
       {
-       "id": "RHBA-2022:6810",
-       "synopsis": "OpenShift Container Platform 4.11.8 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-10-12",
-       "url": "https://access.redhat.com/errata/RHBA-2022:6810"
-      },
-      {
        "id": "RHBA-2022:6809",
        "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-10-12",
        "url": "https://access.redhat.com/errata/RHBA-2022:6809"
+      },
+      {
+       "id": "RHBA-2022:6810",
+       "synopsis": "OpenShift Container Platform 4.11.8 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-10-12",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6810"
       }
      ]
     },
@@ -46744,20 +46970,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:9101"
       },
       {
-       "id": "RHBA-2022:9100",
-       "synopsis": "OpenShift Container Platform 4.10.46 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2023-01-04",
-       "url": "https://access.redhat.com/errata/RHBA-2022:9100"
-      },
-      {
        "id": "RHBA-2022:9099",
        "synopsis": "OpenShift Container Platform 4.10.46 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2023-01-04",
        "url": "https://access.redhat.com/errata/RHBA-2022:9099"
+      },
+      {
+       "id": "RHBA-2022:9100",
+       "synopsis": "OpenShift Container Platform 4.10.46 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-01-04",
+       "url": "https://access.redhat.com/errata/RHBA-2022:9100"
       },
       {
        "id": "RHSA-2022:9098",
