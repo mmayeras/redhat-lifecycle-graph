@@ -1463,7 +1463,8 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
             f'    <code class="ver-code">{v["version"]}</code>{eus_badge}'
             f'  </div>'
             f'  <div class="chart-row-bar">'
-            f'    <div style="position:absolute;left:{bar_left:.3f}%;width:{bar_width:.3f}%;height:100%;'
+            f'    <div class="bar-fill" data-ga="{v["ga"].isoformat()}" data-last-end="{v["last_end"].isoformat()}" '
+            f'style="position:absolute;left:{bar_left:.3f}%;width:{bar_width:.3f}%;height:100%;'
             f'border-radius:4px;overflow:hidden;display:flex">{segs_html}{eol_overlay}</div>'
             f'  </div>'
             f'  <div class="chart-row-days">{days_badge}</div>'
@@ -1505,7 +1506,8 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
                     f'    <code class="ver-code">{mv["version"]}</code>{mv_eus_badge}'
                     f'  </div>'
                     f'  <div class="chart-row-bar">'
-                    f'    <div style="position:absolute;left:{mv_bar_left:.3f}%;width:{mv_bar_width:.3f}%;height:100%;'
+                    f'    <div class="bar-fill" data-ga="{mv["ga"].isoformat()}" data-last-end="{mv["last_end"].isoformat()}" '
+                    f'style="position:absolute;left:{mv_bar_left:.3f}%;width:{mv_bar_width:.3f}%;height:100%;'
                     f'border-radius:3px;overflow:hidden;display:flex">{mv_segs_html}</div>'
                     f'  </div>'
                     f'  <div class="chart-row-days">{mv_days_badge}</div>'
@@ -1606,10 +1608,10 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
   </div>
   {controls_html}
   {info_block_html}
-  <div class="chart-area">
+  <div class="chart-area" data-today="{today.isoformat()}">
     <div class="chart-inner" style="--mobile-min-width:{max(520, year_span * (24 if year_span > 18 else 40))}px">
       <div class="chart-grid">
-        {year_lines_html}
+        <div class="chart-year-lines">{year_lines_html}</div>
         {today_html}
       </div>
       <div class="chart-rows">
@@ -2128,6 +2130,69 @@ function applyRowStripes(card) {{
     if (i % 2 === 1) row.classList.add('row-alt');
   }});
 }}
+function parseISODate(s) {{
+  var p = s.split('-');
+  return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2]));
+}}
+function recalcChartLayout(card) {{
+  var area = card.querySelector('.chart-area');
+  if (!area || !area.dataset.today) return;
+  var today = parseISODate(area.dataset.today);
+  var isVisible = function(bar) {{
+    var row = bar.closest('.chart-row, .minor-row');
+    return !!row && row.style.display !== 'none';
+  }};
+  var allBars = Array.from(card.querySelectorAll('.bar-fill'));
+  var majorBars = allBars.filter(function(b) {{ return b.closest('.chart-row'); }});
+  var visibleMajors = majorBars.filter(isVisible);
+  if (!visibleMajors.length) return;
+  var PAD_MS = 60 * 86400000;
+  var dates = [today.getTime()];
+  visibleMajors.forEach(function(b) {{
+    dates.push(parseISODate(b.dataset.ga).getTime());
+    dates.push(parseISODate(b.dataset.lastEnd).getTime());
+  }});
+  var chartStart = Math.min.apply(null, dates) - PAD_MS;
+  var chartEnd = Math.max.apply(null, dates) + PAD_MS;
+  var totalDays = (chartEnd - chartStart) / 86400000;
+  var pct = function(t) {{ return (t - chartStart) / 86400000 / totalDays * 100; }};
+
+  allBars.filter(isVisible).forEach(function(b) {{
+    var left = pct(parseISODate(b.dataset.ga).getTime());
+    var right = pct(parseISODate(b.dataset.lastEnd).getTime());
+    b.style.left = left.toFixed(3) + '%';
+    b.style.width = (right - left).toFixed(3) + '%';
+  }});
+
+  var todayPct = pct(today.getTime());
+  var line = card.querySelector('.chart-today-line');
+  var label = card.querySelector('.chart-today-label');
+  if (line) line.style.left = todayPct.toFixed(3) + '%';
+  if (label) label.style.left = todayPct.toFixed(3) + '%';
+
+  var wrap = card.querySelector('.chart-year-lines');
+  if (wrap) {{
+    var startY = new Date(chartStart).getUTCFullYear();
+    var endY = new Date(chartEnd).getUTCFullYear();
+    var span = endY - startY + 1;
+    var step = span <= 10 ? 1 : (span <= 18 ? 2 : 5);
+    var html = '';
+    for (var y = startY; y <= endY + 1; y++) {{
+      var t = Date.UTC(y, 0, 1);
+      if (t >= chartStart && t <= chartEnd) {{
+        var p = pct(t);
+        html += '<div style="position:absolute;left:' + p.toFixed(3) + '%;top:0;bottom:0;'
+          + 'border-left:1px dashed var(--grid-line);z-index:0"></div>';
+        if (y % step === 0) {{
+          html += '<div style="position:absolute;left:' + p.toFixed(3) + '%;top:-20px;'
+            + 'font-size:11px;color:var(--text-secondary);transform:translateX(-50%);'
+            + 'font-weight:600;white-space:nowrap">' + y + '</div>';
+        }}
+      }}
+    }}
+    wrap.innerHTML = html;
+  }}
+}}
 function filterCard(card) {{
   var rows = Array.from(card.querySelectorAll('.chart-row[data-ver]'));
   if (!rows.length) return;
@@ -2161,6 +2226,7 @@ function filterCard(card) {{
     }}
   }});
   applyRowStripes(card);
+  recalcChartLayout(card);
 }}
 function toggleMinorRows(card) {{
   var show = card.querySelector('.ctrl-minor') && card.querySelector('.ctrl-minor').checked;
