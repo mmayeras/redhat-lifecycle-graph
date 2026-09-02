@@ -1,7 +1,7 @@
 {
  "product": "ceph",
  "title": "Ceph Lifecycle",
- "generated": "2026-09-01T11:31:48Z",
+ "generated": "2026-09-02T11:05:19Z",
  "minors": [
   {
    "minor": "9",
@@ -344,6 +344,31 @@
      ]
     },
     {
+     "area": "Technology Preview",
+     "items": [
+      {
+       "t": "The Cephadm utility New Ceph Management gateway and the OAuth2 Proxy service for unified\u2026",
+       "d": "With the Ceph Management gateway (mgmt-gateway) and the OAuth2 Proxy (oauth2-proxy) in place, nginx automatically directs the user through the oauth2-proxy to the configured Identity Provider (IdP), when single sign-on (SSO) is configured. Bugzilla:2298666 New Cephadm certificate lifecycle management for improved Ceph cluster security With this\u2026"
+      },
+      {
+       "t": "Ceph Dashboard New OAuth2 SSO OAuth2 SSO uses the oauth2-proxy service to work with the\u2026",
+       "d": "Bugzilla:2312560"
+      },
+      {
+       "t": "Ceph File System (CephFS) Support for CephFS snapshot mirroring With this feature you can\u2026",
+       "d": "Snapshot synchronization copies snapshot data to a remote Ceph File System, and creates a new snapshot on the remote target with the same name. You can configure specific directories for snapshot synchronization. Important In production environments, use other synchronization methods, such as rsync. You can combine these methods with periodic\u2026"
+      },
+      {
+       "t": "Ceph Object Gateway Bucket logging support for Ceph Object Gateway with bug fixes and\u2026",
+       "d": ""
+      },
+      {
+       "t": "Bucket logging provides a mechanism for logging all access to a bucket",
+       "d": "The log data can be used to monitor bucket activity, detect unauthorized access, get insights into the bucket usage and use the logs as a journal for bucket changes. The log records are stored in objects in a separate bucket and can be analyzed later. Logging configuration is done at the bucket level and can be enabled or disabled at any time. The\u2026"
+      }
+     ]
+    },
+    {
      "area": "Technology Previews",
      "items": [
       {
@@ -356,27 +381,6 @@
       },
       {
        "t": "Ceph Object Gateway New bucket logging support for Ceph Object Gateway Bucket logging\u2026",
-       "d": "The log data can be used to monitor bucket activity, detect unauthorized access, get insights into the bucket usage and use the logs as a journal for bucket changes. The log records are stored in objects in a separate bucket and can be analyzed later. Logging configuration is done at the bucket level and can be enabled or disabled at any time. The\u2026"
-      }
-     ]
-    },
-    {
-     "area": "Technology Previews",
-     "items": [
-      {
-       "t": "The Cephadm utility New Ceph Management gateway and the OAuth2 Proxy service for unified\u2026",
-       "d": "With the Ceph Management gateway (mgmt-gateway) and the OAuth2 Proxy (oauth2-proxy) in place, nginx automatically directs the user through the oauth2-proxy to the configured Identity Provider (IdP), when single sign-on (SSO) is configured. Bugzilla:2298666 New Cephadm certificate lifecycle management for improved Ceph cluster security With this\u2026"
-      },
-      {
-       "t": "Ceph Dashboard New OAuth2 SSO OAuth2 SSO uses the oauth2-proxy service to work with the\u2026",
-       "d": "Bugzilla:2312560"
-      },
-      {
-       "t": "Ceph Object Gateway Bucket logging support for Ceph Object Gateway with bug fixes and\u2026",
-       "d": ""
-      },
-      {
-       "t": "Bucket logging provides a mechanism for logging all access to a bucket",
        "d": "The log data can be used to monitor bucket activity, detect unauthorized access, get insights into the bucket usage and use the logs as a journal for bucket changes. The log records are stored in objects in a separate bucket and can be analyzed later. Logging configuration is done at the bucket level and can be enabled or disabled at any time. The\u2026"
       }
      ]
@@ -630,20 +634,20 @@
        "url": "https://access.redhat.com/errata/RHSA-2024:2633"
       },
       {
-       "id": "RHSA-2024:2631",
-       "synopsis": "Critical: Red Hat Ceph Storage 6.1 security and bug fix update",
-       "kind": "security",
-       "severity": "Critical",
-       "date": "2024-05-01",
-       "url": "https://access.redhat.com/errata/RHSA-2024:2631"
-      },
-      {
        "id": "RHBA-2024:2631",
        "synopsis": "Red Hat Ceph Storage 6.1 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2024-05-01",
        "url": "https://access.redhat.com/errata/RHBA-2024:2631"
+      },
+      {
+       "id": "RHSA-2024:2631",
+       "synopsis": "Critical: Red Hat Ceph Storage 6.1 security and bug fix update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2024-05-01",
+       "url": "https://access.redhat.com/errata/RHSA-2024:2631"
       },
       {
        "id": "RHBA-2024:1581",

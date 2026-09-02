@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-01T11:29:17Z",
+ "generated": "2026-09-02T11:03:04Z",
  "minors": [
   {
    "minor": "4.22",
@@ -11,6 +11,25 @@
      "version": "4.22.12",
      "date": "2026-09-01",
      "errata": [
+      {
+       "id": "RHSA-2026:60440",
+       "synopsis": "Important: OpenShift Container Platform 4.22.12 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60440",
+       "items": [
+        "curl: curl: Insecure connection establishment due to TLS configuration mismatch (CVE-2026-8286)",
+        "curl: curl: Man-in-the-middle attack via SSH host key bypass (CVE-2026-9547)",
+        "bind9: bind: Potential wildcard CNAME RPZ policy bypass (CVE-2026-11331)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "unbound: Unbound: Cache poisoning via insufficient RRSIG.Labels validation and premature cache writes (CVE-2026-44690)",
+        "unbound: Unbound: Denial of Service via malformed EDNS Report-Channel option (CVE-2026-55973)",
+        "bind: bind9: Incorrect acceptance of NSEC3 records (CVE-2026-10723)",
+        "kernel: smb: client: validate DFS referral PathConsumed (CVE-2026-68343)",
+        "kbd: Local privilege escalation in openvt via incorrect process owner verification allowing passwordless root login (CVE-2026-72693)"
+       ]
+      },
       {
        "id": "RHBA-2026:60439",
        "synopsis": "OpenShift Container Platform 4.22.12 packages update",
@@ -1481,6 +1500,18 @@
      "version": "4.21.31",
      "date": "2026-09-01",
      "errata": [
+      {
+       "id": "RHSA-2026:60449",
+       "synopsis": "Important: OpenShift Container Platform 4.21.31 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60449",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "github.com/go-jose/go-jose/v3: github.com/go-jose/go-jose/v4: Go JOSE: Denial of Service via crafted JSON Web Encryption (JWE) object (CVE-2026-34986)"
+       ]
+      },
       {
        "id": "RHBA-2026:60450",
        "synopsis": "OpenShift Container Platform 4.21.31 bug fix update",
@@ -4523,6 +4554,35 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.36",
+     "date": "2026-09-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:60445",
+       "synopsis": "Important: OpenShift Container Platform 4.20.36 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60445",
+       "items": [
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:60444",
+       "synopsis": "Important: OpenShift Container Platform 4.20.36 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60444",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "github.com/go-jose/go-jose/v3: github.com/go-jose/go-jose/v4: Go JOSE: Denial of Service via crafted JSON Web Encryption (JWE) object (CVE-2026-34986)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.20.35",
      "date": "2026-08-25",
@@ -30574,14 +30634,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -30591,6 +30643,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
