@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-09-02T11:05:37Z",
+ "generated": "2026-09-03T11:04:31Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2327,20 +2327,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2023:5966"
       },
       {
-       "id": "RHBA-2023:1950",
-       "synopsis": "Red Hat OpenStack Platform 16.2.5 (Train) director images",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2023-04-26",
-       "url": "https://access.redhat.com/errata/RHBA-2023:1950"
-      },
-      {
        "id": "RHBA-2023:1763",
        "synopsis": "Red Hat OpenStack Platform 16.2.5 (Train) bug fix and enhancement advisory",
        "kind": "bugfix",
        "severity": "None",
        "date": "2023-04-26",
        "url": "https://access.redhat.com/errata/RHBA-2023:1763"
+      },
+      {
+       "id": "RHBA-2023:1950",
+       "synopsis": "Red Hat OpenStack Platform 16.2.5 (Train) director images",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-04-26",
+       "url": "https://access.redhat.com/errata/RHBA-2023:1950"
       }
      ]
     },

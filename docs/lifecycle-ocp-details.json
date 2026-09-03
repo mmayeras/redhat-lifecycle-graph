@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-02T11:03:04Z",
+ "generated": "2026-09-03T11:01:11Z",
  "minors": [
   {
    "minor": "4.22",
@@ -7824,6 +7824,32 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.19.45",
+     "date": "2026-09-02",
+     "errata": [
+      {
+       "id": "RHSA-2026:60452",
+       "synopsis": "Important: OpenShift Container Platform 4.19.45 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-02",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60452",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "github.com/go-jose/go-jose/v3: github.com/go-jose/go-jose/v4: Go JOSE: Denial of Service via crafted JSON Web Encryption (JWE) object (CVE-2026-34986)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:60453",
+       "synopsis": "OpenShift Container Platform 4.19.45 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-02",
+       "url": "https://access.redhat.com/errata/RHBA-2026:60453"
+      }
+     ]
+    },
+    {
      "version": "4.19.44",
      "date": "2026-08-26",
      "errata": [
@@ -15343,6 +15369,42 @@
    "minor": "4.17",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.17.57",
+     "date": "2026-09-03",
+     "errata": [
+      {
+       "id": "RHSA-2026:60019",
+       "synopsis": "Important: OpenShift Container Platform 4.17.57 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60019",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "kernel: xen: AMD Zen 2 Processors: Privilege escalation via improper CPU cache isolation (CVE-2025-54518)",
+        "bind: BIND: Denial of Service via maliciously crafted DNSSEC-validated zone (CVE-2026-1519)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "samba: Remote Code Execution in SAMR (CVE-2026-4408)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "gnutls: GnuTLS: Denial of Service via DTLS zero-length fragment (CVE-2026-33845)",
+        "gnutls: GnuTLS: Denial of Service via heap buffer overflow in DTLS handshake fragment reassembly (CVE-2026-33846)",
+        "vim: arbitrary command execution via modeline sandbox bypass (CVE-2026-34982)",
+        "gnutls: gnutls: Denial of Service via DTLS packet reordering vulnerability (CVE-2026-42009)",
+        "gnutls: gnutls: Authentication Bypass via NUL Character in Username (CVE-2026-42010)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "icu: Stack buffer overflow in the SRBRoot::addTag function (CVE-2025-5222)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "gnutls: GnuTLS: Policy bypass due to case-sensitive nameConstraints comparison (CVE-2026-3833)",
+        "gnutls: gnutls: Information disclosure via heap overread in RSA key exchange (CVE-2026-5260)",
+        "glibc: glibc: Heap Buffer Overflow in `scanf` with `%mc` format specifier and large width (CVE-2026-5450)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.17.56",
      "date": "2026-08-06",
@@ -34589,14 +34651,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
-      },
-      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -34606,6 +34660,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
