@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-03T11:01:11Z",
+ "generated": "2026-09-04T11:01:29Z",
  "minors": [
   {
    "minor": "4.22",
@@ -34651,6 +34651,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -34660,14 +34668,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -37217,6 +37217,28 @@
    "minor": "4.12",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.12/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.12.97",
+     "date": "2026-09-03",
+     "errata": [
+      {
+       "id": "RHSA-2026:59831",
+       "synopsis": "Important: OpenShift Container Platform 4.12.97 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:59831"
+      },
+      {
+       "id": "RHSA-2026:59830",
+       "synopsis": "Important: OpenShift Container Platform 4.12.97 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:59830"
+      }
+     ]
+    },
     {
      "version": "4.12.96",
      "date": "2026-08-20",
