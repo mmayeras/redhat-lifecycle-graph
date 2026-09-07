@@ -1,7 +1,7 @@
 {
  "product": "ceph",
  "title": "Ceph Lifecycle",
- "generated": "2026-09-06T10:44:57Z",
+ "generated": "2026-09-07T12:12:29Z",
  "minors": [
   {
    "minor": "9",
