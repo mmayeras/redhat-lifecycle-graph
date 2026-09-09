@@ -1,12 +1,41 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-08T11:01:28Z",
+ "generated": "2026-09-09T11:06:17Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.13",
+     "date": "2026-09-08",
+     "errata": [
+      {
+       "id": "RHSA-2026:63091",
+       "synopsis": "Important: OpenShift Container Platform 4.22.13 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63091",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:63093",
+       "synopsis": "Important: OpenShift Container Platform 4.22.13 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63093",
+       "items": [
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.22.12",
      "date": "2026-09-01",
@@ -1496,6 +1525,29 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.32",
+     "date": "2026-09-08",
+     "errata": [
+      {
+       "id": "RHSA-2026:63041",
+       "synopsis": "Important: OpenShift Container Platform 4.21.32 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63041",
+       "items": [
+        "librenswan: IKEv2 Denial of Service via malformed fragmentation (CVE-2026-12413)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "libreswan: badly formatted X.509 certificate can cause an assertion failure that crashes the daemon process (CVE-2026-14957)",
+        "librenswan: IKEv1 Denial of Service via RSA-SHA1 (PKCS#1 Version 1.5 Encrypted) authentication payload (CVE-2026-50721)",
+        "librenswan: IKEv2 Denial of Service via RSA-SHA1 (PKCS#1 RSASSA-PKCS1-v1_5) authentication payload (CVE-2026-50722)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.21.31",
      "date": "2026-09-01",
@@ -4554,6 +4606,28 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.37",
+     "date": "2026-09-08",
+     "errata": [
+      {
+       "id": "RHSA-2026:63100",
+       "synopsis": "Important: OpenShift Container Platform 4.20.37 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63100",
+       "items": [
+        "librenswan: IKEv2 Denial of Service via malformed fragmentation (CVE-2026-12413)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "libreswan: badly formatted X.509 certificate can cause an assertion failure that crashes the daemon process (CVE-2026-14957)",
+        "librenswan: IKEv1 Denial of Service via RSA-SHA1 (PKCS#1 Version 1.5 Encrypted) authentication payload (CVE-2026-50721)",
+        "librenswan: IKEv2 Denial of Service via RSA-SHA1 (PKCS#1 RSASSA-PKCS1-v1_5) authentication payload (CVE-2026-50722)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.20.36",
      "date": "2026-09-01",
@@ -7823,6 +7897,38 @@
    "minor": "4.19",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.19.46",
+     "date": "2026-09-09",
+     "errata": [
+      {
+       "id": "RHBA-2026:63043",
+       "synopsis": "OpenShift Container Platform 4.19.46 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-09",
+       "url": "https://access.redhat.com/errata/RHBA-2026:63043"
+      },
+      {
+       "id": "RHSA-2026:63044",
+       "synopsis": "Important: OpenShift Container Platform 4.19.46 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63044",
+       "items": [
+        "dracut: dracut: Root code execution via DHCP options command injection (CVE-2026-6893)",
+        "librenswan: IKEv2 Denial of Service via malformed fragmentation (CVE-2026-12413)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "libreswan: badly formatted X.509 certificate can cause an assertion failure that crashes the daemon process (CVE-2026-14957)",
+        "librenswan: IKEv1 Denial of Service via RSA-SHA1 (PKCS#1 Version 1.5 Encrypted) authentication payload (CVE-2026-50721)",
+        "librenswan: IKEv2 Denial of Service via RSA-SHA1 (PKCS#1 RSASSA-PKCS1-v1_5) authentication payload (CVE-2026-50722)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.19.45",
      "date": "2026-09-02",
