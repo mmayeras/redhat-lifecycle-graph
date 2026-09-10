@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-09T11:06:17Z",
+ "generated": "2026-09-10T11:02:35Z",
  "minors": [
   {
    "minor": "4.22",
@@ -646,6 +646,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:66225",
+     "synopsis": "Advisory for publishing Helm 3.21.4 release for OCP 4.22",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-09-09",
+     "url": "https://access.redhat.com/errata/RHEA-2026:66225"
+    },
     {
      "id": "RHEA-2026:58557",
      "synopsis": "Advisory for publishing Helm 3.21.2.1 FIPS re-release for OCP 4.22.",
@@ -19470,6 +19478,42 @@
    "minor": "4.16",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.16.70",
+     "date": "2026-09-10",
+     "errata": [
+      {
+       "id": "RHSA-2026:62549",
+       "synopsis": "Important: OpenShift Container Platform 4.16.70 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:62549",
+       "items": [
+        "unbound: Unbound Cache poisoning (CVE-2025-5994)",
+        "sqlite: Integer Truncation in SQLite (CVE-2025-6965)",
+        "podman: Podman kube play command may overwrite host files (CVE-2025-9566)",
+        "libxml: Heap use after free (UAF) leads to Denial of service (DoS) (CVE-2025-49794)",
+        "libxml: Type confusion leads to Denial of service (DoS) (CVE-2025-49796)",
+        "kernel: xen: AMD Zen 2 Processors: Privilege escalation via improper CPU cache isolation (CVE-2025-54518)",
+        "bind: BIND: Denial of Service via maliciously crafted DNSSEC-validated zone (CVE-2026-1519)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "bind: BIND 9 server memory exhaustion during GSS-API TKEY negotiation (CVE-2026-3039)",
+        "bind: BIND: Denial of Service via specially crafted DNS messages (CVE-2026-5946)",
+        "dracut: dracut: Root code execution via DHCP options command injection (CVE-2026-6893)",
+        "bind9: bind: Potential wildcard CNAME RPZ policy bypass (CVE-2026-11331)",
+        "bind: bind9: DNSSEC Validation Bypass via Out-of-Zone NSEC Next Field (CVE-2026-13321)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "openssl: Out-of-bounds read & write in RFC 3211 KEK Unwrap (CVE-2025-9230)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "gnutls: GnuTLS: Policy bypass due to case-sensitive nameConstraints comparison (CVE-2026-3833)",
+        "bind: bind9: Incorrect acceptance of NSEC3 records (CVE-2026-10723)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.16.69",
      "date": "2026-08-26",
