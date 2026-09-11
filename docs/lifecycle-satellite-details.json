@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-09-10T11:05:40Z",
+ "generated": "2026-09-11T11:04:10Z",
  "minors": [
   {
    "minor": "6.19",
@@ -161,7 +161,7 @@
       },
       {
        "t": "Model Context Protocol Patch hosts and incrementally update, publish, and promote content\u2026",
-       "d": "You can use your AI application connected to the MCP server for Satellite to apply errata to hosts, incrementally update, publish, and promote actions on content views. This improvement streamlines patch management, minimizing the requirement for manual work and multiple steps. For more information, see the following updated documentation: Applying\u2026"
+       "d": "You can use your AI application connected to the MCP server for Satellite to apply errata to hosts, incrementally update, publish, and promote actions on content views. This improvement streamlines patch management, minimizing the requirement for manual work and multiple steps. For more information, see the following updated documentation\u2026"
       },
       {
        "t": "Web UI Compact table mode available in Satellite web UI to reduce table padding With this\u2026",

@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-09-10T11:05:09Z",
+ "generated": "2026-09-11T11:03:40Z",
  "minors": [
   {
    "minor": "17.1",
@@ -605,6 +605,31 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:66401",
+     "synopsis": "Important: Red Hat OpenStack Platform 17.1 security and bug fix advisory",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-10",
+     "url": "https://access.redhat.com/errata/RHSA-2026:66401",
+     "items": [
+      "Arbitrary Host File Overwrite via Unconstrained qemu-img Format Handling in OpenStack Nova (CVE-2026-24708)",
+      "net/url: Memory exhaustion in query parameter parsing in net/url (CVE-2025-61726)",
+      "Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+      "crypto/tls: golang: Go: Denial of Service vulnerability in certificate chain building (CVE-2026-32280)",
+      "golang: Go crypto/tls: Denial of Service via multiple TLS 1.3 key update messages (CVE-2026-32283)",
+      "crypto/tls: Incorrect certificate validation during TLS session resumption (CVE-2025-68121)",
+      "internal/syscall/unix: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)"
+     ]
+    },
+    {
+     "id": "RHBA-2026:66400",
+     "synopsis": "Red Hat OpenStack Platform 17.1 bug fix and enhancement advisory",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:66400"
+    },
     {
      "id": "RHBA-2026:28048",
      "synopsis": "Red Hat OpenStack Platform 17.1 bug fix and enhancement advisory",
@@ -2047,17 +2072,6 @@
      ]
     },
     {
-     "id": "RHSA-2023:0274",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2023-01-25",
-     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
-     "items": [
-      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
-     ]
-    },
-    {
      "id": "RHSA-2023:0275",
      "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
      "kind": "security",
@@ -2066,6 +2080,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2023:0275",
      "items": [
       "unrestricted creation of security groups (CVE-2022-3277)"
+     ]
+    },
+    {
+     "id": "RHSA-2023:0274",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2023-01-25",
+     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
+     "items": [
+      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
      ]
     },
     {
