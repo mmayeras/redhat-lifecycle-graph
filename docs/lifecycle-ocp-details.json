@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-11T11:01:08Z",
+ "generated": "2026-09-12T10:30:03Z",
  "minors": [
   {
    "minor": "4.22",
@@ -1285,6 +1285,10 @@
      "area": "Machine management",
      "items": [
       {
+       "t": "Bare-metal nodes on VMware vSphere clusters is generally available",
+       "d": "You can add bare-metal compute machines to an existing OpenShift Container Platform cluster on vSphere. With this capability, you can migrate workloads to physical hardware without reinstalling the cluster. Bare-metal nodes on vSphere clusters was introduced in OpenShift Container Platform 4.21 with Technology Preview status. Beginning in OpenShift Container Platform 4.22.13, it is now generally\u2026"
+      },
+      {
        "t": "AWS Dedicated Host support (Technology Preview)",
        "d": "You can now place compute machines on Amazon Web Services (AWS) Dedicated Hosts. Dedicated Hosts are physical servers that are fully dedicated to your use. With Dedicated Hosts, you can use your existing per-socket, per-core, or per-VM software licenses and comply with corporate policies that require physical CPU assignment. You can configure Dedicated Host placement in the following ways: At\u2026"
       }
@@ -1480,6 +1484,10 @@
     {
      "area": "Storage",
      "items": [
+      {
+       "t": "Adding bare-metals nodes on VMware vSphere is generally available",
+       "d": "OpenShift Container Platform 4.21 added the ability to add bare-metal nodes to an OpenShift Container Platform cluster on vSphere as a Technology Preview feature. Beginning in OpenShift Container Platform 4.22.13, this feature is generally available. However, if you add bare-metal nodes, you must remove the vSphere Container Storage Interface (CSI) Driver, otherwise the cluster is marked as\u2026"
+      },
       {
        "t": "New VolumeSnapshotClass csi-gce-pd-vsc-images is generally available",
        "d": "By default, you cannot restore more than six volumes per snapshot per hour. So in Kubevirt environments, you normally cannot create more than six VMs per hour from a \"golden image\" (templates saved as snapshots)."
@@ -34801,6 +34809,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -34810,14 +34826,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
