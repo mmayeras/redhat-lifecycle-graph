@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-12T10:30:03Z",
+ "generated": "2026-09-13T11:32:45Z",
  "minors": [
   {
    "minor": "4.22",
@@ -44972,20 +44972,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:6808"
       },
       {
-       "id": "RHBA-2022:6809",
-       "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-10-12",
-       "url": "https://access.redhat.com/errata/RHBA-2022:6809"
-      },
-      {
        "id": "RHBA-2022:6810",
        "synopsis": "OpenShift Container Platform 4.11.8 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-10-12",
        "url": "https://access.redhat.com/errata/RHBA-2022:6810"
+      },
+      {
+       "id": "RHBA-2022:6809",
+       "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-10-12",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6809"
       }
      ]
     },
