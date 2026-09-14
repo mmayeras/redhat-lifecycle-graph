@@ -147,7 +147,9 @@ operators:
 
 See [LIFECYCLE.md](LIFECYCLE.md) for the full schema reference and examples.
 
-## Data source
+## Data sources
+
+### Charts (Gantt bars)
 
 Fetches live from the [Red Hat Product Life Cycles API](https://access.redhat.com/product-life-cycles/api/v1/products).  
 Falls back to `fallback:` blocks in `lifecycle-config.yaml` only when the API is unreachable.
@@ -161,6 +163,23 @@ Validate phase coverage before changing products:
 ```bash
 python3 lifecycle-graph.py --validate-phases
 ```
+
+### Details / Timeline pages (z-stream errata)
+
+Built at generation time from the unauthenticated Hydra errata search API (`access.redhat.com/hydra/rest/search/kcs`, `documentKind:Errata`), queried per product with `details.errata_query` from `lifecycle-config.yaml`. No runtime fetches — the generated pages work over `file://`.
+
+**RHEL exception**: RHEL package errata aren't tied to a discrete minor release the way OCP z-streams are (a security fix ships to whatever minor you're running) — `errata_scope: major` groups them by major (7/8/9/10) instead, capped to the last 12 months (all-time volume is 10k-20k+ advisories per major).
+
+A sidecar `lifecycle-{key}-details.json` is written next to the HTML on every successful build and doubles as an offline fallback cache: if the live Hydra fetch fails on a later run, the page is rebuilt from that last-committed JSON with a stale-data notice instead of failing the build.
+
+### Release-notes feature cards ("What's new in X.Y")
+
+Two sources, chosen per product in YAML:
+
+- **`features_url`** (preferred, where available — e.g. OCP, AAP): the release-notes *source* asciidoc fetched straight from the product's public docs repo on GitHub (e.g. `raw.githubusercontent.com/openshift/openshift-docs`, `raw.githubusercontent.com/ansible/aap-docs`), parsed for the "New features and enhancements" section. `attributes_url` supplies the asciidoc attribute values (e.g. `{product-title}`) used inside that source.
+- **`features_search`** (all other products): the same Hydra search endpoint used for errata, but querying `documentKind:Documentation` — the portal search index of docs.redhat.com chapters (docs.redhat.com itself can't be scraped directly at build time; it blocks non-browser clients). Results are chapter-level: title, abstract snippet, link.
+
+Either source failing is non-fatal — the affected minor just has no feature card. Release-notes *links* shown on Details pages (`release_notes_url`) are always plain link-outs, never scraped content.
 
 ## GitHub Actions
 

@@ -88,7 +88,7 @@ Either way failures are non-fatal — the minor just has no features card.
 
 Card look & feel is standardized in `RELEASE_NOTE_TEMPLATE.md` — any new feature source must map into that schema/rendering (never add a new rendering path).
 
-**RHEL special case**: `details` with no `errata_query` (RHEL erratas aren't x.y.z-versioned and volume is huge) makes a feature-only details page — no z-streams, no delta filter. `minors_from: rhel_minors` sources the minor list from the `rhel_minors:` YAML block (majors ≥ 8) instead of chart versions.
+**RHEL special case**: RHEL package errata aren't tied to one minor release (a security fix ships to whatever minor you're on, not a discrete x.y.z build like OCP) — `errata_scope: major` groups errata by major (7/8/9/10) instead of the usual per-minor z-stream split, as a flat dated "unversioned" feed per major, and is capped to the last 12 months via a `portal_publication_date:[NOW-365DAYS TO NOW]` Solr range filter (all-time volume is 10k-20k+ advisories per major — verified against the live API). No delta filter (that's z-stream-only). `minors_from: rhel_minors` still sources the *feature-card* minor list from the `rhel_minors:` YAML block (majors ≥ 8) instead of chart versions.
 
 Data comes from the unauthenticated Hydra errata search (`access.redhat.com/hydra/rest/search/kcs`) at build time — no runtime fetches; the page works over `file://`. A sidecar `lifecycle-{key}-details.json` is written next to the HTML and serves as the fallback cache: if the live fetch fails, the page is rebuilt from the last committed JSON with a stale-data notice, and chart generation is never blocked. `--skip-details` skips these pages (and the card links) for faster test runs.
 

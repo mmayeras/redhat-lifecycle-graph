@@ -321,6 +321,29 @@ class TestBuildDetailsData(unittest.TestCase):
         data = lg.build_details_data("p", cfg, [{"version": "1.0"}])
         self.assertEqual(data["minors"], [])
 
+    def test_errata_scope_major_groups_by_major_not_minor(self):
+        # RHEL-style: errata aren't tied to one minor, so query per major and
+        # attach as an unversioned feed keyed by the bare major number.
+        calls = []
+
+        def fake_fetch(query, cap=1000, extra_fq=()):
+            calls.append((query, extra_fq))
+            if "9" in query:
+                return [_mk_doc("RHSA-1", "kernel security update")]
+            return []
+
+        lg.fetch_errata_for_minor = fake_fetch
+        cfg = {"details": {"errata_query": "Red Hat Enterprise Linux {minor}",
+                            "errata_scope": "major"}, "title": "RHEL"}
+        data = lg.build_details_data("rhel", cfg, [{"version": "9.4"}, {"version": "9.2"}])
+        minors = {m["minor"]: m for m in data["minors"]}
+        self.assertIn("9", minors)                        # major bucket present
+        self.assertNotIn("9.4", minors)                    # no per-minor errata
+        self.assertEqual(minors["9"]["zstreams"], [])      # no fake z-stream parsing
+        self.assertEqual(len(minors["9"]["unversioned"]), 1)
+        self.assertEqual(data["errata_window_days"], 365)
+        self.assertTrue(any("NOW-365DAYS" in fq for _, fqs in calls for fq in fqs))
+
     def test_extra_minors_extend_coverage(self):
         lg.fetch_errata_for_minor = lambda q: (
             [_mk_doc("A-1", "Prod 1.1.5 update")] if "1.1" in q else []
@@ -420,7 +443,7 @@ class TestConfigWiring(unittest.TestCase):
         self.assertIn("details", lg.PRODUCT_CONFIGS["ocp"])
         self.assertIn("features_url", lg.PRODUCT_CONFIGS["ocp"]["details"])
         rhel = lg.PRODUCT_CONFIGS["rhel"]["details"]
-        self.assertNotIn("errata_query", rhel)
+        self.assertEqual(rhel["errata_scope"], "major")
         self.assertEqual(rhel["minors_from"], "rhel_minors")
 
 

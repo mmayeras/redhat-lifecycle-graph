@@ -156,10 +156,15 @@ products:
   rhel:
     api_name: "Red Hat Enterprise Linux"
     title: "RHEL Lifecycle"
-    # Feature-only details page: no errata_query (RHEL erratas are not x.y.z
-    # versioned and volume is huge); minors come from the rhel_minors block (8+).
+    # RHEL package errata aren't tied to one minor release (a security fix ships
+    # to whatever minor you're on) — errata_scope: major groups by major instead
+    # of the usual per-minor z-stream split, and is capped to the last 12 months
+    # (all-time volume is 10k-20k+ advisories per major). Minors (for feature
+    # cards / release notes) still come from the rhel_minors block (8+).
     details:
       minors_from: rhel_minors
+      errata_query: "Red Hat Enterprise Linux {minor}"
+      errata_scope: major
       features_search: "*red_hat_enterprise_linux*{minor}_release_notes*"
       release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/{major}/html/{minor}_release_notes/"
     page_url: "https://access.redhat.com/support/policy/updates/errata"

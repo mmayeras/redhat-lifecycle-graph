@@ -669,16 +669,17 @@ _ERRATA_KIND_LABELS = {
 }
 
 
-def _fetch_errata_page(query: str, start: int, rows: int = 100) -> dict:
+def _fetch_errata_page(query: str, start: int, rows: int = 100, extra_fq: tuple[str, ...] = ()) -> dict:
     """One page of Hydra errata search results (raises on failure)."""
-    params = urllib.parse.urlencode({
-        "q": f'"{query}"',
-        "fq": 'documentKind:("Errata")',
-        "rows": rows,
-        "start": start,
-        "sort": "portal_publication_date desc",
-        "fl": _ERRATA_FIELDS,
-    })
+    params = urllib.parse.urlencode([
+        ("q", f'"{query}"'),
+        ("fq", 'documentKind:("Errata")'),
+        *(("fq", fq) for fq in extra_fq),
+        ("rows", rows),
+        ("start", start),
+        ("sort", "portal_publication_date desc"),
+        ("fl", _ERRATA_FIELDS),
+    ])
     req = urllib.request.Request(
         f"{_ERRATA_SEARCH_URL}?{params}",
         headers={"User-Agent": "lifecycle-graph/1.0", "Accept": "application/json"},
@@ -687,13 +688,13 @@ def _fetch_errata_page(query: str, start: int, rows: int = 100) -> dict:
         return json.loads(resp.read())
 
 
-def fetch_errata_for_minor(query: str) -> list[dict] | None:
+def fetch_errata_for_minor(query: str, cap: int = 1000, extra_fq: tuple[str, ...] = ()) -> list[dict] | None:
     """All errata docs matching query, paginated. None on any failure."""
     docs: list[dict] = []
-    start, rows, cap = 0, 100, 1000
+    start, rows = 0, 100
     try:
         while start < cap:
-            payload = _fetch_errata_page(query, start, rows)
+            payload = _fetch_errata_page(query, start, rows, extra_fq)
             resp = payload["response"]
             docs.extend(resp.get("docs", []))
             start += rows
@@ -1049,7 +1050,8 @@ def build_details_data(key: str, cfg: dict, versions: list[dict]) -> dict | None
     """
     details = cfg["details"]
     q_template = details.get("errata_query")
-    shared_query = bool(q_template) and "{minor}" not in q_template
+    errata_by_major = details.get("errata_scope") == "major"
+    shared_query = bool(q_template) and "{minor}" not in q_template and not errata_by_major
     if details.get("minors_from") == "rhel_minors":
         minors = sorted(
             {m for data in _RHEL_MINOR_DATA.values() for m in data},
@@ -1068,7 +1070,7 @@ def build_details_data(key: str, cfg: dict, versions: list[dict]) -> dict | None
             return None
     minors_out = []
     for minor in minors:
-        if q_template is None:
+        if q_template is None or errata_by_major:
             docs = []
         elif shared_docs is not None:
             docs = shared_docs
@@ -1080,7 +1082,7 @@ def build_details_data(key: str, cfg: dict, versions: list[dict]) -> dict | None
         unversioned: list[dict] = []
         for doc in docs:
             synopsis = doc.get("portal_synopsis", "")
-            zver = _parse_zstream(synopsis, minor)
+            zver = None if errata_by_major else _parse_zstream(synopsis, minor)
             if zver:
                 zstreams.setdefault(zver, []).append(_doc_to_erratum(doc))
             elif not shared_query:
@@ -1114,6 +1116,43 @@ def build_details_data(key: str, cfg: dict, versions: list[dict]) -> dict | None
         minors_out.append(minor_entry)
         attributed = sum(len(z["errata"]) for z in zstream_list) + len(unversioned)
         print(f"Errata: {minor} → {len(zstream_list)} z-streams, {attributed} advisories.", file=sys.stderr)
+
+    if errata_by_major and q_template:
+        # RHEL-style: individual package errata aren't tied to one minor release
+        # (they ship to whatever minor you're on), so group by major instead —
+        # one big dated feed per major rather than a (misleading) per-minor split.
+        # All-time volume is 10k-20k+ advisories per major, so cap to a rolling
+        # window (last 12 months) — otherwise every build pages thousands of
+        # results and the page itself becomes unusably large.
+        majors = sorted({m.split(".")[0] for m in minors}, key=int, reverse=True)
+        for major in majors:
+            docs = fetch_errata_for_minor(
+                _fmt_minor(q_template, major), cap=10000,
+                extra_fq=("portal_publication_date:[NOW-365DAYS TO NOW]",),
+            )
+            if docs is None:
+                return None
+            erratum_list = sorted(
+                (_doc_to_erratum(doc) for doc in docs),
+                key=lambda e: e["date"], reverse=True,
+            )
+            if not erratum_list:
+                continue
+            month_groups = []
+            for erratum in erratum_list:
+                month_key = erratum["date"][:7] if erratum["date"] else "unknown"
+                if not month_groups or month_groups[-1]["month"] != month_key:
+                    month_groups.append({"month": month_key, "errata": []})
+                month_groups[-1]["errata"].append(erratum)
+            minors_out.append({
+                "minor": major,
+                "release_notes_url": "",
+                "zstreams": [],
+                "unversioned": erratum_list,
+                "month_groups": month_groups,
+            })
+            print(f"Errata: RHEL {major} (major feed) → {len(erratum_list)} advisories.", file=sys.stderr)
+
     try:
         minors_out.sort(key=lambda m: tuple(int(p) for p in m["minor"].split(".")), reverse=True)
     except ValueError:
@@ -1123,6 +1162,7 @@ def build_details_data(key: str, cfg: dict, versions: list[dict]) -> dict | None
         "title": cfg.get("title", key),
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "minors": minors_out,
+        "errata_window_days": 365 if errata_by_major else None,
     }
 
 
@@ -3545,6 +3585,12 @@ def render_timeline_html(data: dict | None, key: str, cfg: dict, notice_html: st
     heading = _chart_display_heading(cfg.get("title", key))
     page_title = f"{heading} Release Timeline"
     topbar = _details_topbar(key, cfg, data, current="timeline")
+    if data and data.get("errata_window_days"):
+        notice_html += (
+            '<div class="details-notice">Showing errata from the last '
+            f'{data["errata_window_days"] // 30} months only — full history is '
+            'too large to list on one page.</div>'
+        )
 
     if not data or not data.get("minors"):
         return _page_wrap(page_title, f"{topbar}\n{notice_html}")
@@ -3555,11 +3601,29 @@ def render_timeline_html(data: dict | None, key: str, cfg: dict, notice_html: st
         minors_seen.append(minor["minor"])
         for z in minor["zstreams"]:
             entries.append((minor["minor"], z["date"], z["version"], z, None))
-        for e in minor["unversioned"]:
-            # products without x.y.z-versioned erratas (AAP, OSP…) still get a
-            # timeline: each advisory is its own dated entry
-            entries.append((minor["minor"], e["date"], "", None, e))
+        if minor.get("month_groups"):
+            # RHEL-style major feed: one row per month (like a z-stream row),
+            # not one row per package update — same grouping as the Details page.
+            for grp in minor["month_groups"]:
+                z = {"version": f'{key.upper()} {minor["minor"]}',
+                     "date": grp["errata"][0]["date"] if grp["errata"] else "",
+                     "errata": grp["errata"]}
+                entries.append((minor["minor"], z["date"], z["version"], z, None))
+        else:
+            for e in minor["unversioned"]:
+                # products without x.y.z-versioned erratas (AAP, OSP…) still get a
+                # timeline: each advisory is its own dated entry
+                entries.append((minor["minor"], e["date"], "", None, e))
     entries.sort(key=lambda t: (t[1], t[2]), reverse=True)
+
+    if not entries:
+        # feature-only product (RHEL): no versioned errata to put on a timeline
+        msg = (
+            '<div class="details-notice">No versioned errata for '
+            f'{_html.escape(heading)} — see the '
+            f'<a href="lifecycle-{key}-details.html">Details page</a> for release notes.</div>'
+        )
+        return _page_wrap(page_title, f"{topbar}\n{notice_html}\n{msg}")
 
     months: list[tuple[str, list[str]]] = []  # (label, entry_html list) newest first
     current_month = None
@@ -3644,8 +3708,10 @@ def render_timeline_html(data: dict | None, key: str, cfg: dict, notice_html: st
 
 def _minor_meta(minor: dict, adv_total: int) -> str:
     parts = []
-    if minor["zstreams"] or minor["unversioned"]:
+    if minor["zstreams"]:
         parts.append(f'{len(minor["zstreams"])} z-streams')
+        parts.append(f"{adv_total} advisories")
+    elif minor["unversioned"]:
         parts.append(f"{adv_total} advisories")
     if minor.get("features"):
         parts.append(f'{sum(len(g["items"]) for g in minor["features"])} features')
@@ -3657,6 +3723,12 @@ def render_details_html(data: dict | None, key: str, cfg: dict, notice_html: str
     page_title = f"{heading} Release Details"
 
     topbar = _details_topbar(key, cfg, data, current="details")
+    if data and data.get("errata_window_days"):
+        notice_html += (
+            '<div class="details-notice">Showing errata from the last '
+            f'{data["errata_window_days"] // 30} months only — full history is '
+            'too large to list on one page.</div>'
+        )
 
     if not data or not data.get("minors"):
         body = f"{topbar}\n{notice_html}"
@@ -3688,7 +3760,28 @@ def render_details_html(data: dict | None, key: str, cfg: dict, notice_html: str
                 f'</details>'
             )
         unversioned_html = ""
-        if minor.get("unversioned"):
+        if minor.get("month_groups"):
+            # RHEL-style major feed: too large for one flat list, so split into
+            # a nested block per month instead (same look as a z-stream block).
+            adv_total += len(minor["unversioned"])
+            blocks = []
+            for grp in minor["month_groups"]:
+                if grp["month"] == "unknown":
+                    label = "Undated"
+                else:
+                    y, m = grp["month"].split("-")
+                    label = f"{calendar.month_name[int(m)]} {y}"
+                blocks.append(
+                    f'<details class="zstream-block" data-zver="{_html.escape(grp["month"])}">'
+                    f'<summary>'
+                    f'<code class="zstream-block__ver">{_html.escape(label)}</code>'
+                    f'<span class="zstream-block__badges">{_zstream_count_badges(grp["errata"])}</span>'
+                    f'</summary>'
+                    f'<div class="zstream-block__errata">{_render_zstream_body(grp["errata"])}</div>'
+                    f'</details>'
+                )
+            unversioned_html = "".join(blocks)
+        elif minor.get("unversioned"):
             adv_total += len(minor["unversioned"])
             unversioned_html = (
                 f'<details class="zstream-block unversioned-block">'
@@ -3705,10 +3798,11 @@ def render_details_html(data: dict | None, key: str, cfg: dict, notice_html: str
             extra_cls="card-chip--rn minor-block__rn", title="Release notes on docs.redhat.com",
             onclick="event.stopPropagation()",
         )
+        title = minor["minor"] if "." in minor["minor"] else f'{minor["minor"]}.x — all errata'
         minor_sections.append(
             f'<details class="minor-block" data-minor="{_html.escape(minor["minor"])}"{" open" if i == 0 else ""}>'
             f'<summary>'
-            f'<span class="minor-block__title">{_html.escape(minor["minor"])}</span>'
+            f'<span class="minor-block__title">{_html.escape(title)}</span>'
             f'<span class="minor-block__meta">{_minor_meta(minor, adv_total)}</span>'
             f'{rn_link}'
             f'</summary>'
