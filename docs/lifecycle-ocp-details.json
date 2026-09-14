@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-13T11:32:45Z",
+ "generated": "2026-09-14T10:06:18Z",
  "minors": [
   {
    "minor": "4.22",
@@ -10207,6 +10207,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:67249",
+     "synopsis": "Advisory for publishing Helm 3.20.2.2 CVE fix release for OCP 4.19",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-09-14",
+     "url": "https://access.redhat.com/errata/RHEA-2026:67249"
+    },
     {
      "id": "RHEA-2026:56248",
      "synopsis": "Advisory for publishing Helm 3.20.2.1 CVE fix release for OCP 4.19",
@@ -44972,20 +44980,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:6808"
       },
       {
-       "id": "RHBA-2022:6810",
-       "synopsis": "OpenShift Container Platform 4.11.8 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-10-12",
-       "url": "https://access.redhat.com/errata/RHBA-2022:6810"
-      },
-      {
        "id": "RHBA-2022:6809",
        "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-10-12",
        "url": "https://access.redhat.com/errata/RHBA-2022:6809"
+      },
+      {
+       "id": "RHBA-2022:6810",
+       "synopsis": "OpenShift Container Platform 4.11.8 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-10-12",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6810"
       }
      ]
     },
@@ -45010,20 +45018,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:6734"
       },
       {
-       "id": "RHBA-2022:6733",
-       "synopsis": "OpenShift Container Platform 4.11.7 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-10-03",
-       "url": "https://access.redhat.com/errata/RHBA-2022:6733"
-      },
-      {
        "id": "RHBA-2022:6732",
        "synopsis": "OpenShift Container Platform 4.11.7 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-10-03",
        "url": "https://access.redhat.com/errata/RHBA-2022:6732"
+      },
+      {
+       "id": "RHBA-2022:6733",
+       "synopsis": "OpenShift Container Platform 4.11.7 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-10-03",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6733"
       },
       {
        "id": "RHEA-2022:6759",
@@ -72668,5 +72676,6 @@
     }
    ]
   }
- ]
+ ],
+ "errata_window_days": null
 }

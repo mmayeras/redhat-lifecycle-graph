@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-09-13T11:33:44Z",
+ "generated": "2026-09-14T10:09:09Z",
  "minors": [
   {
    "minor": "2.7",
@@ -10492,5 +10492,6 @@
     }
    ]
   }
- ]
+ ],
+ "errata_window_days": null
 }
