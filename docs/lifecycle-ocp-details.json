@@ -1,12 +1,54 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-14T12:26:32Z",
+ "generated": "2026-09-15T11:31:28Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.14",
+     "date": "2026-09-15",
+     "errata": [
+      {
+       "id": "RHSA-2026:66357",
+       "synopsis": "Important: OpenShift Container Platform 4.22.14 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66357",
+       "items": [
+        "curl: curl: Insecure connection establishment due to TLS configuration mismatch (CVE-2026-8286)",
+        "curl: curl: Man-in-the-middle attack via SSH host key bypass (CVE-2026-9547)",
+        "bind: bind9: Cache poisoning via label count discrepancy, RRSIG, wildcards (CVE-2026-11721)",
+        "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5 (CVE-2026-11824)",
+        "bind: bind9: Unexpected exit with NSEC and NSEC3 both present (CVE-2026-13204)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "kernel: KVM: nSVM: Always use vmcb01 in VMLOAD/VMSAVE emulation (CVE-2026-43133)",
+        "unbound: Unbound: Denial of Service via malformed EDNS Report-Channel option (CVE-2026-55973)",
+        "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)",
+        "glib: path traversal in glib/gio/gdbusauthmechanismsha1.c via keyring_lookup_entry and mechanism_client_data_receive (CVE-2026-58015)",
+        "kbd: Local privilege escalation in openvt via incorrect process owner verification allowing passwordless root login (CVE-2026-72693)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:66356",
+       "synopsis": "Important: OpenShift Container Platform 4.22.14 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66356",
+       "items": [
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.22.13",
      "date": "2026-09-08",
@@ -1541,6 +1583,41 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.33",
+     "date": "2026-09-15",
+     "errata": [
+      {
+       "id": "RHSA-2026:66350",
+       "synopsis": "Important: OpenShift Container Platform 4.21.33 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66350",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)",
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "golang: Go os.Root: Symlink following vulnerability allows directory traversal (CVE-2026-39822)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:66351",
+       "synopsis": "Important: OpenShift Container Platform 4.21.33 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66351",
+       "items": [
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.21.32",
      "date": "2026-09-08",
@@ -4622,6 +4699,40 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.38",
+     "date": "2026-09-15",
+     "errata": [
+      {
+       "id": "RHSA-2026:66376",
+       "synopsis": "Important: OpenShift Container Platform 4.20.38 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66376",
+       "items": [
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:66375",
+       "synopsis": "Important: OpenShift Container Platform 4.20.38 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66375",
+       "items": [
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "golang: Go os.Root: Symlink following vulnerability allows directory traversal (CVE-2026-39822)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.20.37",
      "date": "2026-09-08",
@@ -28024,6 +28135,39 @@
    "minor": "4.14",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.14.73",
+     "date": "2026-09-14",
+     "errata": [
+      {
+       "id": "RHBA-2026:62408",
+       "synopsis": "OpenShift Container Platform 4.14.73 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-14",
+       "url": "https://access.redhat.com/errata/RHBA-2026:62408"
+      },
+      {
+       "id": "RHSA-2026:62409",
+       "synopsis": "Important: OpenShift Container Platform 4.14.73 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-14",
+       "url": "https://access.redhat.com/errata/RHSA-2026:62409",
+       "items": [
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "dracut: dracut: Root code execution via DHCP options command injection (CVE-2026-6893)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "gnutls: gnutls: Authentication Bypass via NUL Character in Username (CVE-2026-42010)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "gnutls: GnuTLS: Policy bypass due to case-sensitive nameConstraints comparison (CVE-2026-3833)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "systemd: systemd: Arbitrary code execution or Denial of Service via spurious IPC API call data (CVE-2026-29111)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.14.72",
      "date": "2026-08-26",
@@ -54001,20 +54145,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5032",
-       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
-      },
-      {
        "id": "RHBA-2022:5033",
        "synopsis": "OpenShift Container Platform 4.8.44 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5033"
+      },
+      {
+       "id": "RHBA-2022:5032",
+       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
       },
       {
        "id": "RHBA-2022:5031",
