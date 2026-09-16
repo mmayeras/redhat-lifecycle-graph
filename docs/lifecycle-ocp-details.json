@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-15T11:31:28Z",
+ "generated": "2026-09-16T11:17:19Z",
  "minors": [
   {
    "minor": "4.22",
@@ -688,6 +688,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:67531",
+     "synopsis": "Advisory for publishing Helm 3.22.0 release for OCP 4.22",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-09-15",
+     "url": "https://access.redhat.com/errata/RHEA-2026:67531"
+    },
     {
      "id": "RHEA-2026:66225",
      "synopsis": "Advisory for publishing Helm 3.21.4 release for OCP 4.22",
@@ -8024,6 +8032,23 @@
    "minor": "4.19",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.19.47",
+     "date": "2026-09-16",
+     "errata": [
+      {
+       "id": "RHSA-2026:66370",
+       "synopsis": "Important: OpenShift Container Platform 4.19.47 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66370",
+       "items": [
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.19.46",
      "date": "2026-09-09",
@@ -54145,20 +54170,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5033",
-       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
-      },
-      {
        "id": "RHBA-2022:5032",
        "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5032"
+      },
+      {
+       "id": "RHBA-2022:5033",
+       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
       },
       {
        "id": "RHBA-2022:5031",
