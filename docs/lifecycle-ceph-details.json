@@ -1,7 +1,7 @@
 {
  "product": "ceph",
  "title": "Ceph Lifecycle",
- "generated": "2026-09-16T11:21:36Z",
+ "generated": "2026-09-17T11:29:57Z",
  "minors": [
   {
    "minor": "9",
@@ -347,8 +347,8 @@
      "area": "Technology Preview",
      "items": [
       {
-       "t": "The Cephadm utility New Ceph Management gateway and the OAuth2 Proxy service for unified\u2026",
-       "d": "With the Ceph Management gateway (mgmt-gateway) and the OAuth2 Proxy (oauth2-proxy) in place, nginx automatically directs the user through the oauth2-proxy to the configured Identity Provider (IdP), when single sign-on (SSO) is configured. Bugzilla:2298666 New Cephadm certificate lifecycle management for improved Ceph cluster security With this\u2026"
+       "t": "The Cephadm utility New Cephadm certificate lifecycle management for improved Ceph cluster\u2026",
+       "d": "This feature provides a unified mechanism to provision, rotate, and apply TLS certificates for Ceph services, supporting both user-provided and automatically generated cephadm-signed certificates. As part of this feature, certmgr periodically checks the status of all certificates managed by Cephadm and issues health warnings for any that are\u2026"
       },
       {
        "t": "Ceph Dashboard New OAuth2 SSO OAuth2 SSO uses the oauth2-proxy service to work with the\u2026",
@@ -634,20 +634,20 @@
        "url": "https://access.redhat.com/errata/RHSA-2024:2633"
       },
       {
-       "id": "RHSA-2024:2631",
-       "synopsis": "Critical: Red Hat Ceph Storage 6.1 security and bug fix update",
-       "kind": "security",
-       "severity": "Critical",
-       "date": "2024-05-01",
-       "url": "https://access.redhat.com/errata/RHSA-2024:2631"
-      },
-      {
        "id": "RHBA-2024:2631",
        "synopsis": "Red Hat Ceph Storage 6.1 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2024-05-01",
        "url": "https://access.redhat.com/errata/RHBA-2024:2631"
+      },
+      {
+       "id": "RHSA-2024:2631",
+       "synopsis": "Critical: Red Hat Ceph Storage 6.1 security and bug fix update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2024-05-01",
+       "url": "https://access.redhat.com/errata/RHSA-2024:2631"
       },
       {
        "id": "RHBA-2024:1581",

@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-16T11:17:19Z",
+ "generated": "2026-09-17T11:25:52Z",
  "minors": [
   {
    "minor": "4.22",
@@ -11563,6 +11563,52 @@
    "minor": "4.18",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.18.55",
+     "date": "2026-09-17",
+     "errata": [
+      {
+       "id": "RHSA-2026:65851",
+       "synopsis": "Important: OpenShift Container Platform 4.18.55 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-17",
+       "url": "https://access.redhat.com/errata/RHSA-2026:65851",
+       "items": [
+        "bind: BIND: Denial of Service via maliciously crafted DNSSEC-validated zone (CVE-2026-1519)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "bind: BIND 9 server memory exhaustion during GSS-API TKEY negotiation (CVE-2026-3039)",
+        "bind: BIND: Denial of Service via specially crafted DNS messages (CVE-2026-5946)",
+        "dracut: dracut: Root code execution via DHCP options command injection (CVE-2026-6893)",
+        "bind9: bind: Potential wildcard CNAME RPZ policy bypass (CVE-2026-11331)",
+        "sqlite: SQLite: Arbitrary code execution via crafted FTS5 full-text search data (CVE-2026-11822)",
+        "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5 (CVE-2026-11824)",
+        "bind: bind9: DNSSEC Validation Bypass via Out-of-Zone NSEC Next Field (CVE-2026-13321)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "gnutls: GnuTLS: Policy bypass due to case-sensitive nameConstraints comparison (CVE-2026-3833)",
+        "bind: bind9: Incorrect acceptance of NSEC3 records (CVE-2026-10723)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "systemd: systemd: Arbitrary code execution or Denial of Service via spurious IPC API call data (CVE-2026-29111)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:66385",
+       "synopsis": "Important: OpenShift Container Platform 4.18.55 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-17",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66385",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "github.com/go-jose/go-jose/v3: github.com/go-jose/go-jose/v4: Go JOSE: Denial of Service via crafted JSON Web Encryption (JWE) object (CVE-2026-34986)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.18.54",
      "date": "2026-08-26",
@@ -33336,6 +33382,20 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.13/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.13.71",
+     "date": "2026-09-17",
+     "errata": [
+      {
+       "id": "RHSA-2026:65838",
+       "synopsis": "Important: OpenShift Container Platform 4.13.71 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-17",
+       "url": "https://access.redhat.com/errata/RHSA-2026:65838"
+      }
+     ]
+    },
+    {
      "version": "4.13.70",
      "date": "2026-08-20",
      "errata": [
@@ -37552,6 +37612,28 @@
    "minor": "4.12",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.12/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.12.98",
+     "date": "2026-09-17",
+     "errata": [
+      {
+       "id": "RHSA-2026:65907",
+       "synopsis": "Important: OpenShift Container Platform 4.12.98 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-17",
+       "url": "https://access.redhat.com/errata/RHSA-2026:65907"
+      },
+      {
+       "id": "RHSA-2026:65906",
+       "synopsis": "Important: OpenShift Container Platform 4.12.98 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-17",
+       "url": "https://access.redhat.com/errata/RHSA-2026:65906"
+      }
+     ]
+    },
     {
      "version": "4.12.97",
      "date": "2026-09-03",
