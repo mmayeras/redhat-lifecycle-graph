@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-17T11:25:52Z",
+ "generated": "2026-09-18T10:58:58Z",
  "minors": [
   {
    "minor": "4.22",
@@ -10343,6 +10343,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:68664",
+     "synopsis": "Red Hat OpenShift Container Platform 4.19 three month notice end of Maintenance support",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-17",
+     "url": "https://access.redhat.com/errata/RHBA-2026:68664"
+    },
     {
      "id": "RHEA-2026:67249",
      "synopsis": "Advisory for publishing Helm 3.20.2.2 CVE fix release for OCP 4.19",
@@ -33385,6 +33393,14 @@
      "version": "4.13.71",
      "date": "2026-09-17",
      "errata": [
+      {
+       "id": "RHSA-2026:65839",
+       "synopsis": "Important: OpenShift Container Platform 4.13.71 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-17",
+       "url": "https://access.redhat.com/errata/RHSA-2026:65839"
+      },
       {
        "id": "RHSA-2026:65838",
        "synopsis": "Important: OpenShift Container Platform 4.13.71 packages and security update",
