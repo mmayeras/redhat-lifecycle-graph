@@ -1,12 +1,37 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-21T12:33:02Z",
+ "generated": "2026-09-22T11:21:29Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.15",
+     "date": "2026-09-22",
+     "errata": [
+      {
+       "id": "RHSA-2026:68550",
+       "synopsis": "Important: OpenShift Container Platform 4.22.15 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHSA-2026:68550",
+       "items": [
+        "github.com/open-telemetry/opentelemetry-go: go.opentelemetry.io/otel/baggage: go.opentelemetry.io/otel/propagation: OpenTelemetry-Go: Denial of Service via oversized baggage headers (CVE-2026-41178)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:68551",
+       "synopsis": "OpenShift Container Platform 4.22.15 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:68551"
+      }
+     ]
+    },
     {
      "version": "4.22.14",
      "date": "2026-09-15",
@@ -1591,6 +1616,31 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.34",
+     "date": "2026-09-22",
+     "errata": [
+      {
+       "id": "RHSA-2026:68538",
+       "synopsis": "Important: OpenShift Container Platform 4.21.34 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHSA-2026:68538",
+       "items": [
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:68539",
+       "synopsis": "OpenShift Container Platform 4.21.34 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:68539"
+      }
+     ]
+    },
     {
      "version": "4.21.33",
      "date": "2026-09-15",
@@ -4707,6 +4757,20 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.39",
+     "date": "2026-09-22",
+     "errata": [
+      {
+       "id": "RHBA-2026:68537",
+       "synopsis": "OpenShift Container Platform 4.20.39 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:68537"
+      }
+     ]
+    },
     {
      "version": "4.20.38",
      "date": "2026-09-15",
@@ -31085,6 +31149,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
+      },
+      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -31094,14 +31166,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -35062,14 +35126,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
-      },
-      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -35079,6 +35135,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
