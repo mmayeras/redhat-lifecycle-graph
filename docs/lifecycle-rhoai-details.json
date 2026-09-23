@@ -1,7 +1,7 @@
 {
  "product": "rhoai",
  "title": "RHOAI Lifecycle",
- "generated": "2026-09-22T11:25:29Z",
+ "generated": "2026-09-23T11:20:26Z",
  "minors": [
   {
    "minor": "3.5",
@@ -13,8 +13,8 @@
      "area": "New features and enhancements",
      "items": [
       {
-       "t": "New features 3.5 GA new features Migration guide using rhai-cli for upgrading from\u2026",
-       "d": "This guide walks administrators through the pre-upgrade migration assessment process by using the rhai-cli command-line tool, including guidance for side-by-side and in-place migration approaches, Kueue management-state prerequisites, and component-specific rhai-cli migrate actions for Kueue/RHBOK, AI Pipelines, Model Serving, Workbenches\u2026"
+       "t": "New features 3.5 GA new features Red Hat OpenShift AI Operator Upgrade Gates During an\u2026",
+       "d": "Upgrade gates are used for changes that may require administrator review, migration, cleanup, or other preparation before the upgrade proceeds. The operator will automatically acknowledge resolved gates during reconciliation. Applicable gates are collected from the operator and component module charts and are recorded in the odh-upgrade-acks\u2026"
       },
       {
        "t": "This new guide is a parallel edition for customers migrating to OpenShift AI",
