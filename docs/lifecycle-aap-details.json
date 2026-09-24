@@ -1,13 +1,43 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-09-23T11:19:22Z",
+ "generated": "2026-09-24T11:33:50Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:71177",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71177"
+    },
+    {
+     "id": "RHSA-2026:71112",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.7 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71112",
+     "items": [
+      "python-sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing (CVE-2026-54284)",
+      "python-sqlparse: Denial of Service via inefficient SQL parsing (CVE-2026-59893)",
+      "python-sqlparse: Denial of Service via quadratic CPU consumption in comment grouping (CVE-2026-71491)",
+      "python3.12-sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing (CVE-2026-54284)",
+      "python3.12-sqlparse: Denial of Service via inefficient SQL parsing (CVE-2026-59893)",
+      "python3.12-sqlparse: Denial of Service via quadratic CPU consumption in comment grouping (CVE-2026-71491)",
+      "receptor: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+      "receptor: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+      "receptor: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+      "receptor: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+      "receptor: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)",
+      "receptor: Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service (CVE-2026-56853)"
+     ]
+    },
     {
      "id": "RHBA-2026:67611",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
@@ -295,6 +325,44 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:71179",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71179"
+    },
+    {
+     "id": "RHSA-2026:71113",
+     "synopsis": "Critical: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71113",
+     "items": [
+      "automation-controller: GitPython: Remote Code Execution via Git directory impersonation (CVE-2026-87817)",
+      "automation-controller: Job template enumeration via unauthenticated Bitbucket webhook oracle (CVE-2026-84717)",
+      "automation-controller: Command argument injection via SystemJob extra_vars (CVE-2026-84724)",
+      "automation-controller: Masked credential data disclosure via workflow job node artifact search (CVE-2026-84720)",
+      "automation-controller: Instance-group privilege escalation via workflow job template copy (CVE-2026-84719)",
+      "automation-controller: Audit log falsification via unrestricted X-Forwarded-For trust (CVE-2026-84718)",
+      "automation-controller: Mesh certificate issuance for arbitrary hostnames via install bundle (CVE-2026-84716)",
+      "automation-controller: Template injection via sanitize_jinja regex bypass (CVE-2026-84714)",
+      "automation-controller: Automation mesh topology disclosure via unauthenticated ping endpoint (CVE-2026-84712)",
+      "automation-controller: Arbitrary file read via Project scm_branch git argument injection (CVE-2026-84711)",
+      "automation-controller: Denial of service via credential type injector Jinja rendering (CVE-2026-84709)",
+      "automation-controller: Control-plane secret exposure via container group pod spec override (CVE-2026-84708)",
+      "automation-controller: Unauthorized job output disclosure via host filter query traversal (CVE-2026-84707)",
+      "automation-controller: Code execution via credential type environment-injector blocklist bypass (CVE-2026-84706)",
+      "automation-controller: Cross-tenant credential exposure via execution environment binding (CVE-2026-84703)",
+      "automation-controller: Cross-tenant execution privilege bypass via workflow job template node patch (CVE-2026-84692)",
+      "automation-controller: Secret key and database credential disclosure via format-string injection (CVE-2026-84691)",
+      "automation-controller: Cross-tenant job hijack via Bulk Job Launch node reference (CVE-2026-84689)",
+      "automation-controller: Credential token disclosure via notification template type-switch replay (CVE-2026-84686)",
+      "automation-controller: Privilege escalation via constructed inventory attachment (CVE-2026-84684)"
+     ]
+    },
     {
      "id": "RHBA-2026:59667",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
@@ -1320,6 +1388,52 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:71210",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71210"
+    },
+    {
+     "id": "RHSA-2026:71192",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71192"
+    },
+    {
+     "id": "RHSA-2026:71114",
+     "synopsis": "Critical: Red Hat Ansible Automation Platform 2.5 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71114",
+     "items": [
+      "automation-controller: GitPython: Remote Code Execution via Git directory impersonation (CVE-2026-87817)",
+      "automation-controller: Job template enumeration via unauthenticated Bitbucket webhook oracle (CVE-2026-84717)",
+      "automation-controller: Command argument injection via SystemJob extra_vars (CVE-2026-84724)",
+      "automation-controller: Masked credential data disclosure via workflow job node artifact search (CVE-2026-84720)",
+      "automation-controller: Instance-group privilege escalation via workflow job template copy (CVE-2026-84719)",
+      "automation-controller: Audit log falsification via unrestricted X-Forwarded-For trust (CVE-2026-84718)",
+      "automation-controller: Mesh certificate issuance for arbitrary hostnames via install bundle (CVE-2026-84716)",
+      "automation-controller: Template injection via sanitize_jinja regex bypass (CVE-2026-84714)",
+      "automation-controller: Automation mesh topology disclosure via unauthenticated ping endpoint (CVE-2026-84712)",
+      "automation-controller: Arbitrary file read via Project scm_branch git argument injection (CVE-2026-84711)",
+      "automation-controller: Denial of service via credential type injector Jinja rendering (CVE-2026-84709)",
+      "automation-controller: Control-plane secret exposure via container group pod spec override (CVE-2026-84708)",
+      "automation-controller: Unauthorized job output disclosure via host filter query traversal (CVE-2026-84707)",
+      "automation-controller: Code execution via credential type environment-injector blocklist bypass (CVE-2026-84706)",
+      "automation-controller: Cross-tenant credential exposure via execution environment binding (CVE-2026-84703)",
+      "automation-controller: Cross-tenant execution privilege bypass via workflow job template node patch (CVE-2026-84692)",
+      "automation-controller: Secret key and database credential disclosure via format-string injection (CVE-2026-84691)",
+      "automation-controller: Cross-tenant job hijack via Bulk Job Launch node reference (CVE-2026-84689)",
+      "automation-controller: Credential token disclosure via notification template type-switch replay (CVE-2026-84686)",
+      "automation-controller: Privilege escalation via constructed inventory attachment (CVE-2026-84684)"
+     ]
+    },
     {
      "id": "RHBA-2026:59666",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
@@ -4076,6 +4190,40 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:71176",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71176"
+    },
+    {
+     "id": "RHBA-2026:71175",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71175"
+    },
+    {
+     "id": "RHSA-2026:71115",
+     "synopsis": "Critical: Red Hat Ansible Automation Platform 2.4 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-09-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:71115",
+     "items": [
+      "automation-controller: Privilege escalation via provisioning-callback host-match bypass (CVE-2026-84474)",
+      "automation-controller: Instance-group privilege escalation via workflow job template copy (CVE-2026-84719)",
+      "automation-controller: Arbitrary file read via Project scm_branch git argument injection (CVE-2026-84711)",
+      "automation-controller: Privilege escalation via constructed inventory attachment (CVE-2026-84684)",
+      "automation-controller: Instance-group privilege escalation via Schedule and workflow node attachment (CVE-2026-84638)",
+      "automation-controller: Remote code execution via Project scm_url git argument injection (CVE-2026-84502)",
+      "automation-controller: awx: Privilege escalation to OpenShift namespace via pod_spec_override injection in container groups (CVE-2026-75884)",
+      "automation-controller: Kubernetes service account token exfiltration via HashiCorp Vault credential SSRF (CVE-2026-12564)"
+     ]
+    },
     {
      "id": "RHBA-2026:59664",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",

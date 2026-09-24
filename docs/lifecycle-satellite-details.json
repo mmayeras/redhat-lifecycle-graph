@@ -1,12 +1,48 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-09-23T11:21:32Z",
+ "generated": "2026-09-24T11:35:57Z",
  "minors": [
   {
    "minor": "6.19",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.19/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.19.4",
+     "date": "2026-09-03",
+     "errata": [
+      {
+       "id": "RHSA-2026:63385",
+       "synopsis": "Important: Satellite 6.19.4 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63385",
+       "items": [
+        "ansible-core: argument injection in ansible-galaxy role install leads to arbitrary code execution (CVE-2026-11332)",
+        "ansible-core: argument injection in ansible-galaxy collection install via git clone (incomplete fix for CVE-2026-11332) (CVE-2026-16493)",
+        "openvox-server: jackson-databind: Arbitrary code execution via PolymorphicTypeValidator bypass (CVE-2026-54512)",
+        "puppetserver: jackson-databind: Arbitrary code execution via PolymorphicTypeValidator bypass (CVE-2026-54512)",
+        "rubygem-jwt: ruby-jwt: Authentication bypass due to empty key in HMAC verification (CVE-2026-45363)",
+        "python-aiohttp: AIOHTTP: Denial of Service via malformed HTTP responses (CVE-2026-69244)",
+        "python-aiohttp: AIOHTTP: HTTP Request Smuggling via WebSocket Upgrade (CVE-2026-69243)",
+        "python-aiohttp: AIOHTTP: Arbitrary code execution via untrusted input to CookieJar.load() (CVE-2026-34993)",
+        "openvox-server: jackson-core: Denial of Service via incomplete fix in async JSON parser (CVE-2026-68494)",
+        "openvox-server: Eclipse Jetty: Information disclosure due to retained HTTP/1.1 trailers across connections (CVE-2026-10051)",
+        "python-gitpython: GitPython: Arbitrary File Overwrite via improper git option validation (CVE-2026-73624)",
+        "python-gitpython: GitPython: Remote Code Execution via kwarg value smuggling (CVE-2026-73625)",
+        "python-gitpython: GitPython: Information disclosure via environment variable expansion in URL handling (CVE-2026-73622)",
+        "python-gitpython: GitPython: Remote Code Execution via malicious Git template (CVE-2026-73623)",
+        "python-gitpython: GitPython: Arbitrary file overwrite and read via unsafe git option forwarding (CVE-2026-73620)",
+        "python-gitpython: GitPython: Arbitrary code execution via improper validation of clone options (CVE-2026-42284)",
+        "python3.12-gitpython: GitPython: Arbitrary code execution via improper validation of clone options (CVE-2026-42284)",
+        "python-gitpython: GitPython: Arbitrary command execution due to bypass of dangerous Git option checks (CVE-2026-42215)",
+        "python3.12-gitpython: GitPython: Arbitrary command execution due to bypass of dangerous Git option checks (CVE-2026-42215)",
+        "python-gitpython: GitPython: Arbitrary code execution via injected newlines in Git configuration (CVE-2026-44244)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.19.3",
      "date": "2026-08-04",
@@ -980,6 +1016,37 @@
    "minor": "6.16",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.16/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.16.13",
+     "date": "2026-09-03",
+     "errata": [
+      {
+       "id": "RHSA-2026:63327",
+       "synopsis": "Important: Satellite 6.16.13 Async Update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63327",
+       "items": [
+        "satellite:el8/puppetserver: jackson-databind: Arbitrary code execution via PolymorphicTypeValidator bypass [rhn_satellite_6.16] (CVE-2026-54512)",
+        "puppetserver: jackson-databind: Arbitrary code execution via PolymorphicTypeValidator bypass [rhn_satellite_6.16] (CVE-2026-54512)",
+        "rubygem-jwt: ruby-jwt: Authentication bypass due to empty key in HMAC verification [rhn_satellite_6.16] (CVE-2026-45363)",
+        "satellite-capsule:el8/rubygem-jwt: ruby-jwt: Authentication bypass due to empty key in HMAC verification [rhn_satellite_6.16] (CVE-2026-45363)",
+        "python-aiohttp: AIOHTTP: Denial of Service via malformed HTTP responses [rhn_satellite_6.16] (CVE-2026-69244)",
+        "python-aiohttp: AIOHTTP: HTTP Request Smuggling via WebSocket Upgrade [rhn_satellite_6.16] (CVE-2026-69243)",
+        "python-aiohttp: AIOHTTP: Arbitrary code execution via untrusted input to CookieJar.load() [rhn_satellite_6.16] (CVE-2026-34993)",
+        "satellite:el8/python-aiohttp: AIOHTTP: Arbitrary code execution via untrusted input to CookieJar.load() [rhn_satellite_6.16] (CVE-2026-34993)",
+        "satellite-capsule:el8/python-aiohttp: AIOHTTP: HTTP Request Smuggling via WebSocket Upgrade [rhn_satellite_6.16] (CVE-2026-69243)",
+        "satellite-capsule:el8/python-aiohttp: AIOHTTP: Denial of Service via malformed HTTP responses [rhn_satellite_6.16] (CVE-2026-69244)",
+        "el8/openvox-server: Eclipse Jetty: Information disclosure due to retained HTTP/1.1 trailers across connections [rhn_satellite_6.16] (CVE-2026-10051)",
+        "openvox-server: jackson-core: Denial of Service via incomplete fix in async JSON parser [rhn_satellite_6.16] (CVE-2026-68494)",
+        "el9/openvox-server: Eclipse Jetty: Information disclosure due to retained HTTP/1.1 trailers across connections [rhn_satellite_6.16] (CVE-2026-10051)",
+        "el8/openvox-server: jackson-core: Denial of Service via incomplete fix in async JSON parser [rhn_satellite_6.16] (CVE-2026-68494)",
+        "Issue when creating filter in content view using openssl package [satellite_6.16]"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.16.12",
      "date": "2026-08-04",

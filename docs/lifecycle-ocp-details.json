@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-23T11:16:18Z",
+ "generated": "2026-09-24T11:30:42Z",
  "minors": [
   {
    "minor": "4.22",
@@ -670,12 +670,12 @@
        "url": "https://access.redhat.com/errata/RHEA-2026:5487"
       },
       {
-       "id": "RHEA-2026:5487",
-       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
+       "id": "RHEA-2026:5486",
+       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
+       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
       },
       {
        "id": "RHEA-2026:24822",
@@ -713,6 +713,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:71386",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71386"
+    },
     {
      "id": "RHEA-2026:67531",
      "synopsis": "Advisory for publishing Helm 3.22.0 release for OCP 4.22",
@@ -1696,6 +1704,14 @@
         "librenswan: IKEv1 Denial of Service via RSA-SHA1 (PKCS#1 Version 1.5 Encrypted) authentication payload (CVE-2026-50721)",
         "librenswan: IKEv2 Denial of Service via RSA-SHA1 (PKCS#1 RSASSA-PKCS1-v1_5) authentication payload (CVE-2026-50722)"
        ]
+      },
+      {
+       "id": "RHBA-2026:63040",
+       "synopsis": "OpenShift Container Platform 4.21.32 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:63040"
       }
      ]
     },
@@ -3255,6 +3271,22 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:71563",
+     "synopsis": "OpenShift Container Platform 4.21 O-Cloud Manager extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71563"
+    },
+    {
+     "id": "RHBA-2026:71391",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71391"
+    },
+    {
      "id": "RHBA-2026:55500",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
      "kind": "bugfix",
@@ -4768,6 +4800,14 @@
        "severity": "None",
        "date": "2026-09-22",
        "url": "https://access.redhat.com/errata/RHBA-2026:68537"
+      },
+      {
+       "id": "RHBA-2026:68535",
+       "synopsis": "OpenShift Container Platform 4.20.39 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:68535"
       }
      ]
     },
@@ -4824,6 +4864,14 @@
         "librenswan: IKEv1 Denial of Service via RSA-SHA1 (PKCS#1 Version 1.5 Encrypted) authentication payload (CVE-2026-50721)",
         "librenswan: IKEv2 Denial of Service via RSA-SHA1 (PKCS#1 RSASSA-PKCS1-v1_5) authentication payload (CVE-2026-50722)"
        ]
+      },
+      {
+       "id": "RHBA-2026:63099",
+       "synopsis": "OpenShift Container Platform 4.20.37 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:63099"
       }
      ]
     },
@@ -6585,6 +6633,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:71323",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71323"
+    },
+    {
      "id": "RHBA-2026:55502",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
      "kind": "bugfix",
@@ -8097,6 +8153,40 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.19.48",
+     "date": "2026-09-23",
+     "errata": [
+      {
+       "id": "RHSA-2026:68534",
+       "synopsis": "Important: OpenShift Container Platform 4.19.48 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-23",
+       "url": "https://access.redhat.com/errata/RHSA-2026:68534",
+       "items": [
+        "net: golang: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "net/mail: golang: Go net/mail: Denial of Service via crafted email inputs (CVE-2026-39820)",
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "net/mail: golang: net/mail: Denial of Service via pathological email address parsing (CVE-2026-42499)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:68536",
+       "synopsis": "OpenShift Container Platform 4.19.48 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:68536"
+      }
+     ]
+    },
+    {
      "version": "4.19.47",
      "date": "2026-09-16",
      "errata": [
@@ -8110,6 +8200,14 @@
        "items": [
         "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)"
        ]
+      },
+      {
+       "id": "RHBA-2026:66369",
+       "synopsis": "OpenShift Container Platform 4.19.47 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-16",
+       "url": "https://access.redhat.com/errata/RHBA-2026:66369"
       }
      ]
     },
@@ -13997,20 +14095,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2025:3295"
       },
       {
-       "id": "RHBA-2025:3292",
-       "synopsis": "OpenShift Container Platform 4.18.7 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2025-04-03",
-       "url": "https://access.redhat.com/errata/RHBA-2025:3292"
-      },
-      {
        "id": "RHBA-2025:3293",
        "synopsis": "OpenShift Container Platform 4.18.7 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2025-04-03",
        "url": "https://access.redhat.com/errata/RHBA-2025:3293"
+      },
+      {
+       "id": "RHBA-2025:3292",
+       "synopsis": "OpenShift Container Platform 4.18.7 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2025-04-03",
+       "url": "https://access.redhat.com/errata/RHBA-2025:3292"
       }
      ]
     },
@@ -14290,6 +14388,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:68262",
+     "synopsis": "Advisory for publishing Helm 3.19.5.2 CVE fix release for OCP 4.18",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-09-16",
+     "url": "https://access.redhat.com/errata/RHEA-2026:68262"
+    },
     {
      "id": "RHBA-2026:59275",
      "synopsis": "Red Hat OpenShift Container Platform 4.18 notice end of Maintenance support",
@@ -15785,6 +15891,23 @@
         "gnutls: gnutls: Information disclosure via heap overread in RSA key exchange (CVE-2026-5260)",
         "glibc: glibc: Heap Buffer Overflow in `scanf` with `%mc` format specifier and large width (CVE-2026-5450)",
         "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:60018",
+       "synopsis": "Important: OpenShift Container Platform 4.17.57 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60018",
+       "items": [
+        "net/url: Incorrect parsing of IPv6 host literals in net/url (CVE-2026-25679)",
+        "crypto/x509: crypto/tls: golang: Go: Denial of Service vulnerability in certificate chain building (CVE-2026-32280)",
+        "net: golang: Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+        "net/mail: golang: Go net/mail: Denial of Service via crafted email inputs (CVE-2026-39820)",
+        "net/mail: golang: net/mail: Denial of Service via pathological email address parsing (CVE-2026-42499)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "crypto/tls: crypto/tls: Incorrect certificate validation during TLS session resumption (CVE-2025-68121)"
        ]
       }
      ]
@@ -19749,6 +19872,27 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.16.71",
+     "date": "2026-09-24",
+     "errata": [
+      {
+       "id": "RHSA-2026:67935",
+       "synopsis": "Important: OpenShift Container Platform 4.16.71 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-24",
+       "url": "https://access.redhat.com/errata/RHSA-2026:67935",
+       "items": [
+        "sqlite: SQLite: Arbitrary code execution via crafted FTS5 full-text search data (CVE-2026-11822)",
+        "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5 (CVE-2026-11824)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "kernel: Linux kernel: Use-After-Free in net/gro due to improper handling of zerocopy skbs (CVE-2026-46323)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)"
+       ]
+      }
+     ]
+    },
+    {
      "version": "4.16.70",
      "date": "2026-09-10",
      "errata": [
@@ -19780,6 +19924,18 @@
         "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
         "gnutls: GnuTLS: Policy bypass due to case-sensitive nameConstraints comparison (CVE-2026-3833)",
         "bind: bind9: Incorrect acceptance of NSEC3 records (CVE-2026-10723)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:62548",
+       "synopsis": "Important: OpenShift Container Platform 4.16.70 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:62548",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "github.com/go-jose/go-jose/v3: github.com/go-jose/go-jose/v4: Go JOSE: Denial of Service via crafted JSON Web Encryption (JWE) object (CVE-2026-34986)"
        ]
       }
      ]
@@ -28279,6 +28435,23 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.14.74",
+     "date": "2026-09-24",
+     "errata": [
+      {
+       "id": "RHSA-2026:67837",
+       "synopsis": "Moderate: OpenShift Container Platform 4.14.74 bug fix and security update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2026-09-24",
+       "url": "https://access.redhat.com/errata/RHSA-2026:67837",
+       "items": [
+        "gnutls: gnutls: Information disclosure via heap overread in RSA key exchange (CVE-2026-5260)"
+       ]
+      }
+     ]
+    },
+    {
      "version": "4.14.73",
      "date": "2026-09-14",
      "errata": [
@@ -31149,6 +31322,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
+      },
+      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -31158,14 +31339,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -31762,6 +31935,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHEA-2026:64797",
+     "synopsis": "Advisory for publishing Helm 3.15.4.3 CVE fix release for OCP 4.14",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-09-08",
+     "url": "https://access.redhat.com/errata/RHEA-2026:64797"
+    },
     {
      "id": "RHBA-2026:61573",
      "synopsis": "Red Hat OpenShift Container Platform 4.14 two month notice end of Extended Update Support Term 2",
@@ -41734,6 +41915,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:71375",
+     "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71375"
+    },
+    {
      "id": "RHBA-2026:54661",
      "synopsis": "OpenShift Container Platform 4.12 Node Resource Topology aware Scheduler extras update",
      "kind": "bugfix",
@@ -45311,20 +45500,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:6808"
       },
       {
-       "id": "RHBA-2022:6809",
-       "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-10-12",
-       "url": "https://access.redhat.com/errata/RHBA-2022:6809"
-      },
-      {
        "id": "RHBA-2022:6810",
        "synopsis": "OpenShift Container Platform 4.11.8 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-10-12",
        "url": "https://access.redhat.com/errata/RHBA-2022:6810"
+      },
+      {
+       "id": "RHBA-2022:6809",
+       "synopsis": "OpenShift Container Platform 4.11.8 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-10-12",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6809"
       }
      ]
     },
@@ -45349,20 +45538,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:6734"
       },
       {
-       "id": "RHBA-2022:6732",
-       "synopsis": "OpenShift Container Platform 4.11.7 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-10-03",
-       "url": "https://access.redhat.com/errata/RHBA-2022:6732"
-      },
-      {
        "id": "RHBA-2022:6733",
        "synopsis": "OpenShift Container Platform 4.11.7 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-10-03",
        "url": "https://access.redhat.com/errata/RHBA-2022:6733"
+      },
+      {
+       "id": "RHBA-2022:6732",
+       "synopsis": "OpenShift Container Platform 4.11.7 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-10-03",
+       "url": "https://access.redhat.com/errata/RHBA-2022:6732"
       },
       {
        "id": "RHEA-2022:6759",
@@ -47639,20 +47828,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:9101"
       },
       {
-       "id": "RHBA-2022:9099",
-       "synopsis": "OpenShift Container Platform 4.10.46 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2023-01-04",
-       "url": "https://access.redhat.com/errata/RHBA-2022:9099"
-      },
-      {
        "id": "RHBA-2022:9100",
        "synopsis": "OpenShift Container Platform 4.10.46 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2023-01-04",
        "url": "https://access.redhat.com/errata/RHBA-2022:9100"
+      },
+      {
+       "id": "RHBA-2022:9099",
+       "synopsis": "OpenShift Container Platform 4.10.46 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-01-04",
+       "url": "https://access.redhat.com/errata/RHBA-2022:9099"
       },
       {
        "id": "RHSA-2022:9098",
@@ -63752,20 +63941,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",
