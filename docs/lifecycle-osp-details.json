@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-09-24T11:35:25Z",
+ "generated": "2026-09-25T11:41:26Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2508,6 +2508,27 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:65964",
+     "synopsis": "Updated Red Hat OpenStack Platform 16.2 director Operator container images",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-09",
+     "url": "https://access.redhat.com/errata/RHSA-2026:65964",
+     "items": [
+      "golang.org/x/crypto/ssh: Denial of Service via crafted public key with excessive parameters (CVE-2026-39829)",
+      "golang.org/x/crypto/ssh: Denial of Service via resource leak from unsolicited SSH responses (CVE-2026-39830)",
+      "golang.org/x/crypto/ssh: Denial of Service via crafted AES-GCM packet decoder inputs (CVE-2026-46597)"
+     ]
+    },
+    {
+     "id": "RHBA-2026:55917",
+     "synopsis": "Updated Red Hat OpenStack Platform 16.2 ELS for RHEL 8 container images",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-18",
+     "url": "https://access.redhat.com/errata/RHBA-2026:55917"
+    },
     {
      "id": "RHSA-2026:54757",
      "synopsis": "Important: Red Hat OpenStack Platform 16.2 security advisory",
