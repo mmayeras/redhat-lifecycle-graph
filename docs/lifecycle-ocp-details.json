@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-27T11:49:36Z",
+ "generated": "2026-09-28T13:32:36Z",
  "minors": [
   {
    "minor": "4.22",
@@ -761,6 +761,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:72483",
+     "synopsis": "Advisory for publishing Helm 3.22.0.1 release for OCP 4.22",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:72483"
+    },
     {
      "id": "RHBA-2026:71667",
      "synopsis": "OpenShift Container Platform 4.22 O-Cloud Manager extras update",
@@ -3502,6 +3510,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:72473",
+     "synopsis": "OpenShift Container Platform 4.21 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:72473"
+    },
+    {
+     "id": "RHBA-2026:72352",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:72352"
+    },
     {
      "id": "RHBA-2026:71663",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -7024,6 +7048,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:72403",
+     "synopsis": "OpenShift Container Platform 4.20 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:72403"
+    },
     {
      "id": "RHBA-2026:71323",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
@@ -25417,6 +25449,33 @@
      "date": "2026-09-24",
      "errata": [
       {
+       "id": "RHSA-2026:67857",
+       "synopsis": "Important: OpenShift Container Platform 4.15.69 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:67857",
+       "items": [
+        "libxml2: Use-After-Free in libxml2 (CVE-2024-56171)",
+        "unbound: Unbound Cache poisoning (CVE-2025-5994)",
+        "sqlite: Integer Truncation in SQLite (CVE-2025-6965)",
+        "podman: Podman kube play command may overwrite host files (CVE-2025-9566)",
+        "libxml2: Stack-based buffer overflow in xmlSnprintfElements of libxml2 (CVE-2025-24928)",
+        "libxml: Heap use after free (UAF) leads to Denial of service (DoS) (CVE-2025-49794)",
+        "libxml: Type confusion leads to Denial of service (DoS) (CVE-2025-49796)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "dracut: dracut: Root code execution via DHCP options command injection (CVE-2026-6893)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "gnutls: gnutls: Authentication Bypass via NUL Character in Username (CVE-2026-42010)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "openssl: Out-of-bounds read & write in RFC 3211 KEK Unwrap (CVE-2025-9230)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "gnutls: GnuTLS: Policy bypass due to case-sensitive nameConstraints comparison (CVE-2026-3833)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "systemd: systemd: Arbitrary code execution or Denial of Service via spurious IPC API call data (CVE-2026-29111)"
+       ]
+      },
+      {
        "id": "RHBA-2026:67860",
        "synopsis": "OpenShift Container Platform 4.15.69 OLM Operators metadata update",
        "kind": "bugfix",
@@ -32052,14 +32111,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -32069,6 +32120,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
