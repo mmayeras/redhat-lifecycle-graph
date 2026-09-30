@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-29T12:34:16Z",
+ "generated": "2026-09-30T12:20:05Z",
  "minors": [
   {
    "minor": "4.22",
@@ -11,6 +11,36 @@
      "version": "4.22.16",
      "date": "2026-09-29",
      "errata": [
+      {
+       "id": "RHSA-2026:71446",
+       "synopsis": "Important: OpenShift Container Platform 4.22.16 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-29",
+       "url": "https://access.redhat.com/errata/RHSA-2026:71446",
+       "items": [
+        "rsync: rsync: Unauthorized File Access via Symlink Module Root (CVE-2026-53784)",
+        "rsync: rsync: Arbitrary file write via path traversal in --relative mode (CVE-2026-53785)",
+        "rsync: rsync < 3.5.0 Command Injection via Multiple Code Paths (CVE-2026-53790)",
+        "rsync: rsync < 3.5.0 Daemon IP Spoofing via PROXY Protocol Header (CVE-2026-53791)",
+        "rsync: rsync < 3.5.0 Path Confinement Bypass via /./ Boundary Marker in Chroot Mode (CVE-2026-53793)",
+        "rsync: rsync: Arbitrary file write via --temp-dir or --link-dest options (CVE-2026-53795)",
+        "rsync: rsync: Arbitrary File Read via Symlink Following (CVE-2026-53802)",
+        "rsync: rsync: Local Privilege Escalation via Symlink Following (CVE-2026-53803)",
+        "rsync: rsync 3.1.0 < 3.5.0 Access Control Bypass via DNS Resolution Failure (CVE-2026-70452)",
+        "rsync: rsync: Heap Out-of-Bounds Write via crafted argument list (CVE-2026-70456)",
+        "rsync: rsync: Memory corruption via crafted file entries (CVE-2026-70458)",
+        "rsync: rsync 2.3.3 < 3.5.0 Path Traversal via --partial-dir/--backup-dir Symlink (CVE-2026-70460)",
+        "rsync: rsync: Information disclosure and denial of service via crafted files-from entry (CVE-2026-70461)",
+        "rsync: rsync: Authorization bypass via `auth users` directive parsing (CVE-2026-70463)",
+        "rsync: rsync: Denial of Service via handshake stall (CVE-2026-70464)",
+        "perl: Perl: Incorrect regular expression processing via large regular expressions (CVE-2026-13221)",
+        "rsync: rsync: Arbitrary file deletion via malicious file list (CVE-2026-53789)",
+        "rsync: rsync: Denial of Service via Algorithmic Complexity (CVE-2026-70453)",
+        "rsync: rsync: TLS Certificate Validation Bypass allows interception of encrypted sessions (CVE-2026-70454)",
+        "rsync: rsync: Memory corruption via out-of-bounds write in size parsing (CVE-2026-70457)"
+       ]
+      },
       {
        "id": "RHBA-2026:71458",
        "synopsis": "OpenShift Container Platform 4.22.16 OLM Operators metadata update",
@@ -748,20 +778,20 @@
      "date": "2026-06-09",
      "errata": [
       {
-       "id": "RHEA-2026:5486",
-       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
-       "kind": "enhancement",
-       "severity": "None",
-       "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
-      },
-      {
        "id": "RHEA-2026:5487",
        "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
        "url": "https://access.redhat.com/errata/RHEA-2026:5487"
+      },
+      {
+       "id": "RHEA-2026:5486",
+       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
       },
       {
        "id": "RHEA-2026:24822",
@@ -799,6 +829,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:73535",
+     "synopsis": "OpenShift Container Platform 4.22 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73535"
+    },
     {
      "id": "RHSA-2026:73085",
      "synopsis": "OpenShift Container Platform 4.22 CNF vRAN extras topology aware lifecycle manager update",
@@ -3606,6 +3644,46 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:73920",
+     "synopsis": "OpenShift Container Platform 4.21 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73920"
+    },
+    {
+     "id": "RHBA-2026:73910",
+     "synopsis": "OpenShift Container Platform 4.21 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73910"
+    },
+    {
+     "id": "RHBA-2026:73799",
+     "synopsis": "OpenShift Container Platform 4.21 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73799"
+    },
+    {
+     "id": "RHSA-2026:73508",
+     "synopsis": "OpenShift Container Platform 4.21 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:73508"
+    },
+    {
+     "id": "RHBA-2026:73506",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73506"
+    },
     {
      "id": "RHBA-2026:73005",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -8819,6 +8897,32 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.19.49",
+     "date": "2026-09-30",
+     "errata": [
+      {
+       "id": "RHSA-2026:71440",
+       "synopsis": "Important: OpenShift Container Platform 4.19.49 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:71440",
+       "items": [
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "openssh: OpenSSH: Use-after-free vulnerability during host key re-exchange on the client side (CVE-2026-60002)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:71449",
+       "synopsis": "OpenShift Container Platform 4.19.49 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:71449"
+      }
+     ]
+    },
+    {
      "version": "4.19.48",
      "date": "2026-09-23",
      "errata": [
@@ -11227,6 +11331,30 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:73434",
+     "synopsis": "OpenShift Container Platform 4.19 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73434"
+    },
+    {
+     "id": "RHBA-2026:73349",
+     "synopsis": "OpenShift Container Platform 4.19 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73349"
+    },
+    {
+     "id": "RHBA-2026:73276",
+     "synopsis": "OpenShift Container Platform 4.19 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73276"
+    },
     {
      "id": "RHSA-2026:70392",
      "synopsis": "Red Hat Web Terminal Operator 1.14.1 release.",
@@ -24007,6 +24135,22 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:73913",
+     "synopsis": "OpenShift Container Platform 4.16 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73913"
+    },
+    {
+     "id": "RHSA-2026:73518",
+     "synopsis": "OpenShift Container Platform 4.16 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:73518"
+    },
+    {
      "id": "RHBA-2026:57646",
      "synopsis": "DevWorkspace Operator 0.43.0 release.",
      "kind": "bugfix",
@@ -32257,14 +32401,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -32274,6 +32410,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -32870,6 +33014,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:73744",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73744"
+    },
     {
      "id": "RHBA-2026:72999",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
