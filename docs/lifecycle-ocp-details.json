@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-09-30T12:20:05Z",
+ "generated": "2026-10-01T12:54:52Z",
  "minors": [
   {
    "minor": "4.22",
@@ -829,6 +829,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:74354",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74354"
+    },
+    {
+     "id": "RHBA-2026:74004",
+     "synopsis": "OpenShift Container Platform 4.22 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74004"
+    },
     {
      "id": "RHBA-2026:73535",
      "synopsis": "OpenShift Container Platform 4.22 ztp-site-generate container",
@@ -3644,6 +3660,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:74355",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74355"
+    },
+    {
+     "id": "RHSA-2026:74023",
+     "synopsis": "OpenShift Container Platform 4.21 CNF IBU extras update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHSA-2026:74023"
+    },
     {
      "id": "RHBA-2026:73920",
      "synopsis": "OpenShift Container Platform 4.21 Node Resource Topology aware Scheduler extras update",
@@ -7264,6 +7296,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:74357",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74357"
+    },
+    {
+     "id": "RHBA-2026:74024",
+     "synopsis": "OpenShift Container Platform 4.20 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74024"
+    },
     {
      "id": "RHSA-2026:72508",
      "synopsis": "OpenShift Container Platform 4.20 CNF IBU extras update",
@@ -16773,6 +16821,38 @@
    "minor": "4.17",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.17.58",
+     "date": "2026-10-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:70586",
+       "synopsis": "Important: OpenShift Container Platform 4.17.58 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:70586",
+       "items": [
+        "urllib3: urllib3: Unbounded decompression chain leads to resource exhaustion (CVE-2025-66418)",
+        "samba: group policy certificate enrollment uses http:// without validation (CVE-2026-3012)",
+        "bind: BIND 9 server memory exhaustion during GSS-API TKEY negotiation (CVE-2026-3039)",
+        "bind: BIND: Denial of Service via specially crafted DNS messages (CVE-2026-5946)",
+        "dracut: dracut: Root code execution via DHCP options command injection (CVE-2026-6893)",
+        "bind9: bind: Potential wildcard CNAME RPZ policy bypass (CVE-2026-11331)",
+        "sqlite: SQLite: Arbitrary code execution via crafted FTS5 full-text search data (CVE-2026-11822)",
+        "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5 (CVE-2026-11824)",
+        "bind: bind9: DNSSEC Validation Bypass via Out-of-Zone NSEC Next Field (CVE-2026-13321)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "samba: vfs_worm does not block directory modification (CVE-2026-2340)",
+        "bind: bind9: Incorrect acceptance of NSEC3 records (CVE-2026-10723)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.17.57",
      "date": "2026-09-03",
@@ -33014,6 +33094,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:74368",
+     "synopsis": "Red Hat OpenShift Container Platform 4.14 one month notice end of Extended Update Support Term 2",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74368"
+    },
+    {
+     "id": "RHBA-2026:74356",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74356"
+    },
     {
      "id": "RHBA-2026:73744",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
