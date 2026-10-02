@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-01T12:54:52Z",
+ "generated": "2026-10-02T12:17:42Z",
  "minors": [
   {
    "minor": "4.22",
@@ -778,20 +778,20 @@
      "date": "2026-06-09",
      "errata": [
       {
-       "id": "RHEA-2026:5487",
-       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
-       "kind": "enhancement",
-       "severity": "None",
-       "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
-      },
-      {
        "id": "RHEA-2026:5486",
        "synopsis": "OpenShift Container Platform 4.22.0 packages update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
        "url": "https://access.redhat.com/errata/RHEA-2026:5486"
+      },
+      {
+       "id": "RHEA-2026:5487",
+       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
       },
       {
        "id": "RHEA-2026:24822",
@@ -829,6 +829,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:74473",
+     "synopsis": "fixing cve issues",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74473"
+    },
     {
      "id": "RHBA-2026:74354",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -3660,6 +3668,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:74472",
+     "synopsis": "fixing risk image",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74472"
+    },
     {
      "id": "RHBA-2026:74355",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -12648,6 +12664,38 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.18.56",
+     "date": "2026-10-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:70615",
+       "synopsis": "Important: OpenShift Container Platform 4.18.56 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:70615",
+       "items": [
+        "urllib3: urllib3: Unbounded decompression chain leads to resource exhaustion (CVE-2025-66418)",
+        "bind: BIND 9 server memory exhaustion during GSS-API TKEY negotiation (CVE-2026-3039)",
+        "bind: BIND: Denial of Service via specially crafted DNS messages (CVE-2026-5946)",
+        "dracut: dracut: Root code execution via DHCP options command injection (CVE-2026-6893)",
+        "bind9: bind: Potential wildcard CNAME RPZ policy bypass (CVE-2026-11331)",
+        "bind: bind9: DNSSEC Validation Bypass via Out-of-Zone NSEC Next Field (CVE-2026-13321)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:70619",
+       "synopsis": "OpenShift Container Platform 4.18.56 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHBA-2026:70619"
+      }
+     ]
+    },
+    {
      "version": "4.18.55",
      "date": "2026-09-17",
      "errata": [
@@ -16850,6 +16898,14 @@
         "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
         "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)"
        ]
+      },
+      {
+       "id": "RHBA-2026:70589",
+       "synopsis": "OpenShift Container Platform 4.17.58 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHBA-2026:70589"
       }
      ]
     },
@@ -32481,6 +32537,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
+      },
+      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -32490,14 +32554,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -39104,6 +39160,28 @@
    "minor": "4.12",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.12/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.12.99",
+     "date": "2026-10-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:70646",
+       "synopsis": "Moderate: OpenShift Container Platform 4.12.99 bug fix and security update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:70646"
+      },
+      {
+       "id": "RHBA-2026:70649",
+       "synopsis": "OpenShift Container Platform 4.12.99 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHBA-2026:70649"
+      }
+     ]
+    },
     {
      "version": "4.12.98",
      "date": "2026-09-17",
@@ -55832,20 +55910,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5032",
-       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
-      },
-      {
        "id": "RHBA-2022:5033",
        "synopsis": "OpenShift Container Platform 4.8.44 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5033"
+      },
+      {
+       "id": "RHBA-2022:5032",
+       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
       },
       {
        "id": "RHBA-2022:5031",

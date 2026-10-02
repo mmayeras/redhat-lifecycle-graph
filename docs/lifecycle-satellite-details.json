@@ -1,12 +1,48 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-10-01T13:00:35Z",
+ "generated": "2026-10-02T12:22:52Z",
  "minors": [
   {
    "minor": "6.19",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.19/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.19.5",
+     "date": "2026-10-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:74503",
+       "synopsis": "Critical: Satellite 6.19.5 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74503",
+       "items": [
+        "rubygem-foreman_remote_execution: command injection in job invocations via effective_user parameter (CVE-2026-12405)",
+        "foreman: unauthenticated information disclosure via provisioning token validation flaw (CVE-2026-12423)",
+        "foreman: command injection in foreman-rake errors:fetch_log via request_id parameter (CVE-2026-12540)",
+        "foreman: command injection in foreman-rake database tasks (CVE-2026-12541)",
+        "foreman: command injection in foreman-tail (CVE-2026-12542)",
+        "foreman: SSTI and insecure deserialization in foreman-rake configuration (CVE-2026-12544)",
+        "rubygem-hammer_cli: command injection via insecure editor invocation (CVE-2026-12545)",
+        "python3.12-dynaconf: Dynaconf: Arbitrary code execution via Server-Side Template Injection (CVE-2026-33154)",
+        "yggdrasil-worker-forwarder: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "yggdrasil-worker-forwarder: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "nodejs-sanitize-html: PostCSS: Information disclosure and denial of service via crafted CSS input (CVE-2026-45623)",
+        "python-sqlparse: sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing (CVE-2026-54284)",
+        "python3.12-sqlparse: sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing (CVE-2026-54284)",
+        "rubygem-katello: SQL injection in Registry Proxy via labels (CVE-2026-56097)",
+        "rubygem-katello: improper authorization logic allows resource enumeration (CVE-2026-56098)",
+        "yggdrasil-worker-forwarder: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "yggdrasil-worker-forwarder: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "yggdrasil-worker-forwarder: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)",
+        "nodejs-connected-react-router: Immutable.js: Denial of Service due to mishandling of large index values in List operations (CVE-2026-59879)",
+        "nodejs-sass: Immutable.js: Denial of Service due to mishandling of large index values in List operations (CVE-2026-59879)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.19.4",
      "date": "2026-09-03",
