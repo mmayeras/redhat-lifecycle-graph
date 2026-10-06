@@ -1,12 +1,42 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-05T14:15:56Z",
+ "generated": "2026-10-06T13:10:55Z",
  "minors": [
   {
    "minor": "4.22",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.22.17",
+     "date": "2026-10-06",
+     "errata": [
+      {
+       "id": "RHSA-2026:74428",
+       "synopsis": "Important: OpenShift Container Platform 4.22.17 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74428",
+       "items": [
+        "libevent: Libevent: HTTP header handling bugs create risk of access control bypass. (CVE-2026-63385)",
+        "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
+        "kernel: net: tun: bound receive headroom (CVE-2026-81000)",
+        "unbound: Unbound: Heap buffer overflow via malicious DNSSEC response (CVE-2026-81634)",
+        "unbound: Unbound: Remote Code Execution Vulnerability in CNAME Synthesis (CVE-2026-82717)",
+        "kernel: scsi: qla2xxx: Bound rsp_info_len to avoid OOB sense-data read (CVE-2026-89846)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:74431",
+       "synopsis": "OpenShift Container Platform 4.22.17 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:74431"
+      }
+     ]
+    },
     {
      "version": "4.22.16",
      "date": "2026-09-29",
@@ -778,20 +808,20 @@
      "date": "2026-06-09",
      "errata": [
       {
-       "id": "RHEA-2026:5486",
-       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
-       "kind": "enhancement",
-       "severity": "None",
-       "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
-      },
-      {
        "id": "RHEA-2026:5487",
        "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
        "url": "https://access.redhat.com/errata/RHEA-2026:5487"
+      },
+      {
+       "id": "RHEA-2026:5486",
+       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
       },
       {
        "id": "RHEA-2026:24822",
@@ -1948,6 +1978,33 @@
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.36",
+     "date": "2026-10-06",
+     "errata": [
+      {
+       "id": "RHSA-2026:74379",
+       "synopsis": "Important: OpenShift Container Platform 4.21.36 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74379",
+       "items": [
+        "kernel: sctp: prevent peer transport count overflow (CVE-2026-74469)",
+        "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
+        "kernel: net: tun: bound receive headroom (CVE-2026-81000)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:74385",
+       "synopsis": "OpenShift Container Platform 4.21.36 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:74385"
+      }
+     ]
+    },
     {
      "version": "4.21.35",
      "date": "2026-09-29",
@@ -3668,6 +3725,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:76681",
+     "synopsis": "OpenShift Container Platform 4.21 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-06",
+     "url": "https://access.redhat.com/errata/RHBA-2026:76681"
+    },
     {
      "id": "RHBA-2026:75633",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -7320,6 +7385,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:76044",
+     "synopsis": "OpenShift Container Platform 4.20 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:76044"
+    },
     {
      "id": "RHBA-2026:75634",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
@@ -54103,6 +54176,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHEA-2026:76135",
+     "synopsis": "Red Hat Single Sign-On 7.6.13 Operator Update",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-10-05",
+     "url": "https://access.redhat.com/errata/RHEA-2026:76135"
+    },
+    {
      "id": "RHEA-2025:11654",
      "synopsis": "Red Hat Single Sign-On 7.6.12 Operator Update",
      "kind": "enhancement",
@@ -65346,20 +65427,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",
@@ -70894,6 +70975,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:76134",
+     "synopsis": "Important: Red Hat Single Sign-On 7.6.13 for OpenShift image security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:76134",
+     "items": [
+      "undertow-core: Undertow MadeYouReset HTTP/2 DDoS Vulnerability (CVE-2025-9784)",
+      "Undertow HTTP Server Fails to Reject Malformed Host Headers Leading to Potential Cache Poisoning and SSRF (CVE-2025-12543)",
+      "Undertow HTTP Server Fails to Reject Malformed Host Headers Leading to Potential Cache Poisoning and SSRF (CVE-2025-12543)",
+      "Information disclosure and data deletion via second-order SQL injection (CVE-2026-0603)",
+      "GOSTCTR implementation unable to process more than 255 blocks correctly (CVE-2025-14813)",
+      "PKIX draft CompositeVerifier accepts empty signature sequence as valid (CVE-2026-5588)",
+      "unbounded PGP AEAD chunk size leads to pre-auth resource exhaustion (CVE-2026-3505)",
+      "High integrity impact due to improper DNS domain name constraint enforcement (CVE-2026-42579)",
+      "HTTP Request Smuggling due to improper handling of conflicting HTTP/1.0 headers (CVE-2026-42581)",
+      "HTTP Header Injection via HttpProxyHandler Disabled Validation (CVE-2026-42578)",
+      "Denial of Service via unbounded memory allocation in HTTP content decompression (CVE-2026-42587)",
+      "Denial of Service via unbounded memory allocation in HTTP content decompression (CVE-2026-42587)",
+      "IPv6 subnet rule bypass due to incorrect masking operation (CVE-2026-44249)",
+      "Denial of Service via malformed HAProxy message (CVE-2026-44893)",
+      "Denial of Service due to resource leak (CVE-2026-48043)",
+      "Netty HAProxy PROXY protocol v2 codec: Denial of Service via memory leak from crafted PROXY protocol headers (CVE-2026-48059)",
+      "Netty has Insufficient Bailiwick Validation for NS Records (CVE-2026-47691)",
+      "Improper trust manager handling leads to hostname verification bypass (CVE-2026-50010)",
+      "Information disclosure and data manipulation due to improper CNAME record validation (CVE-2026-45674)",
+      "Denial of Service due to eager buffer allocation in TLS handshake (CVE-2026-45416)"
+     ]
+    },
     {
      "id": "RHSA-2025:11636",
      "synopsis": "Moderate: Red Hat Single Sign-On 7.6.12 for OpenShift image security update",

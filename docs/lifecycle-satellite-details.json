@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-10-05T14:21:55Z",
+ "generated": "2026-10-06T13:16:33Z",
  "minors": [
   {
    "minor": "6.19",
@@ -272,6 +272,42 @@
    "minor": "6.18",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.18/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.18.10",
+     "date": "2026-10-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:74504",
+       "synopsis": "Critical: Satellite 6.18.10 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74504",
+       "items": [
+        "foreman: Excessive Permissions for Viewer Role on Preview (CVE-2026-96659)",
+        "python3.12-gitpython: GitPython: Remote Code Execution via Git directory impersonation (CVE-2026-87817)",
+        "python3.12-gitpython: GitPython: Arbitrary file read via TagReference.create() (CVE-2026-78679)",
+        "python3.12-gitpython: GitPython: Arbitrary code execution via improper validation of clone options (CVE-2026-42284)",
+        "python3.12-gitpython: GitPython: Arbitrary command execution due to bypass of dangerous Git option checks (CVE-2026-42215)",
+        "python3.12-dynaconf: Dynaconf: Arbitrary code execution via Server-Side Template Injection (CVE-2026-33154)",
+        "yggdrasil-worker-forwarder: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "yggdrasil-worker-forwarder: Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service (CVE-2026-56853)",
+        "satellite/iop-advisor-backend-rhel9: sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing (CVE-2026-54284)",
+        "python3.12-sqlparse: sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing (CVE-2026-54284)",
+        "satellite/iop-advisor-backend-rhel9: sqlparse: Denial of Service via inefficient SQL parsing (CVE-2026-59893)",
+        "python3.12-sqlparse: sqlparse: Denial of Service via inefficient SQL parsing (CVE-2026-59893)",
+        "python3.12-sqlparse: sqlparse: Denial of Service via quadratic CPU consumption in comment grouping (CVE-2026-71491)",
+        "rubygem-katello: Katello Content View History API Cross-Organization Authorization Bypass (CVE-2026-79654)",
+        "yggdrasil-worker-forwarder: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)",
+        "yggdrasil-worker-forwarder: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "yggdrasil-worker-forwarder: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "yggdrasil-worker-forwarder: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "rubygem-katello: improper authorization logic allows resource enumeration (CVE-2026-56098)",
+        "rubygem-katello: SQL injection in Registry Proxy via labels (CVE-2026-56097)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.18.9",
      "date": "2026-09-03",
@@ -601,6 +637,42 @@
    "minor": "6.17",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.17/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.17.12",
+     "date": "2026-10-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:74505",
+       "synopsis": "Critical: Satellite 6.17.12 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74505",
+       "items": [
+        "foreman: Excessive Permissions for Viewer Role on Preview (CVE-2026-96659)",
+        "foreman: Safemode Bypass leading to RCE (CVE-2026-96658)",
+        "Dynaconf: Arbitrary code execution via Server-Side Template Injection (CVE-2026-33154)",
+        "GitPython: Arbitrary file read via TagReference.create() (CVE-2026-78679)",
+        "GitPython: Remote Code Execution via Git directory impersonation (CVE-2026-87817)",
+        "GitPython: Remote Code Execution via Git directory impersonation (CVE-2026-87817)",
+        "python-gitpython: GitPython: Arbitrary code execution via improper validation of clone options (CVE-2026-42284)",
+        "python-gitpython: GitPython: Arbitrary command execution due to bypass of dangerous Git option checks (CVE-2026-42215)",
+        "python-gitpython: GitPython: Arbitrary File Overwrite via improper git option validation (CVE-2026-73624)",
+        "python-gitpython: GitPython: Arbitrary file overwrite and read via unsafe git option forwarding (CVE-2026-73620)",
+        "python-gitpython: GitPython: Information disclosure via environment variable expansion in URL handling (CVE-2026-73622)",
+        "python-gitpython: GitPython: Remote Code Execution via kwarg value smuggling (CVE-2026-73625)",
+        "python-gitpython: GitPython: Remote Code Execution via malicious Git template (CVE-2026-73623)",
+        "Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)",
+        "Katello Content View History API Cross-Organization Authorization Bypass (CVE-2026-79654)",
+        "golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "yggdrasil-worker-forwarder: Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service (CVE-2026-56853)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.17.11",
      "date": "2026-09-03",
@@ -1052,6 +1124,42 @@
    "minor": "6.16",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.16/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.16.14",
+     "date": "2026-10-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:74506",
+       "synopsis": "Critical: Satellite 6.16.14 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74506",
+       "items": [
+        "python-dynaconf: Dynaconf: Arbitrary code execution via Server-Side Template Injection [rhn_satellite_6.16] (CVE-2026-33154)",
+        "foreman: Excessive Permissions for Viewer Role on Preview [rhn_satellite_6.16] (CVE-2026-96659)",
+        "foreman: Safemode Bypass leading to RCE [rhn_satellite_6.16] (CVE-2026-96658)",
+        "satellite:el8/python-sqlparse: sqlparse: Denial of Service via inefficient SQL parsing [rhn_satellite_6.16] (CVE-2026-59893)",
+        "python-sqlparse: sqlparse: Denial of Service via inefficient SQL parsing [rhn_satellite_6.16] (CVE-2026-59893)",
+        "satellite:el8/python-sqlparse: sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing [rhn_satellite_6.16] (CVE-2026-54284)",
+        "python-sqlparse: sqlparse: Denial of Service via quadratic CPU consumption in SQL parsing [rhn_satellite_6.16] (CVE-2026-54284)",
+        "satellite:el8/yggdrasil-worker-forwarder: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages [rhn_satellite_6.16] (CVE-2026-56862)",
+        "satellite:el8/yggdrasil-worker-forwarder: Go html/template: Cross-Site Scripting via pathological input [rhn_satellite_6.16] (CVE-2026-56858)",
+        "satellite:el8/yggdrasil-worker-forwarder: golang net/url: Denial of Service from quadratic complexity in path resolution [rhn_satellite_6.16] (CVE-2026-56860)",
+        "satellite:el8/yggdrasil-worker-forwarder: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal [rhn_satellite_6.16] (CVE-2026-33818)",
+        "satellite:el8/rubygem-katello: Katello Content View History API Cross-Organization Authorization Bypass [rhn_satellite_6.16] (CVE-2026-79654)",
+        "python-gitpython: GitPython: Arbitrary file read via TagReference.create() [rhn_satellite_6.16] (CVE-2026-78679)",
+        "python-gitpython: GitPython: Remote Code Execution via Git directory impersonation [rhn_satellite_6.16] (CVE-2026-87817)",
+        "python-gitpython: GitPython: Arbitrary code execution via improper validation of clone options (CVE-2026-42284)",
+        "python-gitpython: GitPython: Arbitrary command execution due to bypass of dangerous Git option checks (CVE-2026-42215)",
+        "python-gitpython: GitPython: Arbitrary File Overwrite via improper git option validation (CVE-2026-73624)",
+        "python-gitpython: GitPython: Arbitrary file overwrite and read via unsafe git option forwarding (CVE-2026-73620)",
+        "python-gitpython: GitPython: Information disclosure via environment variable expansion in URL handling (CVE-2026-73622)",
+        "python-gitpython: GitPython: Remote Code Execution via kwarg value smuggling (CVE-2026-73625)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.16.13",
      "date": "2026-09-03",
