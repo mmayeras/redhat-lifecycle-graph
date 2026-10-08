@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-07T13:05:24Z",
+ "generated": "2026-10-08T13:12:51Z",
  "minors": [
   {
    "minor": "4.22",
@@ -7431,6 +7431,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:78670",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-08",
+     "url": "https://access.redhat.com/errata/RHBA-2026:78670"
+    },
+    {
+     "id": "RHSA-2026:77639",
+     "synopsis": "Logging for Red Hat OpenShift - 6.4.7",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-07",
+     "url": "https://access.redhat.com/errata/RHSA-2026:77639"
+    },
     {
      "id": "RHBA-2026:76044",
      "synopsis": "OpenShift Container Platform 4.20 telco core RDS extras update",
@@ -21108,6 +21124,33 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.16.72",
+     "date": "2026-10-08",
+     "errata": [
+      {
+       "id": "RHSA-2026:73851",
+       "synopsis": "Important: OpenShift Container Platform 4.16.72 bug fix update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:73851",
+       "items": [
+        "urllib3: urllib3: Unbounded decompression chain leads to resource exhaustion (CVE-2025-66418)",
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:73855",
+       "synopsis": "OpenShift Container Platform 4.16.72 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:73855"
+      }
+     ]
+    },
+    {
      "version": "4.16.71",
      "date": "2026-09-24",
      "errata": [
@@ -24440,6 +24483,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:77899",
+     "synopsis": "Red Hat Web Terminal Operator 1.11.2 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-07",
+     "url": "https://access.redhat.com/errata/RHSA-2026:77899"
+    },
     {
      "id": "RHBA-2026:73913",
      "synopsis": "OpenShift Container Platform 4.16 ztp-site-generate container",
@@ -29788,6 +29839,35 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.14.75",
+     "date": "2026-10-08",
+     "errata": [
+      {
+       "id": "RHSA-2026:73866",
+       "synopsis": "Important: OpenShift Container Platform 4.14.75 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:73866",
+       "items": [
+        "sqlite: SQLite: Arbitrary code execution via crafted FTS5 full-text search data (CVE-2026-11822)",
+        "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5 (CVE-2026-11824)",
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)",
+        "glib: path traversal in glib/gio/gdbusauthmechanismsha1.c via keyring_lookup_entry and mechanism_client_data_receive (CVE-2026-58015)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:73873",
+       "synopsis": "OpenShift Container Platform 4.14.75 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:73873"
+      }
+     ]
+    },
+    {
      "version": "4.14.74",
      "date": "2026-09-24",
      "errata": [
@@ -33320,6 +33400,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:78593",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-08",
+     "url": "https://access.redhat.com/errata/RHBA-2026:78593"
+    },
     {
      "id": "RHBA-2026:77306",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
@@ -65548,20 +65636,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",
