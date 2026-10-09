@@ -1,13 +1,40 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-10-08T13:16:22Z",
+ "generated": "2026-10-09T13:02:48Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:79748",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:79748",
+     "items": [
+      "Containers: RHSA-2026:79378"
+     ]
+    },
+    {
+     "id": "RHBA-2026:79386",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Containized Setup Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-08",
+     "url": "https://access.redhat.com/errata/RHBA-2026:79386"
+    },
+    {
+     "id": "RHSA-2026:79378",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-10-08",
+     "url": "https://access.redhat.com/errata/RHSA-2026:79378"
+    },
     {
      "id": "RHBA-2026:72728",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
