@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-10-09T13:05:04Z",
+ "generated": "2026-10-10T12:22:32Z",
  "minors": [
   {
    "minor": "6.19",
