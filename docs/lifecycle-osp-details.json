@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-10-10T12:21:57Z",
+ "generated": "2026-10-11T12:37:17Z",
  "minors": [
   {
    "minor": "17.1",
