@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-11T12:32:04Z",
+ "generated": "2026-10-12T15:05:10Z",
  "minors": [
   {
    "minor": "4.22",
@@ -3734,6 +3734,22 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:80667",
+     "synopsis": "OpenShift Container Platform 4.21 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80667"
+    },
+    {
+     "id": "RHBA-2026:80555",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80555"
+    },
+    {
      "id": "RHBA-2026:76681",
      "synopsis": "OpenShift Container Platform 4.21 NUMA resources operator extras update",
      "kind": "bugfix",
@@ -7431,6 +7447,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:80564",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80564"
+    },
     {
      "id": "RHBA-2026:79344",
      "synopsis": "OpenShift Container Platform 4.20 ztp-site-generate container",
@@ -11582,6 +11606,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:80669",
+     "synopsis": "OpenShift Container Platform 4.19 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80669"
+    },
+    {
      "id": "RHSA-2026:76814",
      "synopsis": "OpenShift Container Platform 4.19 CNF IBU extras update",
      "kind": "security",
@@ -15568,6 +15600,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:80726",
+     "synopsis": "OpenShift Container Platform 4.18 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80726"
+    },
+    {
+     "id": "RHBA-2026:80631",
+     "synopsis": "OpenShift Container Platform 4.18 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80631"
+    },
     {
      "id": "RHBA-2026:79345",
      "synopsis": "OpenShift Container Platform 4.18 ztp-site-generate container",
@@ -24499,6 +24547,30 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:81241",
+     "synopsis": "OpenShift Container Platform 4.16 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:81241"
+    },
+    {
+     "id": "RHBA-2026:80727",
+     "synopsis": "OpenShift Container Platform 4.16 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80727"
+    },
+    {
+     "id": "RHBA-2026:80626",
+     "synopsis": "OpenShift Container Platform 4.16 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80626"
+    },
     {
      "id": "RHBA-2026:79391",
      "synopsis": "OpenShift Container Platform 4.16 NUMA resources must-gather extras update",
@@ -33433,6 +33505,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:80610",
+     "synopsis": "OpenShift Container Platform 4.14 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80610"
+    },
+    {
      "id": "RHBA-2026:79195",
      "synopsis": "OpenShift Container Platform 4.14 NUMA resources operator extras update",
      "kind": "bugfix",
@@ -36932,14 +37012,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
-      },
-      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -36949,6 +37021,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -43601,6 +43681,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:80616",
+     "synopsis": "OpenShift Container Platform 4.12 performance-addon-operator-must-gather update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80616"
+    },
+    {
+     "id": "RHBA-2026:80602",
+     "synopsis": "OpenShift Container Platform 4.12 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:80602"
+    },
     {
      "id": "RHBA-2026:77118",
      "synopsis": "OpenShift Container Platform 4.12 CNF vRAN extras topology aware lifecycle manager update",

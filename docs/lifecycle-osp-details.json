@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-10-11T12:37:17Z",
+ "generated": "2026-10-12T15:10:26Z",
  "minors": [
   {
    "minor": "17.1",
@@ -605,6 +605,31 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:80684",
+     "synopsis": "Updated Red Hat OpenStack Platform 17.1 director Operator container images",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-12",
+     "url": "https://access.redhat.com/errata/RHSA-2026:80684",
+     "items": [
+      "golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries (CVE-2026-27145)",
+      "Go crypto/tls: Denial of Service via multiple TLS 1.3 key update messages (CVE-2026-32283)",
+      "Go net package: Denial of Service via long CNAME response in LookupCNAME (CVE-2026-33811)",
+      "Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+      "golang.org/x/crypto/ssh: Denial of Service via crafted public key with excessive parameters (CVE-2026-39829)",
+      "golang.org/x/crypto/ssh: Denial of Service via resource leak from unsolicited SSH responses (CVE-2026-39830)",
+      "Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+      "golang.org/x/crypto/ssh: Denial of Service via crafted AES-GCM packet decoder inputs (CVE-2026-46597)",
+      "Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service (CVE-2026-56853)",
+      "Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+      "Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+      "golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+      "Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)",
+      "This release of OSPdO includes support for installation on OpenShift 4.20 platform (RHOSSTRAT-1291)",
+      "osp-director-operator no longer depends on the deprecated kube-rbac-proxy image (OSPRH-25893)"
+     ]
+    },
     {
      "id": "RHSA-2026:66401",
      "synopsis": "Important: Red Hat OpenStack Platform 17.1 security and bug fix advisory",
@@ -2072,17 +2097,6 @@
      ]
     },
     {
-     "id": "RHSA-2023:0274",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2023-01-25",
-     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
-     "items": [
-      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
-     ]
-    },
-    {
      "id": "RHSA-2023:0275",
      "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
      "kind": "security",
@@ -2091,6 +2105,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2023:0275",
      "items": [
       "unrestricted creation of security groups (CVE-2022-3277)"
+     ]
+    },
+    {
+     "id": "RHSA-2023:0274",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2023-01-25",
+     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
+     "items": [
+      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
      ]
     },
     {
@@ -7819,18 +7844,6 @@
      ]
     },
     {
-     "id": "RHBA-2019:0928",
-     "synopsis": "python-django-horizon bug fix advisory",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2019-04-30",
-     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
-     "items": [
-      "OpenStack Dashboard",
-      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
-     ]
-    },
-    {
      "id": "RHBA-2019:0929",
      "synopsis": "openstack-cinder bug fix advisory",
      "kind": "bugfix",
@@ -7842,6 +7855,18 @@
       "Previously, when `destroy_empty_storage_group` was enabled and a storage group was destroyed after it was emptied, the VNX driver or storops cache was not updated and the driver did not recreate the storage group upon subsequent attachment. The\u2026",
       "Previously, when authenticating, a string match was performed on the `response-type` string. Performance with this mechanism was not consistent.",
       "The following issues with multi-attach have been fixed:"
+     ]
+    },
+    {
+     "id": "RHBA-2019:0928",
+     "synopsis": "python-django-horizon bug fix advisory",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2019-04-30",
+     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
+     "items": [
+      "OpenStack Dashboard",
+      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
      ]
     },
     {
