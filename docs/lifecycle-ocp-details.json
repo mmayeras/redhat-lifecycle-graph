@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-13T13:58:45Z",
+ "generated": "2026-10-14T11:35:51Z",
  "minors": [
   {
    "minor": "4.22",
@@ -859,6 +859,38 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:82778",
+     "synopsis": "OpenShift Container Platform 4.22 O-Cloud Manager extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-14",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82778"
+    },
+    {
+     "id": "RHBA-2026:82735",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-14",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82735"
+    },
+    {
+     "id": "RHBA-2026:82276",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82276"
+    },
+    {
+     "id": "RHBA-2026:82270",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82270"
+    },
     {
      "id": "RHBA-2026:77594",
      "synopsis": "OpenShift Container Platform 4.22 telco core RDS extras update",
@@ -1990,6 +2022,14 @@
      "version": "4.21.37",
      "date": "2026-10-13",
      "errata": [
+      {
+       "id": "RHBA-2026:79159",
+       "synopsis": "OpenShift Container Platform 4.21.37 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-13",
+       "url": "https://access.redhat.com/errata/RHBA-2026:79159"
+      },
       {
        "id": "RHSA-2026:79153",
        "synopsis": "Important: OpenShift Container Platform 4.21.37 bug fix and security update",
@@ -3750,6 +3790,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:82278",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82278"
+    },
+    {
+     "id": "RHBA-2026:82273",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82273"
+    },
     {
      "id": "RHBA-2026:81775",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -7510,6 +7566,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:82272",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82272"
+    },
     {
      "id": "RHSA-2026:82054",
      "synopsis": "OpenShift Container Platform 4.20 CNF vRAN extras topology aware lifecycle manager update",
@@ -11684,6 +11748,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:82275",
+     "synopsis": "OpenShift Container Platform 4.19 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82275"
+    },
     {
      "id": "RHSA-2026:82053",
      "synopsis": "OpenShift Container Platform 4.19 CNF vRAN extras topology aware lifecycle manager update",
@@ -24651,6 +24723,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:82269",
+     "synopsis": "OpenShift Container Platform 4.16 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82269"
+    },
+    {
      "id": "RHBA-2026:81241",
      "synopsis": "OpenShift Container Platform 4.16 NUMA resources operator extras update",
      "kind": "bugfix",
@@ -33607,6 +33687,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:82268",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82268"
+    },
     {
      "id": "RHBA-2026:82164",
      "synopsis": "OpenShift Container Platform 4.14 Node Resource Topology aware Scheduler extras update",
@@ -43800,6 +43888,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:82271",
+     "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82271"
+    },
     {
      "id": "RHBA-2026:80616",
      "synopsis": "OpenShift Container Platform 4.12 performance-addon-operator-must-gather update",
