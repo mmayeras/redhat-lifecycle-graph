@@ -1,12 +1,26 @@
 {
  "product": "ceph",
  "title": "Ceph Lifecycle",
- "generated": "2026-10-18T10:51:38Z",
+ "generated": "2026-10-19T12:52:57Z",
  "minors": [
   {
    "minor": "9",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ceph_storage/9/html/release_notes/",
    "zstreams": [
+    {
+     "version": "9.2",
+     "date": "2026-10-19",
+     "errata": [
+      {
+       "id": "RHEA-2026:84696",
+       "synopsis": "Red Hat Ceph Storage 9.2 enhancement update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-10-19",
+       "url": "https://access.redhat.com/errata/RHEA-2026:84696"
+      }
+     ]
+    },
     {
      "version": "9.1",
      "date": "2026-06-24",
