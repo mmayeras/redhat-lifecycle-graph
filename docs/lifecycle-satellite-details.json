@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-10-19T12:53:52Z",
+ "generated": "2026-10-20T11:24:24Z",
  "minors": [
   {
    "minor": "6.19",
@@ -193,6 +193,17 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:85249",
+     "synopsis": "Moderate: Satellite 6 Client Update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2026-10-19",
+     "url": "https://access.redhat.com/errata/RHSA-2026:85249",
+     "items": [
+      "puppet-agent: heap buffer overflow in CMS key unwrapping (CVE-2026-63072)"
+     ]
+    },
     {
      "id": "RHBA-2026:51087",
      "synopsis": "Satellite 6 Client Bug Fix Update",
