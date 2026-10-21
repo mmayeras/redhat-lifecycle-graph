@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-21T11:33:46Z",
+ "generated": "2026-10-21T14:36:44Z",
  "minors": [
   {
    "minor": "4.22",
@@ -7748,6 +7748,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:86904",
+     "synopsis": "OpenShift Container Platform 4.20 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:86904"
+    },
     {
      "id": "RHBA-2026:82272",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
@@ -37672,14 +37680,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
-      },
-      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -37689,6 +37689,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",

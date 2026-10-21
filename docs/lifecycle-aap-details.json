@@ -1,13 +1,21 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-10-21T11:37:47Z",
+ "generated": "2026-10-21T14:40:43Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:87005",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Product Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:87005"
+    },
     {
      "id": "RHBA-2026:79748",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
@@ -387,6 +395,26 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:87004",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHSA-2026:87004",
+     "items": [
+      "automation-gateway: authorization bypass via workload identity token forgery (CVE-2026-94416)",
+      "automation-platform-ui: proxy-addr vulnerable to IP spoofing via IPv4-mapped IPv6 trust subnet (CVE-2026-90711)",
+      "automation-platform-ui: compression: Denial of Service via memory leak on premature response close (CVE-2026-87776)",
+      "automation-platform-ui: fflate: Denial of Service via crafted ZIP archives (CVE-2026-45820)",
+      "python3.12-pulpcore: file:// scheme allowlist bypass in content upload file_url field enables arbitrary file read and Pulp Container registry signing key theft (CVE-2026-90959)",
+      "python3.12-pyjwt: Verification key substitution via unvalidated JWKS redirects (CVE-2026-102267)",
+      "python3.12-pyjwt: Token forgery via improper Unicode byte-order mark handling (CVE-2026-102272)",
+      "python3.12-pyjwt: Authentication bypass via empty HMAC key acceptance (CVE-2026-102266)",
+      "python3.12-pyjwt: Authentication bypass via acceptance of DER public keys as HMAC secrets (CVE-2026-102271)",
+      "python3.12-pyjwt: Token forgery via acceptance of public JWK containers as HMAC secrets (CVE-2026-102273)"
+     ]
+    },
     {
      "id": "RHBA-2026:72729",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
