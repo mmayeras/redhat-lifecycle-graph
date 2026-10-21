@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-10-20T11:22:16Z",
+ "generated": "2026-10-21T11:37:47Z",
  "minors": [
   {
    "minor": "2.7",
@@ -1470,6 +1470,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:86232",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-20",
+     "url": "https://access.redhat.com/errata/RHBA-2026:86232",
+     "items": [
+      "RPMs: RHBA-2026:85211",
+      "Containers: RHBA-2026:85251"
+     ]
+    },
     {
      "id": "RHBA-2026:85251",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
@@ -4292,6 +4304,10 @@
      "area": "General",
      "items": [
       {
+       "t": "Ansible automation portal",
+       "d": "Ansible automation portal Helm chart sets redhat-developer-hub.global.pluginMode to oci by default. Each plug-in is referenced with a package value such as oci://registry.redhat.io/ansible-automation-platform/automation-portal:2.3!<plugin-name>. Before you upgrade, migrate Helm values that use an HTTP plug-in registry or tarball package URLs. For more information, see the Ansible automation portal\u2026"
+      },
+      {
        "t": "Installation changes",
        "d": "Starting with Ansible Automation Platform 2.5, three different on-premise deployment models are fully tested. In addition to the existing RPM-based installer and operator, support for the containerized installer is being added."
       },
@@ -4340,6 +4356,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:86234",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-20",
+     "url": "https://access.redhat.com/errata/RHBA-2026:86234",
+     "items": [
+      "RPMs: RHBA-2026:85210",
+      "Containers: RHBA-2026:85250"
+     ]
+    },
     {
      "id": "RHBA-2026:85250",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
