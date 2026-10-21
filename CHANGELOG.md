@@ -6,6 +6,9 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 
 ## [Unreleased]
 
+### Added
+- **Policy chip on the OpenShift Operators section heading**: links to the [OpenShift Operator Life Cycles policy](https://access.redhat.com/support/policy/updates/openshift_operators), same `card-chip--policy` style as the product card headers.
+
 ### Changed
 - **Chart x-axis now rescales to the active filter** — previously the timeline always spanned every version (GA→last_end) regardless of the "Include EOL" checkbox or the From/To range, so hiding old EOL versions left dead whitespace packed on the left instead of shrinking the axis. Bars, year gridlines, and the Today marker now recompute client-side against only the currently visible major versions whenever a filter or range control changes (`recalcChartLayout()`), so the timeline always starts near the earliest visible version.
 

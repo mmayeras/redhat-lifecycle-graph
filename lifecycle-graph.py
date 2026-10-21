@@ -1750,7 +1750,12 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict], str | N
         f'<div id="operators">'
         f'<div class="section-heading">'
         f'{_product_icon_img("operators", _STATIC_PREFIX, 22, 22, "section-heading__icon")}'
-        f'<span>OpenShift Operators</span>'
+        f'<span>OpenShift Operators '
+        + _chip_link(
+            _OPERATOR_POLICY_URL, "Policy", "external", external=True,
+            extra_cls="card-chip--policy", title="Official Lifecycle Policy",
+        )
+        + f'</span>'
         f'</div>'
         f'{search}'
         f'<div class="op-section">'
