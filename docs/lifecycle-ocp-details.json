@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-21T14:36:44Z",
+ "generated": "2026-10-22T11:36:11Z",
  "minors": [
   {
    "minor": "4.22",
@@ -909,6 +909,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:87699",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:87699"
+    },
     {
      "id": "RHBA-2026:86712",
      "synopsis": "OpenShift Container Platform 4.22 Node Resource Topology aware Scheduler extras update",
@@ -1931,6 +1939,10 @@
       {
        "t": "PTP Telecom Grandmaster on Intel Granite Rapids-D (Technology Preview)",
        "d": "You can configure a Precision Time Protocol (PTP) Telecom Grandmaster (T-GM) on Intel Granite Rapids-D (GNR-D) servers so a single Global Navigation Satellite System (GNSS) feed synchronizes timing across onboard Network Acceleration Complex (NAC) ports and optional Carter Flat expansion network interface cards (NICs). The PTP Operator supports GNR-D deployments with the e830 and e825 hardware\u2026"
+      },
+      {
+       "t": "Dynamic Configuration Manager General Availability",
+       "d": "With this update, the HAProxy Dynamic Configuration Manager (DCM) feature is now Generally Available. You can use DCM as an alternative update mechanism that configures a running HAProxy process through a domain socket. For more information, see HAProxy Dynamic Configuration Manager (DCM)."
       }
      ]
     },
@@ -7748,6 +7760,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:87697",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:87697"
+    },
     {
      "id": "RHBA-2026:86904",
      "synopsis": "OpenShift Container Platform 4.20 Node Resource Topology aware Scheduler extras update",
@@ -33481,6 +33501,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
+      },
+      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -33490,14 +33518,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -37680,6 +37700,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -37689,14 +37717,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -57082,20 +57102,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5033",
-       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
-      },
-      {
        "id": "RHBA-2022:5032",
        "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5032"
+      },
+      {
+       "id": "RHBA-2022:5033",
+       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
       },
       {
        "id": "RHBA-2022:5031",

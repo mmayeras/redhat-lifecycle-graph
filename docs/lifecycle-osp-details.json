@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-10-21T14:42:28Z",
+ "generated": "2026-10-22T11:41:12Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2097,17 +2097,6 @@
      ]
     },
     {
-     "id": "RHSA-2023:0275",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2023-01-25",
-     "url": "https://access.redhat.com/errata/RHSA-2023:0275",
-     "items": [
-      "unrestricted creation of security groups (CVE-2022-3277)"
-     ]
-    },
-    {
      "id": "RHSA-2023:0274",
      "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
      "kind": "security",
@@ -2116,6 +2105,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2023:0274",
      "items": [
       "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
+     ]
+    },
+    {
+     "id": "RHSA-2023:0275",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2023-01-25",
+     "url": "https://access.redhat.com/errata/RHSA-2023:0275",
+     "items": [
+      "unrestricted creation of security groups (CVE-2022-3277)"
      ]
     },
     {
@@ -2377,20 +2377,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2023:5966"
       },
       {
-       "id": "RHBA-2023:1950",
-       "synopsis": "Red Hat OpenStack Platform 16.2.5 (Train) director images",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2023-04-26",
-       "url": "https://access.redhat.com/errata/RHBA-2023:1950"
-      },
-      {
        "id": "RHBA-2023:1763",
        "synopsis": "Red Hat OpenStack Platform 16.2.5 (Train) bug fix and enhancement advisory",
        "kind": "bugfix",
        "severity": "None",
        "date": "2023-04-26",
        "url": "https://access.redhat.com/errata/RHBA-2023:1763"
+      },
+      {
+       "id": "RHBA-2023:1950",
+       "synopsis": "Red Hat OpenStack Platform 16.2.5 (Train) director images",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2023-04-26",
+       "url": "https://access.redhat.com/errata/RHBA-2023:1950"
       }
      ]
     },
@@ -2415,20 +2415,20 @@
        "url": "https://access.redhat.com/errata/RHEA-2022:8843"
       },
       {
-       "id": "RHBA-2022:8794",
-       "synopsis": "Release of components for Red Hat OpenStack Platform 16.2.4",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-12-07",
-       "url": "https://access.redhat.com/errata/RHBA-2022:8794"
-      },
-      {
        "id": "RHEA-2022:8842",
        "synopsis": "Red Hat OpenStack Platform 16.2.4 director images",
        "kind": "enhancement",
        "severity": "None",
        "date": "2022-12-07",
        "url": "https://access.redhat.com/errata/RHEA-2022:8842"
+      },
+      {
+       "id": "RHBA-2022:8794",
+       "synopsis": "Release of components for Red Hat OpenStack Platform 16.2.4",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-12-07",
+       "url": "https://access.redhat.com/errata/RHBA-2022:8794"
       }
      ]
     },

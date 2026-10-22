@@ -1,13 +1,21 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-10-21T14:40:43Z",
+ "generated": "2026-10-22T11:39:35Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:87124",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHSA-2026:87124"
+    },
     {
      "id": "RHBA-2026:87005",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Product Release Update",
@@ -395,6 +403,14 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:87120",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHSA-2026:87120"
+    },
     {
      "id": "RHSA-2026:87004",
      "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
