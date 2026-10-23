@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-22T11:36:11Z",
+ "generated": "2026-10-23T11:23:10Z",
  "minors": [
   {
    "minor": "4.22",
@@ -26806,6 +26806,40 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.15/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.15.70",
+     "date": "2026-10-22",
+     "errata": [
+      {
+       "id": "RHBA-2026:82815",
+       "synopsis": "OpenShift Container Platform 4.15.70 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:82815"
+      },
+      {
+       "id": "RHSA-2026:82811",
+       "synopsis": "Important: OpenShift Container Platform 4.15.70 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-22",
+       "url": "https://access.redhat.com/errata/RHSA-2026:82811",
+       "items": [
+        "sqlite: SQLite: Arbitrary code execution via crafted FTS5 full-text search data (CVE-2026-11822)",
+        "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5 (CVE-2026-11824)",
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "kernel: pppoe: reload header pointer after dev_hard_header() (CVE-2026-68121)",
+        "kernel: sctp: prevent peer transport count overflow (CVE-2026-74469)",
+        "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
+        "kernel: net: tun: bound receive headroom (CVE-2026-81000)",
+        "gnutls: gnutls: Information disclosure via heap overread in RSA key exchange (CVE-2026-5260)",
+        "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)",
+        "glib: path traversal in glib/gio/gdbusauthmechanismsha1.c via keyring_lookup_entry and mechanism_client_data_receive (CVE-2026-58015)"
+       ]
+      }
+     ]
+    },
+    {
      "version": "4.15.69",
      "date": "2026-09-24",
      "errata": [
@@ -30553,6 +30587,34 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.14.76",
+     "date": "2026-10-22",
+     "errata": [
+      {
+       "id": "RHBA-2026:82788",
+       "synopsis": "OpenShift Container Platform 4.14.76 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:82788"
+      },
+      {
+       "id": "RHSA-2026:82782",
+       "synopsis": "Important: OpenShift Container Platform 4.14.76 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-22",
+       "url": "https://access.redhat.com/errata/RHSA-2026:82782",
+       "items": [
+        "kernel: pppoe: reload header pointer after dev_hard_header() (CVE-2026-68121)",
+        "kernel: sctp: prevent peer transport count overflow (CVE-2026-74469)",
+        "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
+        "kernel: net: tun: bound receive headroom (CVE-2026-81000)"
+       ]
+      }
+     ]
+    },
+    {
      "version": "4.14.75",
      "date": "2026-10-08",
      "errata": [
@@ -33501,14 +33563,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -33518,6 +33572,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
