@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-24T10:42:12Z",
+ "generated": "2026-10-25T11:07:26Z",
  "minors": [
   {
    "minor": "4.22",
@@ -909,6 +909,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:89207",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-25",
+     "url": "https://access.redhat.com/errata/RHBA-2026:89207"
+    },
     {
      "id": "RHBA-2026:87699",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -3922,6 +3930,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:89204",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-25",
+     "url": "https://access.redhat.com/errata/RHBA-2026:89204"
+    },
     {
      "id": "RHBA-2026:86628",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -34176,6 +34192,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:89205",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-25",
+     "url": "https://access.redhat.com/errata/RHBA-2026:89205"
+    },
     {
      "id": "RHBA-2026:85789",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
@@ -66584,20 +66608,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",
