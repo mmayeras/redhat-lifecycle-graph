@@ -1,7 +1,7 @@
 {
  "product": "rhoso",
  "title": "OpenStack on OpenShift",
- "generated": "2026-10-26T12:44:58Z",
+ "generated": "2026-10-27T12:02:01Z",
  "minors": [
   {
    "minor": "18.0",
@@ -696,6 +696,28 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:90332",
+     "synopsis": "Important: RHOSO 18.0 os-diff security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-26",
+     "url": "https://access.redhat.com/errata/RHSA-2026:90332",
+     "items": [
+      "golang: crypto/x509: Man-in-the-middle attacks via untrusted intermediate certificates (CVE-2026-111943)",
+      "golang: golang crypto/x509: Denial of Service via excessive processing of DNS SAN entries (CVE-2026-27145)",
+      "golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+      "golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+      "golang: Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service (CVE-2026-56853)",
+      "golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+      "golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+      "golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)",
+      "golang: golang: Denial of Service via crafted HTTP Range headers (CVE-2026-78667)",
+      "net/http/internal/http2: golang.org/x/net/http2: net/http: Denial of Service via excessive HTTP/2 SETTINGS frames (CVE-2026-78669)",
+      "golang: crypto/tls: Denial of Service via multiple ECH outer extension references (CVE-2026-97031)",
+      "golang: Denial of Service via memory limit bypass in multipart form parsing (CVE-2026-94440)"
+     ]
+    },
     {
      "id": "RHSA-2026:39812",
      "synopsis": "Important: Red Hat OpenStack Services on OpenShift 18.0 (openstack-glance) security update",
