@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-10-27T12:02:00Z",
+ "generated": "2026-10-28T12:38:22Z",
  "minors": [
   {
    "minor": "17.1",
@@ -5585,6 +5585,14 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openstack_platform/13.0/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:90984",
+     "synopsis": "Updated Red Hat OpenStack Platform 13.0 ELS for RHEL 7 container images",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-27",
+     "url": "https://access.redhat.com/errata/RHBA-2026:90984"
+    },
     {
      "id": "RHBA-2026:5951",
      "synopsis": "Updated Red Hat OpenStack Platform 13.0 ELS for RHEL 7 container images",

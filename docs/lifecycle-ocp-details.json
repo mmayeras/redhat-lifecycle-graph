@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-27T11:57:12Z",
+ "generated": "2026-10-28T12:33:26Z",
  "minors": [
   {
    "minor": "4.22",
@@ -11,6 +11,36 @@
      "version": "4.22.20",
      "date": "2026-10-27",
      "errata": [
+      {
+       "id": "RHSA-2026:89197",
+       "synopsis": "Critical: OpenShift Container Platform 4.22.20 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89197",
+       "items": [
+        "ca-certificates: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)",
+        "kernel: hypervisor: Intel Processors: Privilege escalation in Ring 0 via improper value handling (CVE-2025-35973)",
+        "libpcap: libpcap: Out-of-bounds read and write vulnerability allows arbitrary memory access (CVE-2026-0799)",
+        "bind: BIND: Denial of Service via malformed DNS64 responses (CVE-2026-19666)",
+        "bind9: bind: BIND 9: Denial of Service via 16-bit length truncation in DNS negative cache handling (CVE-2026-19667)",
+        "openssh: OpenSSH sshd: Security bypass due to incorrect handling of forwarding and tunneling options (CVE-2026-59999)",
+        "libevent: libevent: Multiple HTTP Parser Bugs Enable Request Smuggling (CVE-2026-63382)",
+        "libevent: Libevent: Denial of Service via malformed RPC data (CVE-2026-63383)",
+        "libevent: Libevent: Denial of Service via integer conversion error in `evtag_unmarshal_header` (CVE-2026-63384)",
+        "libevent: Libevent: HTTP header handling bugs create risk of access control bypass. (CVE-2026-63385)",
+        "libevent: Libevent: Off-by-one stack buffer overflow leading to denial of service or data corruption (CVE-2026-63387)",
+        "libevent: Libevent: Arbitrary code execution via heap out-of-bounds write in AF_UNIX handling (CVE-2026-63388)",
+        "kernel: sctp: don't free the ASCONF's own transport in DEL-IP processing (CVE-2026-64564)",
+        "expat: Expat: Denial of Service via quadratic complexity in attribute processing (CVE-2026-66046)",
+        "kernel: drm/amdgpu/vce: fix integer overflow in image size (CVE-2026-68108)",
+        "kernel: openvswitch: fix GSO userspace truncation underflow (CVE-2026-68123)",
+        "bind: BIND: Denial of Service via crafted DNSSEC reply (CVE-2026-80274)",
+        "kernel: ipv6: fix use-after-free in ip6_finish_output2() (CVE-2026-80792)",
+        "kernel: KVM: s390: vsie: zero stale crypto bits (CVE-2026-80921)",
+        "kernel: net/iucv: filter frames in afiucv_hs_rcv() by ingress device (CVE-2026-81003)"
+       ]
+      },
       {
        "id": "RHBA-2026:89200",
        "synopsis": "OpenShift Container Platform 4.22.20 OLM Operators metadata update",
@@ -923,6 +953,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:91621",
+     "synopsis": "OpenShift Container Platform 4.22 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91621"
+    },
     {
      "id": "RHBA-2026:90753",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -4015,6 +4053,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:91628",
+     "synopsis": "OpenShift Container Platform 4.21 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91628"
+    },
+    {
+     "id": "RHBA-2026:91622",
+     "synopsis": "OpenShift Container Platform 4.21 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91622"
+    },
     {
      "id": "RHBA-2026:90886",
      "synopsis": "OpenShift Container Platform 4.21 telco hub RDS extras update",
@@ -7945,6 +7999,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:91577",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91577"
+    },
     {
      "id": "RHBA-2026:90760",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
@@ -13602,6 +13664,34 @@
      "version": "4.18.59",
      "date": "2026-10-27",
      "errata": [
+      {
+       "id": "RHSA-2026:89725",
+       "synopsis": "Critical: OpenShift Container Platform 4.18.59 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89725",
+       "items": [
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)",
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "openssh: OpenSSH sshd: Security bypass due to incorrect handling of forwarding and tunneling options (CVE-2026-59999)",
+        "openssh: OpenSSH: Use-after-free vulnerability during host key re-exchange on the client side (CVE-2026-60002)",
+        "kernel: sctp: don't free the ASCONF's own transport in DEL-IP processing (CVE-2026-64564)",
+        "kernel: pppoe: reload header pointer after dev_hard_header() (CVE-2026-68121)",
+        "kernel: ipv6: fix use-after-free in ip6_finish_output2() (CVE-2026-80792)",
+        "pcre2: PCRE2: Out-of-bounds write allows arbitrary code execution via crafted regular expressions (CVE-2026-86145)",
+        "pcre2: PCRE2: Memory corruption vulnerability in pcre2_jit_match (CVE-2026-89161)",
+        "pcre2: pcre2: Out-of-bounds write via crafted regular expression (CVE-2026-103111)",
+        "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages (CVE-2026-34182)",
+        "openssl: AES-OCB IV Ignored on EVP_Cipher() Path (CVE-2026-45445)",
+        "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)",
+        "openssh: OpenSSH: sftp client allows attacker to control downloaded file location (CVE-2026-59995)",
+        "kernel: RDMA/rxe: Fix OOB in free_rd_atomic_resources() (CVE-2026-80863)",
+        "kernel: RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp (CVE-2026-80864)",
+        "ca-certificates: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)",
+        "kernel: ipv4: validate checksum_start before completing checksum (CVE-2026-99999)"
+       ]
+      },
       {
        "id": "RHBA-2026:89728",
        "synopsis": "OpenShift Container Platform 4.18.59 OLM Operators metadata update",
@@ -22008,6 +22098,50 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.16.74",
+     "date": "2026-10-27",
+     "errata": [
+      {
+       "id": "RHSA-2026:89714",
+       "synopsis": "Critical: OpenShift Container Platform 4.16.74 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89714",
+       "items": [
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)",
+        "kernel: sctp: don't free the ASCONF's own transport in DEL-IP processing (CVE-2026-64564)",
+        "kernel: pppoe: reload header pointer after dev_hard_header() (CVE-2026-68121)",
+        "kernel: ipv6: fix use-after-free in ip6_finish_output2() (CVE-2026-80792)",
+        "kernel: RDMA/rxe: Fix OOB in free_rd_atomic_resources() (CVE-2026-80863)",
+        "kernel: RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp (CVE-2026-80864)",
+        "ca-certificates: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)",
+        "kernel: ipv4: validate checksum_start before completing checksum (CVE-2026-99999)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:89717",
+       "synopsis": "OpenShift Container Platform 4.16.74 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHBA-2026:89717"
+      },
+      {
+       "id": "RHSA-2026:89713",
+       "synopsis": "Important: OpenShift Container Platform 4.16.74 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89713",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)",
+        "cri-o: cri-o: Sandbox state poisoning via pod annotations may expose runtime socket (CVE-2026-62146)"
+       ]
+      }
+     ]
+    },
+    {
      "version": "4.16.73",
      "date": "2026-10-15",
      "errata": [
@@ -25405,6 +25539,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:91640",
+     "synopsis": "OpenShift Container Platform 4.16 CNF IBU extras update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHSA-2026:91640"
+    },
     {
      "id": "RHSA-2026:85247",
      "synopsis": "DevWorkspace Operator 1.0.0 release.",
@@ -30859,6 +31001,45 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.14.77",
+     "date": "2026-10-27",
+     "errata": [
+      {
+       "id": "RHSA-2026:89838",
+       "synopsis": "Critical: OpenShift Container Platform 4.14.77 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89838",
+       "items": [
+        "ca-certificates: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)",
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)",
+        "kernel: sctp: don't free the ASCONF's own transport in DEL-IP processing (CVE-2026-64564)",
+        "pcre2: PCRE2: Out-of-bounds write allows arbitrary code execution via crafted regular expressions (CVE-2026-86145)",
+        "pcre2: PCRE2: Memory corruption vulnerability in pcre2_jit_match (CVE-2026-89161)",
+        "pcre2: pcre2: Out-of-bounds write via crafted regular expression (CVE-2026-103111)",
+        "kernel: ipv4: validate checksum_start before completing checksum (CVE-2026-99999)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:89841",
+       "synopsis": "OpenShift Container Platform 4.14.77 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHBA-2026:89841"
+      },
+      {
+       "id": "RHBA-2026:89840",
+       "synopsis": "OpenShift Container Platform 4.14.77 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHBA-2026:89840"
+      }
+     ]
+    },
+    {
      "version": "4.14.76",
      "date": "2026-10-22",
      "errata": [
@@ -33835,14 +34016,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -33852,6 +34025,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -34448,6 +34629,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:91635",
+     "synopsis": "OpenShift Container Platform 4.14 CNF IBU extras update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHSA-2026:91635"
+    },
+    {
+     "id": "RHBA-2026:91569",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91569"
+    },
     {
      "id": "RHBA-2026:90782",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
@@ -38050,6 +38247,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -38059,14 +38264,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -40616,6 +40813,36 @@
    "minor": "4.12",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.12/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.12.102",
+     "date": "2026-10-27",
+     "errata": [
+      {
+       "id": "RHSA-2026:90272",
+       "synopsis": "Critical: OpenShift Container Platform 4.12.102 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:90272"
+      },
+      {
+       "id": "RHSA-2026:90271",
+       "synopsis": "Important: OpenShift Container Platform 4.12.102 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:90271"
+      },
+      {
+       "id": "RHBA-2026:90277",
+       "synopsis": "OpenShift Container Platform 4.12.102 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHBA-2026:90277"
+      }
+     ]
+    },
     {
      "version": "4.12.100",
      "date": "2026-10-15",
@@ -44749,6 +44976,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:91576",
+     "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91576"
+    },
     {
      "id": "RHBA-2026:89801",
      "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
