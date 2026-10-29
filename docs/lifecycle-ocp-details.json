@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-28T12:33:26Z",
+ "generated": "2026-10-29T12:44:15Z",
  "minors": [
   {
    "minor": "4.22",
@@ -953,6 +953,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:92306",
+     "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92306"
+    },
+    {
+     "id": "RHBA-2026:91979",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91979"
+    },
     {
      "id": "RHBA-2026:91621",
      "synopsis": "OpenShift Container Platform 4.22 ztp-site-generate container",
@@ -8000,6 +8016,30 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:92324",
+     "synopsis": "OpenShift Container Platform 4.20 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92324"
+    },
+    {
+     "id": "RHBA-2026:92322",
+     "synopsis": "OpenShift Container Platform 4.20 CNF IBU extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92322"
+    },
+    {
+     "id": "RHBA-2026:92315",
+     "synopsis": "OpenShift Container Platform 4.20 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92315"
+    },
+    {
      "id": "RHBA-2026:91577",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
      "kind": "bugfix",
@@ -12329,6 +12369,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:92321",
+     "synopsis": "OpenShift Container Platform 4.19 CNF IBU extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92321"
+    },
+    {
      "id": "RHBA-2026:90883",
      "synopsis": "OpenShift Container Platform 4.19 telco hub RDS extras update",
      "kind": "bugfix",
@@ -16440,6 +16488,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:92317",
+     "synopsis": "OpenShift Container Platform 4.18 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92317"
+    },
+    {
+     "id": "RHBA-2026:91956",
+     "synopsis": "OpenShift Container Platform 4.18 CNF IBU extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91956"
+    },
     {
      "id": "RHEA-2026:84725",
      "synopsis": "Advisory for publishing Helm 3.19.5.3 CVE fix release for OCP 4.18",
@@ -25540,6 +25604,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:92316",
+     "synopsis": "OpenShift Container Platform 4.16 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92316"
+    },
+    {
      "id": "RHSA-2026:91640",
      "synopsis": "OpenShift Container Platform 4.16 CNF IBU extras update",
      "kind": "security",
@@ -34629,6 +34701,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:92319",
+     "synopsis": "OpenShift Container Platform 4.14 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92319"
+    },
+    {
+     "id": "RHBA-2026:92231",
+     "synopsis": "Red Hat OpenShift Container Platform 4.14 end of Extended Update Support Term 2",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92231"
+    },
     {
      "id": "RHSA-2026:91635",
      "synopsis": "OpenShift Container Platform 4.14 CNF IBU extras update",
@@ -44976,6 +45064,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:92320",
+     "synopsis": "OpenShift Container Platform 4.12 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92320"
+    },
     {
      "id": "RHBA-2026:91576",
      "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
