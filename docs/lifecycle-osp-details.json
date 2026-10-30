@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-10-29T12:49:09Z",
+ "generated": "2026-10-30T12:41:25Z",
  "minors": [
   {
    "minor": "17.1",
@@ -605,6 +605,17 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:93045",
+     "synopsis": "Important: Red Hat OpenStack Platform 17.1 (python-botocore) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHSA-2026:93045",
+     "items": [
+      "python-botocore: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)"
+     ]
+    },
     {
      "id": "RHSA-2026:90329",
      "synopsis": "Important: Red Hat OpenStack Platform 17.1 security advisory",
@@ -2122,17 +2133,6 @@
      ]
     },
     {
-     "id": "RHSA-2023:0274",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2023-01-25",
-     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
-     "items": [
-      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
-     ]
-    },
-    {
      "id": "RHSA-2023:0275",
      "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (openstack-neutron) security update",
      "kind": "security",
@@ -2141,6 +2141,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2023:0275",
      "items": [
       "unrestricted creation of security groups (CVE-2022-3277)"
+     ]
+    },
+    {
+     "id": "RHSA-2023:0274",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 17.0 (python-XStatic-Angular) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2023-01-25",
+     "url": "https://access.redhat.com/errata/RHSA-2023:0274",
+     "items": [
+      "Prototype pollution in merge function could result in code injection (CVE-2019-10768)"
      ]
     },
     {
@@ -2558,6 +2569,17 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:93044",
+     "synopsis": "Important: Red Hat OpenStack Platform 16.2 (python-botocore) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHSA-2026:93044",
+     "items": [
+      "python-botocore: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)"
+     ]
+    },
     {
      "id": "RHSA-2026:65964",
      "synopsis": "Updated Red Hat OpenStack Platform 16.2 director Operator container images",
@@ -4139,20 +4161,20 @@
        "url": "https://access.redhat.com/errata/RHEA-2022:8859"
       },
       {
-       "id": "RHBA-2022:8795",
-       "synopsis": "Red Hat OpenStack Platform 16.1.9 bug fix and enhancement advisory",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-12-07",
-       "url": "https://access.redhat.com/errata/RHBA-2022:8795"
-      },
-      {
        "id": "RHEA-2022:8858",
        "synopsis": "Red Hat OpenStack Platform 16.1.9 director images",
        "kind": "enhancement",
        "severity": "None",
        "date": "2022-12-07",
        "url": "https://access.redhat.com/errata/RHEA-2022:8858"
+      },
+      {
+       "id": "RHBA-2022:8795",
+       "synopsis": "Red Hat OpenStack Platform 16.1.9 bug fix and enhancement advisory",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-12-07",
+       "url": "https://access.redhat.com/errata/RHBA-2022:8795"
       }
      ]
     },
@@ -4941,17 +4963,6 @@
      ]
     },
     {
-     "id": "RHSA-2022:0989",
-     "synopsis": "Moderate: Red Hat OpenStack Platform 16.1 (golang-qpid-apache) security update",
-     "kind": "security",
-     "severity": "Moderate",
-     "date": "2022-03-24",
-     "url": "https://access.redhat.com/errata/RHSA-2022:0989",
-     "items": [
-      "net: incorrect parsing of extraneous zero characters at the beginning of an IP address octet (CVE-2021-29923)"
-     ]
-    },
-    {
      "id": "RHSA-2022:0990",
      "synopsis": "Moderate: Red Hat OpenStack Platform 16.1 (openstack-neutron) security update",
      "kind": "security",
@@ -4960,6 +4971,17 @@
      "url": "https://access.redhat.com/errata/RHSA-2022:0990",
      "items": [
       "Routes middleware memory leak for nonexistent controllers (CVE-2021-40797)"
+     ]
+    },
+    {
+     "id": "RHSA-2022:0989",
+     "synopsis": "Moderate: Red Hat OpenStack Platform 16.1 (golang-qpid-apache) security update",
+     "kind": "security",
+     "severity": "Moderate",
+     "date": "2022-03-24",
+     "url": "https://access.redhat.com/errata/RHSA-2022:0989",
+     "items": [
+      "net: incorrect parsing of extraneous zero characters at the beginning of an IP address octet (CVE-2021-29923)"
      ]
     },
     {
@@ -5585,6 +5607,17 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openstack_platform/13.0/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:93043",
+     "synopsis": "Important: Red Hat OpenStack Platform 13.0 (python-botocore) security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHSA-2026:93043",
+     "items": [
+      "python-botocore: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)"
+     ]
+    },
     {
      "id": "RHBA-2026:90984",
      "synopsis": "Updated Red Hat OpenStack Platform 13.0 ELS for RHEL 7 container images",

@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-29T12:44:15Z",
+ "generated": "2026-10-30T12:35:54Z",
  "minors": [
   {
    "minor": "4.22",
@@ -953,6 +953,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:92593",
+     "synopsis": "Logging for Red Hat OpenShift - 6.6.2",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92593"
+    },
+    {
+     "id": "RHSA-2026:92515",
+     "synopsis": "Logging for Red Hat OpenShift - 6.6.2",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92515"
+    },
     {
      "id": "RHBA-2026:92306",
      "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
@@ -4070,6 +4086,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:92555",
+     "synopsis": "OpenShift Container Platform 4.21 CNF IBU extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92555"
+    },
+    {
      "id": "RHBA-2026:91628",
      "synopsis": "OpenShift Container Platform 4.21 CNF vRAN extras topology aware lifecycle manager update",
      "kind": "bugfix",
@@ -5950,7 +5974,7 @@
    "zstreams": [
     {
      "version": "4.20.44",
-     "date": "2026-10-27",
+     "date": "2026-10-26",
      "errata": [
       {
        "id": "RHSA-2026:89333",
@@ -5997,6 +6021,14 @@
        "severity": "None",
        "date": "2026-10-27",
        "url": "https://access.redhat.com/errata/RHBA-2026:89332"
+      },
+      {
+       "id": "RHSA-2026:89341",
+       "synopsis": "OpenShift Container Platform 4.20.44 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-26",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89341"
       }
      ]
     },
@@ -12368,6 +12400,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:92380",
+     "synopsis": "OpenShift Container Platform 4.19 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92380"
+    },
+    {
+     "id": "RHBA-2026:92379",
+     "synopsis": "OpenShift Container Platform 4.19 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92379"
+    },
     {
      "id": "RHBA-2026:92321",
      "synopsis": "OpenShift Container Platform 4.19 CNF IBU extras update",
@@ -22202,6 +22250,14 @@
         "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)",
         "cri-o: cri-o: Sandbox state poisoning via pod annotations may expose runtime socket (CVE-2026-62146)"
        ]
+      },
+      {
+       "id": "RHSA-2026:89715",
+       "synopsis": "OpenShift Container Platform 4.16.74 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89715"
       }
      ]
     },
@@ -31102,6 +31158,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2026:89841"
       },
       {
+       "id": "RHSA-2026:89839",
+       "synopsis": "OpenShift Container Platform 4.14.77 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89839"
+      },
+      {
        "id": "RHBA-2026:89840",
        "synopsis": "OpenShift Container Platform 4.14.77 extras update",
        "kind": "bugfix",
@@ -34088,6 +34152,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
+      },
+      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -34097,14 +34169,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -34701,6 +34765,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:93014",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93014"
+    },
     {
      "id": "RHBA-2026:92319",
      "synopsis": "OpenShift Container Platform 4.14 latency tests extras update",
@@ -40928,6 +41000,14 @@
        "severity": "None",
        "date": "2026-10-27",
        "url": "https://access.redhat.com/errata/RHBA-2026:90277"
+      },
+      {
+       "id": "RHSA-2026:90274",
+       "synopsis": "OpenShift Container Platform 4.12.102 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:90274"
       }
      ]
     },

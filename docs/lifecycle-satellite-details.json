@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-10-29T12:49:39Z",
+ "generated": "2026-10-30T12:42:00Z",
  "minors": [
   {
    "minor": "6.19",
@@ -193,6 +193,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:92861",
+     "synopsis": "Critical: Satellite 6.19 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92861",
+     "items": [
+      "python-django and python3.12-django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307).",
+      "yggdrasil-worker-forwarder: Denial of Service in Go net/http due to unencrypted HTTP/2 connections (CVE-2026-56853).",
+      "yggdrasil-worker-forwarder: Denial of Service via malformed RPC requests in gRPC-Go (CVE-2026-84445).",
+      "yggdrasil-worker-forwarder: Denial of Service via multiple ECH outer extension references in crypto/tls (CVE-2026-97031).",
+      "yggdrasil-worker-forwarder: Denial of Service via crafted HTTP Range headers in Go (CVE-2026-78667).",
+      "yggdrasil-worker-forwarder: Denial of Service via excessive HTTP/2 SETTINGS frames in net/http (CVE-2026-78669).",
+      "yggdrasil-worker-forwarder: Man-in-the-middle attacks via untrusted intermediate certificates in crypto/x509 (CVE-2026-111943).",
+      "yggdrasil-worker-forwarder: golang: Denial of Service via memory limit bypass in multipart form parsing (CVE-2026-94440).",
+      "openvox-server: Denial of Service via unchecked DTLS handshake reassembler buffer allocation in Bouncy Castle for Java (CVE-2026-59646).",
+      "openvox-server: CPU Denial of Service via unbounded numeric parsing in jackson-databind (CVE-2026-68497).",
+      "openvox-server: HTTP request smuggling via crafted chunked requests in Jetty (CVE-2026-19203).",
+      "openvox-server: Denial of Service via regular expression backtracking in jackson-core (CVE-2026-89407).",
+      "openvox-server: Denial of Service via unbounded StringBuilder growth during malformed token processing in jackson-core (CVE-2026-89425).",
+      "openvox-server: Access control bypass via case-sensitive host filtering in Eclipse Jetty (CVE-2026-18660).",
+      "python3.12-urllib3: Denial of Service via unbounded memory allocation in the chunk parser (CVE-2026-97689).",
+      "python3.12-urllib3: Traffic interception via HTTPS proxy TLS configuration override (CVE-2026-97687).",
+      "python3.12-gitpython: Denial of Service via a crafted commit author field (CVE-2026-87819).",
+      "python3.12-gitpython: Denial of Service via regular expression backtracking in date parsing (CVE-2026-110856).",
+      "python3.12-gitpython: Arbitrary code execution via improper submodule path validation (CVE-2026-114145).",
+      "python3.12-gitpython: Command injection via Remote.pull() refspec in GitPython before 3.2.0 (CVE-2026-110858)."
+     ]
+    },
     {
      "id": "RHSA-2026:85249",
      "synopsis": "Moderate: Satellite 6 Client Update",
@@ -553,6 +583,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:92860",
+     "synopsis": "Important: Satellite 6.18 security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92860",
+     "items": [
+      "openvox-agent: curl: Cookie injection via malicious HTTP server using super cookies (CVE-2026-8924).",
+      "openvox-agent: heap buffer overflow in CMS key unwrapping (CVE-2026-63072).",
+      "openvox-agent: invalid pointer dereference in CMP server via crafted protectionAlg (CVE-2026-63076).",
+      "openvox-server: Bouncy Castle for Java: Denial of Service via unchecked DTLS handshake reassembler buffer allocation (CVE-2026-59646).",
+      "openvox-server: Eclipse Jetty: Access control bypass via case-sensitive host filtering (CVE-2026-18660).",
+      "openvox-server: jackson-core: Denial of Service via incomplete fix in async JSON parser (CVE-2026-68494).",
+      "openvox-server: Jackson-core: Denial of Service via regular expression backtracking (CVE-2026-89407).",
+      "openvox-server: Jackson-core: Denial of Service via unbounded StringBuilder growth during malformed token processing (CVE-2026-89425).",
+      "openvox-server: jackson-databind: CPU Denial of Service via unbounded numeric parsing (CVE-2026-68497).",
+      "openvox-server: Jetty: HTTP request smuggling via crafted chunked requests (CVE-2026-19203).",
+      "puppet-agent: curl: Cookie injection via malicious HTTP server using super cookies (CVE-2026-8924).",
+      "puppet-agent: heap buffer overflow in CMS key unwrapping (CVE-2026-63072).",
+      "puppet-agent: invalid pointer dereference in CMP server via crafted protectionAlg (CVE-2026-63076).",
+      "puppetserver: Eclipse Jetty: Access control bypass via case-sensitive host filtering (CVE-2026-18660).",
+      "puppetserver: jackson-core: Denial of Service via incomplete fix in async JSON parser (CVE-2026-68494).",
+      "puppetserver: Jackson-core: Denial of Service via regular expression backtracking (CVE-2026-89407).",
+      "puppetserver: jackson-databind: CPU Denial of Service via unbounded numeric parsing (CVE-2026-68497).",
+      "puppetserver: Jetty: HTTP request smuggling via crafted chunked requests (CVE-2026-19203).",
+      "satellite/iop-vmaas-rhel9: golang.org/x/text: Denial of Service via invalid UTF-8 input (CVE-2026-56852).",
+      "yggdrasil-worker-forwarder: crypto/tls: Denial of Service via multiple ECH outer extension references (CVE-2026-97031)."
+     ]
+    },
     {
      "id": "RHBA-2026:14135",
      "synopsis": "Satellite 6 Client Bug Fix Update",
@@ -1016,6 +1076,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:92859",
+     "synopsis": "Important: Satellite 6.17 security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92859",
+     "items": [
+      "openvox-agent: curl: Cookie injection via malicious HTTP server using super cookies (CVE-2026-8924).",
+      "openvox-agent: heap buffer overflow in CMS key unwrapping (CVE-2026-63072).",
+      "openvox-agent: invalid pointer dereference in CMP server via crafted protectionAlg (CVE-2026-63076).",
+      "openvox-server: Bouncy Castle for Java: Denial of Service via unchecked DTLS handshake reassembler buffer allocation (CVE-2026-59646).",
+      "openvox-server: Eclipse Jetty: Access control bypass via case-sensitive host filtering (CVE-2026-18660).",
+      "openvox-server: jackson-core: Denial of Service via incomplete fix in async JSON parser (CVE-2026-68494).",
+      "openvox-server: Jackson-core: Denial of Service via regular expression backtracking (CVE-2026-89407).",
+      "openvox-server: Jackson-core: Denial of Service via unbounded StringBuilder growth during malformed token processing (CVE-2026-89425).",
+      "openvox-server: jackson-databind: CPU Denial of Service via unbounded numeric parsing (CVE-2026-68497).",
+      "openvox-server: Jetty: HTTP request smuggling via crafted chunked requests (CVE-2026-19203).",
+      "puppet-agent: curl: Cookie injection via malicious HTTP server using super cookies (CVE-2026-8924).",
+      "puppet-agent: heap buffer overflow in CMS key unwrapping (CVE-2026-63072).",
+      "puppet-agent: invalid pointer dereference in CMP server via crafted protectionAlg (CVE-2026-63076).",
+      "puppetserver: Eclipse Jetty: Access control bypass via case-sensitive host filtering (CVE-2026-18660).",
+      "puppetserver: jackson-core: Denial of Service via incomplete fix in async JSON parser (CVE-2026-68494).",
+      "puppetserver: Jackson-core: Denial of Service via regular expression backtracking (CVE-2026-89407).",
+      "puppetserver: jackson-databind: CPU Denial of Service via unbounded numeric parsing (CVE-2026-68497).",
+      "puppetserver: Jetty: HTTP request smuggling via crafted chunked requests (CVE-2026-19203).",
+      "satellite/iop-vmaas-rhel9: golang.org/x/text: Denial of Service via invalid UTF-8 input (CVE-2026-56852).",
+      "yggdrasil-worker-forwarder: crypto/tls: Denial of Service via multiple ECH outer extension references (CVE-2026-97031)."
+     ]
+    },
     {
      "id": "RHSA-2026:63386",
      "synopsis": "Important: Satellite 6.18.9 Async Update",
@@ -1622,6 +1712,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:92858",
+     "synopsis": "Important: Satellite 6.16 EUS security update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92858",
+     "items": [
+      "yggdrasil-worker-forwarder: Denial of Service via malformed RPC requests in gRPC-Go (CVE-2026-84445)",
+      "yggdrasil-worker-forwarder: Denial of Service via multiple ECH outer extension references in crypto/tls (CVE-2026-97031)",
+      "yggdrasil-worker-forwarder: Denial of Service via crafted HTTP Range headers in Go (CVE-2026-78667)",
+      "yggdrasil-worker-forwarder: Denial of Service via excessive HTTP/2 SETTINGS frames in net/http (CVE-2026-78669)",
+      "yggdrasil-worker-forwarder: Man-in-the-middle attacks via untrusted intermediate certificates in crypto/x509 (CVE-2026-111943)",
+      "openvox-server: Denial of Service via unchecked DTLS handshake reassembler buffer allocation in Bouncy Castle for Java (CVE-2026-59646)",
+      "openvox-server: CPU Denial of Service via unbounded numeric parsing in jackson-databind (CVE-2026-68497)",
+      "openvox-server: HTTP request smuggling via crafted chunked requests in Jetty (CVE-2026-19203)",
+      "openvox-server: Denial of Service via regular expression backtracking in jackson-core (CVE-2026-89407)",
+      "openvox-server: Denial of Service via unbounded StringBuilder growth during malformed token processing in jackson-core (CVE-2026-89425)",
+      "openvox-server: Access control bypass via case-sensitive host filtering in Eclipse Jetty (CVE-2026-18660)",
+      "openvox-agent: heap buffer overflow in CMS key unwrapping (CVE-2026-63072)",
+      "openvox-agent: invalid pointer dereference in CMP server via crafted protectionAlg (CVE-2026-63076)",
+      "openvox-agent: curl: Cookie injection via malicious HTTP server using super cookies (CVE-2026-8924)",
+      "puppet-agent: curl: Cookie injection via malicious HTTP server using super cookies (CVE-2026-8924)",
+      "puppet-agent: heap buffer overflow in CMS key unwrapping (CVE-2026-63072)",
+      "puppetserver: Jackson-core: Denial of Service via regular expression backtracking (CVE-2026-89407)",
+      "puppetserver: Jetty: HTTP request smuggling via crafted chunked requests (CVE-2026-19203)",
+      "puppetserver: jackson-databind: CPU Denial of Service via unbounded numeric parsing (CVE-2026-68497)",
+      "yggdrasil-worker-forwarder: golang: Denial of Service via memory limit bypass in multipart form parsing  (CVE-2026-94440)"
+     ]
+    },
     {
      "id": "RHSA-2025:7624",
      "synopsis": "Moderate: Satellite 6 Client Bug Fix Update",
