@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-10-30T12:35:54Z",
+ "generated": "2026-10-31T12:01:26Z",
  "minors": [
   {
    "minor": "4.22",
@@ -8048,6 +8048,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:93133",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-31",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93133"
+    },
+    {
      "id": "RHBA-2026:92324",
      "synopsis": "OpenShift Container Platform 4.20 CNF vRAN extras topology aware lifecycle manager update",
      "kind": "bugfix",
@@ -12400,6 +12408,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:93132",
+     "synopsis": "OpenShift Container Platform 4.19 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-31",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93132"
+    },
     {
      "id": "RHBA-2026:92380",
      "synopsis": "OpenShift Container Platform 4.19 CNF vRAN extras topology aware lifecycle manager update",
@@ -34152,14 +34168,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -34169,6 +34177,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -45144,6 +45160,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:93131",
+     "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-31",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93131"
+    },
     {
      "id": "RHBA-2026:92320",
      "synopsis": "OpenShift Container Platform 4.12 latency tests extras update",

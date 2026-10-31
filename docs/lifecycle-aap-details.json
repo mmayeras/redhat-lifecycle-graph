@@ -1,13 +1,24 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-10-30T12:39:49Z",
+ "generated": "2026-10-31T12:04:59Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:93099",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93099",
+     "items": [
+      "Containers: RHSA-2026:92848"
+     ]
+    },
     {
      "id": "RHSA-2026:92848",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
@@ -4476,6 +4487,45 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:93069",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93069"
+    },
+    {
+     "id": "RHBA-2026:93068",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93068"
+    },
+    {
+     "id": "RHBA-2026:93066",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93066",
+     "items": [
+      "RPMs: RHBA-2026:92346",
+      "Containers: RHBA-2026:92365"
+     ]
+    },
+    {
+     "id": "RHSA-2026:93065",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.4 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-30",
+     "url": "https://access.redhat.com/errata/RHSA-2026:93065",
+     "items": [
+      "python3.12-brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)"
+     ]
+    },
     {
      "id": "RHBA-2026:92365",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
