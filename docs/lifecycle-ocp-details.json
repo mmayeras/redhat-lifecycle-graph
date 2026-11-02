@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-01T13:02:12Z",
+ "generated": "2026-11-02T15:24:37Z",
  "minors": [
   {
    "minor": "4.22",
@@ -953,6 +953,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:93551",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93551"
+    },
     {
      "id": "RHBA-2026:93377",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -34790,6 +34798,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:93521",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93521"
+    },
+    {
      "id": "RHBA-2026:93014",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
      "kind": "bugfix",
@@ -45168,6 +45184,30 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:93797",
+     "synopsis": "OpenShift Container Platform 4.12 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93797"
+    },
+    {
+     "id": "RHBA-2026:93790",
+     "synopsis": "OpenShift Container Platform 4.12 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93790"
+    },
+    {
+     "id": "RHBA-2026:93516",
+     "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93516"
+    },
     {
      "id": "RHBA-2026:93131",
      "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
@@ -57903,20 +57943,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5033",
-       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
-      },
-      {
        "id": "RHBA-2022:5032",
        "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5032"
+      },
+      {
+       "id": "RHBA-2022:5033",
+       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
       },
       {
        "id": "RHBA-2022:5031",
