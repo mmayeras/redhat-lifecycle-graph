@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-11-02T15:29:49Z",
+ "generated": "2026-11-03T14:03:21Z",
  "minors": [
   {
    "minor": "17.1",
@@ -5607,6 +5607,29 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openstack_platform/13.0/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:94065",
+     "synopsis": "Updated Red Hat OpenStack Platform 13.0 ELS for RHEL 7 container images",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94065"
+    },
+    {
+     "id": "RHSA-2026:94039",
+     "synopsis": "Important: Red Hat OpenStack Platform 13.0 security advisory",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHSA-2026:94039",
+     "items": [
+      "Arbitrary Host File Overwrite via Unconstrained qemu-img Format Handling in OpenStack Nova (CVE-2026-24708)",
+      "OpenStack Nova: Resource allocation issue due to unstripped hint data in server creation API (CVE-2026-46448)",
+      "OpenStack Keystone: Privilege escalation through EC2 credential creation (CVE-2026-33551)",
+      "OpenStack Keystone: Privilege escalation via chained application credential impersonation and trust misuse (CVE-2026-43000)",
+      "python-webob: Open redirect vulnerability leading to phishing and token theft (CVE-2026-54770)"
+     ]
+    },
     {
      "id": "RHSA-2026:93043",
      "synopsis": "Important: Red Hat OpenStack Platform 13.0 (python-botocore) security update",
