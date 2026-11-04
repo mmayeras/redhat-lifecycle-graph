@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-11-03T14:03:21Z",
+ "generated": "2026-11-04T14:16:59Z",
  "minors": [
   {
    "minor": "17.1",
@@ -615,6 +615,14 @@
      "items": [
       "python-botocore: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)"
      ]
+    },
+    {
+     "id": "RHBA-2026:90331",
+     "synopsis": "Red Hat OpenStack Platform 17.1 bug fix advisory",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:90331"
     },
     {
      "id": "RHSA-2026:90329",
@@ -2570,6 +2578,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:94635",
+     "synopsis": "Updated Red Hat OpenStack Platform 16.2 ELS for RHEL 8 container images",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-03",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94635"
+    },
+    {
      "id": "RHSA-2026:93044",
      "synopsis": "Important: Red Hat OpenStack Platform 16.2 (python-botocore) security update",
      "kind": "security",
@@ -2578,6 +2594,25 @@
      "url": "https://access.redhat.com/errata/RHSA-2026:93044",
      "items": [
       "python-botocore: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:90330",
+     "synopsis": "Important: Red Hat OpenStack Platform 16.2 security advisory",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-26",
+     "url": "https://access.redhat.com/errata/RHSA-2026:90330",
+     "items": [
+      "golang: crypto/x509: Man-in-the-middle attacks via untrusted intermediate certificates (CVE-2026-111943)",
+      "golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+      "golang.org/x/text: Denial of Service via invalid UTF-8 input (CVE-2026-56852)",
+      "golang: Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service (CVE-2026-56853)",
+      "golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+      "golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+      "golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)",
+      "etcd: Denial of Service via unbounded TLS handshake goroutines (CVE-2026-73500)",
+      "net/http/internal/http2: golang.org/x/net/http2: net/http: Denial of Service via excessive HTTP/2 SETTINGS frames (CVE-2026-78669)"
      ]
     },
     {

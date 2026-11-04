@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-11-03T14:01:51Z",
+ "generated": "2026-11-04T14:15:26Z",
  "minors": [
   {
    "minor": "2.7",
@@ -455,6 +455,18 @@
    "zstreams": [],
    "unversioned": [
     {
+     "id": "RHBA-2026:94884",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94884",
+     "items": [
+      "RPMs: RHSA-2026:94101",
+      "Containers: RHBA-2026:94102"
+     ]
+    },
+    {
      "id": "RHBA-2026:94102",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
      "kind": "bugfix",
@@ -492,6 +504,19 @@
      "severity": "Important",
      "date": "2026-10-29",
      "url": "https://access.redhat.com/errata/RHSA-2026:92856"
+    },
+    {
+     "id": "RHSA-2026:92621",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92621",
+     "items": [
+      "receptor: net/http: Denial of Service via excessive HTTP/2 SETTINGS frames (CVE-2026-78669)",
+      "receptor: golang: Denial of Service via crafted HTTP Range headers (CVE-2026-78667)",
+      "receptor: crypto/tls: Denial of Service via multiple ECH outer extension references (CVE-2026-97031)"
+     ]
     },
     {
      "id": "RHBA-2026:90352",
@@ -1616,6 +1641,22 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:94761",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-03",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94761"
+    },
+    {
+     "id": "RHBA-2026:94647",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-03",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94647"
+    },
     {
      "id": "RHSA-2026:94100",
      "synopsis": "Important: Red Hat Ansible Automation Platform 2.5 Product Security and Bug Fix Update",
@@ -7821,6 +7862,22 @@
    "zstreams": [],
    "unversioned": [
     {
+     "id": "RHBA-2026:95131",
+     "synopsis": "Ansible automation portal Red Hat Enterprise Linux Images",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95131"
+    },
+    {
+     "id": "RHBA-2026:94624",
+     "synopsis": "Ansible plug-ins for Red Hat Developer Hub Product Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-03",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94624"
+    },
+    {
      "id": "RHBA-2024:3476",
      "synopsis": "Red Hat Ansible Automation Platform 2.3 Setup and Setup Bundle Release Update",
      "kind": "bugfix",
@@ -10104,6 +10161,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:94599",
+     "synopsis": "Ansible plug-ins for Red Hat Developer Hub Product Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-03",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94599"
+    },
     {
      "id": "RHBA-2026:50913",
      "synopsis": "Red Hat Ansible Automation Platform 2.2 bug fix and enhancement update",
