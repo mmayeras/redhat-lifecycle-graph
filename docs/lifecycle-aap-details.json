@@ -1,13 +1,40 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-11-04T14:15:26Z",
+ "generated": "2026-11-05T14:31:50Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95364",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Azure Billing Operator Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95364"
+    },
+    {
+     "id": "RHBA-2026:95363",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Azure Billing Container Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95363"
+    },
+    {
+     "id": "RHBA-2026:95344",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95344",
+     "items": [
+      "Containers: RHSA-2026:94108"
+     ]
+    },
     {
      "id": "RHSA-2026:94108",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
@@ -1641,6 +1668,18 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95343",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95343",
+     "items": [
+      "RPMs: RHSA-2026:94100",
+      "Containers: RHBA-2026:94761"
+     ]
+    },
     {
      "id": "RHBA-2026:94761",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
@@ -10161,6 +10200,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95565",
+     "synopsis": "Ansible automation portal (Technology Preview)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95565"
+    },
+    {
+     "id": "RHSA-2026:95222",
+     "synopsis": "Ansible automation portal Red Hat Enterprise Linux Images",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:95222"
+    },
     {
      "id": "RHBA-2026:94599",
      "synopsis": "Ansible plug-ins for Red Hat Developer Hub Product Release Update",

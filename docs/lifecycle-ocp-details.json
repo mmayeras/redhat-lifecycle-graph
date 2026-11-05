@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-04T14:12:07Z",
+ "generated": "2026-11-05T14:27:53Z",
  "minors": [
   {
    "minor": "4.22",
@@ -198,6 +198,17 @@
         "unbound: Unbound: Heap buffer overflow via malicious DNSSEC response (CVE-2026-81634)",
         "unbound: Unbound: Remote Code Execution Vulnerability in CNAME Synthesis (CVE-2026-82717)",
         "kernel: scsi: qla2xxx: Bound rsp_info_len to avoid OOB sense-data read (CVE-2026-89846)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:74427",
+       "synopsis": "Important: OpenShift Container Platform 4.22.17 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74427",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
        ]
       },
       {
@@ -1032,6 +1043,102 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95528",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95528"
+    },
+    {
+     "id": "RHBA-2026:95515",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95515"
+    },
+    {
+     "id": "RHBA-2026:95506",
+     "synopsis": "OpenShift Container Platform 4.22 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95506"
+    },
+    {
+     "id": "RHBA-2026:95495",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95495"
+    },
+    {
+     "id": "RHBA-2026:95480",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95480"
+    },
+    {
+     "id": "RHBA-2026:95476",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95476"
+    },
+    {
+     "id": "RHBA-2026:95323",
+     "synopsis": "OpenShift Container Platform 4.22 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95323"
+    },
+    {
+     "id": "RHBA-2026:95322",
+     "synopsis": "OpenShift Container Platform 4.22 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95322"
+    },
+    {
+     "id": "RHBA-2026:95247",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95247"
+    },
+    {
+     "id": "RHBA-2026:95211",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95211"
+    },
+    {
+     "id": "RHBA-2026:95184",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95184"
+    },
+    {
+     "id": "RHBA-2026:95180",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95180"
+    },
     {
      "id": "RHBA-2026:95084",
      "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
@@ -2546,6 +2653,14 @@
        "items": [
         "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)"
        ]
+      },
+      {
+       "id": "RHBA-2026:79152",
+       "synopsis": "OpenShift Container Platform 4.21.37 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-13",
+       "url": "https://access.redhat.com/errata/RHBA-2026:79152"
       }
      ]
     },
@@ -2565,6 +2680,14 @@
         "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
         "kernel: net: tun: bound receive headroom (CVE-2026-81000)"
        ]
+      },
+      {
+       "id": "RHBA-2026:74378",
+       "synopsis": "OpenShift Container Platform 4.21.36 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:74378"
       },
       {
        "id": "RHBA-2026:74385",
@@ -2590,6 +2713,23 @@
        "items": [
         "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
         "openssh: OpenSSH: Use-after-free vulnerability during host key re-exchange on the client side (CVE-2026-60002)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:71443",
+       "synopsis": "Important: OpenShift Container Platform 4.21.35 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-29",
+       "url": "https://access.redhat.com/errata/RHSA-2026:71443",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)",
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
        ]
       },
       {
@@ -4296,6 +4436,30 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95402",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95402"
+    },
+    {
+     "id": "RHBA-2026:95352",
+     "synopsis": "OpenShift Container Platform 4.21 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95352"
+    },
+    {
+     "id": "RHBA-2026:95157",
+     "synopsis": "OpenShift Container Platform 4.21 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95157"
+    },
     {
      "id": "RHSA-2026:94071",
      "synopsis": "Red Hat Web Terminal Operator 1.16.3 release.",
@@ -6410,6 +6574,14 @@
        ]
       },
       {
+       "id": "RHBA-2026:71441",
+       "synopsis": "OpenShift Container Platform 4.20.40 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-29",
+       "url": "https://access.redhat.com/errata/RHBA-2026:71441"
+      },
+      {
        "id": "RHBA-2026:71452",
        "synopsis": "OpenShift Container Platform 4.20.40 OLM Operators metadata update",
        "kind": "bugfix",
@@ -8310,6 +8482,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95321",
+     "synopsis": "OpenShift Container Platform 4.20 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95321"
+    },
     {
      "id": "RHBA-2026:95127",
      "synopsis": "OpenShift Container Platform 4.20 latency tests extras update",
@@ -10333,6 +10513,14 @@
         "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
         "kernel: net: tun: bound receive headroom (CVE-2026-81000)"
        ]
+      },
+      {
+       "id": "RHBA-2026:74432",
+       "synopsis": "OpenShift Container Platform 4.19.50 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-07",
+       "url": "https://access.redhat.com/errata/RHBA-2026:74432"
       }
      ]
     },
@@ -12772,6 +12960,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:95460",
+     "synopsis": "OpenShift Container Platform 4.19 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95460"
+    },
+    {
      "id": "RHBA-2026:95111",
      "synopsis": "OpenShift Container Platform 4.19 latency tests extras update",
      "kind": "bugfix",
@@ -14228,6 +14424,17 @@
         "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
         "kernel: net: tun: bound receive headroom (CVE-2026-81000)"
        ]
+      },
+      {
+       "id": "RHSA-2026:79034",
+       "synopsis": "Important: OpenShift Container Platform 4.18.57 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:79034",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
+       ]
       }
      ]
     },
@@ -14251,6 +14458,23 @@
         "bind: bind9: DNSSEC Validation Bypass via Out-of-Zone NSEC Next Field (CVE-2026-13321)",
         "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
         "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:70614",
+       "synopsis": "Important: OpenShift Container Platform 4.18.56 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:70614",
+       "items": [
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
        ]
       },
       {
@@ -16943,6 +17167,22 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:95535",
+     "synopsis": "OpenShift Container Platform 4.18 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95535"
+    },
+    {
+     "id": "RHBA-2026:95530",
+     "synopsis": "OpenShift Container Platform 4.18 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95530"
+    },
+    {
      "id": "RHBA-2026:94481",
      "synopsis": "OpenShift Container Platform 4.18 CNF vRAN extras topology aware lifecycle manager update",
      "kind": "bugfix",
@@ -18599,6 +18839,24 @@
         "bind: bind9: Incorrect acceptance of NSEC3 records (CVE-2026-10723)",
         "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
         "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:70585",
+       "synopsis": "Important: OpenShift Container Platform 4.17.58 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:70585",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "github.com/go-jose/go-jose/v3: github.com/go-jose/go-jose/v4: Go JOSE: Denial of Service via crafted JSON Web Encryption (JWE) object (CVE-2026-34986)",
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
        ]
       },
       {
@@ -22747,6 +23005,14 @@
        ]
       },
       {
+       "id": "RHBA-2026:73850",
+       "synopsis": "OpenShift Container Platform 4.16.72 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:73850"
+      },
+      {
        "id": "RHBA-2026:73855",
        "synopsis": "OpenShift Container Platform 4.16.72 OLM Operators metadata update",
        "kind": "bugfix",
@@ -22781,6 +23047,22 @@
         "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
         "kernel: Linux kernel: Use-After-Free in net/gro due to improper handling of zerocopy skbs (CVE-2026-46323)",
         "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:67934",
+       "synopsis": "Important: OpenShift Container Platform 4.16.71 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-24",
+       "url": "https://access.redhat.com/errata/RHSA-2026:67934",
+       "items": [
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
        ]
       }
      ]
@@ -31724,6 +32006,19 @@
        ]
       },
       {
+       "id": "RHSA-2026:73864",
+       "synopsis": "Important: OpenShift Container Platform 4.14.75 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:73864",
+       "items": [
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      },
+      {
        "id": "RHBA-2026:73873",
        "synopsis": "OpenShift Container Platform 4.14.75 OLM Operators metadata update",
        "kind": "bugfix",
@@ -31754,6 +32049,18 @@
        "url": "https://access.redhat.com/errata/RHSA-2026:67837",
        "items": [
         "gnutls: gnutls: Information disclosure via heap overread in RSA key exchange (CVE-2026-5260)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:67836",
+       "synopsis": "Important: OpenShift Container Platform 4.14.74 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-24",
+       "url": "https://access.redhat.com/errata/RHSA-2026:67836",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "github.com/go-jose/go-jose/v3: github.com/go-jose/go-jose/v4: Go JOSE: Denial of Service via crafted JSON Web Encryption (JWE) object (CVE-2026-34986)"
        ]
       }
      ]
@@ -34653,14 +34960,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -34670,6 +34969,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -35266,6 +35573,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95401",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95401"
+    },
     {
      "id": "RHBA-2026:95120",
      "synopsis": "OpenShift Container Platform 4.14 NUMA resources operator extras update",
@@ -41619,6 +41934,14 @@
        "url": "https://access.redhat.com/errata/RHSA-2026:70646"
       },
       {
+       "id": "RHSA-2026:70645",
+       "synopsis": "Important: OpenShift Container Platform 4.12.99 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:70645"
+      },
+      {
        "id": "RHBA-2026:70649",
        "synopsis": "OpenShift Container Platform 4.12.99 OLM Operators metadata update",
        "kind": "bugfix",
@@ -45709,6 +46032,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:95500",
+     "synopsis": "OpenShift Container Platform 4.12 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95500"
+    },
+    {
+     "id": "RHBA-2026:95398",
+     "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95398"
+    },
     {
      "id": "RHSA-2026:95092",
      "synopsis": "OpenShift Container Platform 4.12 CNF vRAN extras topology aware lifecycle manager update",
@@ -58492,20 +58831,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5032",
-       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
-      },
-      {
        "id": "RHBA-2022:5033",
        "synopsis": "OpenShift Container Platform 4.8.44 extras update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5033"
+      },
+      {
+       "id": "RHBA-2022:5032",
+       "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5032"
       },
       {
        "id": "RHBA-2022:5031",

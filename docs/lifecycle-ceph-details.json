@@ -1,7 +1,7 @@
 {
  "product": "ceph",
  "title": "Ceph Lifecycle",
- "generated": "2026-11-04T14:16:41Z",
+ "generated": "2026-11-05T14:33:13Z",
  "minors": [
   {
    "minor": "9",
@@ -128,6 +128,14 @@
      "version": "8.1",
      "date": "2025-06-26",
      "errata": [
+      {
+       "id": "RHSA-2026:79101",
+       "synopsis": "Important: Red Hat Ceph Storage 8.1 security and bug fix updates",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:79101"
+      },
       {
        "id": "RHSA-2026:61939",
        "synopsis": "Important: Red Hat Ceph Storage 8.1 security and bug fix updates",
@@ -429,6 +437,14 @@
      "version": "7.1",
      "date": "2024-06-13",
      "errata": [
+      {
+       "id": "RHSA-2026:83515",
+       "synopsis": "Important: Red Hat Ceph Storage 7.1 security and bug fix updates",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:83515"
+      },
       {
        "id": "RHBA-2026:30902",
        "synopsis": "Red Hat Ceph Storage 7.1 bug fix and enhancement updates",
