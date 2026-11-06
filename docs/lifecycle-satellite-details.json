@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-11-05T14:34:12Z",
+ "generated": "2026-11-06T14:09:38Z",
  "minors": [
   {
    "minor": "6.19",
@@ -193,6 +193,23 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:95652",
+     "synopsis": "Critical: Satellite 6.19 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:95652",
+     "items": [
+      "openvox-agent: Integer overflow when compiling a specially crafted regular expression (CVE-2026-110264).",
+      "openvox-agent: Integer overflow when compiling a specially crafted CI/CD regular expression (CVE-2026-97229).",
+      "openvox-agent: Integer overflow when compiling a specially crafted regular expression (CVE-2026-93577).",
+      "openvox-agent: Double free when parsing a specially crafted regular expression (CVE-2026-89078).",
+      "openvox-server: Authenticated remote code execution via report event deserialization (CVE-2026-115731).",
+      "openvox-server: Certificate name authorization bypass via flawed hostname ACL matching (CVE-2026-115732).",
+      "openvox-server: Denial of Service via unbounded memory allocation in asynchronous parser (CVE-2026-104895)."
+     ]
+    },
     {
      "id": "RHSA-2026:92861",
      "synopsis": "Critical: Satellite 6.19 security update",
@@ -583,6 +600,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:95657",
+     "synopsis": "Critical: Satellite 6.18 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:95657",
+     "items": [
+      "python3.12-django: Django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)",
+      "python3.12-brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)",
+      "python3.12-urllib3: urllib3: Traffic interception via HTTPS proxy TLS configuration override (CVE-2026-97687)",
+      "python3.12-urllib3: urllib3: Denial of Service via unbounded memory allocation in chunk parser (CVE-2026-97689)",
+      "python3.12-pillow: pillow: Denial of Service via duplicate page references in PDF files (CVE-2026-96640)",
+      "python3.12-pillow: pillow: Denial of Service via repeated EXIF headers (CVE-2026-96643)",
+      "python3.12-pillow: pillow: Arbitrary code execution via JPEG encoder buffer overflow (CVE-2026-96778)",
+      "python3.12-pillow: Pillow: Denial of Service via infinite loop during crafted MIC image parsing (CVE-2026-112390)",
+      "python3.12-pillow: Pillow: Denial of Service via unbounded recursion in PDF parser (CVE-2026-112391)",
+      "python3.12-pillow: pillow: Denial of Service via zero-size images in rank filters (CVE-2026-112392)",
+      "python3.12-pillow: Pillow: Heap buffer overflow in _tiffWriteProc when saving TIFF to BytesIO (CVE-2026-112393)",
+      "python3.12-pillow: pillow: Denial of Service via out-of-bounds memory access on zero-width images (CVE-2026-112397)",
+      "python3.12-pillow: Pillow: Heap buffer overflow in FlashPix (FPX) JPEG decoding leads to code execution (CVE-2026-112398)",
+      "python3.12-pillow: pillow: Denial of service via crafted APNG image (CVE-2026-112399)",
+      "python3.12-pillow: pillow: Denial of Service via memory exhaustion from crafted GIF image (CVE-2026-112400)",
+      "python3.12-pillow: pillow: Denial of service via double free during image transformation (CVE-2026-112402)",
+      "python3.12-pillow: Pillow: Heap buffer overflow in ImagingJpegDecode (CVE-2026-112403)",
+      "python3.12-pillow: Pillow: Denial of Service via out-of-bounds read in TIFF decoding (CVE-2026-112404)",
+      "python3.12-pillow: Pillow: Denial of Service via null pointer dereference in Image.merge() (CVE-2026-112405)",
+      "python3.12-pillow: pillow: Denial of Service via infinite loop during PDF page rewriting (CVE-2026-112406)"
+     ]
+    },
     {
      "id": "RHSA-2026:92860",
      "synopsis": "Important: Satellite 6.18 security update",
@@ -1076,6 +1123,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:95656",
+     "synopsis": "Critical: Satellite 6.17 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:95656",
+     "items": [
+      "python-django: Django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)",
+      "python-gitpython: GitPython: Arbitrary Code Execution via Path Traversal (CVE-2026-78677)",
+      "python-gitpython: GitPython: Denial of Service via crafted commit author field (CVE-2026-87819)",
+      "python-urllib3: urllib3: Denial of Service via unbounded memory allocation in chunk parser (CVE-2026-97689)",
+      "python-urllib3: urllib3: Traffic interception via HTTPS proxy TLS configuration override (CVE-2026-97687)",
+      "python-gitpython: GitPython: Arbitrary code execution via unsafe URL protocol handling (CVE-2026-110857)",
+      "python-gitpython: GitPython: Arbitrary file read via argument injection in branch checkout (CVE-2026-110859)",
+      "python-gitpython: GitPython: Denial of Service via regular expression backtracking in date parsing (CVE-2026-110856)",
+      "python-gitpython: GitPython: Arbitrary file read vulnerability via `Repo.archive()` (CVE-2026-73619)",
+      "python-pillow: Pillow: Denial of Service via unbounded recursion in PDF parser (CVE-2026-112391)",
+      "python-pillow: Pillow: Denial of Service via infinite loop during crafted MIC image parsing (CVE-2026-112390)",
+      "python-pillow: Pillow: Denial of Service via null pointer dereference in Image.merge() (CVE-2026-112405)",
+      "python-pillow: pillow: Denial of service via crafted APNG image (CVE-2026-112399)",
+      "python-pillow: pillow: Denial of Service via zero-size images in rank filters (CVE-2026-112392)",
+      "python-pillow: pillow: Denial of Service via out-of-bounds memory access on zero-width images (CVE-2026-112397)",
+      "python-pillow: pillow: Denial of Service via memory exhaustion from crafted GIF image (CVE-2026-112400)",
+      "python-pillow: pillow: Denial of Service via crafted multi-frame image conversion (CVE-2026-112894)",
+      "python-pillow: pillow: Denial of service via crafted PDF during append operations (CVE-2026-112895)",
+      "python-pillow: pillow: Denial of service via double free during image transformation (CVE-2026-112402)",
+      "python-pillow: Pillow: Denial of Service via invalid pointer free during font rendering (CVE-2026-112893)"
+     ]
+    },
     {
      "id": "RHSA-2026:92859",
      "synopsis": "Important: Satellite 6.17 security update",
@@ -1712,6 +1789,36 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:95655",
+     "synopsis": "Critical: Satellite 6.16 EUS security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHSA-2026:95655",
+     "items": [
+      "python-django: Django: Remote code execution via GeoDjango spatial lookups (CVE-2026-15307)",
+      "python-urllib3: urllib3: Denial of Service via unbounded memory allocation in chunk parser (CVE-2026-97689)",
+      "python-urllib3: urllib3: Traffic interception via HTTPS proxy TLS configuration override (CVE-2026-97687)",
+      "python-gitpython: GitPython: Arbitrary code execution via unsafe URL protocol handling (CVE-2026-110857)",
+      "python-gitpython: GitPython: Arbitrary file read via argument injection in branch checkout (CVE-2026-110859)",
+      "python-gitpython: GitPython: Denial of Service via regular expression backtracking in date parsing (CVE-2026-110856)",
+      "python-gitpython: GitPython: Arbitrary file read vulnerability via `Repo.archive()` (CVE-2026-73619)",
+      "satellite-capsule:el8/python-gitpython: GitPython: Arbitrary file read vulnerability via `Repo.archive()` (CVE-2026-73619)",
+      "python-pillow: Pillow: Denial of Service via unbounded recursion in PDF parser (CVE-2026-112391)",
+      "python-pillow: Pillow: Denial of Service via infinite loop during crafted MIC image parsing (CVE-2026-112390)",
+      "python-pillow: Pillow: Denial of Service via null pointer dereference in Image.merge() (CVE-2026-112405)",
+      "python-pillow: pillow: Denial of service via crafted APNG image (CVE-2026-112399)",
+      "python-pillow: pillow: Denial of Service via zero-size images in rank filters (CVE-2026-112392)",
+      "python-pillow: pillow: Denial of Service via out-of-bounds memory access on zero-width images (CVE-2026-112397)",
+      "python-pillow: pillow: Denial of Service via memory exhaustion from crafted GIF image (CVE-2026-112400)",
+      "python-pillow: pillow: Denial of Service via crafted multi-frame image conversion (CVE-2026-112894)",
+      "python-pillow: pillow: Denial of service via crafted PDF during append operations (CVE-2026-112895)",
+      "python-pillow: pillow: Denial of service via double free during image transformation (CVE-2026-112402)",
+      "python-pillow: Pillow: Denial of Service via invalid pointer free during font rendering (CVE-2026-112893)",
+      "python-pillow: pillow: Information disclosure via uninitialized buffer in TIFF decoding (CVE-2026-112897)"
+     ]
+    },
     {
      "id": "RHSA-2026:92858",
      "synopsis": "Important: Satellite 6.16 EUS security update",
