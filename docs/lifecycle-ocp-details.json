@@ -1,12 +1,2600 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-06T14:03:36Z",
+ "generated": "2026-11-07T12:47:22Z",
  "minors": [
+  {
+   "minor": "4.22",
+   "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/release_notes/",
+   "zstreams": [
+    {
+     "version": "4.22.22",
+     "date": "2026-11-06",
+     "errata": [
+      {
+       "id": "RHSA-2026:95346",
+       "synopsis": "Critical: OpenShift Container Platform 4.22.22 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95346",
+       "items": [
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)",
+        "curl: libcurl: Unauthorized connection reuse due to a logical error (CVE-2026-8458)",
+        "qemu-kvm: qemu-guest-agent: Local privilege escalation via symlink attack in guest-ssh-add-authorized-keys (CVE-2026-12080)",
+        "openssl: OpenSSL: Denial of Service via unbounded memory growth in QUIC server (CVE-2026-14456)",
+        "bind: BIND: Denial of Service via unbounded processing of crafted DNS messages (CVE-2026-19630)",
+        "cryptography: cryptography Subgroup Attack Due to Missing Subgroup Validation for SECT Curves (CVE-2026-26007)",
+        "kernel: smb: client: fix double-free in SMB2_close() replay (CVE-2026-64597)",
+        "kernel: sctp: fix auth_hmacs array size in struct sctp_cookie (CVE-2026-68376)",
+        "expat: expat: Information disclosure via heap buffer over-read in XML_ParseBuffer (CVE-2026-77214)",
+        "kernel: usb: usbfs: fix use-after-free of usb_device in usbdev_release() (CVE-2026-80824)",
+        "openssl: compat-openssl: DTLS Retransmits Handshake Messages From a Stale Buffer Offset (CVE-2026-84782)",
+        "kernel: vfio/pci: clear vdev->msi_perm after freeing it on init failure (CVE-2026-89777)",
+        "kernel: scsi: target: iscsi: Reserve a terminator byte for the login payload (CVE-2026-90011)",
+        "bind: bind: Arbitrary code execution via GSS-TSIG UDP message replay (CVE-2026-94300)",
+        "libreswan: IKEv2 Use-After-Free bug when using IKE-over-TCP (CVE-2026-94453)",
+        "bind: bind: Denial of Service via assertion failure during redirect processing (CVE-2026-96888)",
+        "bind: bind: Denial of service via assertion failure in RPZ query processing (CVE-2026-97313)",
+        "kernel: KEYS: encrypted: fix integer overflow of datablob_len (CVE-2026-98222)",
+        "kernel: xfrm: hold net_device reference under RCU in bundle creation (CVE-2026-98364)",
+        "kernel: KVM: arm64: Transfer the hyp stack pages out of the host stage-2 (CVE-2026-98466)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:95345",
+       "synopsis": "OpenShift Container Platform 4.22.22 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95345"
+      },
+      {
+       "id": "RHBA-2026:95349",
+       "synopsis": "OpenShift Container Platform 4.22.22 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95349"
+      },
+      {
+       "id": "RHBA-2026:95348",
+       "synopsis": "OpenShift Container Platform 4.22.22 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95348"
+      },
+      {
+       "id": "RHSA-2026:95347",
+       "synopsis": "OpenShift Container Platform 4.22.22 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95347"
+      }
+     ]
+    },
+    {
+     "version": "4.22.21",
+     "date": "2026-11-03",
+     "errata": [
+      {
+       "id": "RHBA-2026:92329",
+       "synopsis": "OpenShift Container Platform 4.22.21 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-03",
+       "url": "https://access.redhat.com/errata/RHBA-2026:92329"
+      },
+      {
+       "id": "RHBA-2026:92328",
+       "synopsis": "OpenShift Container Platform 4.22.21 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-03",
+       "url": "https://access.redhat.com/errata/RHBA-2026:92328"
+      },
+      {
+       "id": "RHBA-2026:92332",
+       "synopsis": "OpenShift Container Platform 4.22.21 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-03",
+       "url": "https://access.redhat.com/errata/RHBA-2026:92332"
+      },
+      {
+       "id": "RHSA-2026:92330",
+       "synopsis": "OpenShift Container Platform 4.22.21 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:92330"
+      },
+      {
+       "id": "RHSA-2026:92331",
+       "synopsis": "OpenShift Container Platform 4.22.21 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-03",
+       "url": "https://access.redhat.com/errata/RHSA-2026:92331",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.20",
+     "date": "2026-10-27",
+     "errata": [
+      {
+       "id": "RHSA-2026:89197",
+       "synopsis": "Critical: OpenShift Container Platform 4.22.20 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89197",
+       "items": [
+        "ca-certificates: Distrust eMudhra intermediate CA certificates due to security concerns (CVE-2026-114406)",
+        "kernel: hypervisor: Intel Processors: Privilege escalation in Ring 0 via improper value handling (CVE-2025-35973)",
+        "libpcap: libpcap: Out-of-bounds read and write vulnerability allows arbitrary memory access (CVE-2026-0799)",
+        "bind: BIND: Denial of Service via malformed DNS64 responses (CVE-2026-19666)",
+        "bind9: bind: BIND 9: Denial of Service via 16-bit length truncation in DNS negative cache handling (CVE-2026-19667)",
+        "openssh: OpenSSH sshd: Security bypass due to incorrect handling of forwarding and tunneling options (CVE-2026-59999)",
+        "libevent: libevent: Multiple HTTP Parser Bugs Enable Request Smuggling (CVE-2026-63382)",
+        "libevent: Libevent: Denial of Service via malformed RPC data (CVE-2026-63383)",
+        "libevent: Libevent: Denial of Service via integer conversion error in `evtag_unmarshal_header` (CVE-2026-63384)",
+        "libevent: Libevent: HTTP header handling bugs create risk of access control bypass. (CVE-2026-63385)",
+        "libevent: Libevent: Off-by-one stack buffer overflow leading to denial of service or data corruption (CVE-2026-63387)",
+        "libevent: Libevent: Arbitrary code execution via heap out-of-bounds write in AF_UNIX handling (CVE-2026-63388)",
+        "kernel: sctp: don't free the ASCONF's own transport in DEL-IP processing (CVE-2026-64564)",
+        "expat: Expat: Denial of Service via quadratic complexity in attribute processing (CVE-2026-66046)",
+        "kernel: drm/amdgpu/vce: fix integer overflow in image size (CVE-2026-68108)",
+        "kernel: openvswitch: fix GSO userspace truncation underflow (CVE-2026-68123)",
+        "bind: BIND: Denial of Service via crafted DNSSEC reply (CVE-2026-80274)",
+        "kernel: ipv6: fix use-after-free in ip6_finish_output2() (CVE-2026-80792)",
+        "kernel: KVM: s390: vsie: zero stale crypto bits (CVE-2026-80921)",
+        "kernel: net/iucv: filter frames in afiucv_hs_rcv() by ingress device (CVE-2026-81003)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:89196",
+       "synopsis": "Important: OpenShift Container Platform 4.22.20 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHSA-2026:89196",
+       "items": [
+        "crypto/x509: golang: crypto/x509: Man-in-the-middle attacks via untrusted intermediate certificates (CVE-2026-111943)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:89200",
+       "synopsis": "OpenShift Container Platform 4.22.20 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-27",
+       "url": "https://access.redhat.com/errata/RHBA-2026:89200"
+      }
+     ]
+    },
+    {
+     "version": "4.22.19",
+     "date": "2026-10-20",
+     "errata": [
+      {
+       "id": "RHBA-2026:83543",
+       "synopsis": "OpenShift Container Platform 4.22.19 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-20",
+       "url": "https://access.redhat.com/errata/RHBA-2026:83543"
+      },
+      {
+       "id": "RHSA-2026:83540",
+       "synopsis": "Important: OpenShift Container Platform 4.22.19 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:83540",
+       "items": [
+        "kernel: pppoe: reload header pointer after dev_hard_header() (CVE-2026-68121)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:83539",
+       "synopsis": "OpenShift Container Platform 4.22.19 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-20",
+       "url": "https://access.redhat.com/errata/RHBA-2026:83539"
+      }
+     ]
+    },
+    {
+     "version": "4.22.18",
+     "date": "2026-10-19",
+     "errata": [
+      {
+       "id": "RHSA-2026:79150",
+       "synopsis": "Important: OpenShift Container Platform 4.22.18 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:79150",
+       "items": [
+        "golang.org/x/net/idna: golang: net/http: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:79151",
+       "synopsis": "Moderate: OpenShift Container Platform 4.22.18 bug fix and security update",
+       "kind": "security",
+       "severity": "Moderate",
+       "date": "2026-10-20",
+       "url": "https://access.redhat.com/errata/RHSA-2026:79151",
+       "items": [
+        "kernel: futex: Fix race on the initial mm->futex.phash.ref allocation (CVE-2026-80775)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:79156",
+       "synopsis": "OpenShift Container Platform 4.22.18 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-19",
+       "url": "https://access.redhat.com/errata/RHBA-2026:79156"
+      }
+     ]
+    },
+    {
+     "version": "4.22.17",
+     "date": "2026-10-06",
+     "errata": [
+      {
+       "id": "RHSA-2026:74428",
+       "synopsis": "Important: OpenShift Container Platform 4.22.17 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74428",
+       "items": [
+        "libevent: Libevent: HTTP header handling bugs create risk of access control bypass. (CVE-2026-63385)",
+        "kernel: xfrm: ah6: validate routing header segments_left (CVE-2026-80844)",
+        "kernel: net: tun: bound receive headroom (CVE-2026-81000)",
+        "unbound: Unbound: Heap buffer overflow via malicious DNSSEC response (CVE-2026-81634)",
+        "unbound: Unbound: Remote Code Execution Vulnerability in CNAME Synthesis (CVE-2026-82717)",
+        "kernel: scsi: qla2xxx: Bound rsp_info_len to avoid OOB sense-data read (CVE-2026-89846)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:74427",
+       "synopsis": "Important: OpenShift Container Platform 4.22.17 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:74427",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:74431",
+       "synopsis": "OpenShift Container Platform 4.22.17 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-10-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:74431"
+      }
+     ]
+    },
+    {
+     "version": "4.22.16",
+     "date": "2026-09-29",
+     "errata": [
+      {
+       "id": "RHSA-2026:71446",
+       "synopsis": "Important: OpenShift Container Platform 4.22.16 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-29",
+       "url": "https://access.redhat.com/errata/RHSA-2026:71446",
+       "items": [
+        "rsync: rsync: Unauthorized File Access via Symlink Module Root (CVE-2026-53784)",
+        "rsync: rsync: Arbitrary file write via path traversal in --relative mode (CVE-2026-53785)",
+        "rsync: rsync < 3.5.0 Command Injection via Multiple Code Paths (CVE-2026-53790)",
+        "rsync: rsync < 3.5.0 Daemon IP Spoofing via PROXY Protocol Header (CVE-2026-53791)",
+        "rsync: rsync < 3.5.0 Path Confinement Bypass via /./ Boundary Marker in Chroot Mode (CVE-2026-53793)",
+        "rsync: rsync: Arbitrary file write via --temp-dir or --link-dest options (CVE-2026-53795)",
+        "rsync: rsync: Arbitrary File Read via Symlink Following (CVE-2026-53802)",
+        "rsync: rsync: Local Privilege Escalation via Symlink Following (CVE-2026-53803)",
+        "rsync: rsync 3.1.0 < 3.5.0 Access Control Bypass via DNS Resolution Failure (CVE-2026-70452)",
+        "rsync: rsync: Heap Out-of-Bounds Write via crafted argument list (CVE-2026-70456)",
+        "rsync: rsync: Memory corruption via crafted file entries (CVE-2026-70458)",
+        "rsync: rsync 2.3.3 < 3.5.0 Path Traversal via --partial-dir/--backup-dir Symlink (CVE-2026-70460)",
+        "rsync: rsync: Information disclosure and denial of service via crafted files-from entry (CVE-2026-70461)",
+        "rsync: rsync: Authorization bypass via `auth users` directive parsing (CVE-2026-70463)",
+        "rsync: rsync: Denial of Service via handshake stall (CVE-2026-70464)",
+        "perl: Perl: Incorrect regular expression processing via large regular expressions (CVE-2026-13221)",
+        "rsync: rsync: Arbitrary file deletion via malicious file list (CVE-2026-53789)",
+        "rsync: rsync: Denial of Service via Algorithmic Complexity (CVE-2026-70453)",
+        "rsync: rsync: TLS Certificate Validation Bypass allows interception of encrypted sessions (CVE-2026-70454)",
+        "rsync: rsync: Memory corruption via out-of-bounds write in size parsing (CVE-2026-70457)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:71458",
+       "synopsis": "OpenShift Container Platform 4.22.16 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-29",
+       "url": "https://access.redhat.com/errata/RHBA-2026:71458"
+      },
+      {
+       "id": "RHSA-2026:71445",
+       "synopsis": "Important: OpenShift Container Platform 4.22.16 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-29",
+       "url": "https://access.redhat.com/errata/RHSA-2026:71445",
+       "items": [
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "net/http: golang: Go net/http: Unencrypted HTTP/2 connections vulnerable to Denial of Service (CVE-2026-56853)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:71456",
+       "synopsis": "OpenShift Container Platform 4.22.16 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-29",
+       "url": "https://access.redhat.com/errata/RHBA-2026:71456"
+      }
+     ]
+    },
+    {
+     "version": "4.22.15",
+     "date": "2026-09-22",
+     "errata": [
+      {
+       "id": "RHSA-2026:68550",
+       "synopsis": "Important: OpenShift Container Platform 4.22.15 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHSA-2026:68550",
+       "items": [
+        "github.com/open-telemetry/opentelemetry-go: go.opentelemetry.io/otel/baggage: go.opentelemetry.io/otel/propagation: OpenTelemetry-Go: Denial of Service via oversized baggage headers (CVE-2026-41178)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:68551",
+       "synopsis": "OpenShift Container Platform 4.22.15 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:68551"
+      },
+      {
+       "id": "RHBA-2026:68554",
+       "synopsis": "OpenShift Container Platform 4.22.15 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:68554"
+      }
+     ]
+    },
+    {
+     "version": "4.22.14",
+     "date": "2026-09-15",
+     "errata": [
+      {
+       "id": "RHSA-2026:66357",
+       "synopsis": "Important: OpenShift Container Platform 4.22.14 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66357",
+       "items": [
+        "curl: curl: Insecure connection establishment due to TLS configuration mismatch (CVE-2026-8286)",
+        "curl: curl: Man-in-the-middle attack via SSH host key bypass (CVE-2026-9547)",
+        "bind: bind9: Cache poisoning via label count discrepancy, RRSIG, wildcards (CVE-2026-11721)",
+        "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5 (CVE-2026-11824)",
+        "bind: bind9: Unexpected exit with NSEC and NSEC3 both present (CVE-2026-13204)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "kernel: KVM: nSVM: Always use vmcb01 in VMLOAD/VMSAVE emulation (CVE-2026-43133)",
+        "unbound: Unbound: Denial of Service via malformed EDNS Report-Channel option (CVE-2026-55973)",
+        "glib: off-by-one error in glib/gkeyfile.c via \"g_key_file_get_locale_string_list\" (CVE-2026-58014)",
+        "glib: path traversal in glib/gio/gdbusauthmechanismsha1.c via keyring_lookup_entry and mechanism_client_data_receive (CVE-2026-58015)",
+        "kbd: Local privilege escalation in openvt via incorrect process owner verification allowing passwordless root login (CVE-2026-72693)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:66356",
+       "synopsis": "Important: OpenShift Container Platform 4.22.14 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHSA-2026:66356",
+       "items": [
+        "encoding/asn1: golang: Go encoding/asn1: Denial of Service via excessive recursion in Unmarshal (CVE-2026-33818)",
+        "html/template: golang: Go html/template: Cross-Site Scripting via pathological input (CVE-2026-56858)",
+        "encoding/xml: golang: Go: Denial of Service via XML decoding recursion depth issue (CVE-2026-56859)",
+        "net/url: golang: golang net/url: Denial of Service from quadratic complexity in path resolution (CVE-2026-56860)",
+        "crypto/tls: golang: Golang crypto/tls: Denial of Service via indefinite KeyUpdate messages (CVE-2026-56862)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:66360",
+       "synopsis": "OpenShift Container Platform 4.22.14 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-15",
+       "url": "https://access.redhat.com/errata/RHBA-2026:66360"
+      }
+     ]
+    },
+    {
+     "version": "4.22.13",
+     "date": "2026-09-08",
+     "errata": [
+      {
+       "id": "RHSA-2026:63091",
+       "synopsis": "Important: OpenShift Container Platform 4.22.13 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63091",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:63098",
+       "synopsis": "OpenShift Container Platform 4.22.13 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHBA-2026:63098"
+      },
+      {
+       "id": "RHSA-2026:63093",
+       "synopsis": "Important: OpenShift Container Platform 4.22.13 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-08",
+       "url": "https://access.redhat.com/errata/RHSA-2026:63093",
+       "items": [
+        "kernel: netfilter: nft_set_pipapo_avx2: don't return non-matching entry on expiry (CVE-2026-43114)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.12",
+     "date": "2026-09-01",
+     "errata": [
+      {
+       "id": "RHSA-2026:60440",
+       "synopsis": "Important: OpenShift Container Platform 4.22.12 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-09-01",
+       "url": "https://access.redhat.com/errata/RHSA-2026:60440",
+       "items": [
+        "curl: curl: Insecure connection establishment due to TLS configuration mismatch (CVE-2026-8286)",
+        "curl: curl: Man-in-the-middle attack via SSH host key bypass (CVE-2026-9547)",
+        "bind9: bind: Potential wildcard CNAME RPZ policy bypass (CVE-2026-11331)",
+        "dracut: dracut: root code execution via unescaped error message written to sourced emergency hook script in die() (CVE-2026-15816)",
+        "unbound: Unbound: Cache poisoning via insufficient RRSIG.Labels validation and premature cache writes (CVE-2026-44690)",
+        "unbound: Unbound: Denial of Service via malformed EDNS Report-Channel option (CVE-2026-55973)",
+        "bind: bind9: Incorrect acceptance of NSEC3 records (CVE-2026-10723)",
+        "kernel: smb: client: validate DFS referral PathConsumed (CVE-2026-68343)",
+        "kbd: Local privilege escalation in openvt via incorrect process owner verification allowing passwordless root login (CVE-2026-72693)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:60443",
+       "synopsis": "OpenShift Container Platform 4.22.12 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-01",
+       "url": "https://access.redhat.com/errata/RHBA-2026:60443"
+      },
+      {
+       "id": "RHBA-2026:60439",
+       "synopsis": "OpenShift Container Platform 4.22.12 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-09-01",
+       "url": "https://access.redhat.com/errata/RHBA-2026:60439"
+      }
+     ]
+    },
+    {
+     "version": "4.22.11",
+     "date": "2026-08-25",
+     "errata": [
+      {
+       "id": "RHSA-2026:57362",
+       "synopsis": "Important: OpenShift Container Platform 4.22.11 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHSA-2026:57362",
+       "items": [
+        "bind: bind9: Potential memory usage beyond configured limits (CVE-2026-11622)",
+        "bind: bind9: Cache poisoning via label count discrepancy, RRSIG, wildcards (CVE-2026-11721)",
+        "bind: bind9: Unexpected exit with NSEC and NSEC3 both present (CVE-2026-13204)",
+        "bind: bind9: DNSSEC Validation Bypass via Out-of-Zone NSEC Next Field (CVE-2026-13321)",
+        "kernel: net: openvswitch: reject oversized nested action attrs (CVE-2026-64531)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:57368",
+       "synopsis": "OpenShift Container Platform 4.22.11 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHBA-2026:57368"
+      },
+      {
+       "id": "RHSA-2026:57361",
+       "synopsis": "Important: OpenShift Container Platform 4.22.11 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-25",
+       "url": "https://access.redhat.com/errata/RHSA-2026:57361",
+       "items": [
+        "github.com/cri-o/cri-o: Fix Bypass for CVE-2022-4318 \u2014 /etc/passwd Injection via HOME env (CVE-2026-15809)",
+        "golang: Go os.Root: Symlink following vulnerability allows directory traversal (CVE-2026-39822)",
+        "mime: golang: Golang MIME: Denial of Service via maliciously-crafted MIME header (CVE-2026-42504)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.10",
+     "date": "2026-08-18",
+     "errata": [
+      {
+       "id": "RHBA-2026:54772",
+       "synopsis": "OpenShift Container Platform 4.22.10 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHBA-2026:54772"
+      },
+      {
+       "id": "RHSA-2026:54769",
+       "synopsis": "Important: OpenShift Container Platform 4.22.10 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHSA-2026:54769",
+       "items": [
+        "kernel: xen: AMD Zen 2 Processors: Privilege escalation via improper CPU cache isolation (CVE-2025-54518)",
+        "samba: Missing access check on reparse point operations (CVE-2026-1933)",
+        "sssd: sssd: sudo LDAP provider searches entire directory tree for sudoRole objects by default, enabling privilege escalation (CVE-2026-14474)",
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "rsync: TOCTOU symlink race condition allowing local privilege escalation in daemon mode without chroot. (CVE-2026-29518)",
+        "unbound: Unbound: Denial of Service via excessive EDNS options (CVE-2026-41292)",
+        "vim: Vim: Arbitrary Code Execution via crafted directory names (CVE-2026-47162)",
+        "vim: Vim: Arbitrary code execution via crafted step-definition patterns (CVE-2026-47167)",
+        "vim: Vim: Arbitrary code execution via Python omni-completion (CVE-2026-52858)",
+        "acl: Symlink traversal privilege escalation via libacl functions (CVE-2026-54369)",
+        "vim: Vim: Arbitrary code execution via malicious docstrings in Python omni-completion (CVE-2026-57456)",
+        "openssh: OpenSSH: Use-after-free vulnerability during host key re-exchange on the client side (CVE-2026-60002)",
+        "kernel: KVM: x86: Don't (re)check L1 intercepts when completing userspace I/O (CVE-2025-40026)",
+        "libarchive: Double-Free Vulnerability in RAR5 Decompression Logic via dangling filtered_buf pointer in init_unpack() (CVE-2026-14164)",
+        "sssd: sssd: GPO cache path traversal via unsanitized gPCFileSysPath allows Kerberos authentication bypass (CVE-2026-14476)",
+        "unbound: Unbound: Cache manipulation via 'ghost domain names' attack (CVE-2026-40622)",
+        "vim: Vim: Out-of-bounds Write in Spell File Word Count (CVE-2026-55693)",
+        "vim: Vim: Denial of Service via stack out-of-bounds write in spell_soundfold_sofo() (CVE-2026-57455)",
+        "vim: Vim: Arbitrary code execution via crafted PHP file in omni-completion (CVE-2026-59856)",
+        "vim: Vim: Arbitrary command execution via crafted tags file in C omni-completion (CVE-2026-59858)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:54768",
+       "synopsis": "OpenShift Container Platform 4.22.10 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-18",
+       "url": "https://access.redhat.com/errata/RHBA-2026:54768"
+      }
+     ]
+    },
+    {
+     "version": "4.22.9",
+     "date": "2026-08-11",
+     "errata": [
+      {
+       "id": "RHBA-2026:51040",
+       "synopsis": "OpenShift Container Platform 4.22.9 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHBA-2026:51040"
+      },
+      {
+       "id": "RHBA-2026:51037",
+       "synopsis": "OpenShift Container Platform 4.22.9 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHBA-2026:51037"
+      },
+      {
+       "id": "RHSA-2026:51036",
+       "synopsis": "Important: OpenShift Container Platform 4.22.9 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHSA-2026:51036",
+       "items": [
+        "golang.org/x/crypto/ssh: golang: golang.org/x/crypto/ssh: Denial of Service via crafted SSH certificate (CVE-2026-39835)",
+        "golang.org/x/crypto/ssh: golang.org/x/crypto/ssh: Denial of Service via crafted AES-GCM packet decoder inputs (CVE-2026-46597)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:51038",
+       "synopsis": "OpenShift Container Platform 4.22.9 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHSA-2026:51038"
+      },
+      {
+       "id": "RHBA-2026:51039",
+       "synopsis": "OpenShift Container Platform 4.22.9 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-11",
+       "url": "https://access.redhat.com/errata/RHBA-2026:51039"
+      }
+     ]
+    },
+    {
+     "version": "4.22.8",
+     "date": "2026-08-04",
+     "errata": [
+      {
+       "id": "RHBA-2026:48695",
+       "synopsis": "OpenShift Container Platform 4.22.8 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48695"
+      },
+      {
+       "id": "RHBA-2026:48692",
+       "synopsis": "OpenShift Container Platform 4.22.8 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48692"
+      },
+      {
+       "id": "RHBA-2026:48691",
+       "synopsis": "OpenShift Container Platform 4.22.8 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48691"
+      },
+      {
+       "id": "RHSA-2026:48693",
+       "synopsis": "OpenShift Container Platform 4.22.8 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHSA-2026:48693"
+      },
+      {
+       "id": "RHBA-2026:48694",
+       "synopsis": "OpenShift Container Platform 4.22.8 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-08-04",
+       "url": "https://access.redhat.com/errata/RHBA-2026:48694"
+      }
+     ]
+    },
+    {
+     "version": "4.22.7",
+     "date": "2026-07-28",
+     "errata": [
+      {
+       "id": "RHBA-2026:44229",
+       "synopsis": "OpenShift Container Platform 4.22.7 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHBA-2026:44229"
+      },
+      {
+       "id": "RHSA-2026:44232",
+       "synopsis": "Critical: OpenShift Container Platform 4.22.7 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44232",
+       "items": [
+        "kernel: ip6_tunnel: clear skb2->cb[] in ip4ip6_err() (CVE-2026-43037)",
+        "cifs-utils: local privilege escalation via forged cifs.spnego key description in cifs.upcall (CVE-2026-12505)",
+        "podman: Podman: Information disclosure via malicious container image environment variables (CVE-2026-57231)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:44241",
+       "synopsis": "OpenShift Container Platform 4.22.7 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHBA-2026:44241"
+      },
+      {
+       "id": "RHSA-2026:44237",
+       "synopsis": "OpenShift Container Platform 4.22.7 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44237"
+      },
+      {
+       "id": "RHSA-2026:44239",
+       "synopsis": "OpenShift Container Platform 4.22.7 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-28",
+       "url": "https://access.redhat.com/errata/RHSA-2026:44239",
+       "items": [
+        "golang.org/x/net/html: golang.org/x/net/html: Arbitrary code execution via Cross-Site Scripting (CVE-2026-25681)",
+        "fast-uri: fast-uri: Security policy bypass due to improper Unicode hostname canonicalization (CVE-2026-13676)",
+        "brace-expansion: Brace-expansion: Denial of Service due to exponential-time complexity (CVE-2026-13149)",
+        "golang.org/x/net/html: golang: golang.org/x/net/html: Cross-Site Scripting via HTML parsing bypass (CVE-2026-27136)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.6",
+     "date": "2026-07-21",
+     "errata": [
+      {
+       "id": "RHSA-2026:40764",
+       "synopsis": "Important: OpenShift Container Platform 4.22.6 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40764",
+       "items": [
+        "kernel: Arm Processors: Privilege escalation or information disclosure via writes to higher exception level resources (CVE-2025-10263)",
+        "kernel: fs/smb/client: fix out-of-bounds read in cifs_sanitize_prepath (CVE-2026-43112)",
+        "kernel: netfilter: flowtable: strictly check for maximum number of actions (CVE-2026-43329)",
+        "kernel: eventpoll: fix ep_remove struct eventpoll / struct file UAF (CVE-2026-46242)",
+        "kernel: KVM: arm64: vgic-its: Drop the translation cache reference only for the erased entry (CVE-2026-46316)",
+        "kernel: KVM: x86: Fix shadow paging use-after-free due to unexpected role (CVE-2026-53359)"
+       ]
+      },
+      {
+       "id": "RHBA-2026:40763",
+       "synopsis": "OpenShift Container Platform 4.22.6 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40763"
+      },
+      {
+       "id": "RHBA-2026:40770",
+       "synopsis": "OpenShift Container Platform 4.22.6 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40770"
+      },
+      {
+       "id": "RHSA-2026:40768",
+       "synopsis": "OpenShift Container Platform 4.22.6 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHSA-2026:40768"
+      },
+      {
+       "id": "RHBA-2026:40769",
+       "synopsis": "OpenShift Container Platform 4.22.6 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-21",
+       "url": "https://access.redhat.com/errata/RHBA-2026:40769"
+      }
+     ]
+    },
+    {
+     "version": "4.22.5",
+     "date": "2026-07-14",
+     "errata": [
+      {
+       "id": "RHBA-2026:37584",
+       "synopsis": "OpenShift Container Platform 4.22.5 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-14",
+       "url": "https://access.redhat.com/errata/RHBA-2026:37584"
+      },
+      {
+       "id": "RHBA-2026:37587",
+       "synopsis": "OpenShift Container Platform 4.22.5 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-14",
+       "url": "https://access.redhat.com/errata/RHBA-2026:37587"
+      },
+      {
+       "id": "RHSA-2026:37585",
+       "synopsis": "OpenShift Container Platform 4.22.5 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-14",
+       "url": "https://access.redhat.com/errata/RHSA-2026:37585"
+      },
+      {
+       "id": "RHBA-2026:37586",
+       "synopsis": "OpenShift Container Platform 4.22.5 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-14",
+       "url": "https://access.redhat.com/errata/RHBA-2026:37586"
+      }
+     ]
+    },
+    {
+     "version": "4.22.4",
+     "date": "2026-07-07",
+     "errata": [
+      {
+       "id": "RHBA-2026:34796",
+       "synopsis": "OpenShift Container Platform 4.22.4 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-07-07",
+       "url": "https://access.redhat.com/errata/RHBA-2026:34796"
+      },
+      {
+       "id": "RHSA-2026:34790",
+       "synopsis": "Important: OpenShift Container Platform 4.22.4 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34790",
+       "items": [
+        "gnutls: gnutls: Authentication Bypass via NUL Character in Username (CVE-2026-42010)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:34789",
+       "synopsis": "Important: OpenShift Container Platform 4.22.4 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34789",
+       "items": [
+        "golang.org/x/net/idna: golang: golang.org/x/net/idna: Privilege escalation via incorrect Punycode label processing (CVE-2026-39821)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:34794",
+       "synopsis": "OpenShift Container Platform 4.22.4 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34794"
+      },
+      {
+       "id": "RHSA-2026:34795",
+       "synopsis": "OpenShift Container Platform 4.22.4 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-07-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:34795",
+       "items": [
+        "google.golang.org/grpc/grpc-go: google.golang.org/grpc/authz: gRPC-Go: Authorization bypass due to improper HTTP/2 path validation (CVE-2026-33186)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.3",
+     "date": "2026-06-30",
+     "errata": [
+      {
+       "id": "RHBA-2026:29797",
+       "synopsis": "OpenShift Container Platform 4.22.3 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-30",
+       "url": "https://access.redhat.com/errata/RHBA-2026:29797"
+      },
+      {
+       "id": "RHSA-2026:29794",
+       "synopsis": "Important: OpenShift Container Platform 4.22.3 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:29794",
+       "items": [
+        "gnutls: gnutls: Denial of Service via DTLS packet reordering vulnerability (CVE-2026-42009)",
+        "kernel: net/sched: act_pedit: extend the writable skb range per key (CVE-2026-46331)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:29795",
+       "synopsis": "OpenShift Container Platform 4.22.3 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:29795"
+      },
+      {
+       "id": "RHSA-2026:29796",
+       "synopsis": "OpenShift Container Platform 4.22.3 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-30",
+       "url": "https://access.redhat.com/errata/RHSA-2026:29796",
+       "items": [
+        "fast-uri: fast-uri: URI authority bypass due to improper delimiter handling (CVE-2026-6322)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.2",
+     "date": "2026-06-23",
+     "errata": [
+      {
+       "id": "RHBA-2026:27011",
+       "synopsis": "OpenShift Container Platform 4.22.2 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:27011"
+      },
+      {
+       "id": "RHBA-2026:27007",
+       "synopsis": "OpenShift Container Platform 4.22.2 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:27007"
+      },
+      {
+       "id": "RHBA-2026:27008",
+       "synopsis": "OpenShift Container Platform 4.22.2 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-23",
+       "url": "https://access.redhat.com/errata/RHBA-2026:27008"
+      },
+      {
+       "id": "RHSA-2026:27009",
+       "synopsis": "OpenShift Container Platform 4.22.2 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-23",
+       "url": "https://access.redhat.com/errata/RHSA-2026:27009"
+      },
+      {
+       "id": "RHSA-2026:27010",
+       "synopsis": "OpenShift Container Platform 4.22.2 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-23",
+       "url": "https://access.redhat.com/errata/RHSA-2026:27010",
+       "items": [
+        "Kubelet: CRI-O: kube-apiserver: Kubelet, CRI-O, kube-apiserver: Denial of Service via SPDY streaming code (CVE-2026-35469)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.1",
+     "date": "2026-06-16",
+     "errata": [
+      {
+       "id": "RHBA-2026:25208",
+       "synopsis": "OpenShift Container Platform 4.22.1 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-16",
+       "url": "https://access.redhat.com/errata/RHBA-2026:25208"
+      },
+      {
+       "id": "RHBA-2026:25205",
+       "synopsis": "OpenShift Container Platform 4.22.1 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-16",
+       "url": "https://access.redhat.com/errata/RHBA-2026:25205"
+      },
+      {
+       "id": "RHBA-2026:25204",
+       "synopsis": "OpenShift Container Platform 4.22.1 packages update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-16",
+       "url": "https://access.redhat.com/errata/RHBA-2026:25204"
+      },
+      {
+       "id": "RHSA-2026:25206",
+       "synopsis": "OpenShift Container Platform 4.22.1 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:25206"
+      },
+      {
+       "id": "RHSA-2026:25207",
+       "synopsis": "OpenShift Container Platform 4.22.1 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-06-16",
+       "url": "https://access.redhat.com/errata/RHSA-2026:25207",
+       "items": [
+        "Kubelet: CRI-O: kube-apiserver: Kubelet, CRI-O, kube-apiserver: Denial of Service via SPDY streaming code (CVE-2026-35469)"
+       ]
+      }
+     ]
+    },
+    {
+     "version": "4.22.0",
+     "date": "2026-06-09",
+     "errata": [
+      {
+       "id": "RHEA-2026:5487",
+       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
+      },
+      {
+       "id": "RHEA-2026:5486",
+       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
+      },
+      {
+       "id": "RHEA-2026:24822",
+       "synopsis": "OpenShift Container Platform 4.22.0 extras enhancement update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-09",
+       "url": "https://access.redhat.com/errata/RHEA-2026:24822"
+      },
+      {
+       "id": "RHEA-2026:0451",
+       "synopsis": "OpenShift Container Platform 4.22.0 OLM Operators metadata enhancement update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-09",
+       "url": "https://access.redhat.com/errata/RHEA-2026:0451"
+      },
+      {
+       "id": "RHEA-2026:0449",
+       "synopsis": "OpenShift Container Platform 4.22.0 enhancement update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-09",
+       "url": "https://access.redhat.com/errata/RHEA-2026:0449"
+      },
+      {
+       "id": "RHEA-2026:0450",
+       "synopsis": "OpenShift Container Platform 4.22.0 extras enhancement update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-09",
+       "url": "https://access.redhat.com/errata/RHEA-2026:0450"
+      }
+     ]
+    }
+   ],
+   "unversioned": [
+    {
+     "id": "RHBA-2026:95528",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95528"
+    },
+    {
+     "id": "RHBA-2026:95515",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95515"
+    },
+    {
+     "id": "RHBA-2026:95506",
+     "synopsis": "OpenShift Container Platform 4.22 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95506"
+    },
+    {
+     "id": "RHBA-2026:95495",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95495"
+    },
+    {
+     "id": "RHBA-2026:95480",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95480"
+    },
+    {
+     "id": "RHBA-2026:95476",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-05",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95476"
+    },
+    {
+     "id": "RHBA-2026:95323",
+     "synopsis": "OpenShift Container Platform 4.22 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95323"
+    },
+    {
+     "id": "RHBA-2026:95322",
+     "synopsis": "OpenShift Container Platform 4.22 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95322"
+    },
+    {
+     "id": "RHBA-2026:95247",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95247"
+    },
+    {
+     "id": "RHBA-2026:95211",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95211"
+    },
+    {
+     "id": "RHBA-2026:95184",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95184"
+    },
+    {
+     "id": "RHBA-2026:95180",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95180"
+    },
+    {
+     "id": "RHBA-2026:95084",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95084"
+    },
+    {
+     "id": "RHBA-2026:95083",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:95083"
+    },
+    {
+     "id": "RHSA-2026:95054",
+     "synopsis": "OpenShift Container Platform 4.22 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:95054"
+    },
+    {
+     "id": "RHSA-2026:95053",
+     "synopsis": "OpenShift Container Platform 4.22 CNF IBU extras update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHSA-2026:95053"
+    },
+    {
+     "id": "RHBA-2026:94987",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94987"
+    },
+    {
+     "id": "RHBA-2026:94289",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-03",
+     "url": "https://access.redhat.com/errata/RHBA-2026:94289"
+    },
+    {
+     "id": "RHSA-2026:94073",
+     "synopsis": "Red Hat Web Terminal Operator 1.17.2 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHSA-2026:94073"
+    },
+    {
+     "id": "RHBA-2026:93551",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93551"
+    },
+    {
+     "id": "RHBA-2026:93377",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:93377"
+    },
+    {
+     "id": "RHSA-2026:92593",
+     "synopsis": "Logging for Red Hat OpenShift - 6.6.2",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92593"
+    },
+    {
+     "id": "RHSA-2026:92515",
+     "synopsis": "Logging for Red Hat OpenShift - 6.6.2",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:92515"
+    },
+    {
+     "id": "RHBA-2026:92306",
+     "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:92306"
+    },
+    {
+     "id": "RHBA-2026:91979",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91979"
+    },
+    {
+     "id": "RHBA-2026:91621",
+     "synopsis": "OpenShift Container Platform 4.22 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:91621"
+    },
+    {
+     "id": "RHBA-2026:90753",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-27",
+     "url": "https://access.redhat.com/errata/RHBA-2026:90753"
+    },
+    {
+     "id": "RHBA-2026:89810",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:89810"
+    },
+    {
+     "id": "RHBA-2026:89207",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-25",
+     "url": "https://access.redhat.com/errata/RHBA-2026:89207"
+    },
+    {
+     "id": "RHBA-2026:87699",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:87699"
+    },
+    {
+     "id": "RHBA-2026:86712",
+     "synopsis": "OpenShift Container Platform 4.22 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:86712"
+    },
+    {
+     "id": "RHBA-2026:86711",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:86711"
+    },
+    {
+     "id": "RHBA-2026:86599",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:86599"
+    },
+    {
+     "id": "RHBA-2026:85785",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-20",
+     "url": "https://access.redhat.com/errata/RHBA-2026:85785"
+    },
+    {
+     "id": "RHBA-2026:84671",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-19",
+     "url": "https://access.redhat.com/errata/RHBA-2026:84671"
+    },
+    {
+     "id": "RHBA-2026:83433",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-15",
+     "url": "https://access.redhat.com/errata/RHBA-2026:83433"
+    },
+    {
+     "id": "RHBA-2026:82778",
+     "synopsis": "OpenShift Container Platform 4.22 O-Cloud Manager extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-14",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82778"
+    },
+    {
+     "id": "RHBA-2026:82735",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-14",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82735"
+    },
+    {
+     "id": "RHBA-2026:82276",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82276"
+    },
+    {
+     "id": "RHBA-2026:82270",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:82270"
+    },
+    {
+     "id": "RHBA-2026:77594",
+     "synopsis": "OpenShift Container Platform 4.22 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-07",
+     "url": "https://access.redhat.com/errata/RHBA-2026:77594"
+    },
+    {
+     "id": "RHBA-2026:74473",
+     "synopsis": "fixing cve issues",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74473"
+    },
+    {
+     "id": "RHBA-2026:74354",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-10-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74354"
+    },
+    {
+     "id": "RHBA-2026:74004",
+     "synopsis": "OpenShift Container Platform 4.22 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:74004"
+    },
+    {
+     "id": "RHBA-2026:73535",
+     "synopsis": "OpenShift Container Platform 4.22 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73535"
+    },
+    {
+     "id": "RHSA-2026:73085",
+     "synopsis": "OpenShift Container Platform 4.22 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHSA-2026:73085"
+    },
+    {
+     "id": "RHBA-2026:73001",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:73001"
+    },
+    {
+     "id": "RHBA-2026:72548",
+     "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:72548"
+    },
+    {
+     "id": "RHBA-2026:72495",
+     "synopsis": "release with updated ubi image",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:72495"
+    },
+    {
+     "id": "RHBA-2026:72483",
+     "synopsis": "Advisory for publishing Helm 3.22.0.1 release for OCP 4.22",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:72483"
+    },
+    {
+     "id": "RHBA-2026:71667",
+     "synopsis": "OpenShift Container Platform 4.22 O-Cloud Manager extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71667"
+    },
+    {
+     "id": "RHBA-2026:71386",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:71386"
+    },
+    {
+     "id": "RHSA-2026:70394",
+     "synopsis": "Red Hat Web Terminal Operator 1.17.1 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-22",
+     "url": "https://access.redhat.com/errata/RHSA-2026:70394"
+    },
+    {
+     "id": "RHSA-2026:69922",
+     "synopsis": "OpenShift Container Platform 4.22 CNF IBU extras update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-22",
+     "url": "https://access.redhat.com/errata/RHSA-2026:69922"
+    },
+    {
+     "id": "RHBA-2026:69865",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:69865"
+    },
+    {
+     "id": "RHBA-2026:69211",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:69211"
+    },
+    {
+     "id": "RHBA-2026:68505",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-17",
+     "url": "https://access.redhat.com/errata/RHBA-2026:68505"
+    },
+    {
+     "id": "RHBA-2026:67823",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-16",
+     "url": "https://access.redhat.com/errata/RHBA-2026:67823"
+    },
+    {
+     "id": "RHBA-2026:67822",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-16",
+     "url": "https://access.redhat.com/errata/RHBA-2026:67822"
+    },
+    {
+     "id": "RHEA-2026:67531",
+     "synopsis": "Advisory for publishing Helm 3.22.0 release for OCP 4.22",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-09-15",
+     "url": "https://access.redhat.com/errata/RHEA-2026:67531"
+    },
+    {
+     "id": "RHBA-2026:67240",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-14",
+     "url": "https://access.redhat.com/errata/RHBA-2026:67240"
+    },
+    {
+     "id": "RHSA-2026:66521",
+     "synopsis": "Logging for Red Hat OpenShift - 6.6.1",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-09-10",
+     "url": "https://access.redhat.com/errata/RHSA-2026:66521"
+    },
+    {
+     "id": "RHBA-2026:66314",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:66314"
+    },
+    {
+     "id": "RHEA-2026:66225",
+     "synopsis": "Advisory for publishing Helm 3.21.4 release for OCP 4.22",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-09-09",
+     "url": "https://access.redhat.com/errata/RHEA-2026:66225"
+    },
+    {
+     "id": "RHBA-2026:65809",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:65809"
+    },
+    {
+     "id": "RHBA-2026:65808",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:65808"
+    },
+    {
+     "id": "RHBA-2026:65378",
+     "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-08",
+     "url": "https://access.redhat.com/errata/RHBA-2026:65378"
+    },
+    {
+     "id": "RHBA-2026:65191",
+     "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-08",
+     "url": "https://access.redhat.com/errata/RHBA-2026:65191"
+    },
+    {
+     "id": "RHBA-2026:61876",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-09-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:61876"
+    },
+    {
+     "id": "RHEA-2026:58557",
+     "synopsis": "Advisory for publishing Helm 3.21.2.1 FIPS re-release for OCP 4.22.",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-08-24",
+     "url": "https://access.redhat.com/errata/RHEA-2026:58557"
+    },
+    {
+     "id": "RHBA-2026:55897",
+     "synopsis": "Red Hat Web Terminal Operator 1.17.0 release.",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-18",
+     "url": "https://access.redhat.com/errata/RHBA-2026:55897"
+    },
+    {
+     "id": "RHBA-2026:54475",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:54475"
+    },
+    {
+     "id": "RHBA-2026:54473",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:54473"
+    },
+    {
+     "id": "RHBA-2026:54140",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:54140"
+    },
+    {
+     "id": "RHBA-2026:53378",
+     "synopsis": "release with tag",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-11",
+     "url": "https://access.redhat.com/errata/RHBA-2026:53378"
+    },
+    {
+     "id": "RHBA-2026:53258",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-11",
+     "url": "https://access.redhat.com/errata/RHBA-2026:53258"
+    },
+    {
+     "id": "RHBA-2026:53252",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-11",
+     "url": "https://access.redhat.com/errata/RHBA-2026:53252"
+    },
+    {
+     "id": "RHBA-2026:50977",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-06",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50977"
+    },
+    {
+     "id": "RHBA-2026:50260",
+     "synopsis": "OpenShift Container Platform 4.22 O-Cloud Manager extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-08-04",
+     "url": "https://access.redhat.com/errata/RHBA-2026:50260"
+    },
+    {
+     "id": "RHBA-2026:48514",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:48514"
+    },
+    {
+     "id": "RHBA-2026:48319",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:48319"
+    },
+    {
+     "id": "RHBA-2026:47734",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47734"
+    },
+    {
+     "id": "RHBA-2026:47677",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47677"
+    },
+    {
+     "id": "RHBA-2026:47041",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47041"
+    },
+    {
+     "id": "RHBA-2026:47006",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:47006"
+    },
+    {
+     "id": "RHBA-2026:44296",
+     "synopsis": "OpenShift Container Platform 4.22 CNF IBU extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-23",
+     "url": "https://access.redhat.com/errata/RHBA-2026:44296"
+    },
+    {
+     "id": "RHBA-2026:43849",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:43849"
+    },
+    {
+     "id": "RHEA-2026:42073",
+     "synopsis": "Advisory for publishing Helm 3.21.2 GA release for OCP 4.22.",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHEA-2026:42073"
+    },
+    {
+     "id": "RHBA-2026:42046",
+     "synopsis": "Red Hat Web Terminal Operator 1.17.0 release.",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-20",
+     "url": "https://access.redhat.com/errata/RHBA-2026:42046"
+    },
+    {
+     "id": "RHBA-2026:39344",
+     "synopsis": "Logging for Red Hat OpenShift - 6.6.0",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-14",
+     "url": "https://access.redhat.com/errata/RHBA-2026:39344"
+    },
+    {
+     "id": "RHBA-2026:38839",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:38839"
+    },
+    {
+     "id": "RHBA-2026:38819",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:38819"
+    },
+    {
+     "id": "RHBA-2026:38812",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-13",
+     "url": "https://access.redhat.com/errata/RHBA-2026:38812"
+    },
+    {
+     "id": "RHBA-2026:36631",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-08",
+     "url": "https://access.redhat.com/errata/RHBA-2026:36631"
+    },
+    {
+     "id": "RHBA-2026:36062",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-07",
+     "url": "https://access.redhat.com/errata/RHBA-2026:36062"
+    },
+    {
+     "id": "RHBA-2026:34206",
+     "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-07-01",
+     "url": "https://access.redhat.com/errata/RHBA-2026:34206"
+    },
+    {
+     "id": "RHBA-2026:33841",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:33841"
+    },
+    {
+     "id": "RHBA-2026:33643",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:33643"
+    },
+    {
+     "id": "RHBA-2026:33556",
+     "synopsis": "OpenShift Container Platform 4.22 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-30",
+     "url": "https://access.redhat.com/errata/RHBA-2026:33556"
+    },
+    {
+     "id": "RHBA-2026:30896",
+     "synopsis": "Red Hat Web Terminal Operator 1.17.0 release.",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:30896"
+    },
+    {
+     "id": "RHBA-2026:30883",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-29",
+     "url": "https://access.redhat.com/errata/RHBA-2026:30883"
+    },
+    {
+     "id": "RHBA-2026:29704",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-25",
+     "url": "https://access.redhat.com/errata/RHBA-2026:29704"
+    },
+    {
+     "id": "RHBA-2026:28112",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-23",
+     "url": "https://access.redhat.com/errata/RHBA-2026:28112"
+    },
+    {
+     "id": "RHBA-2026:27956",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:27956"
+    },
+    {
+     "id": "RHBA-2026:27921",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:27921"
+    },
+    {
+     "id": "RHBA-2026:27920",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:27920"
+    },
+    {
+     "id": "RHBA-2026:27919",
+     "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:27919"
+    },
+    {
+     "id": "RHBA-2026:27858",
+     "synopsis": "release 4.22",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:27858"
+    },
+    {
+     "id": "RHBA-2026:26991",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-18",
+     "url": "https://access.redhat.com/errata/RHBA-2026:26991"
+    },
+    {
+     "id": "RHBA-2026:26558",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-17",
+     "url": "https://access.redhat.com/errata/RHBA-2026:26558"
+    },
+    {
+     "id": "RHBA-2026:26166",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-16",
+     "url": "https://access.redhat.com/errata/RHBA-2026:26166"
+    },
+    {
+     "id": "RHBA-2026:26085",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-15",
+     "url": "https://access.redhat.com/errata/RHBA-2026:26085"
+    },
+    {
+     "id": "RHBA-2026:24897",
+     "synopsis": "OpenShift Container Platform 4.22 ztp-site-generate container",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24897"
+    },
+    {
+     "id": "RHBA-2026:24840",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24840"
+    },
+    {
+     "id": "RHBA-2026:24805",
+     "synopsis": "OpenShift Container Platform 4.22 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24805"
+    },
+    {
+     "id": "RHBA-2026:24804",
+     "synopsis": "OpenShift Container Platform 4.22 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24804"
+    },
+    {
+     "id": "RHBA-2026:24802",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24802"
+    },
+    {
+     "id": "RHBA-2026:24780",
+     "synopsis": "OpenShift Container Platform 4.22 telco hub RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24780"
+    },
+    {
+     "id": "RHBA-2026:24778",
+     "synopsis": "OpenShift Container Platform 4.22 O-Cloud Manager extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24778"
+    },
+    {
+     "id": "RHBA-2026:24777",
+     "synopsis": "OpenShift Container Platform 4.22 CNF IBU extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24777"
+    },
+    {
+     "id": "RHBA-2026:24776",
+     "synopsis": "OpenShift Container Platform 4.22 CNF vRAN extras topology aware lifecycle manager update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24776"
+    },
+    {
+     "id": "RHBA-2026:24773",
+     "synopsis": "OpenShift Container Platform 4.22 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24773"
+    },
+    {
+     "id": "RHBA-2026:24770",
+     "synopsis": "OpenShift Container Platform 4.22 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-06-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:24770"
+    },
+    {
+     "id": "RHEA-2026:20223",
+     "synopsis": "Advisory for publishing Helm 3.20.2 GA release",
+     "kind": "enhancement",
+     "severity": "None",
+     "date": "2026-05-21",
+     "url": "https://access.redhat.com/errata/RHEA-2026:20223"
+    },
+    {
+     "id": "RHBA-2026:1777",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-02-03",
+     "url": "https://access.redhat.com/errata/RHBA-2026:1777"
+    },
+    {
+     "id": "RHBA-2026:1638",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-02-02",
+     "url": "https://access.redhat.com/errata/RHBA-2026:1638"
+    },
+    {
+     "id": "RHBA-2026:1508",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-01-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:1508"
+    },
+    {
+     "id": "RHBA-2026:1455",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-01-28",
+     "url": "https://access.redhat.com/errata/RHBA-2026:1455"
+    },
+    {
+     "id": "RHBA-2026:1316",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-01-27",
+     "url": "https://access.redhat.com/errata/RHBA-2026:1316"
+    },
+    {
+     "id": "RHBA-2026:1114",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-01-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:1114"
+    }
+   ],
+   "features": [
+    {
+     "area": "AI applications",
+     "items": [
+      {
+       "t": "MCP server for Red Hat OpenShift Container Platform (Technology Preview)",
+       "d": "OpenShift Container Platform 4.22 introduces MCP server for Red Hat OpenShift Container Platform as a Technology Preview feature."
+      }
+     ]
+    },
+    {
+     "area": "Authentication and authorization",
+     "items": [
+      {
+       "t": "Advanced direct authentication fields (Technology Preview)",
+       "d": "You can configure advanced OIDC authentication scenarios using structured authentication fields and Common Expression Language (CEL) expressions. This feature exposes additional fields from the Kubernetes AuthenticationConfiguration API for flexible claim mapping and token validation. Use CEL expressions to define username and group claim fallback logic, add validation rules, and handle\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Cluster Version Operator",
+     "items": [
+      {
+       "t": "New NetworkPolicy parameter denies traffic for pods that are not host-networked",
+       "d": "A new NetworkPolicy parameter for the openshift-cluster-version namespace denies all ingress and egress traffic for pods that are not host-networked."
+      },
+      {
+       "t": "Network reconfiguration for single-node OpenShift clusters",
+       "d": "You can change the network configuration of a single-node OpenShift cluster without performing a full cluster redeployment by using the Lifecycle Agent. This feature supports critical edge computing scenarios such as disaster recovery and network rehoming with a stage-driven workflow that includes the ability to rollback changes on failure. You can change network properties such as node IP\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Extensions (OLM v1)",
+     "items": [
+      {
+       "t": "OLM v1 deploymentConfig API for cluster extension customization (Technology Preview)",
+       "d": "The deploymentConfig API in the ClusterExtension resource enables declarative customization of Operator pod deployments, providing feature parity with Subscription.spec.config in OLM (Classic). Configure resource limits, node placement, environment variables, volumes, affinity rules, and pod annotations when installing cluster extensions. The format is compatible with OLM (Classic) configurations\u2026"
+      },
+      {
+       "t": "ClusterObjectSet API for safe phased rollouts (Technology Preview)",
+       "d": "Operator Lifecycle Manager (OLM) v1 introduces the ClusterObjectSet API, which enables safe, phased rollouts of Kubernetes resources during ClusterExtension deployments and upgrades. A ClusterObjectSet object applies resources sequentially in ordered phases with built-in readiness checks, ensuring resources are created after any resources they are dependent on. For more information, see\u2026"
+      }
+     ]
+    },
+    {
+     "area": "IBM Power",
+     "items": [
+      {
+       "t": "The IBM Power(R) release on OpenShift Container Platform 4.22 adds improvements and new capabilities to OpenShift Container Platform components",
+       "d": "New features on IBM Power(R) include: Installer-provisioned infrastructure for IBM PowerVC is now generally available. Enforce RSA key format for Installer-provisioned infrastructure on IBM Power(R) Virtual Server. Harden the destroy logic for Installer-provisioned infrastructure on IBM Power(R) Virtual Server to simplify removing a cluster. Add DAL14 region to the Installer-provisioned\u2026"
+      }
+     ]
+    },
+    {
+     "area": "IBM Z and IBM LinuxONE",
+     "items": [
+      {
+       "t": "The IBM Z(R) and IBM(R) LinuxONE release on OpenShift Container Platform 4.22 adds improvements and new capabilities to OpenShift Container Platform components",
+       "d": "New features on IBM Z(R) and IBM(R) LinuxONE include: Enables Secrets Store CSI Driver on IBM Z(R) Hosted Control Plane support for OpenShift Container Platform clusters deployed on OKD Virtualization on IBM Z(R) and IBM(R) LinuxONE"
+      }
+     ]
+    },
+    {
+     "area": "Insights Operator",
+     "items": [
+      {
+       "t": "The Insights Operator collects custom resources to improve data retrieval efficiency and system performance",
+       "d": "With this release, the Insights Operator now collects the opentelemetrycollectors.opentelemetry.io custom resource to improve data retrieval efficiency and system performance. To maintain security and prevent the collection of sensitive information, the Insights Operator applies the following constraints: ** Resource Limit: The Insights Operator collects a maximum of five OpenTelemetry Collector\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Installation and update",
+     "items": [
+      {
+       "t": "Enhancements for IBM Power Virtual Server",
+       "d": "The IBM Power Virtual Server Cluster CAPI Operator is enhanced to v0.12.2 in OpenShift Container Platform version 4.22. Users are required to manually select the appropriate partner group in the Contributing Group field due to multiple partner confidential group memberships. This feature ensures compatibility, improves system performance, and maintains security by proper selection of partner\u2026"
+      },
+      {
+       "t": "Installing a cluster on Microsoft Azure with a user-provisioned DNS is generally available",
+       "d": "You can enable a user-provisioned domain name server (DNS) instead of the default cluster-provisioned DNS solution. For example, your organization\u2019s security policies might not allow the use of public DNS services such as Microsoft Azure DNS. As a result, you can manage the API and Ingress DNS records in your own system rather than adding the records to the DNS of the cloud. If you use this\u2026"
+      },
+      {
+       "t": "OpenShift zones support for vSphere host groups is generally available",
+       "d": "With this release, you can map OpenShift Container Platform failure domains to VMware vSphere host groups. This means that you can make use of the high availability offered by a vSphere stretched cluster configuration. OpenShift zones support for vSphere host groups was introduced in OpenShift Container Platform 4.19 with Technology Preview status. In OpenShift Container Platform 4.22, it is now\u2026"
+      },
+      {
+       "t": "Installing a cluster on AWS European Sovereign Cloud (Technology Preview)",
+       "d": "You can now install OpenShift Container Platform on Amazon Web Services (AWS) in the European Sovereign Cloud (EUSC) region (eusc-de-east-1). The AWS EUSC region is separate and independent from other AWS regions, with all the infrastructure located within the European Union (EU). You must specify a custom Amazon Machine Image (AMI) in the platform.aws.defaultMachinePlatform.amiID field of your\u2026"
+      },
+      {
+       "t": "Installing a cluster on Google Cloud with N4A machine types",
+       "d": "With this update, you can install a OpenShift Container Platform cluster on Google Cloud with N4A machine types. N4A Virtual Machines (VMs) use highly efficient Arm-based processors. N4A machines deliver exceptional performance compared to current-generation x86-based VMs, making them ideal for containerized applications and microservices on OpenShift Container Platform. For more information, see\u2026"
+      },
+      {
+       "t": "Installing a cluster using Fedora 10",
+       "d": "With this update, you can install a cluster using Fedora version 10 as the base image for all machines in the cluster. This feature is available as a Technology Preview. To enable this feature, enable the TechPreviewNoUpgrade feature set and set the osImageStream parameter to rhel-10 in your install-config.yaml file. For more information, see Installation configuration parameters."
+      },
+      {
+       "t": "Adding custom alerts to oc adm upgrade recommend command output",
+       "d": "With this update, you can add the openShiftUpdatePrecheck label to alerts in a PrometheusRule custom resource (CR) so that, when you run the oc adm upgrade recommend command, any firing alerts with this label appear in the command output. For more information, see Adding custom alerts to oc adm upgrade recommend command output."
+      },
+      {
+       "t": "Deploying virtualized control planes with KubeVirt Redfish (Technology Preview)",
+       "d": "You can use KubeVirt Redfish to deploy OpenShift Container Platform clusters with control plane nodes running as virtual machines on a hosting cluster with OKD Virtualization. Running control plane nodes as VMs provides VM-level isolation for control plane components. KubeVirt Redfish exposes VMs through the standard Redfish API, enabling existing installation methods such as installer-provisioned\u2026"
+      },
+      {
+       "t": "Bucketless workload identity for Google Cloud clusters",
+       "d": "When installing or upgrading an OpenShift Container Platform cluster on Google Cloud with short-term credentials, you can now use the --key-storage-method=pool-jwk-file option with the ccoctl gcp create-all command to attach OIDC signing keys directly to the workload identity pool provider. This method eliminates the need to create a publicly accessible Google Cloud Storage (GCS) bucket for OIDC\u2026"
+      },
+      {
+       "t": "Oracle Alloy General Availability",
+       "d": "With this update, installing a cluster on Oracle Alloy is now Generally Available. For more information, see Installing a cluster on Oracle Distributed Cloud by using the Assisted Installer or Installing a cluster on Oracle Distributed Cloud by using the Agent-based Installer."
+      }
+     ]
+    },
+    {
+     "area": "Machine Config Operator",
+     "items": [
+      {
+       "t": "Boot nodes into a custom machine config pool",
+       "d": "With this update, you can boot new nodes directly into a custom machine config pool. Before this update, you needed to create the node in the worker machine config pool, then move the node into the custom machine config pool, which requires a node reboot. By launching the node directly into the new pool, you save a node reboot cycle. For information, see Creating a custom machine config pool with\u2026"
+      },
+      {
+       "t": "Boot image skew enforcement",
+       "d": "With this update, the Machine Config Operator (MCO) examines the boot image version reported in the MachineConfiguration object to determine if that boot image is appropriate for the cluster. If the boot image version is too old, the Operator reports that boot image version skew is detected and blocks cluster updates until you manually update the boot image or disable boot image skew enforcement\u2026"
+      },
+      {
+       "t": "Boot image management for control plane nodes is generally available",
+       "d": "With this update, the boot image management feature for control plane nodes is generally available. With boot image management enabled, you can configure your cluster to update the node boot image whenever you update your cluster. Before this update, boot image management was supported for worker nodes only. Boot image management for control plane nodes was introduced in OpenShift Container\u2026"
+      },
+      {
+       "t": "Boot image management for worker nodes is now default for Azure and vSphere",
+       "d": "With this update, the boot image management feature for worker nodes is default behavior in Azure and vSphere clusters. As such, after updating to OpenShift Container Platform 4.22, the boot images in your cluster are automatically updated to version 4.22. With subsequent updates, the Machine Config Operator (MCO) again updates the boot images in your cluster. Any new nodes you create after\u2026"
+      },
+      {
+       "t": "Boot image update documentation",
+       "d": "With this update, the Machine Config Operator documentation contains procedures to update the boot image on compute nodes for most supported OpenShift Container Platform platforms. For OpenShift Container Platform platforms that do not support automatic boot image updating or for clusters configured with the boot image management feature disabled, you can manually update the boot image used by the\u2026"
+      },
+      {
+       "t": "AppliedFilesAndOS machine config node condition is now AppliedFiles and AppliedOSImage (Technology Preview)",
+       "d": "With this update, the AppliedFilesAndOS condition reported by the machine config node has been split into the AppliedFiles and AppliedOSImage conditions as a Technology Preview feature. The machine config nodes custom resource monitors the progress of machine configuration updates to nodes. The AppliedFiles condition reports whether MCO has updated files on the node. The AppliedOSImage condition\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Machine management",
+     "items": [
+      {
+       "t": "Bare-metal nodes on VMware vSphere clusters is generally available",
+       "d": "You can add bare-metal compute machines to an existing OpenShift Container Platform cluster on vSphere. With this capability, you can migrate workloads to physical hardware without reinstalling the cluster. Bare-metal nodes on vSphere clusters was introduced in OpenShift Container Platform 4.21 with Technology Preview status. Beginning in OpenShift Container Platform 4.22.13, it is now generally\u2026"
+      },
+      {
+       "t": "AWS Dedicated Host support (Technology Preview)",
+       "d": "You can now place compute machines on Amazon Web Services (AWS) Dedicated Hosts. Dedicated Hosts are physical servers that are fully dedicated to your use. With Dedicated Hosts, you can use your existing per-socket, per-core, or per-VM software licenses and comply with corporate policies that require physical CPU assignment. You can configure Dedicated Host placement in the following ways: At\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Networking",
+     "items": [
+      {
+       "t": "HAProxy version update to 2.8.18",
+       "d": "OpenShift Container Platform 4.22 now uses HAProxy version 2.8.18. With this update, the Ingress Controller benefits from the latest bug fixes and performance improvements in HAProxy. For more information about the changes in this version, see the HAProxy 2.8.18 release notes."
+      },
+      {
+       "t": "Network policy enhancement",
+       "d": "To reduce the cluster attack surface and ensure predictable network behavior, OpenShift Container Platform now enforces least-privilege network policies on critical networking components. Starting in 4.22, OpenShift Container Platform includes default NetworkPolicy objects in some of its own namespaces. Specifically, the operators that manage cluster DNS and cluster Ingress automatically install\u2026"
+      },
+      {
+       "t": "IPv4 forwarding for specific network interfaces",
+       "d": "You can enable IPv4 forwarding on specific network interfaces by using the Kubernetes NMState Operator. By setting the forwarding: true field in a NodeNetworkConfigurationPolicy custom resource, you can configure individual interfaces to forward IP packets without enabling global IP forwarding on the cluster. This approach improves security by keeping global forwarding disabled while allowing\u2026"
+      },
+      {
+       "t": "Kubernetes NMState Operator extends metrics support",
+       "d": "The Kubernetes NMState Operator can now collect metrics from the following Kubernetes components: kubernetes_nmstate_policies_status, which tracks the active status of NodeNetworkConfigurationPolicy (NNCP) resources across the cluster. kubernetes_nmstate_enactments_status, which tracks the active status of NodeNetworkConfigurationEnactment (NNCE) resources on a per-node basis. For more\u2026"
+      },
+      {
+       "t": "Alternative interface names for network interfaces with the Kubernetes NMState Operator",
+       "d": "Assign alternative names to network interfaces by using the Kubernetes NMState Operator. Alternative names provide consistent, descriptive labels for interfaces across cluster nodes, simplifying automation in environments where interface names vary across nodes. For more information, see Configure alternative network interface names."
+      },
+      {
+       "t": "Ingress firewall configuration with the commatrix plugin",
+       "d": "The commatrix plugin generates nftables firewall rules in Butane format for deployment to cluster nodes. These rules restrict ingress traffic to only the flows required by deployed services, promoting a zero-trust security posture. The plugin also generates a NodeDisruptionPolicy patch to apply rule updates without node reboots. For more information, see Generate nftables firewall rules in Butane\u2026"
+      },
+      {
+       "t": "MetalLB ConfigurationState resource reports controller and speaker configuration health",
+       "d": "You can now use the new ConfigurationState custom resource to verify that MetalLB has successfully applied your settings across the cluster. This feature provides a single, consistent location to identify configuration errors that were previously only visible by searching through individual node logs or FRR status reports MetalLB creates a ConfigurationState resource for the controller and for\u2026"
+      },
+      {
+       "t": "Multi-network policy backend uses nftables",
+       "d": "With this release, the multi-network policy backend uses nftables instead of iptables. The iptables backend has been removed and there is no option to revert to it. The MultiNetworkPolicy API and user-facing configuration are unchanged, so your existing multi-network policies continue to work without modification. For more information, see Configuring multi-network policy."
+      },
+      {
+       "t": "Tune MetalLB advertisements for individual LoadBalancer services using service labels",
+       "d": "With MetalLB, you can now set spec.serviceSelectors on BGPAdvertisement and L2Advertisement custom resources (CRs). This allows you to match LoadBalancer services by label so each advertisement applies its own BGP or Layer 2 settings to the services you choose, even when those services use the same IPAddressPool. For more information, see About advertising for the IP address pools."
+      },
+      {
+       "t": "Immutable AWS Network Load Balancer for a service",
+       "d": "With this release, when deploying a service with the AWS Load Balancer the service.beta.kubernetes.io/aws-load-balancer-type annotation is immutable for existing services. To change the load balancer type, you must recreate the service."
+      },
+      {
+       "t": "BGP EVPN for cluster user-defined networks",
+       "d": "With this release, Border Gateway Protocol Ethernet Virtual Private Network (BGP EVPN) is available for primary cluster user-defined networks. Enabling this feature on OpenShift Container Platform allows a ClusterUserDefinedNetwork overlay network to use the EVPN control plane for deeper integration with the data center network. For more information, see About BGP EVPN for primary cluster\u2026"
+      },
+      {
+       "t": "NoOverlay mode with BGP routing",
+       "d": "With this release, no-overlay mode with Border Gateway Protocol (BGP) routing is available as a Technology Preview feature on bare-metal clusters that use OVN-Kubernetes. No-overlay mode forwards layer 3 pod traffic on the underlay network using BGP-learned routes instead of Geneve encapsulation, which can improve east-west performance. You can enable no-overlay mode on the default layer 3 cluster\u2026"
+      },
+      {
+       "t": "Support for PTP boundary clock without holdover on Intel Granite Rapids-D hardware",
+       "d": "You can now configure Precision Time Protocol (PTP) boundary clock (BC) without holdover on Intel Granite Rapids-D (GNR-D) hardware that uses onboard Network Acceleration Complex (NAC) ports and optional Carter Flat expansion network interface cards (NICs). In this deployment, one time receiver (TR) port synchronizes to an upstream timing source while time transmitter (TT) ports distribute\u2026"
+      },
+      {
+       "t": "Support for Granite Rapids-D (GNR-D) telecom boundary clock with holdover on an Intel GNR-D platform (Technology Preview)",
+       "d": "You can configure an Intel\u00ae Granite Rapids-D (GNR-D) platform device as telecom boundary clock (T-BC) with holdover support by using the PTP Operator. With this technology preview feature, you can configure T-BC holdover on GNR-D platforms dell/XR8720t and hpe/EL140-Gen12. In this configuration, one time receiver (TR) port synchronizes to an upstream telecom grandmaster clock, while time\u2026"
+      },
+      {
+       "t": "PTP Telecom Grandmaster on Intel Granite Rapids-D (Technology Preview)",
+       "d": "You can configure a Precision Time Protocol (PTP) Telecom Grandmaster (T-GM) on Intel Granite Rapids-D (GNR-D) servers so a single Global Navigation Satellite System (GNSS) feed synchronizes timing across onboard Network Acceleration Complex (NAC) ports and optional Carter Flat expansion network interface cards (NICs). The PTP Operator supports GNR-D deployments with the e830 and e825 hardware\u2026"
+      },
+      {
+       "t": "Dynamic Configuration Manager General Availability",
+       "d": "With this update, the HAProxy Dynamic Configuration Manager (DCM) feature is now Generally Available. You can use DCM as an alternative update mechanism that configures a running HAProxy process through a domain socket. For more information, see HAProxy Dynamic Configuration Manager (DCM)."
+      }
+     ]
+    },
+    {
+     "area": "Nodes",
+     "items": [
+      {
+       "t": "Image pull credential verification in multi-tenant clusters",
+       "d": "With this update, administrators can use the imagePullCredentialsVerificationPolicy parameter in a KubeletConfig custom resource to enforce credential verification for cached images. This parameter forces the kubelet to re-authenticate with the container registry before it deploys a pod, ensuring that the requesting namespace has valid access rights to the image. The underlying\u2026"
+      },
+      {
+       "t": "CPU resource enforcement is now enabled by default",
+       "d": "With this update, the system-reserved-compressible parameter is enabled for all clusters that do not use the reserved CPU feature. This addresses previous issues where the system reserved CPU exceeded the desired limit. This default can be overridden by configuring the systemReservedCPU: \"\" parameter in a kubelet configuration. For more information, see How OpenShift Container Platform enforces\u2026"
+      },
+      {
+       "t": "Mount an OCI image into a pod",
+       "d": "With this update, you can use an image volume to mount an Open Container Initiative (OCI)-compliant artifact directly into a pod. OCI artifacts enable users to store and distribute arbitrary files and metadata using OCI compliant container registries. For more information, see Mounting OCI images and artifacts into a pod."
+      },
+      {
+       "t": "Configurable storage locations for CRI-O artifacts",
+       "d": "With this update, you can create additional, non-default artifact storage locations in CRI-O that your pods can pull from. By using storage locations for the CRI-O container engine other than the default for OCI artifacts, complete container images, or container image layers, you can reduce application startup time and make your applications run more efficiently. For more information, see\u2026"
+      },
+      {
+       "t": "Project-scoped image pull secrets for mirrored registries (Technology Preview)",
+       "d": "With this update, you can pull images from mirrored registries by using project-scoped pull secrets as a technology preview feature. Before this update, you needed to use node-level secrets when pulling from a mirrored registry because the kublet does not recognize the mirror configuration, which is configured at the container-runtime level. For more information, see Configuring project-scoped\u2026"
+      },
+      {
+       "t": "Partitionable devices are now supported with dynamic resource allocation (Technology Preview)",
+       "d": "With this update, the dynamic resource allocation feature supports partitioning physical hardware into smaller, logical instances, such as Multi-Instance GPUs, based on workload demands. With this technology preview feature, you can safely and efficiently share GPUs across multiple pods. For more information, see Allocating GPUs to pods by using DRA."
+      }
+     ]
+    },
+    {
+     "area": "OpenShift CLI (oc)",
+     "items": [
+      {
+       "t": "Digest-based image pinning for the oc-mirror v2 plugin",
+       "d": "With this update, the oc-mirror v2 plugin pins Operator catalog images by their digest in your ImageSetConfiguration custom resource. Pinning by digest ensures that you always deploy the same Operator catalog image, regardless of any later changes to the upstream tags. For more information, see Mirroring images for a disconnected installation by using the oc-mirror plugin v2."
+      },
+      {
+       "t": "Configuration of custom target repositories and tags for additional images by using the oc-mirror v2 plugin",
+       "d": "With this update, when using the oc-mirror v2 plugin, you can provide custom destination repository path and tag for specific images. By using the new targetRepo and targetTag fields within the additionalImages section of your ImageSetConfiguration custom resource, you can specify the target repository and tag for an image in your target mirror registry. For more information, see ImageSet\u2026"
+      },
+      {
+       "t": "Availability of the oc mirror list command in oc-mirror v2 plugin",
+       "d": "With this update, you can use the list support feature with the oc-mirror v2 plugin. You can run the oc mirror list command to explore available platform and Operator content, including their specific versions, from remote and local registries. For more information, see Creating the image set configuration."
+      }
+     ]
+    },
+    {
+     "area": "Postinstallation configuration",
+     "items": [
+      {
+       "t": "Support for the PCI addresses of NICs in BareMetalHost hardware data",
+       "d": "With this release, the Peripheral Component Interconnect (PCI) address for each network interface controller (NIC) is available in two separate custom resources (CRs). The PCI address is located in the status.hardware.nics[] section of the BareMetalHost CR and in the spec.hardware.nics[] section of the HardwareData CR. While these are separate resources, the values in the pciAddress fields, for\u2026"
+      },
+      {
+       "t": "Red Hat Bare-Metal-as-a-Service for OpenShift is generally available",
+       "d": "With this update, Red Hat Bare-Metal-as-a-Service for OpenShift, formerly known as Bare Metal as a Service (BMaaS), is generally available. You can provision and manage bare-metal hosts by using the Metal^3^ API and the Bare Metal Operator (BMO). These hosts, external to the OpenShift Container Platform cluster, can run workloads that might not be suitable for containerization or virtualization\u2026"
+      },
+      {
+       "t": "Expanding bare-metal clusters using OCI images and Red Hat Bare-Metal-as-a-Service for OpenShift (Technology Preview)",
+       "d": "With this update, you can expand your bare-metal cluster using Red Hat Bare-Metal-as-a-Service for OpenShift with images from an OCI registry as a Technology Preview feature. You can use images from public OCI registries or from the built-in cluster registry. For more information, see Using Red Hat Bare-Metal-as-a-Service for OpenShift."
+      },
+      {
+       "t": "Adding an ARM node to an x86 bare metal cluster",
+       "d": "With this update, you can add ARM nodes to bare metal clusters with x86 control planes using PXE or virtual media. You can expand your cluster by creating a BareMetalHost object with the aarch64 architecture, and then scaling the machine set to deploy the new machine. For more information, see Preparing the bare metal node."
+      }
+     ]
+    },
+    {
+     "area": "Fedora CoreOS (FCOS)",
+     "items": [
+      {
+       "t": "FCOS uses Fedora 9.8",
+       "d": "With this update, FCOS uses Fedora 9.8 packages in OpenShift Container Platform 4.22. These packages ensure that your OpenShift Container Platform instances receive the latest fixes, features, enhancements, hardware support, and driver updates."
+      },
+      {
+       "t": "FCOS 10.2 support (Technology Preview)",
+       "d": "With this update, you can configure your cluster to use FCOS 10.2 as a Technology Preview feature. You can update the nodes in an existing non-production test cluster or install a new non-production test cluster. For more information, see Setting the RHCOS version in a cluster."
+      },
+      {
+       "t": "Ignition update to version 2.26.1",
+       "d": "With this update, the Ignition utility is updated to version 2.26.1."
+      },
+      {
+       "t": "Butane update to version 0.26.0",
+       "d": "With this update, the Butane utility is updated to version 0.26.0."
+      },
+      {
+       "t": "Afterburn update to version 5.10.0",
+       "d": "With this update, the Afterburn utility is updated to version 5.10.0."
+      },
+      {
+       "t": "coreos-installer update to version 0.26.0",
+       "d": "With this update, the coreos-installer utility is updated to version 0.26.0."
+      },
+      {
+       "t": "Support for the numad package",
+       "d": "With this update, the numad package is supported. numad is an automatic NUMA affinity management daemon. It monitors NUMA topology and resource usage within a system that dynamically improves NUMA resource allocation, management, and system performance."
+      }
+     ]
+    },
+    {
+     "area": "Scalability and performance",
+     "items": [
+      {
+       "t": "NUMA-aware scheduler supports clusters with up to 500 nodes",
+       "d": "With this release, you can scale the NUMA-aware secondary scheduler to support clusters with up to 500 nodes. The scheduler defaults to a Burstable quality of service (QoS) profile, which reduces baseline resource consumption while allowing the scheduler to scale up during peak loads. For more information, see Topology-aware scheduler scalability."
+      },
+      {
+       "t": "CRI-O ExecCPUAffinity protects low-latency workloads from exec process interruption",
+       "d": "With this release, you can protect latency-sensitive workloads from performance degradation caused by oc exec and shell processes. When you apply a PerformanceProfile, the CRI-O ExecCPUAffinity feature automatically pins exec processes to a designated CPU within the container's allocated set, preventing them from running on your workload CPUs. This feature is enabled by default for Guaranteed QoS\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Support",
+     "items": [
+      {
+       "t": "Custom image configuration for the Support Log Gather",
+       "d": "With this update, you can collect diagnostic data by using custom images in the Support Log Gather. By pointing the spec.imageStreamRef field to an approved ImageStream tag, you can override the default image. The cluster administrators are responsible for creating and maintaining the list of allowed custom images by managing ImageStream resources in the Operator namespace. Each custom image\u2026"
+      }
+     ]
+    },
+    {
+     "area": "Storage",
+     "items": [
+      {
+       "t": "Adding bare-metals nodes on VMware vSphere is generally available",
+       "d": "OpenShift Container Platform 4.21 added the ability to add bare-metal nodes to an OpenShift Container Platform cluster on vSphere as a Technology Preview feature. Beginning in OpenShift Container Platform 4.22.13, this feature is generally available. However, if you add bare-metal nodes, you must remove the vSphere Container Storage Interface (CSI) Driver, otherwise the cluster is marked as\u2026"
+      },
+      {
+       "t": "New VolumeSnapshotClass csi-gce-pd-vsc-images is generally available",
+       "d": "By default, you cannot restore more than six volumes per snapshot per hour. So in Kubevirt environments, you normally cannot create more than six VMs per hour from a \"golden image\" (templates saved as snapshots)."
+      },
+      {
+       "t": "Support for Hyperdisk Balanced High Availability volumes is generally available",
+       "d": "OpenShift Container Platform 4.22 introduces support for Hyperdisk Balanced High Availability volumes as generally available."
+      },
+      {
+       "t": "Local Storage Operator symlinks management is generally available",
+       "d": "To prevent storage breakage during OpenShift Container Platform upgrades, OpenShift Container Platform 4.22 provides a mechanism, the LocalVolumeDeviceLink Custom Resource Definition, to detect, alert, and remap broken symlinks without manual node-level intervention."
+      },
+      {
+       "t": "Mutable CSI node allocatable property is generally available",
+       "d": "This feature allows for dynamically updating the maximum number of storage volumes a node can handle. Without this feature, volume limits are essentially immutable when a node first joins the cluster. If the environment changes\u2014for example, if you attach a new network interface (ENI) that shares a hardware \"slot\" with your storage\u2014OpenShift Container Platform does not recognize it has fewer slots\u2026"
+      },
+      {
+       "t": "Updated release of the Secrets Store CSI Driver Operator",
+       "d": "The Secrets Store CSI Driver Operator version v4.22 is now based on the upstream version v1.5.6 release of secrets-store-csi-driver. OpenShift Container Platform 4.22 enables Secrets Store CSI Driver on IBM Z(R)."
+      },
+      {
+       "t": "European Sovereign Cloud (EUSC) region (Technology Preview)",
+       "d": "European Sovereign Cloud (EUSC) region acts as a \"digital fortress\" built within a specific country\u2019s borders. Sovereign Clouds are specifically designed to meet strict legal, jurisdictional, and security requirements of a particular nation or entity."
+      }
+     ]
+    },
+    {
+     "area": "Web console",
+     "items": [
+      {
+       "t": "Support for integrated OCI chart interaction",
+       "d": "The OpenShift Container Platform web console now fully supports browsing, inspecting, and installing Open Container Initiative (OCI)-based Helm charts directly from configured repositories to provide functional parity with traditional HTTP(S) Helm charts. This enhancement removes the previous discovery-only limitation, enabling users to interact with and deploy OCI-based charts seamlessly within\u2026"
+      },
+      {
+       "t": "Azure Resource Group field for operator installations on Azure WIF clusters",
+       "d": "The operator installation page now includes a Resource Group field for operators who have the token-auth-azure annotation enabled on Azure Workload Identity Federation (WIF) clusters. As a result, operators who require an Azure resource group value, such as ODF (NooBaa), can complete their setup without manual workarounds."
+      },
+      {
+       "t": "Install Helm charts from a direct URL",
+       "d": "In the web console, you can now install a Helm chart directly from a URL, without first adding the chart to a Helm chart repository or the console catalog. Both oci:// and https:// URLs are supported. Installing a Helm chart from a direct URL bypasses the validation checks provided by the developer catalog. Install charts only from URLs you trust, because unverified charts can introduce security\u2026"
+      },
+      {
+       "t": "*Configure Basic HTTP authentication for namespace-scoped ProjectHelmChartRepository objects in the web console*",
+       "d": "The creation form for namespace-scoped ProjectHelmChartRepository objects in the OpenShift Container Platform web console now includes a *Basic HTTP authentication* field. As a result, you can select a secret that has Basic authentication credentials when you create the object. Because transmitting credentials requires a secure connection, you must use HTTPS for the repository URL when you\u2026"
+      }
+     ]
+    }
+   ]
+  },
   {
    "minor": "4.21",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.21/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.21.42",
+     "date": "2026-11-06",
+     "errata": [
+      {
+       "id": "RHBA-2026:95411",
+       "synopsis": "OpenShift Container Platform 4.21.42 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95411"
+      },
+      {
+       "id": "RHSA-2026:95409",
+       "synopsis": "OpenShift Container Platform 4.21.42 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95409"
+      },
+      {
+       "id": "RHSA-2026:95410",
+       "synopsis": "OpenShift Container Platform 4.21.42 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95410",
+       "items": [
+        "github.com/kubernetes-sigs/aws-efs-csi-driver: Amazon EFS CSI Driver: Unauthorized directory deletion via unverified access point ownership (CVE-2026-85781)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.21.41",
      "date": "2026-11-03",
@@ -3868,6 +6456,39 @@
    "minor": "4.20",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.20.46",
+     "date": "2026-11-06",
+     "errata": [
+      {
+       "id": "RHBA-2026:95382",
+       "synopsis": "OpenShift Container Platform 4.20.46 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-07",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95382"
+      },
+      {
+       "id": "RHSA-2026:95380",
+       "synopsis": "OpenShift Container Platform 4.20.46 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95380"
+      },
+      {
+       "id": "RHSA-2026:95381",
+       "synopsis": "OpenShift Container Platform 4.20.46 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95381",
+       "items": [
+        "github.com/kubernetes-sigs/aws-efs-csi-driver: Amazon EFS CSI Driver: Unauthorized directory deletion via unverified access point ownership (CVE-2026-85781)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.20.45",
      "date": "2026-11-03",
@@ -7843,6 +10464,40 @@
    "minor": "4.19",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.19.55",
+     "date": "2026-11-06",
+     "errata": [
+      {
+       "id": "RHBA-2026:95526",
+       "synopsis": "OpenShift Container Platform 4.19.55 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-07",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95526"
+      },
+      {
+       "id": "RHSA-2026:95524",
+       "synopsis": "OpenShift Container Platform 4.19.55 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-07",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95524"
+      },
+      {
+       "id": "RHSA-2026:95525",
+       "synopsis": "OpenShift Container Platform 4.19.55 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95525",
+       "items": [
+        "github.com/kubernetes-sigs/aws-efs-csi-driver: Amazon EFS CSI Driver: Unauthorized directory deletion via unverified access point ownership (CVE-2026-85781)",
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.19.54",
      "date": "2026-11-04",
@@ -11864,6 +14519,14 @@
      "version": "4.18.60",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHBA-2026:95107",
+       "synopsis": "OpenShift Container Platform 4.18.60 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95107"
+      },
       {
        "id": "RHSA-2026:95105",
        "synopsis": "OpenShift Container Platform 4.18.60 bug fix and security update",
@@ -20439,6 +23102,22 @@
      "version": "4.16.75",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHBA-2026:95233",
+       "synopsis": "OpenShift Container Platform 4.16.75 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95233"
+      },
+      {
+       "id": "RHSA-2026:95231",
+       "synopsis": "OpenShift Container Platform 4.16.75 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95231"
+      },
       {
        "id": "RHSA-2026:95232",
        "synopsis": "OpenShift Container Platform 4.16.75 security and extras update",
@@ -29446,6 +32125,39 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/release_notes/",
    "zstreams": [
     {
+     "version": "4.14.78",
+     "date": "2026-11-06",
+     "errata": [
+      {
+       "id": "RHBA-2026:95511",
+       "synopsis": "OpenShift Container Platform 4.14.78 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-07",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95511"
+      },
+      {
+       "id": "RHSA-2026:95509",
+       "synopsis": "OpenShift Container Platform 4.14.78 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95509"
+      },
+      {
+       "id": "RHSA-2026:95510",
+       "synopsis": "OpenShift Container Platform 4.14.78 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-06",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95510",
+       "items": [
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
+       ]
+      }
+     ]
+    },
+    {
      "version": "4.14.77",
      "date": "2026-10-27",
      "errata": [
@@ -36842,14 +39554,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
-      },
-      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -36859,6 +39563,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -65806,20 +68518,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",
