@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-11-07T12:52:25Z",
+ "generated": "2026-11-08T13:12:23Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2470,20 +2470,20 @@
        "url": "https://access.redhat.com/errata/RHEA-2022:8843"
       },
       {
-       "id": "RHEA-2022:8842",
-       "synopsis": "Red Hat OpenStack Platform 16.2.4 director images",
-       "kind": "enhancement",
-       "severity": "None",
-       "date": "2022-12-07",
-       "url": "https://access.redhat.com/errata/RHEA-2022:8842"
-      },
-      {
        "id": "RHBA-2022:8794",
        "synopsis": "Release of components for Red Hat OpenStack Platform 16.2.4",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-12-07",
        "url": "https://access.redhat.com/errata/RHBA-2022:8794"
+      },
+      {
+       "id": "RHEA-2022:8842",
+       "synopsis": "Red Hat OpenStack Platform 16.2.4 director images",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2022-12-07",
+       "url": "https://access.redhat.com/errata/RHEA-2022:8842"
       }
      ]
     },
@@ -8786,6 +8786,14 @@
      "url": "https://access.redhat.com/errata/RHBA-2018:2873"
     },
     {
+     "id": "RHBA-2018:2831",
+     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2018-09-27",
+     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
+    },
+    {
      "id": "RHSA-2018:2822",
      "synopsis": "Important: qemu-kvm-rhev security update",
      "kind": "security",
@@ -8795,14 +8803,6 @@
      "items": [
       "QEMU: slirp: heap buffer overflow while reassembling fragmented datagrams (CVE-2018-11806)"
      ]
-    },
-    {
-     "id": "RHBA-2018:2831",
-     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2018-09-27",
-     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
     },
     {
      "id": "RHBA-2018:2728",
