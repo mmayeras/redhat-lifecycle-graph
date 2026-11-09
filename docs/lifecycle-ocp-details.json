@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-08T13:07:04Z",
+ "generated": "2026-11-09T15:51:49Z",
  "minors": [
   {
    "minor": "4.22",
@@ -1068,12 +1068,12 @@
        "url": "https://access.redhat.com/errata/RHEA-2026:5487"
       },
       {
-       "id": "RHEA-2026:5487",
-       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
+       "id": "RHEA-2026:5486",
+       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
+       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
       },
       {
        "id": "RHEA-2026:24822",
@@ -2566,6 +2566,18 @@
      "version": "4.21.42",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHSA-2026:95408",
+       "synopsis": "Critical: OpenShift Container Platform 4.21.42 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95408",
+       "items": [
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)",
+        "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)"
+       ]
+      },
       {
        "id": "RHBA-2026:95411",
        "synopsis": "OpenShift Container Platform 4.21.42 OLM Operators metadata update",
@@ -4538,6 +4550,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:96302",
+     "synopsis": "OpenShift Container Platform 4.21 Node Resource Topology aware Scheduler extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:96302"
+    },
+    {
      "id": "RHBA-2026:95402",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
      "kind": "bugfix",
@@ -6460,6 +6480,18 @@
      "version": "4.20.46",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHSA-2026:95377",
+       "synopsis": "Critical: OpenShift Container Platform 4.20.46 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95377",
+       "items": [
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)",
+        "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)"
+       ]
+      },
       {
        "id": "RHBA-2026:95382",
        "synopsis": "OpenShift Container Platform 4.20.46 OLM Operators metadata update",
@@ -10468,6 +10500,18 @@
      "version": "4.19.55",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHSA-2026:95523",
+       "synopsis": "Critical: OpenShift Container Platform 4.19.55 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95523",
+       "items": [
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)",
+        "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)"
+       ]
+      },
       {
        "id": "RHBA-2026:95526",
        "synopsis": "OpenShift Container Platform 4.19.55 OLM Operators metadata update",
@@ -14519,6 +14563,14 @@
      "version": "4.18.60",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHBA-2026:95104",
+       "synopsis": "OpenShift Container Platform 4.18.60 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95104"
+      },
       {
        "id": "RHBA-2026:95107",
        "synopsis": "OpenShift Container Platform 4.18.60 OLM Operators metadata update",
@@ -23102,6 +23154,35 @@
      "version": "4.16.75",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHSA-2026:95229",
+       "synopsis": "Important: OpenShift Container Platform 4.16.75 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95229",
+       "items": [
+        "openssh: OpenSSH sshd: Security bypass due to incorrect handling of forwarding and tunneling options (CVE-2026-59999)",
+        "openssh: OpenSSH: Use-after-free vulnerability during host key re-exchange on the client side (CVE-2026-60002)",
+        "pcre2: PCRE2: Out-of-bounds write allows arbitrary code execution via crafted regular expressions (CVE-2026-86145)",
+        "pcre2: PCRE2: Memory corruption vulnerability in pcre2_jit_match (CVE-2026-89161)",
+        "pcre2: pcre2: Out-of-bounds write via crafted regular expression (CVE-2026-103111)",
+        "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages (CVE-2026-34182)",
+        "openssl: AES-OCB IV Ignored on EVP_Cipher() Path (CVE-2026-45445)",
+        "openssh: OpenSSH: sftp client allows attacker to control downloaded file location (CVE-2026-59995)"
+       ]
+      },
+      {
+       "id": "RHSA-2026:95228",
+       "synopsis": "Important: OpenShift Container Platform 4.16.75 packages and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95228",
+       "items": [
+        "openshift-ansible: openshift-ansible: Installer container downloads and executes remote inventory script without integrity verification (CVE-2026-92092)"
+       ]
+      },
       {
        "id": "RHBA-2026:95233",
        "synopsis": "OpenShift Container Platform 4.16.75 OLM Operators metadata update",
@@ -39554,6 +39635,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -39563,14 +39652,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -42120,6 +42201,55 @@
    "minor": "4.12",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.12/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.12.103",
+     "date": "2026-11-09",
+     "errata": [
+      {
+       "id": "RHBA-2026:95419",
+       "synopsis": "OpenShift Container Platform 4.12.103 OLM Operators metadata update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95419"
+      },
+      {
+       "id": "RHSA-2026:95417",
+       "synopsis": "OpenShift Container Platform 4.12.103 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95417"
+      },
+      {
+       "id": "RHBA-2026:95418",
+       "synopsis": "OpenShift Container Platform 4.12.103 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95418"
+      },
+      {
+       "id": "RHBA-2026:95416",
+       "synopsis": "OpenShift Container Platform 4.12.103 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95416"
+      },
+      {
+       "id": "RHSA-2026:95416",
+       "synopsis": "Critical: OpenShift Container Platform 4.12.103 bug fix update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95416",
+       "items": [
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period - (CVE-2026-98432)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.12.102",
      "date": "2026-10-27",
@@ -46299,6 +46429,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:96231",
+     "synopsis": "OpenShift Container Platform 4.12 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:96231"
+    },
+    {
+     "id": "RHBA-2026:96133",
+     "synopsis": "OpenShift Container Platform 4.12 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:96133"
+    },
     {
      "id": "RHBA-2026:95500",
      "synopsis": "OpenShift Container Platform 4.12 Node Resource Topology aware Scheduler extras update",
@@ -68518,20 +68664,20 @@
      "url": "https://access.redhat.com/errata/RHEA-2021:0962"
     },
     {
-     "id": "RHBA-2021:0683",
-     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2021-03-01",
-     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
-    },
-    {
      "id": "RHEA-2021:0684",
      "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
      "kind": "enhancement",
      "severity": "None",
      "date": "2021-03-01",
      "url": "https://access.redhat.com/errata/RHEA-2021:0684"
+    },
+    {
+     "id": "RHBA-2021:0683",
+     "synopsis": "EAP XP 2.0.0.GA (based on EAP 7.3.5) OpenShift Image (2.0.0 Respin)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2021-03-01",
+     "url": "https://access.redhat.com/errata/RHBA-2021:0683"
     },
     {
      "id": "RHEA-2021:0598",
