@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-09T15:51:49Z",
+ "generated": "2026-11-10T14:42:08Z",
  "minors": [
   {
    "minor": "4.22",
@@ -1111,6 +1111,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:96948",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:96948"
+    },
+    {
+     "id": "RHBA-2026:96939",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:96939"
+    },
     {
      "id": "RHBA-2026:95528",
      "synopsis": "OpenShift Container Platform 4.22 NUMA resources operator extras update",
@@ -4549,6 +4565,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:97742",
+     "synopsis": "OpenShift Container Platform 4.21 NUMA resources operator extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:97742"
+    },
+    {
+     "id": "RHBA-2026:96342",
+     "synopsis": "OpenShift Container Platform 4.21 NUMA resources must-gather extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-09",
+     "url": "https://access.redhat.com/errata/RHBA-2026:96342"
+    },
     {
      "id": "RHBA-2026:96302",
      "synopsis": "OpenShift Container Platform 4.21 Node Resource Topology aware Scheduler extras update",
@@ -8648,6 +8680,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:97004",
+     "synopsis": "OpenShift Container Platform 4.20 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:97004"
+    },
     {
      "id": "RHBA-2026:95321",
      "synopsis": "OpenShift Container Platform 4.20 telco hub RDS extras update",
@@ -17420,6 +17460,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:97005",
+     "synopsis": "OpenShift Container Platform 4.18 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:97005"
+    },
+    {
      "id": "RHBA-2026:95535",
      "synopsis": "OpenShift Container Platform 4.18 Node Resource Topology aware Scheduler extras update",
      "kind": "bugfix",
@@ -19026,6 +19074,33 @@
    "minor": "4.17",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.17.60",
+     "date": "2026-11-10",
+     "errata": [
+      {
+       "id": "RHSA-2026:96283",
+       "synopsis": "OpenShift Container Platform 4.17.60 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:96283"
+      },
+      {
+       "id": "RHSA-2026:96285",
+       "synopsis": "OpenShift Container Platform 4.17.60 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:96285",
+       "items": [
+        "github.com/kubernetes-sigs/aws-efs-csi-driver: Amazon EFS CSI Driver: Unauthorized directory deletion via unverified access point ownership (CVE-2026-85781)",
+        "golang.org/x/crypto/ssh: golang.org/x/crypto/ssh: Denial of Service via crafted AES-GCM packet decoder inputs (CVE-2026-46597)",
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.17.59",
      "date": "2026-10-15",
@@ -26687,6 +26762,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:97006",
+     "synopsis": "OpenShift Container Platform 4.16 telco core RDS extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:97006"
+    },
+    {
      "id": "RHBA-2026:94497",
      "synopsis": "OpenShift Container Platform 4.16 CNF vRAN extras topology aware lifecycle manager update",
      "kind": "bugfix",
@@ -28406,6 +28489,32 @@
    "minor": "4.15",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.15/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.15.71",
+     "date": "2026-11-10",
+     "errata": [
+      {
+       "id": "RHSA-2026:95756",
+       "synopsis": "OpenShift Container Platform 4.15.71 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95756"
+      },
+      {
+       "id": "RHSA-2026:95757",
+       "synopsis": "OpenShift Container Platform 4.15.71 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95757",
+       "items": [
+        "github.com/kubernetes-sigs/aws-efs-csi-driver: Amazon EFS CSI Driver: Unauthorized directory deletion via unverified access point ownership (CVE-2026-85781)",
+        "net/http/internal/http2: golang: golang.org/x/net: Go HTTP/2: Denial of Service via malformed SETTINGS_MAX_FRAME_SIZE frame (CVE-2026-33814)"
+       ]
+      }
+     ]
+    },
     {
      "version": "4.15.70",
      "date": "2026-10-22",
@@ -32210,6 +32319,31 @@
      "date": "2026-11-06",
      "errata": [
       {
+       "id": "RHSA-2026:95508",
+       "synopsis": "Critical: OpenShift Container Platform 4.14.78 bug fix and security update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95508",
+       "items": [
+        "sg3_utils: sg3_utils: arbitrary command execution via udev property injection in sg_inq --export (CVE-2026-16313)",
+        "openssl: Heap Use-After-Free in OpenSSL PKCS7_verify() (CVE-2026-45447)",
+        "openssh: OpenSSH sshd: Security bypass due to incorrect handling of forwarding and tunneling options (CVE-2026-59999)",
+        "openssh: OpenSSH: Use-after-free vulnerability during host key re-exchange on the client side (CVE-2026-60002)",
+        "kernel: ipv6: fix use-after-free in ip6_finish_output2() (CVE-2026-80792)",
+        "kernel: scsi: qla2xxx: Bound rsp_info_len to avoid OOB sense-data read (CVE-2026-89846)",
+        "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)",
+        "setuptools: Path Traversal Vulnerability in setuptools PackageIndex (CVE-2025-47273)",
+        "openssl: OpenSSL: Denial of Service due to NULL pointer dereference in CMS EnvelopedData processing (CVE-2026-28390)",
+        "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages (CVE-2026-34182)",
+        "gnutls: gnutls: Security bypass due to incorrect name constraint handling (CVE-2026-42011)",
+        "gnutls: gnutls: Certificate validation bypass due to oversized Subject Alternative Name (CVE-2026-42013)",
+        "openssl: AES-OCB IV Ignored on EVP_Cipher() Path (CVE-2026-45445)",
+        "openssh: OpenSSH: sftp client allows attacker to control downloaded file location (CVE-2026-59995)",
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)"
+       ]
+      },
+      {
        "id": "RHBA-2026:95511",
        "synopsis": "OpenShift Container Platform 4.14.78 OLM Operators metadata update",
        "kind": "bugfix",
@@ -35922,6 +36056,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:96941",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-10",
+     "url": "https://access.redhat.com/errata/RHBA-2026:96941"
+    },
+    {
      "id": "RHBA-2026:95401",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
      "kind": "bugfix",
@@ -37908,6 +38050,28 @@
    "minor": "4.13",
    "release_notes_url": "https://docs.redhat.com/en/documentation/openshift_container_platform/4.13/html/release_notes/",
    "zstreams": [
+    {
+     "version": "4.13.73",
+     "date": "2026-11-10",
+     "errata": [
+      {
+       "id": "RHSA-2026:95746",
+       "synopsis": "OpenShift Container Platform 4.13.73 bug fix and security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95746"
+      },
+      {
+       "id": "RHSA-2026:95747",
+       "synopsis": "OpenShift Container Platform 4.13.73 security and extras update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-10",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95747"
+      }
+     ]
+    },
     {
      "version": "4.13.72",
      "date": "2026-10-15",
