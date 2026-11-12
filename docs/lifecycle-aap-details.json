@@ -1,13 +1,21 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-11-10T14:45:48Z",
+ "generated": "2026-11-12T15:01:59Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:99039",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-11",
+     "url": "https://access.redhat.com/errata/RHSA-2026:99039"
+    },
     {
      "id": "RHBA-2026:95614",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Azure Billing Operator Bundle Update",
@@ -489,6 +497,14 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:99073",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-11",
+     "url": "https://access.redhat.com/errata/RHSA-2026:99073"
+    },
     {
      "id": "RHBA-2026:94884",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
@@ -1676,6 +1692,28 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:99080",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-11",
+     "url": "https://access.redhat.com/errata/RHSA-2026:99080"
+    },
+    {
+     "id": "RHSA-2026:99007",
+     "synopsis": "Critical: Red Hat Ansible Automation Platform 2.5 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-11",
+     "url": "https://access.redhat.com/errata/RHSA-2026:99007",
+     "items": [
+      "automation-controller: GitPython 3.1.30 before 3.2.0 Command Injection via Remote.pull() Refspec (CVE-2026-110858)",
+      "automation-controller: GitPython: Denial of Service via regular expression backtracking in date parsing (CVE-2026-110856)",
+      "automation-controller: GitPython: Arbitrary file read via argument injection in branch checkout (CVE-2026-110859)",
+      "automation-controller: GitPython: Arbitrary code execution via unsafe URL protocol handling (CVE-2026-110857)"
+     ]
+    },
     {
      "id": "RHBA-2026:95343",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
@@ -4637,6 +4675,22 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:99079",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-11",
+     "url": "https://access.redhat.com/errata/RHSA-2026:99079"
+    },
+    {
+     "id": "RHBA-2026:99078",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-11",
+     "url": "https://access.redhat.com/errata/RHBA-2026:99078"
+    },
     {
      "id": "RHBA-2026:94087",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",
