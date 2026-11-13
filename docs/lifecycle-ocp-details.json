@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-12T14:58:21Z",
+ "generated": "2026-11-13T14:23:42Z",
  "minors": [
   {
    "minor": "4.22",
@@ -1060,20 +1060,20 @@
      "date": "2026-06-09",
      "errata": [
       {
-       "id": "RHEA-2026:5487",
-       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
-       "kind": "enhancement",
-       "severity": "None",
-       "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
-      },
-      {
        "id": "RHEA-2026:5486",
        "synopsis": "OpenShift Container Platform 4.22.0 packages update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
        "url": "https://access.redhat.com/errata/RHEA-2026:5486"
+      },
+      {
+       "id": "RHEA-2026:5487",
+       "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5487"
       },
       {
        "id": "RHEA-2026:24822",
@@ -1111,6 +1111,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:99679",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:99679"
+    },
     {
      "id": "RHBA-2026:99640",
      "synopsis": "OpenShift Container Platform 4.22 openperouter-operator extras update",
@@ -4589,6 +4597,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:99823",
+     "synopsis": "Logging for Red Hat OpenShift - 6.5.4",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHSA-2026:99823"
+    },
+    {
+     "id": "RHBA-2026:99773",
+     "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:99773"
+    },
     {
      "id": "RHBA-2026:98543",
      "synopsis": "OpenShift Container Platform 4.21 dpdk-base extras update",
@@ -17508,6 +17532,14 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:99710",
+     "synopsis": "OpenShift Container Platform 4.18 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:99710"
+    },
+    {
      "id": "RHSA-2026:99635",
      "synopsis": "Logging for Red Hat OpenShift - 6.2.14",
      "kind": "security",
@@ -26833,6 +26865,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:99705",
+     "synopsis": "OpenShift Container Platform 4.16 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:99705"
+    },
     {
      "id": "RHBA-2026:98444",
      "synopsis": "OpenShift Container Platform 4.16 dpdk-base extras update",
@@ -39950,14 +39990,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
-      },
-      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -39967,6 +39999,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -46744,6 +46784,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:99680",
+     "synopsis": "OpenShift Container Platform 4.12 latency tests extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:99680"
+    },
     {
      "id": "RHBA-2026:96231",
      "synopsis": "OpenShift Container Platform 4.12 NUMA resources operator extras update",
@@ -57727,6 +57775,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:99768",
+     "synopsis": "Red Hat Single Sign-On 7.6.14 Operator Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHBA-2026:99768"
+    },
     {
      "id": "RHEA-2026:76135",
      "synopsis": "Red Hat Single Sign-On 7.6.13 Operator Update",
@@ -74527,6 +74583,17 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:99767",
+     "synopsis": "Critical: Red Hat Single Sign-On 7.6.14 for OpenShift image security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-12",
+     "url": "https://access.redhat.com/errata/RHSA-2026:99767",
+     "items": [
+      "Unauthenticated account takeover via reset-credentials flow bypass (CVE-2026-18963)"
+     ]
+    },
     {
      "id": "RHSA-2026:76134",
      "synopsis": "Important: Red Hat Single Sign-On 7.6.13 for OpenShift image security update",

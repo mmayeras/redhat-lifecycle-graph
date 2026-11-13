@@ -1,7 +1,7 @@
 {
  "product": "rhoai",
  "title": "RHOAI Lifecycle",
- "generated": "2026-11-12T15:03:07Z",
+ "generated": "2026-11-13T14:28:33Z",
  "minors": [
   {
    "minor": "3.5",
@@ -11,6 +11,14 @@
      "version": "3.5.3",
      "date": "2026-11-06",
      "errata": [
+      {
+       "id": "RHBA-2026:99803",
+       "synopsis": "RHOAI 3.5.3 - Red Hat OpenShift AI",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-12",
+       "url": "https://access.redhat.com/errata/RHBA-2026:99803"
+      },
       {
        "id": "RHSA-2026:95872",
        "synopsis": "RHOAI 3.5.3 - Red Hat OpenShift AI",
@@ -167,20 +175,20 @@
      "date": "2026-06-22",
      "errata": [
       {
-       "id": "RHBA-2026:27784",
-       "synopsis": "RHOAI 3.4.1 - Red Hat OpenShift AI",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2026-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2026:27784"
-      },
-      {
        "id": "RHSA-2026:27784",
        "synopsis": "RHOAI 3.4.1 - Red Hat OpenShift AI",
        "kind": "security",
        "severity": "Important",
        "date": "2026-06-22",
        "url": "https://access.redhat.com/errata/RHSA-2026:27784"
+      },
+      {
+       "id": "RHBA-2026:27784",
+       "synopsis": "RHOAI 3.4.1 - Red Hat OpenShift AI",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2026:27784"
       }
      ]
     },

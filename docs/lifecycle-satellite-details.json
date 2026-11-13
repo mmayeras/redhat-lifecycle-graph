@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-11-12T15:04:24Z",
+ "generated": "2026-11-13T14:29:52Z",
  "minors": [
   {
    "minor": "6.19",
@@ -330,6 +330,42 @@
    "minor": "6.18",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.18/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.18.11",
+     "date": "2026-11-12",
+     "errata": [
+      {
+       "id": "RHSA-2026:99952",
+       "synopsis": "Critical: Satellite 6.18.11 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-12",
+       "url": "https://access.redhat.com/errata/RHSA-2026:99952",
+       "items": [
+        "rubygem-katello: Cross-tenant Content View Filter rule access and modification via unauthorized parent filter lookup (CVE-2026-81668)",
+        "sequoia-openpgp: Cryptographic integrity compromise via key flag confusion (CVE-2026-42784)",
+        "pyjwt: Token forgery via acceptance of public JWK containers as HMAC secrets (CVE-2026-102273)",
+        "python3.12-pulp-rpm: Distribution tree publish creates directories from .treeinfo ids (CVE-2026-103870)",
+        "candlepin: broken object-level authorization via VerifyAuthorizationFilter multi-@Verify hasAccess latching (CVE-2026-106471)",
+        "pyjwt: Verification key substitution via unvalidated JWKS redirects (CVE-2026-102267)",
+        "pyjwt: Authentication bypass via improper public key validation (CVE-2026-102268)",
+        "pyjwt: Token forgery via improper Unicode byte-order mark handling (CVE-2026-102272)",
+        "candlepin: Consumer certificate can register systems in another organization (CVE-2026-111456)",
+        "foreman: Cross-tenant disclosure of template revisions via unauthorized audit lookup (CVE-2026-81658)",
+        "foreman: authorization flaw in the Foreman::Controller::UserAware#find_user handling used by Api::V2::PersonalAccessTokensController (CVE-2026-86322)",
+        "foreman: authorization flaw in the mail-notification endpoints implemented by Api::V2::MailNotificationsController (CVE-2026-86323)",
+        "foreman: authorization flaw in the Foreman::Controller::UserAware handling used by Api::V2::SshKeysController (CVE-2026-86324)",
+        "foreman: API filter lookup ignores a search-limited filter permission (CVE-2026-107193)",
+        "foreman: API host template render discloses secrets to view_hosts users (incomplete CVE-2026-96659 fix) (CVE-2026-107443)",
+        "safemode: Jail allow-list bypass via op-assign expressions (CVE-2026-107360)",
+        "Puma: HTTP Request Smuggling via Underscore Header Name Confusion (CVE-2026-68006)",
+        "rubygem-smart_proxy_dynflow: Dynflow console authorizes any client certificate the capsule CA signed (CVE-2026-107152)",
+        "crass: Denial of Service via crafted scientific notation in CSS (CVE-2026-61845)",
+        "ansible-core: ansible.builtin.git invokes git without a `--` separator, allowing argument injection via a `-`-leading repository URL (e.g. --upload-pack) -> RCE (CVE-2026-84503)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.18.10",
      "date": "2026-10-01",
@@ -755,6 +791,42 @@
    "minor": "6.17",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.17/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.17.13",
+     "date": "2026-11-12",
+     "errata": [
+      {
+       "id": "RHSA-2026:99950",
+       "synopsis": "Critical: Satellite 6.17.13 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-12",
+       "url": "https://access.redhat.com/errata/RHSA-2026:99950",
+       "items": [
+        "Distribution tree publish creates directories from .treeinfo ids (CVE-2026-103870)",
+        "Puma: HTTP Request Smuggling via Underscore Header Name Confusion (CVE-2026-68006)",
+        "PyJWT: Authentication bypass via improper public key validation (CVE-2026-102268)",
+        "ansible-core: ansible-core: ansible.builtin.git invokes git without a `--` separator, allowing argument injection via a `-`-leading repository URL (e.g. --upload-pack) -> RCE (CVE-2026-84503)",
+        "candlepin: Consumer certificate can register systems in another organization (CVE-2026-111456)",
+        "candlepin: candlepin: broken object-level authorization via VerifyAuthorizationFilter multi-@Verify hasAccess latching (CVE-2026-106471)",
+        "crass: Denial of Service via crafted scientific notation in CSS (CVE-2026-61845)",
+        "crass: Denial of Service via excessive recursion when processing comments (CVE-2026-61847)",
+        "foreman: API filter lookup ignores a search-limited filter permission (CVE-2026-107193)",
+        "foreman: Cross-tenant disclosure of template revisions via unauthorized audit lookup (CVE-2026-81658)",
+        "foreman: authorization flaw in the Foreman::Controller::UserAware handling used by Api::V2::SshKeysController (CVE-2026-86324)",
+        "foreman: authorization flaw in the Foreman::Controller::UserAware#find_user handling used by Api::V2::PersonalAccessTokensController (CVE-2026-86322)",
+        "foreman: authorization flaw in the mail-notification endpoints implemented by Api::V2::MailNotificationsController (CVE-2026-86323)",
+        "foreman: foreman: API host template render discloses secrets to view_hosts users (CVE-2026-107443)",
+        "pulpcore: file:// scheme allowlist bypass in content upload file_url field enables arbitrary file read and Pulp Container registry signing key theft (CVE-2026-90959)",
+        "pyjwt: Token forgery via acceptance of public JWK containers as HMAC secrets (CVE-2026-102273)",
+        "pyjwt: Token forgery via improper Unicode byte-order mark handling (CVE-2026-102272)",
+        "pyjwt: Verification key substitution via unvalidated JWKS redirects (CVE-2026-102267)",
+        "rubygem-katello: Cross-tenant Content View Filter rule access and modification via unauthorized parent filter lookup (CVE-2026-81668)",
+        "rubygem-safemode: safemode: Jail allow-list bypass via op-assign expressions (CVE-2026-107360)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.17.12",
      "date": "2026-10-01",
@@ -1302,6 +1374,42 @@
    "minor": "6.16",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.16/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.16.15",
+     "date": "2026-11-12",
+     "errata": [
+      {
+       "id": "RHSA-2026:99949",
+       "synopsis": "Critical: Satellite 6.16.15 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-12",
+       "url": "https://access.redhat.com/errata/RHSA-2026:99949",
+       "items": [
+        "sequoia-openpgp: Cryptographic integrity compromise via key flag confusion (CVE-2026-42784)",
+        "crass: Denial of Service via crafted scientific notation in CSS (CVE-2026-61845)",
+        "crass: Denial of Service via excessive recursion when processing comments (CVE-2026-61847)",
+        "Puma: HTTP Request Smuggling via Underscore Header Name Confusion (CVE-2026-68006)",
+        "foreman: Cross-tenant disclosure of template revisions via unauthorized audit lookup (CVE-2026-81658)",
+        "rubygem-katello: Cross-tenant Content View Filter rule access and modification via unauthorized parent filter lookup (CVE-2026-81668)",
+        "foreman: authorization flaw in the Foreman::Controller::UserAware#find_user handling used by Api::V2::PersonalAccessTokensController (CVE-2026-86322)",
+        "foreman: authorization flaw in the mail-notification endpoints implemented by Api::V2::MailNotificationsController (CVE-2026-86323)",
+        "foreman: authorization flaw in the Foreman::Controller::UserAware handling used by Api::V2::SshKeysController (CVE-2026-86324)",
+        "pulpcore: file:// scheme allowlist bypass in content upload file_url field enables arbitrary file read and Pulp Container registry signing key theft (CVE-2026-90959)",
+        "pyjwt: Verification key substitution via unvalidated JWKS redirects (CVE-2026-102267)",
+        "PyJWT: Authentication bypass via improper public key validation (CVE-2026-102268)",
+        "pyjwt: Token forgery via improper Unicode byte-order mark handling (CVE-2026-102272)",
+        "pyjwt: Token forgery via acceptance of public JWK containers as HMAC secrets (CVE-2026-102273)",
+        "python-pulp-rpm: Distribution tree publish creates directories from .treeinfo ids (CVE-2026-103870)",
+        "candlepin: broken object-level authorization via VerifyAuthorizationFilter multi-@Verify hasAccess latching (CVE-2026-106471)",
+        "rubygem-smart_proxy_dynflow: Dynflow console authorizes any client certificate the capsule CA signed (CVE-2026-107152)",
+        "foreman: API filter lookup ignores a search-limited filter permission (CVE-2026-107193)",
+        "safemode: Jail allow-list bypass via op-assign expressions (CVE-2026-107360)",
+        "foreman: API host template render discloses secrets to view_hosts users (CVE-2026-107443)"
+       ]
+      }
+     ]
+    },
     {
      "version": "6.16.14",
      "date": "2026-10-01",
