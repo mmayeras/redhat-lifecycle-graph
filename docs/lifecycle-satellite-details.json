@@ -1,12 +1,41 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-11-13T14:29:52Z",
+ "generated": "2026-11-14T13:25:03Z",
  "minors": [
   {
    "minor": "6.19",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_satellite/6.19/html/release_notes/",
    "zstreams": [
+    {
+     "version": "6.19.6",
+     "date": "2026-11-13",
+     "errata": [
+      {
+       "id": "RHSA-2026:100120",
+       "synopsis": "Critical: Satellite 6.19.6 Async Update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-13",
+       "url": "https://access.redhat.com/errata/RHSA-2026:100120",
+       "items": [
+        "python3.12-pyjwt: Fixes token verification, authentication-bypass, and token-forgery vulnerabilities (CVE-2026-102267, CVE-2026-102268, CVE-2026-102272, CVE-2026-102273).",
+        "rubygem-smart_proxy_dynflow: Restricts authorization of Dynflow console clients to permitted client certificates (CVE-2026-107152).",
+        "rubygem-safemode: Fixes a jail allow-list bypass (CVE-2026-107360).",
+        "foreman: Fixes authorization flaws in personal access token, mail notification, SSH key, and host template endpoints (CVE-2026-107443, CVE-2026-86322, CVE-2026-86323, CVE-2026-86324).",
+        "candlepin: Prevents consumer certificates from registering systems in another organization (CVE-2026-111456).",
+        "rubygem-crass: Fixes denial-of-service conditions in CSS processing (CVE-2026-61845, CVE-2026-61847).",
+        "python3.12-pulpcore: Restricts file URL content uploads to prevent arbitrary file reads (CVE-2026-90959).",
+        "rubygem-foreman_ansible: Enforces authorization when accessing Ansible inventory data (CVE-2026-92893).",
+        "rubygem-foreman_remote_execution: Enforces object-level authorization for job output (CVE-2026-92904).",
+        "rubygem-katello: Fixes cross-tenant access and modification of Content View Filter rules (CVE-2026-81668).",
+        "python3.12-pysequoia: Fixes cryptographic integrity compromise caused by key flag confusion (CVE-2026-42784).",
+        "python3.12-pulp-rpm: Prevents distribution tree publishing from creating directories based on .treeinfo IDs (CVE-2026-103870).",
+        "candlepin: Fixes an authorization bypass caused by multiple @Verify hasAccess checks (CVE-2026-106471)."
+       ]
+      }
+     ]
+    },
     {
      "version": "6.19.5",
      "date": "2026-10-01",

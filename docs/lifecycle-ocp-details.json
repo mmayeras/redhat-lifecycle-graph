@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-13T14:23:42Z",
+ "generated": "2026-11-14T13:19:44Z",
  "minors": [
   {
    "minor": "4.22",
@@ -1060,20 +1060,20 @@
      "date": "2026-06-09",
      "errata": [
       {
-       "id": "RHEA-2026:5486",
-       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
-       "kind": "enhancement",
-       "severity": "None",
-       "date": "2026-06-10",
-       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
-      },
-      {
        "id": "RHEA-2026:5487",
        "synopsis": "OpenShift Container Platform 4.22.0 bug fix update",
        "kind": "enhancement",
        "severity": "None",
        "date": "2026-06-10",
        "url": "https://access.redhat.com/errata/RHEA-2026:5487"
+      },
+      {
+       "id": "RHEA-2026:5486",
+       "synopsis": "OpenShift Container Platform 4.22.0 packages update",
+       "kind": "enhancement",
+       "severity": "None",
+       "date": "2026-06-10",
+       "url": "https://access.redhat.com/errata/RHEA-2026:5486"
       },
       {
        "id": "RHEA-2026:24822",
@@ -14676,6 +14676,18 @@
      "date": "2026-11-06",
      "errata": [
       {
+       "id": "RHSA-2026:95104",
+       "synopsis": "Critical: OpenShift Container Platform 4.18.60 bug fix update",
+       "kind": "security",
+       "severity": "Critical",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHSA-2026:95104",
+       "items": [
+        "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)",
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)"
+       ]
+      },
+      {
        "id": "RHBA-2026:95104",
        "synopsis": "OpenShift Container Platform 4.18.60 bug fix update",
        "kind": "bugfix",
@@ -23335,9 +23347,9 @@
      "errata": [
       {
        "id": "RHSA-2026:95229",
-       "synopsis": "Important: OpenShift Container Platform 4.16.75 bug fix and security update",
+       "synopsis": "Critical: OpenShift Container Platform 4.16.75 bug fix and security update",
        "kind": "security",
-       "severity": "Important",
+       "severity": "Critical",
        "date": "2026-11-09",
        "url": "https://access.redhat.com/errata/RHSA-2026:95229",
        "items": [
@@ -23348,7 +23360,8 @@
         "pcre2: pcre2: Out-of-bounds write via crafted regular expression (CVE-2026-103111)",
         "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages (CVE-2026-34182)",
         "openssl: AES-OCB IV Ignored on EVP_Cipher() Path (CVE-2026-45445)",
-        "openssh: OpenSSH: sftp client allows attacker to control downloaded file location (CVE-2026-59995)"
+        "openssh: OpenSSH: sftp client allows attacker to control downloaded file location (CVE-2026-59995)",
+        "CVE-2026-111497 brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)"
        ]
       },
       {
@@ -28646,7 +28659,8 @@
         "setuptools: Path Traversal Vulnerability in setuptools PackageIndex (CVE-2025-47273)",
         "gnutls: gnutls: Security bypass due to incorrect name constraint handling (CVE-2026-42011)",
         "gnutls: gnutls: Certificate validation bypass due to oversized Subject Alternative Name (CVE-2026-42013)",
-        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)"
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)",
+        "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)"
        ]
       },
       {
@@ -39990,6 +40004,14 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0661"
       },
       {
+       "id": "RHBA-2024:0662",
+       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
+      },
+      {
        "id": "RHSA-2024:0662",
        "synopsis": "Moderate: OpenShift Container Platform 4.13.32 packages and security update",
        "kind": "security",
@@ -39999,14 +40021,6 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
-      },
-      {
-       "id": "RHBA-2024:0662",
-       "synopsis": "OpenShift Container Platform 4.13.32 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0662"
       },
       {
        "id": "RHSA-2024:0660",
@@ -42600,7 +42614,8 @@
        "date": "2026-11-09",
        "url": "https://access.redhat.com/errata/RHSA-2026:95416",
        "items": [
-        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period - (CVE-2026-98432)"
+        "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period - (CVE-2026-98432)",
+        "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)"
        ]
       }
      ]
