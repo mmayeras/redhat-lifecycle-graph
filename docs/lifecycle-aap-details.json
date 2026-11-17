@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-11-16T15:31:30Z",
+ "generated": "2026-11-17T15:52:30Z",
  "minors": [
   {
    "minor": "2.7",
@@ -10293,6 +10293,14 @@
      "severity": "None",
      "date": "2026-11-03",
      "url": "https://access.redhat.com/errata/RHBA-2026:94599"
+    },
+    {
+     "id": "RHSA-2026:88200",
+     "synopsis": "Ansible automation portal Red Hat Enterprise Linux Images",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-10-22",
+     "url": "https://access.redhat.com/errata/RHSA-2026:88200"
     },
     {
      "id": "RHBA-2026:50913",
