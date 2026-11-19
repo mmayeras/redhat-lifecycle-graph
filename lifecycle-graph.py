@@ -1470,6 +1470,10 @@ _CHIP_ICONS = {
         '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'
         '<path d="M15 3h6v6"/><path d="M10 14 21 3"/>'
     ),
+    "image": (
+        '<rect x="3" y="3" width="18" height="18" rx="2"/>'
+        '<circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>'
+    ),
 }
 
 
@@ -1735,6 +1739,12 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         extra_cls="card-chip--markdown", title="Lifecycle dates as a Markdown table",
     )) if md_url else ""
 
+    png_link_html = " " + _chip_link(
+        "#", "PNG", "image", extra_cls="card-chip--png",
+        title="Download this chart as PNG, as shown (range, EOL, minor releases, theme)",
+        onclick="exportCardPng(this.closest('.card'));return false",
+    )
+
     anchor_link_html = (
         f' <a href="#{anchor}" '
         f'onclick="var u=location.href.split(\'#\')[0]+\'#{anchor}\';navigator.clipboard.writeText(u);event.preventDefault()" '
@@ -1763,7 +1773,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
   <div class="card-header">
     <span class="card-title">
       {title_icon}
-      {heading_label}{page_link_html}{details_link_html}{md_link_html}{anchor_link_html}
+      {heading_label}{page_link_html}{details_link_html}{md_link_html}{png_link_html}{anchor_link_html}
     </span>
     <div class="legend">
       {legend_html}
@@ -2083,6 +2093,165 @@ def _build_disclaimer_html(
         '</aside>'
         '</details>'
     )
+
+
+_PNG_EXPORT_JS = """
+// PNG export of one chart card, as shown on screen (filters, minor releases, theme).
+// Redraws the visible title, legend and chart elements on a canvas from their
+// on-screen boxes and computed styles; no library, works over file:// too.
+function exportCardPng(card) {
+  var SKIP = '.card-chip, button, svg, img, summary, a[title="Copy link to this chart"]';
+  var roots = ['.card-title', '.legend', '.chart-inner']
+    .map(function(sel) { return card.querySelector(sel); }).filter(Boolean);
+  var items = [];
+  function shown(el) {
+    return el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden';
+  }
+  function alpha(el) {
+    var a = 1;
+    for (var n = el; n && n !== card.parentElement; n = n.parentElement) {
+      a *= parseFloat(getComputedStyle(n).opacity) || 0;
+    }
+    return a;
+  }
+  function box(r) {
+    return {left: r.left, top: r.top, right: r.right, bottom: r.bottom, width: r.width, height: r.height};
+  }
+  roots.forEach(function(root) {
+    var chart = root.classList.contains('chart-inner');
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n) {
+        return n.nodeType === 1 && n.matches(SKIP) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    for (var node = root; node; node = walker.nextNode()) {
+      if (node.nodeType === 1) {
+        if (!shown(node)) continue;
+        var cs = getComputedStyle(node);
+        var hasBg = cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.backgroundColor !== 'transparent';
+        var hatch = cs.backgroundImage.indexOf('repeating-linear-gradient') >= 0;
+        var hasBorder = ['Top', 'Right', 'Bottom', 'Left'].some(function(s) {
+          return parseFloat(cs['border' + s + 'Width']) > 0 && cs['border' + s + 'Style'] !== 'none';
+        });
+        if (hasBg || hasBorder || hatch) {
+          items.push({kind: 'box', r: box(node.getBoundingClientRect()), cs: cs, bg: hasBg, hatch: hatch, a: alpha(node), chart: chart});
+        }
+      } else {
+        var text = node.textContent.replace(/\\s+/g, ' ').trim();
+        var parent = node.parentElement;
+        if (!text || !parent || !shown(parent)) continue;
+        var range = document.createRange();
+        range.selectNodeContents(node);
+        var r = range.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        items.push({kind: 'text', r: box(r), cs: getComputedStyle(parent), text: text, a: alpha(parent), chart: chart});
+      }
+    }
+  });
+  if (!items.length) return;
+
+  // The controls and the info block sit between header and chart on screen but are
+  // not exported: move the chart up under the header.
+  var headBottom = -Infinity, chartTop = Infinity;
+  items.forEach(function(it) {
+    if (it.chart) chartTop = Math.min(chartTop, it.r.top);
+    else headBottom = Math.max(headBottom, it.r.bottom);
+  });
+  if (isFinite(headBottom) && isFinite(chartTop)) {
+    var shift = chartTop - (headBottom + 24);
+    items.forEach(function(it) {
+      if (it.chart) { it.r.top -= shift; it.r.bottom -= shift; }
+    });
+  }
+
+  var L = Infinity, T = Infinity, R = -Infinity, B = -Infinity;
+  items.forEach(function(it) {
+    L = Math.min(L, it.r.left); T = Math.min(T, it.r.top);
+    R = Math.max(R, it.r.right); B = Math.max(B, it.r.bottom);
+  });
+  var pad = 16, scale = 2;
+  var canvas = document.createElement('canvas');
+  canvas.width = Math.ceil((R - L + 2 * pad) * scale);
+  canvas.height = Math.ceil((B - T + 2 * pad) * scale);
+  var ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  var bg = '#ffffff';
+  for (var n = card; n; n = n.parentElement) {
+    var c = getComputedStyle(n).backgroundColor;
+    if (c && c !== 'rgba(0, 0, 0, 0)' && c !== 'transparent') { bg = c; break; }
+  }
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, R - L + 2 * pad, B - T + 2 * pad);
+  ctx.translate(pad - L, pad - T);
+
+  function radii(cs) {
+    return [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius,
+            cs.borderBottomLeftRadius].map(function(v) { return parseFloat(v) || 0; });
+  }
+  function boxPath(r, cs) {
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(r.left, r.top, r.width, r.height, radii(cs));
+    else ctx.rect(r.left, r.top, r.width, r.height);
+  }
+  function side(cs, s) {
+    var w = parseFloat(cs['border' + s + 'Width']) || 0, st = cs['border' + s + 'Style'];
+    return (w > 0 && st !== 'none') ? {w: w, st: st, c: cs['border' + s + 'Color']} : null;
+  }
+  items.forEach(function(it) {
+    var r = it.r, cs = it.cs;
+    ctx.save();
+    ctx.globalAlpha = it.a;
+    if (it.kind === 'text') {
+      ctx.font = [cs.fontStyle, cs.fontWeight, cs.fontSize, cs.fontFamily].join(' ');
+      ctx.fillStyle = cs.color;
+      ctx.textBaseline = 'middle';
+      ctx.fillText(it.text, r.left, r.top + r.height / 2);
+      ctx.restore();
+      return;
+    }
+    if (it.bg) { boxPath(r, cs); ctx.fillStyle = cs.backgroundColor; ctx.fill(); }
+    if (it.hatch) {  // EOL rows: diagonal red hatching
+      boxPath(r, cs); ctx.clip();
+      ctx.strokeStyle = 'rgba(163, 0, 0, 0.18)'; ctx.lineWidth = 1.5;
+      for (var x = r.left - r.height; x < r.right; x += 6) {
+        ctx.beginPath(); ctx.moveTo(x, r.bottom); ctx.lineTo(x + r.height, r.top); ctx.stroke();
+      }
+    }
+    [['Top', r.left, r.top, r.right, r.top], ['Right', r.right, r.top, r.right, r.bottom],
+     ['Bottom', r.left, r.bottom, r.right, r.bottom], ['Left', r.left, r.top, r.left, r.bottom]]
+      .forEach(function(e) {
+        var b = side(cs, e[0]);
+        if (!b) return;
+        var o = b.w / 2, dx = e[0] === 'Left' ? o : (e[0] === 'Right' ? -o : 0),
+            dy = e[0] === 'Top' ? o : (e[0] === 'Bottom' ? -o : 0);
+        ctx.beginPath();
+        ctx.setLineDash(b.st === 'dashed' ? [4, 3] : (b.st === 'dotted' ? [1, 2] : []));
+        ctx.strokeStyle = b.c; ctx.lineWidth = b.w;
+        ctx.moveTo(e[1] + dx, e[2] + dy); ctx.lineTo(e[3] + dx, e[4] + dy); ctx.stroke();
+      });
+    ctx.restore();
+  });
+
+  var title = card.querySelector('.card-title');
+  var name = 'lifecycle';
+  if (title) {
+    var clone = title.cloneNode(true);
+    clone.querySelectorAll(SKIP).forEach(function(e) { e.remove(); });
+    name = clone.textContent.trim().toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, '') || name;
+  }
+  var area = card.querySelector('.chart-area');
+  var day = area && area.dataset.today ? '-' + area.dataset.today : '';
+  canvas.toBlob(function(blob) {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name + day + '.png';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }, 'image/png');
+}
+"""
 
 
 def _page_wrap(title: str, body: str, nav_links: str = "", contribute_html: str = "",
@@ -2529,6 +2698,7 @@ document.addEventListener('click', function(e) {{
     }});
   }}
 }})();
+{_PNG_EXPORT_JS}
 {"".join(_ADDON_JS)}
 </script>
 </body>

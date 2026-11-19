@@ -7,6 +7,8 @@ All notable changes to `lifecycle-graph` are listed here, most recent first.
 ## [Unreleased]
 
 ### Added
+- **PNG chip on every chart card**: downloads that chart as PNG, as shown on screen (range filter, Include EOL, minor releases, light/dark theme). Drawn in the browser from the visible chart (`exportCardPng`), no library and no build-time tool, so it works on GitHub Pages, over `file://` and when the site is embedded.
+- **RHEL minor GA dates read from the release dates page** at build time (`rhel_release_dates_url`): new minors and corrected GA dates show up without a YAML edit; `rhel_minors` is the fallback. Adds RHEL 9.9 and 10.3, fixes the GA dates of 7.0, 8.7, 9.0, 9.6 and 9.7.
 - **Policy chip on the OpenShift Operators section heading**: links to the [OpenShift Operator Life Cycles policy](https://access.redhat.com/support/policy/updates/openshift_operators), same `card-chip--policy` style as the product card headers.
 
 ### Changed

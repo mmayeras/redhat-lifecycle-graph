@@ -550,6 +550,18 @@ _RELEASE_PAGE = """
 """
 
 
+class TestPngExport(unittest.TestCase):
+    def test_every_card_has_png_chip_and_page_has_exporter(self):
+        versions = lg.build_versions(
+            {"4.18": {"ga": "2025-02-25", "fs_end": "2025-09-17", "mnt_end": "2026-08-25"}},
+            lg.PRODUCT_CONFIGS["ocp"], include_eol=True)
+        card = lg._render_card(versions, "OpenShift Container Platform")
+        self.assertIn('class="card-chip card-chip--png"', card)
+        self.assertIn("exportCardPng(this.closest('.card'))", card)
+        page = lg.render_combined_html([("OpenShift Container Platform", versions, lg.PRODUCT_CONFIGS["ocp"])])
+        self.assertIn("function exportCardPng(card)", page)
+
+
 class TestRhelReleaseDates(unittest.TestCase):
     def test_parse_rows(self):
         self.assertEqual(lg.parse_rhel_release_dates(_RELEASE_PAGE), {

@@ -107,7 +107,8 @@ python3 lifecycle-graph.py --product rhel --png --open
 
 - **HTML** — interactive chart (hover tooltips on phase segments)
 - **SVG** — vector source, generated natively by the script
-- **PNG** — transparent background, card only; paste-safe in Google Docs / Slides
+- **PNG** — transparent background, card only; paste-safe in Google Docs / Slides (`--png`, needs `rsvg-convert`)
+- **PNG from the page** — the **PNG** chip on every chart card downloads that chart as currently shown (range, Include EOL, minor releases, theme); drawn in the browser, nothing to install
 - **Markdown** — `lifecycle-{product}.md` next to each HTML page (plus `lifecycle-operators.md` and `lifecycle-middleware.md` with `--product all`): one table per product with GA and the end date of each phase, ready to paste or fetch into static Markdown content. RHEL adds one table per major for its minors. EOL versions are left out unless `--include-eol` is set. Each file has a view page (`lifecycle-{product}-markdown.html`: source, copy button, raw link), reachable from the **Markdown** chip on each card and from the Chart / Details / Timeline toggle.
 
 ```bash
