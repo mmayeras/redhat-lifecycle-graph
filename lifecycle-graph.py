@@ -14,6 +14,8 @@ import shutil
 import subprocess
 import sys
 import time
+import types
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
@@ -28,6 +30,8 @@ except ImportError:
 # ── Runtime data (populated from lifecycle-config.yaml) ──────────────────────
 _RHEL_MINOR_DATA: dict[str, dict[str, dict]] = {}
 _RHEL_MAJOR_DATA: dict[str, dict] = {}
+# RHEL release dates page (rhel_release_dates_url), read by refresh_rhel_minors()
+RHEL_RELEASE_DATES_URL: str = ""
 
 # ── Date parsing ─────────────────────────────────────────────────────────────
 
@@ -355,6 +359,7 @@ def _make_min_filter(strategy: str, min_version: str):
 def _apply_product_overrides(products: dict) -> None:
     for key, raw in products.items():
         cfg = PRODUCT_CONFIGS.setdefault(key, {})
+        cfg["md_url"] = f"lifecycle-{key}-markdown.html"
         for field in ("api_name", "title", "page_url", "info_html", "has_minors", "use_major_phases"):
             if field in raw:
                 cfg[field] = raw[field]
@@ -439,6 +444,7 @@ def _apply_middleware_overrides(middleware: dict) -> None:
 
 def _load_external_config() -> None:
     """Merge lifecycle-config.yaml into the runtime dicts (requires pyyaml)."""
+    global RHEL_RELEASE_DATES_URL
     if not _HAS_YAML:
         print(
             "Error: PyYAML is required but not installed.\n"
@@ -469,6 +475,8 @@ def _load_external_config() -> None:
                 _RHEL_MINOR_DATA[major_str][str(ver)] = {
                     str(fk): _coerce_date_str(fv) for fk, fv in fields.items()
                 }
+    if raw.get("rhel_release_dates_url"):
+        RHEL_RELEASE_DATES_URL = str(raw["rhel_release_dates_url"])
     if raw.get("rhel_majors"):
         for major, fields in raw["rhel_majors"].items():
             _RHEL_MAJOR_DATA[str(major)] = {
@@ -1243,6 +1251,116 @@ def build_versions(
     return result
 
 
+# ── RHEL minor GA dates from the release dates page ──────────────────────────
+# No API publishes RHEL minor dates. The KB page (rhel_release_dates_url in YAML)
+# lists every minor with its GA date in plain HTML tables; it is read at build time
+# and merged over rhel_minors, so a new minor or a corrected GA date shows up
+# without a YAML edit. If the fetch or the parsing fails, the YAML dates are used.
+
+# <tr><td>RHEL 10.3</td><td>2026-11-10</td>... ; also "RHEL 8" (= 8.0) and
+# "RHEL 7.0 GA". Beta rows and pre-7 "Update N" rows do not match.
+_RHEL_RELEASE_ROW = re.compile(
+    r"<tr>\s*<td>\s*RHEL\s+(\d+)(?:\.(\d+))?(?:\s+GA)?\s*</td>\s*<td>\s*(\d{4}-\d{2}-\d{2})\s*</td>",
+    re.IGNORECASE,
+)
+
+
+def _rhel_ver_key(ver: str) -> tuple[int, ...]:
+    return tuple(int(x) for x in ver.split("."))
+
+
+def parse_rhel_release_dates(page_html: str) -> dict[str, dict[str, str]]:
+    """GA dates from the release dates page: {"10": {"10.3": "2026-11-10", ...}}."""
+    result: dict[str, dict[str, str]] = {}
+    for major, minor, ga in _RHEL_RELEASE_ROW.findall(page_html):
+        result.setdefault(major, {})[f"{major}.{minor or '0'}"] = ga
+    return result
+
+
+def _plus_years(day: date, years: int) -> date:
+    try:
+        return day.replace(year=day.year + years)
+    except ValueError:  # 29 February
+        return day.replace(year=day.year + years, day=28)
+
+
+def _derived_rhel_minor(ver: str, ga: str, major_data: dict) -> dict[str, str]:
+    """Dates of a minor found on the page but not in YAML, from the errata policy rules.
+
+    std_end is set by apply_rhel_release_dates (next minor GA, or a projection).
+    Even minors of RHEL 8+: Premium (EUS) to May 31 two years after GA.
+    ELC, Premium (GA + 6 years): even minors from 9.2 and 10.2, and 8.10.
+    Final minor (x.10): Standard to the major's std_end, Long Life to the major's elc_end.
+    """
+    major, minor = (int(x) for x in ver.split("."))
+    ga_day = _d(ga)
+    fields = {"ga": ga}
+    if major >= 8 and minor % 2 == 0 and minor > 0:
+        fields["eus_end"] = date(ga_day.year + 2, 5, 31).isoformat()
+    if (major >= 9 and minor % 2 == 0 and minor >= 2) or (major == 8 and minor == 10):
+        fields["elc_end"] = _plus_years(ga_day, 6).isoformat()
+    if minor == 10:
+        if major_data.get("std_end"):
+            fields["std_end"] = major_data["std_end"]
+        if major_data.get("elc_end"):
+            fields["elcp_end"] = major_data["elc_end"]
+    return fields
+
+
+def apply_rhel_release_dates(fetched: dict[str, dict[str, str]],
+                             minors: dict[str, dict[str, dict]],
+                             majors: dict[str, dict]) -> list[str]:
+    """Merge fetched GA dates into `minors` (the rhel_minors data). Returns what changed.
+
+    Only majors already in rhel_minors are touched. A minor missing from YAML is
+    added with policy-derived dates; a different GA date replaces the YAML one.
+    Every minor's std_end becomes the next minor's GA. The newest minor keeps its
+    YAML std_end, or gets GA + 26 weeks (next minor projected) when it has none.
+    """
+    changes: list[str] = []
+    for major, gas in fetched.items():
+        data = minors.get(major)
+        if data is None:
+            continue
+        for ver, ga in gas.items():
+            cur = data.get(ver)
+            if cur is None:
+                data[ver] = _derived_rhel_minor(ver, ga, majors.get(major, {}))
+                changes.append(f"RHEL {ver} added (GA {ga})")
+            elif cur.get("ga") != ga:
+                changes.append(f"RHEL {ver} GA {cur.get('ga')} -> {ga}")
+                cur["ga"] = ga
+        ordered = sorted(data, key=_rhel_ver_key)
+        for prev, nxt in zip(ordered, ordered[1:]):
+            next_ga = data[nxt]["ga"]
+            if data[prev].get("std_end") != next_ga:
+                if data[prev].get("std_end"):
+                    changes.append(f"RHEL {prev} Standard end {data[prev]['std_end']} -> {next_ga}")
+                data[prev]["std_end"] = next_ga
+        newest = data[ordered[-1]] if ordered else None
+        if newest is not None and not newest.get("std_end"):
+            newest["std_end"] = (_d(newest["ga"]) + timedelta(weeks=26)).isoformat()
+    return changes
+
+
+def refresh_rhel_minors() -> None:
+    """Read the release dates page and merge it into rhel_minors (non-fatal)."""
+    if not RHEL_RELEASE_DATES_URL:
+        return
+    try:
+        fetched = parse_rhel_release_dates(_fetch_text(RHEL_RELEASE_DATES_URL))
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        print(f"RHEL release dates: fetch failed ({exc}), using YAML dates.", file=sys.stderr)
+        return
+    if not any(major in fetched for major in _RHEL_MINOR_DATA):
+        print("RHEL release dates: no RHEL table found on the page, using YAML dates.", file=sys.stderr)
+        return
+    changes = apply_rhel_release_dates(fetched, _RHEL_MINOR_DATA, _RHEL_MAJOR_DATA)
+    print(f"RHEL release dates: {len(changes)} change(s) from {RHEL_RELEASE_DATES_URL}")
+    for change in changes:
+        print(f"  {change}")
+
+
 def build_rhel_minor_versions(major_ver: str) -> list[dict]:
     """Build per-minor-release version dicts for the RHEL minor details toggle."""
     minors = _RHEL_MINOR_DATA.get(major_ver, {})
@@ -1340,7 +1458,7 @@ def build_rhel_major_versions() -> list[dict]:
 _PAGE_CSS = ""  # CSS served externally via PatternFly v6 CDN + chart.css
 
 _STATIC_PREFIX = "static"
-_ASSET_VERSION = "0.2.16"  # bump when static/css or icons change (cache bust)
+_ASSET_VERSION = "0.2.17"  # bump when static/css or icons change (cache bust)
 
 # Inline SVG icon bodies (16x16 viewBox, stroke-based) for card-header chip links.
 _CHIP_ICONS = {
@@ -1376,7 +1494,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
                  show_footer: bool = True, show_controls: bool = False,
                  minor_data: dict[str, list[dict]] | None = None,
                  page_url: str = "", info_html: str = "", details_url: str = "",
-                 static_prefix: str = _STATIC_PREFIX) -> str:
+                 static_prefix: str = _STATIC_PREFIX, md_url: str = "") -> str:
     today = date.today()
     pad = timedelta(days=60)
     all_dates = [v["ga"] for v in versions] + [v["last_end"] for v in versions] + [today]
@@ -1457,7 +1575,8 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         ) if v["is_eol"] else ""
 
         if v["is_eol"]:
-            days_badge = '<span style="color:var(--red);font-weight:700;font-size:13px">EOL</span>'
+            days_badge = (f'<span style="color:var(--red);font-weight:700;font-size:13px">'
+                          f'{v.get("status_label", "EOL")}</span>')
         elif v.get("phase_open"):
             ph = PHASES[v["phase_key"]]
             _is_rhel_ll = v["phase_key"] == "rhel_ll"
@@ -1611,6 +1730,11 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
         extra_cls="card-chip--details", title="Z-stream releases & errata",
     )) if details_url else ""
 
+    md_link_html = (" " + _chip_link(
+        md_url, "Markdown", "document",
+        extra_cls="card-chip--markdown", title="Lifecycle dates as a Markdown table",
+    )) if md_url else ""
+
     anchor_link_html = (
         f' <a href="#{anchor}" '
         f'onclick="var u=location.href.split(\'#\')[0]+\'#{anchor}\';navigator.clipboard.writeText(u);event.preventDefault()" '
@@ -1639,7 +1763,7 @@ def _render_card(versions: list[dict], chart_label: str, anchor: str = "",
   <div class="card-header">
     <span class="card-title">
       {title_icon}
-      {heading_label}{page_link_html}{details_link_html}{anchor_link_html}
+      {heading_label}{page_link_html}{details_link_html}{md_link_html}{anchor_link_html}
     </span>
     <div class="legend">
       {legend_html}
@@ -1755,6 +1879,10 @@ def _render_operator_section(operators_data: list[tuple[str, list[dict], str | N
             _OPERATOR_POLICY_URL, "Policy", "external", external=True,
             extra_cls="card-chip--policy", title="Official Lifecycle Policy",
         )
+        + " " + _chip_link(
+            "lifecycle-operators-markdown.html", "Markdown", "document",
+            extra_cls="card-chip--markdown", title="Lifecycle dates as Markdown tables",
+        )
         + f'</span>'
         f'</div>'
         f'{search}'
@@ -1810,8 +1938,12 @@ def _render_middleware_section(middleware_data: list[tuple[str, list[dict], dict
         f'{_product_icon_img("middleware", _STATIC_PREFIX, 22, 22, "section-heading__icon")}'
         f'<span>Middleware &amp; Application Services '
         f'<a href="https://access.redhat.com/support/policy/updates/jboss_notes" '
-        f'target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ policy</a>'
-        f'</span></div>'
+        f'target="_blank" rel="noopener" style="font-size:11px;color:var(--link-color);font-weight:400">↗ policy</a> '
+        + _chip_link(
+            "lifecycle-middleware-markdown.html", "Markdown", "document",
+            extra_cls="card-chip--markdown", title="Lifecycle dates as Markdown tables",
+        )
+        + f'</span></div>'
         f'<div class="op-section">'
         + "\n".join(items)
         + "</div></div>"
@@ -2245,6 +2377,7 @@ function filterCard(card) {{
   var toSel   = card.querySelector('.ctrl-to');
   var eolCk   = card.querySelector('.ctrl-eol');
   var showEol = eolCk ? eolCk.checked : false;
+  var q = (card.dataset.q || '').toLowerCase();  // text filter set by an add-on search box
   var fromIdx = 0, toIdx = rows.length - 1;
   if (fromSel && fromSel.value) {{
     var fi = rows.findIndex(function(r) {{ return r.dataset.ver === fromSel.value; }});
@@ -2256,7 +2389,8 @@ function filterCard(card) {{
   }}
   rows.forEach(function(row, i) {{
     var eol = row.dataset.eol === 'true';
-    var visible = i >= fromIdx && i <= toIdx && (showEol || !eol);
+    var visible = i >= fromIdx && i <= toIdx && (showEol || !eol)
+      && (!q || row.dataset.ver.toLowerCase().indexOf(q) >= 0);
     row.style.display = visible ? '' : 'none';
     var group = row.nextElementSibling;
     if (group && group.classList.contains('minor-group')) {{
@@ -2273,6 +2407,7 @@ function filterCard(card) {{
   applyRowStripes(card);
   recalcChartLayout(card);
 }}
+
 function toggleMinorRows(card) {{
   var show = card.querySelector('.ctrl-minor') && card.querySelector('.ctrl-minor').checked;
   card.querySelectorAll('.minor-group').forEach(function(g) {{
@@ -2285,12 +2420,18 @@ function navigateToHash(hash) {{
   var id = hash.replace(/^#/, '');
   var el = document.getElementById(id);
   if (!el) return;
+  // The anchor may sit inside a section (one chart of Operators…):
+  // open its <details> and filter on the enclosing section, not on the anchor
+  // itself, which no filter button knows and would hide everything.
+  var targets = getNavButtons().map(function(b) {{ return b.getAttribute('data-target'); }});
+  var section = id;
   var node = el;
   while (node) {{
     if (node.tagName === 'DETAILS') node.open = true;
+    if (section === id && node.id && targets.indexOf(node.id) >= 0) section = node.id;
     node = node.parentElement;
   }}
-  applyProductFilter(new Set([id]), id);
+  applyProductFilter(new Set([section]), id);
   setTimeout(function() {{ scrollToElement(el); }}, 50);
 }}
 document.addEventListener('DOMContentLoaded', function() {{
@@ -2388,6 +2529,7 @@ document.addEventListener('click', function(e) {{
     }});
   }}
 }})();
+{"".join(_ADDON_JS)}
 </script>
 </body>
 </html>"""
@@ -2404,19 +2546,23 @@ def _rhel_minor_data(versions: list[dict]) -> dict[str, list[dict]]:
 
 def render_html(versions: list[dict], chart_label: str, show_footer: bool = True,
                 minor_data: dict[str, list[dict]] | None = None,
-                page_url: str = "", info_html: str = "", details_url: str = "") -> str:
+                page_url: str = "", info_html: str = "", details_url: str = "",
+                md_url: str = "") -> str:
     card = _render_card(versions, chart_label, show_footer=show_footer, show_controls=True,
                         minor_data=minor_data, page_url=page_url, info_html=info_html,
-                        details_url=details_url)
+                        details_url=details_url, md_url=md_url)
     heading = _chart_display_heading(chart_label)
     crumb = _breadcrumb([
         (f"{_BC_HOME_ICON}All products", "index.html"),
         (f"{_html.escape(heading)} lifecycle", ""),
     ])
     toggle = ""
-    if details_url:
-        key = details_url.removeprefix("lifecycle-").removesuffix("-details.html")
-        toggle = f'<div class="details-topbar__right">{_view_toggle("chart", key)}</div>'
+    if details_url or md_url:
+        key = (details_url.removeprefix("lifecycle-").removesuffix("-details.html") if details_url
+               else md_url.removeprefix("lifecycle-").removesuffix("-markdown.html"))
+        toggle = (f'<div class="details-topbar__right">'
+                  f'{_view_toggle("chart", key, has_details=bool(details_url), has_markdown=bool(md_url))}'
+                  f'</div>')
     topbar = f'<div class="details-topbar">{crumb}{toggle}</div>'
     return _page_wrap(chart_label, f"{topbar}\n{card}")
 
@@ -2426,6 +2572,7 @@ def render_combined_html(
     title: str = "Red Hat Product Lifecycle",
     operators_data: list[tuple[str, list[dict], str | None]] | None = None,
     middleware_data: list[tuple[str, list[dict], dict]] | None = None,
+    addons_data: list[tuple[object, object]] | None = None,
 ) -> str:
     _btn_cls = "pf-v6-c-button pf-m-secondary nav-toggle"
     nav_links = (
@@ -2454,6 +2601,8 @@ def render_combined_html(
             f'{_product_icon_img("operators", css_class="nav-toggle__icon", width=16, height=16)}'
             f'OpenShift Operators</button>'
         )
+    for addon, data in addons_data or []:
+        nav_links += addon.nav_button(_lg(), data, _btn_cls)
     # Guide link lives in the footer, not the nav
     _gh_svg = (
         '<svg height="11" width="11" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:middle;margin-right:4px">'
@@ -2492,10 +2641,12 @@ def render_combined_html(
                      minor_data=_rhel_minor_data(versions) if label == "RHEL Lifecycle" else None,
                      page_url=cfg.get("page_url", ""),
                      info_html=cfg.get("info_html", ""),
-                     details_url=cfg.get("details_url", ""))
+                     details_url=cfg.get("details_url", ""),
+                     md_url=cfg.get("md_url", ""))
         for label, versions, cfg in product_list
     )
     operators_section = _render_operator_section(operators_data or [])
+    addon_sections = "".join("\n" + addon.section_html(_lg(), data) for addon, data in addons_data or [])
     middleware_section = _render_middleware_section(middleware_data or [])
     footer = (
         f'<p style="text-align:center;font-size:11px;color:#6a6e73;margin-top:4px">'
@@ -2529,6 +2680,7 @@ def render_combined_html(
         f'</p>'
     )
     body = (cards
+            + addon_sections
             + ("\n" + middleware_section if middleware_section else "")
             + ("\n" + operators_section if operators_section else "")
             + "\n" + footer)
@@ -2785,6 +2937,129 @@ def _svg_versions(versions: list[dict], include_eol: bool) -> list[dict]:
     return versions if include_eol else [v for v in versions if not v["is_eol"]]
 
 
+# ── Markdown export ──────────────────────────────────────────────────────────
+# Column order for the date table: generic phases chronologically, then the
+# RHEL subscription phases (the two sets never appear in the same table).
+_MD_PHASE_ORDER = [k for k, _ in PHASE_KEYS] + [
+    "rhel_std", "rhel_prem", "rhel_els", "rhel_elcp", "rhel_ll",
+]
+
+
+def render_markdown_table(versions: list[dict], name_header: str = "Version",
+                          ga_header: str = "GA", end_header: str = "") -> str:
+    """Lifecycle dates as a GitHub-flavored Markdown table, one row per version.
+
+    One "<phase> ends" column per phase present in `versions`; "-" where a
+    version has no such phase, "Ongoing" for open-ended phases. Status is the
+    current phase (or EOL) unless the version carries its own `status_label`.
+    With `end_header`, the per-phase columns collapse into one end-date column
+    (single-bar rows, e.g. from an add-on).
+    """
+    keys = [k for k in _MD_PHASE_ORDER
+            if any(s["key"] == k for v in versions for s in v["segments"])]
+    end_cols = [end_header] if end_header else [f"{_phase_legend_text(PHASES[k])} ends" for k in keys]
+    rows = [[name_header, ga_header, *end_cols, "Status"]]
+    for v in versions:
+        ends: dict[str, str] = {}
+        for seg in v["segments"]:
+            is_open = (v.get("phase_open") and seg is v["segments"][-1]
+                       and seg["key"] == v["phase_key"])
+            ends[seg["key"]] = seg.get("end_label") or (
+                "Ongoing" if is_open else seg["end"].isoformat())
+        if v.get("status_label"):
+            status = v["status_label"]
+        elif v["is_eol"]:
+            status = "EOL"
+        else:
+            ph = PHASES.get(v["phase_key"])
+            status = _phase_legend_text(ph) if ph else v["phase_key"]
+        end_cells = [v["last_end"].isoformat()] if end_header else [ends.get(k, "-") for k in keys]
+        rows.append([v["version"], v["ga"].isoformat(), *end_cells, status])
+    lines = ["| " + " | ".join(str(c).replace("|", "\\|") for c in r) + " |" for r in rows]
+    lines.insert(1, "|" + "|".join(["---"] * len(rows[0])) + "|")
+    return "\n".join(lines)
+
+
+def render_markdown_doc(
+    title: str,
+    sections: list[tuple[str, list[dict]]],
+    source_url: str = "",
+    name_header: str = "Version",
+    ga_header: str = "GA",
+    end_header: str = "",
+) -> str:
+    """Markdown document: `# title`, then one `## heading` + table per section.
+
+    A section with an empty heading puts its table directly under the title.
+    Sections without versions are skipped.
+    """
+    out = [f"# {title}", ""]
+    for heading, versions in sections:
+        if not versions:
+            continue
+        if heading:
+            out += [f"## {heading}", ""]
+        out += [render_markdown_table(versions, name_header, ga_header, end_header), ""]
+    footer = f"Generated {date.today().isoformat()}."
+    if source_url:
+        footer += f" Source: <{source_url}>"
+    out += [footer, ""]
+    return "\n".join(out)
+
+
+def _product_markdown(label: str, versions: list[dict], cfg: dict, include_eol: bool) -> str:
+    """Markdown doc for one main product (RHEL adds one minor table per major)."""
+    sections = [("", _svg_versions(versions, include_eol))]
+    if cfg.get("has_minors"):
+        for major, minors in _rhel_minor_data(versions).items():
+            sections.append((f"RHEL {major} minor releases", _svg_versions(minors, include_eol)))
+    return render_markdown_doc(label, sections, cfg.get("page_url", ""))
+
+
+def render_markdown_view_html(md_text: str, title: str, md_name: str,
+                              key: str = "", has_details: bool = False) -> str:
+    """HTML page showing a Markdown export: source, Copy button, link to the raw .md.
+
+    `key` (main products only) adds the Chart / Details / Timeline / Markdown toggle.
+    """
+    heading = _chart_display_heading(title)
+    crumb = _breadcrumb([
+        (f"{_BC_HOME_ICON}All products", "index.html"),
+        (f"{_html.escape(heading)} Markdown", ""),
+    ])
+    toggle = (f'<div class="details-topbar__right">'
+              f'{_view_toggle("markdown", key, has_details=has_details)}</div>') if key else ""
+    copy_js = ("navigator.clipboard.writeText(document.getElementById('md-src').textContent);"
+               "this.querySelector('span').textContent='Copied';")
+    body = (
+        f'<div class="details-topbar">{crumb}{toggle}</div>\n'
+        f'<div style="max-width:1200px;margin:16px auto;padding:0 16px">'
+        f'<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">'
+        f'<button type="button" class="pf-v6-c-button pf-m-primary pf-m-small" onclick="{copy_js}">'
+        f'<span class="pf-v6-c-button__text">Copy Markdown</span></button>'
+        f'<a class="pf-v6-c-button pf-m-secondary pf-m-small" href="{_html.escape(md_name)}">'
+        f'<span class="pf-v6-c-button__text">Raw .md</span></a>'
+        f'</div>'
+        f'<pre id="md-src" style="margin:0;padding:16px;overflow:auto;font-size:13px;line-height:1.5;'
+        f'background:var(--bg-card);color:var(--text-primary);'
+        f'border:1px solid var(--border-base);border-radius:6px">{_html.escape(md_text)}</pre>'
+        f'</div>'
+    )
+    return _page_wrap(f"{heading} Markdown", body)
+
+
+def _write_markdown(out_dir: Path, stem: str, md_text: str, title: str,
+                    key: str = "", has_details: bool = False) -> None:
+    """Write `{stem}.md` and its HTML view `{stem}-markdown.html` into out_dir."""
+    md_out = out_dir / f"{stem}.md"
+    md_out.write_text(md_text, encoding="utf-8")
+    view_out = out_dir / f"{stem}-markdown.html"
+    view_out.write_text(
+        render_markdown_view_html(md_text, title, md_out.name, key=key, has_details=has_details),
+        encoding="utf-8")
+    print(f"MD:   {md_out}  (+ {view_out.name})")
+
+
 def _generate_product(
     product: str,
     out_html: Path,
@@ -2811,12 +3086,17 @@ def _generate_product(
     minor_data = _rhel_minor_data(versions_html) if cfg.get("has_minors") else None
     html = render_html(versions_html, chart_label, minor_data=minor_data,
                        page_url=cfg.get("page_url", ""), info_html=cfg.get("info_html", ""),
-                       details_url=cfg.get("details_url", ""))
+                       details_url=cfg.get("details_url", ""),
+                       md_url=f"{out_html.stem}-markdown.html")
     out_html.write_text(html, encoding="utf-8")
     print(f"HTML: {out_html}  ({len(versions_html)} versions)")
+    _write_markdown(out_html.parent, out_html.stem,
+                    _product_markdown(chart_label, versions_html, cfg, args.include_eol),
+                    chart_label, key=product, has_details=bool(cfg.get("details_url")))
 
     if cfg.get("details") and not getattr(args, "skip_details", False):
-        _generate_details_page(out_html.parent, product, cfg, versions_html)
+        _generate_details_page(out_html.parent, product, cfg, versions_html,
+                               reuse_cache=args.reuse_cache)
 
     if args.png:
         versions_svg = _svg_versions(versions_html, args.include_eol)
@@ -3489,15 +3769,19 @@ def _breadcrumb(items: list[tuple[str, str]]) -> str:
     )
 
 
-def _view_toggle(current: str, key: str) -> str:
-    """PatternFly v6 toggle group switching between Chart / Details / Timeline."""
+def _view_toggle(current: str, key: str, has_details: bool = True,
+                 has_markdown: bool = True) -> str:
+    """PatternFly v6 toggle group switching between Chart / Details / Timeline / Markdown."""
     views = (
-        ("chart", "Chart", f"lifecycle-{key}.html"),
-        ("details", "Details", f"lifecycle-{key}-details.html"),
-        ("timeline", "Timeline", f"lifecycle-{key}-timeline.html"),
+        ("chart", "Chart", f"lifecycle-{key}.html", True),
+        ("details", "Details", f"lifecycle-{key}-details.html", has_details),
+        ("timeline", "Timeline", f"lifecycle-{key}-timeline.html", has_details),
+        ("markdown", "Markdown", f"lifecycle-{key}-markdown.html", has_markdown),
     )
     items = []
-    for view, label, href in views:
+    for view, label, href, shown in views:
+        if not shown:
+            continue
         selected = " pf-m-selected" if view == current else ""
         aria = ' aria-current="page"' if view == current else ""
         items.append(
@@ -3846,12 +4130,29 @@ def render_details_html(data: dict | None, key: str, cfg: dict, notice_html: str
     return _page_wrap(page_title, body)
 
 
-def _generate_details_page(out_dir: Path, key: str, cfg: dict, versions: list[dict]) -> None:
+def _generate_details_page(out_dir: Path, key: str, cfg: dict, versions: list[dict],
+                           reuse_cache: bool = False) -> None:
+    """Write the Details + Timeline pages for one product.
+
+    With reuse_cache, a sidecar JSON already present in out_dir and fetched
+    today (UTC) is used as is, skipping the errata/feature fetches entirely.
+    """
     out_html = (out_dir / f"lifecycle-{key}-details.html").resolve()
     out_json = (out_dir / f"lifecycle-{key}-details.json").resolve()
-    data = build_details_data(key, cfg, versions)
+    data = None
+    reused = False
+    if reuse_cache:
+        cached = _load_cached_details(out_dir, key)
+        today_utc = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        if cached and str(cached.get("generated", ""))[:10] == today_utc:
+            data, reused = cached, True
+            print(f"Details: {key} reusing data fetched today ({cached['generated']}).")
+    if data is None:
+        data = build_details_data(key, cfg, versions)
     notice = ""
-    if data is not None:
+    if reused:
+        pass
+    elif data is not None:
         out_json.write_text(json.dumps(data, indent=1), encoding="utf-8")
     else:
         data = _load_cached_details(out_dir, key)
@@ -3895,6 +4196,11 @@ def main() -> None:
                     help="Audit phase_map coverage against the Red Hat API and exit")
     ap.add_argument("--skip-details", dest="skip_details", action="store_true",
                     help="Skip errata Details pages (faster test runs, no details links)")
+    ap.add_argument("--reuse-cache", dest="reuse_cache", action=argparse.BooleanOptionalAction,
+                    default=True,
+                    help="Reuse errata data already fetched today (lifecycle-*-details.json in "
+                         "the output directory) instead of fetching it again (default: on; "
+                         "--no-reuse-cache forces a fresh fetch)")
     args = ap.parse_args()
 
     if args.skip_details:
@@ -3903,6 +4209,9 @@ def main() -> None:
 
     if args.validate_phases:
         sys.exit(1 if validate_phases() else 0)
+
+    if args.product in ("all", "rhel"):
+        refresh_rhel_minors()
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(exist_ok=True)
@@ -3919,9 +4228,11 @@ def main() -> None:
     if args.product == "all":
         product_list, operators_data, middleware_data = _fetch_all(args)
         page_title = args.title or "Red Hat Product Lifecycle"
+        addons_data = _build_addons()
         combined = render_combined_html(product_list, title=page_title,
                                         operators_data=operators_data,
-                                        middleware_data=middleware_data)
+                                        middleware_data=middleware_data,
+                                        addons_data=addons_data)
         lifecycle_out = (out_dir / "lifecycle.html").resolve()
         index_out = (out_dir / "index.html").resolve()
         lifecycle_out.write_text(combined, encoding="utf-8")
@@ -3942,17 +4253,13 @@ def main() -> None:
             minor_data = _rhel_minor_data(versions) if pcfg.get("has_minors") else None
             html = render_html(versions, label, minor_data=minor_data,
                                page_url=pcfg.get("page_url", ""), info_html=pcfg.get("info_html", ""),
-                               details_url=pcfg.get("details_url", ""))
+                               details_url=pcfg.get("details_url", ""),
+                               md_url=pcfg.get("md_url", ""))
             out.write_text(html, encoding="utf-8")
             print(f"HTML: {out}  ({len(versions)} versions)")
-            if pcfg.get("details") and not args.skip_details:
-                _generate_details_page(out_dir, cfg_key, pcfg, versions)
-        if middleware_data:
-            mw_out = (out_dir / "lifecycle-middleware.html").resolve()
-            mw_combined = render_combined_html([], title="Red Hat Middleware Lifecycle",
-                                               middleware_data=middleware_data)
-            mw_out.write_text(mw_combined, encoding="utf-8")
-            print(f"HTML: {mw_out}  (middleware)")
+            _write_markdown(out_dir, out.stem,
+                            _product_markdown(label, versions, pcfg, args.include_eol),
+                            label, key=cfg_key, has_details=bool(pcfg.get("details_url")))
             if args.png:
                 svg_out = out.with_suffix(".svg")
                 png_out = out.with_suffix(".png")
@@ -3961,6 +4268,27 @@ def main() -> None:
                 ok = export_png(svg_out, png_out)
                 if ok:
                     print(f"PNG:  {png_out}")
+            if pcfg.get("details") and not args.skip_details:
+                _generate_details_page(out_dir, cfg_key, pcfg, versions,
+                                       reuse_cache=args.reuse_cache)
+        for md_stem, md_title, md_items in (
+            ("lifecycle-operators", "OpenShift Operators Lifecycle",
+             [(t, v) for t, v, _ in operators_data]),
+            ("lifecycle-middleware", "Red Hat Middleware Lifecycle",
+             [(t, v) for t, v, _ in middleware_data]),
+        ):
+            if md_items:
+                _write_markdown(out_dir.resolve(), md_stem, render_markdown_doc(
+                    md_title, [(t, _svg_versions(v, args.include_eol)) for t, v in md_items],
+                ), md_title)
+        for addon, data in addons_data:
+            addon.write_pages(_lg(), out_dir, data)
+        if middleware_data:
+            mw_out = (out_dir / "lifecycle-middleware.html").resolve()
+            mw_combined = render_combined_html([], title="Red Hat Middleware Lifecycle",
+                                               middleware_data=middleware_data)
+            mw_out.write_text(mw_combined, encoding="utf-8")
+            print(f"HTML: {mw_out}  (middleware)")
         about_out = (out_dir / "lifecycle-about.html").resolve()
         _generate_lifecycle_about(about_out)
         print(f"HTML: {about_out}  (lifecycle guide)")
@@ -3973,6 +4301,48 @@ def main() -> None:
             out = (out_dir / f"lifecycle-{args.product}.html").resolve()
         _generate_product(args.product, out, args)
 
+
+# ── Optional add-ons ──────────────────────────────────────────────────────────
+# An add-on is a module named addon_<name>.py next to this script. Every one found
+# is loaded at import; a checkout without any builds the same site minus their
+# sections. An add-on module provides:
+#   PHASES: dict                    palette entries for its bars (merged into PHASES)
+#   PHASE_KEYS: list[(key, field)]  segment keys (appended to PHASE_KEYS)
+#   JS: str                         script appended to every page
+#   build(lg) -> data               fetch + build; falsy data skips the add-on (never raises)
+#   nav_button(lg, data, btn_cls)   main-page nav filter button
+#   section_html(lg, data)          main-page section
+#   write_pages(lg, out_dir, data)  its own pages next to lifecycle.html
+# `lg` is a view of this module's globals, so an add-on reuses the helpers here
+# (works whether the script runs as __main__ or is loaded from a file path).
+_ADDONS: list = []
+_ADDON_JS: list[str] = []
+
+
+def _lg() -> types.SimpleNamespace:
+    return types.SimpleNamespace(**globals())
+
+
+def _load_addons() -> None:
+    import importlib.util
+    for path in sorted(Path(__file__).resolve().parent.glob("addon_*.py")):
+        spec = importlib.util.spec_from_file_location(path.stem, path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        PHASES.update(module.PHASES)
+        PHASE_KEYS.extend(module.PHASE_KEYS)
+        _MD_PHASE_ORDER.extend(key for key, _ in module.PHASE_KEYS)
+        _ADDON_JS.append(module.JS)
+        _ADDONS.append(module)
+
+
+def _build_addons() -> list[tuple[object, object]]:
+    """[(add-on, data)] for the add-ons that have something to show."""
+    built = [(addon, addon.build(_lg())) for addon in _ADDONS]
+    return [(addon, data) for addon, data in built if data]
+
+
+_load_addons()
 
 if __name__ == "__main__":
     main()

@@ -433,6 +433,181 @@ class TestRendering(unittest.TestCase):
         self.assertEqual(lg._minor_meta(fminor, 0), "3 features")
 
 
+class TestMarkdownExport(unittest.TestCase):
+    @staticmethod
+    def _ver(version, segs, phase_key, **extra):
+        d = lg.date.fromisoformat
+        segments = [{"key": k, "start": d(s), "end": d(e), **x} for k, s, e, *rest in segs
+                    for x in [rest[0] if rest else {}]]
+        return {"version": version, "ga": segments[0]["start"], "segments": segments,
+                "is_eol": phase_key == "eol", "phase_key": phase_key, **extra}
+
+    def test_table_columns_and_cells(self):
+        versions = [
+            self._ver("4.20", [("fs", "2025-10-21", "2026-04-21"),
+                               ("mnt", "2026-04-21", "2027-04-21"),
+                               ("eus1", "2027-04-21", "2027-10-21")], "mnt"),
+            self._ver("4.19", [("fs", "2025-06-17", "2025-11-21"),
+                               ("mnt", "2025-11-21", "2026-12-17")], "eol"),
+        ]
+        lines = lg.render_markdown_table(versions).splitlines()
+        self.assertEqual(
+            lines[0], "| Version | GA | Full Support ends | Maintenance ends | EUS-1 ends | Status |")
+        self.assertEqual(lines[1], "|---|---|---|---|---|---|")
+        self.assertEqual(
+            lines[2], "| 4.20 | 2025-10-21 | 2026-04-21 | 2027-04-21 | 2027-10-21 | Maintenance |")
+        self.assertEqual(lines[3], "| 4.19 | 2025-06-17 | 2025-11-21 | 2026-12-17 | - | EOL |")
+
+    def test_open_ended_phases_read_ongoing(self):
+        versions = [
+            # build_versions: open phase is drawn up to today, flagged phase_open
+            self._ver("2.0", [("fs", "2025-01-01", "2026-01-01")], "fs", phase_open=True),
+            # RHEL major: Long Life carries an explicit end_label
+            self._ver("10", [("rhel_std", "2025-05-20", "2035-05-31"),
+                             ("rhel_ll", "2035-05-31", "2038-05-30", {"end_label": "Ongoing"})],
+                      "rhel_std"),
+        ]
+        lines = lg.render_markdown_table(versions).splitlines()
+        self.assertEqual(lines[2], "| 2.0 | 2025-01-01 | Ongoing | - | - | Full Support |")
+        self.assertEqual(lines[3], "| 10 | 2025-05-20 | - | 2035-05-31 | Ongoing | Standard |")
+
+    def test_doc_sections_and_source(self):
+        v = [self._ver("1.0", [("fs", "2025-01-01", "2026-01-01")], "fs")]
+        doc = lg.render_markdown_doc("T", [("", v), ("Sub", v), ("Empty", [])], "https://x/y")
+        self.assertTrue(doc.startswith("# T\n\n| Version |"))
+        self.assertIn("\n## Sub\n\n| Version |", doc)
+        self.assertNotIn("Empty", doc)
+        self.assertIn("Source: <https://x/y>", doc)
+
+    def test_products_have_md_url(self):
+        for key, cfg in lg.PRODUCT_CONFIGS.items():
+            self.assertEqual(cfg["md_url"], f"lifecycle-{key}-markdown.html")
+
+    def test_view_page_and_toggle(self):
+        page = lg.render_markdown_view_html("| a | <b> |", "OCP Lifecycle", "lifecycle-ocp.md",
+                                            key="ocp", has_details=True)
+        self.assertIn('href="lifecycle-ocp.md"', page)
+        self.assertIn("| a | &lt;b&gt; |", page)
+        self.assertIn('href="lifecycle-ocp-details.html"', page)
+        # No details pages (e.g. --skip-details): toggle keeps Chart + Markdown only
+        toggle = lg._view_toggle("chart", "ocp", has_details=False)
+        self.assertNotIn("details.html", toggle)
+        self.assertIn("lifecycle-ocp-markdown.html", toggle)
+
+
+class TestReuseCache(unittest.TestCase):
+    """--reuse-cache: same-day sidecar JSON is used without fetching."""
+
+    def _run(self, generated, reuse):
+        import tempfile
+        calls = []
+        orig = lg.build_details_data
+        fresh = {"generated": "fresh", "key": "ocp", "minors": []}
+        lg.build_details_data = lambda key, cfg, versions: calls.append(key) or dict(fresh)
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                out = Path(tmp)
+                sidecar = out / "lifecycle-ocp-details.json"
+                sidecar.write_text(lg.json.dumps({"generated": generated, "key": "ocp", "minors": []}))
+                lg._generate_details_page(out, "ocp", lg.PRODUCT_CONFIGS["ocp"], [], reuse_cache=reuse)
+                return calls, lg.json.loads(sidecar.read_text())["generated"]
+        finally:
+            lg.build_details_data = orig
+
+    def test_same_day_cache_skips_fetch(self):
+        today = lg.datetime.now(lg.timezone.utc).strftime("%Y-%m-%dT00:00:01Z")
+        calls, generated = self._run(today, reuse=True)
+        self.assertEqual(calls, [])
+        self.assertEqual(generated, today)
+
+    def test_older_cache_is_refetched(self):
+        calls, generated = self._run("2020-01-01T00:00:00Z", reuse=True)
+        self.assertEqual(calls, ["ocp"])
+        self.assertEqual(generated, "fresh")
+
+    def test_off_by_default(self):
+        today = lg.datetime.now(lg.timezone.utc).strftime("%Y-%m-%dT00:00:01Z")
+        calls, _ = self._run(today, reuse=False)
+        self.assertEqual(calls, ["ocp"])
+
+
+_RELEASE_PAGE = """
+<h2 id="RHEL10">Red Hat Enterprise Linux 10</h2><table><tbody>
+<tr>
+<td>RHEL 10.3</td>
+<td>2026-11-10</td>
+<td>2026-11-10</td>
+</tr>
+<tr><td>RHEL 10.2</td><td>2026-05-19</td><td>2026-05-19</td></tr>
+</tbody></table>
+<table><tbody>
+<tr><td>RHEL 8.1</td><td>2019-11-05</td></tr>
+<tr><td>RHEL 8</td><td>2019-05-07</td></tr>
+<tr><td>RHEL 7.0 GA</td><td>2014-06-09</td></tr>
+<tr><td>RHEL 7.0 Beta</td><td>2013-12-11</td></tr>
+<tr><td>RHEL 4 Update 9</td><td>2011-02-16</td></tr>
+</tbody></table>
+"""
+
+
+class TestRhelReleaseDates(unittest.TestCase):
+    def test_parse_rows(self):
+        self.assertEqual(lg.parse_rhel_release_dates(_RELEASE_PAGE), {
+            "10": {"10.3": "2026-11-10", "10.2": "2026-05-19"},
+            "8": {"8.1": "2019-11-05", "8.0": "2019-05-07"},
+            "7": {"7.0": "2014-06-09"},
+        })
+
+    def test_new_minor_added_and_previous_std_end_follows(self):
+        minors = {"10": {"10.2": {"ga": "2026-05-19", "std_end": "2026-11-12",
+                                  "eus_end": "2028-05-31", "elc_end": "2032-05-19"}}}
+        changes = lg.apply_rhel_release_dates({"10": {"10.2": "2026-05-19", "10.3": "2026-11-10"}},
+                                              minors, {})
+        self.assertEqual(minors["10"]["10.3"], {"ga": "2026-11-10", "std_end": "2027-05-11"})
+        self.assertEqual(minors["10"]["10.2"]["std_end"], "2026-11-10")
+        self.assertEqual(minors["10"]["10.2"]["elc_end"], "2032-05-19")  # YAML kept
+        self.assertIn("RHEL 10.3 added (GA 2026-11-10)", changes)
+
+    def test_changed_ga_replaces_yaml(self):
+        minors = {"9": {"9.6": {"ga": "2025-04-29", "std_end": "2025-11-04"},
+                        "9.7": {"ga": "2025-11-04", "std_end": "2026-05-19"}}}
+        changes = lg.apply_rhel_release_dates({"9": {"9.6": "2025-05-20", "9.7": "2025-11-11"}}, minors, {})
+        self.assertEqual(minors["9"]["9.6"], {"ga": "2025-05-20", "std_end": "2025-11-11"})
+        self.assertEqual(minors["9"]["9.7"]["std_end"], "2026-05-19")  # newest keeps YAML std_end
+        self.assertIn("RHEL 9.6 GA 2025-04-29 -> 2025-05-20", changes)
+
+    def test_even_and_final_minors_derive_policy_dates(self):
+        minors = {"9": {}}
+        lg.apply_rhel_release_dates({"9": {"9.8": "2026-05-19", "9.10": "2027-05-18"}}, minors,
+                                    {"9": {"std_end": "2032-05-31", "elc_end": "2036-05-31"}})
+        self.assertEqual(minors["9"]["9.8"], {"ga": "2026-05-19", "eus_end": "2028-05-31",
+                                              "elc_end": "2032-05-19", "std_end": "2027-05-18"})
+        self.assertEqual(minors["9"]["9.10"], {"ga": "2027-05-18", "eus_end": "2029-05-31",
+                                               "elc_end": "2033-05-18", "std_end": "2032-05-31",
+                                               "elcp_end": "2036-05-31"})
+
+    def test_majors_not_in_yaml_are_ignored(self):
+        minors = {"10": {}}
+        lg.apply_rhel_release_dates({"7": {"7.0": "2014-06-09"}}, minors, {})
+        self.assertEqual(minors, {"10": {}})
+
+    def test_refresh_failure_keeps_yaml(self):
+        before = {k: {v: dict(f) for v, f in d.items()} for k, d in lg._RHEL_MINOR_DATA.items()}
+        orig = lg._fetch_text
+        for fake in (lambda url: (_ for _ in ()).throw(lg.urllib.error.URLError("down")),
+                     lambda url: "<html>no table</html>"):
+            lg._fetch_text = fake
+            try:
+                lg.refresh_rhel_minors()
+            finally:
+                lg._fetch_text = orig
+            self.assertEqual(lg._RHEL_MINOR_DATA, before)
+
+    def test_url_loaded_from_yaml(self):
+        self.assertEqual(lg.RHEL_RELEASE_DATES_URL,
+                         "https://access.redhat.com/kb/red-hat-enterprise-linux-release-dates")
+
+
 class TestConfigWiring(unittest.TestCase):
     def test_details_products_have_urls(self):
         for key, cfg in lg.PRODUCT_CONFIGS.items():

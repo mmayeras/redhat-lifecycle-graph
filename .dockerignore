@@ -4,3 +4,5 @@ __pycache__
 *.pyc
 docs/*.svg
 docs/*.png
+**/client-id.txt
+**/client-secret.txt

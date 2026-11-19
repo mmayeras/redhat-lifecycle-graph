@@ -271,7 +271,13 @@ Minor-level ELC dates still come from the [errata policy page](https://access.re
 
 ### RHEL minor versions (the "Show minor releases" toggle)
 
-Minor release dates are embedded as images on the errata page — not available from any API. Stored in `rhel_minors`.
+Minor release dates are not available from any API. `refresh_rhel_minors()` reads the [RHEL release dates page](https://access.redhat.com/kb/red-hat-enterprise-linux-release-dates) (formerly `articles/3078`, URL in `rhel_release_dates_url`) at build time and merges it over `rhel_minors`:
+
+- `ga`: the page wins. A minor on the page but not in YAML is added; a different GA date replaces the YAML one. The build log lists every change.
+- `std_end`: the next minor's GA. The newest minor keeps its YAML `std_end`, or gets GA + 26 weeks (projected next minor) when it has none.
+- `eus_end` / `elc_end` / `elcp_end`: kept from YAML. For a minor added from the page they are derived from the [errata policy](https://access.redhat.com/support/policy/updates/errata) rules above: EUS to May 31 two years after GA on even minors, ELC = GA + 6 years on even minors from 9.2 / 10.2 and on 8.10, and for a final minor (x.10) Standard to the major's `std_end` and Long Life to the major's `elc_end`.
+
+If the page cannot be read or has no RHEL table, the build uses `rhel_minors` as is (non-fatal). Edit `rhel_minors` only for dates the rules cannot derive, or to keep the fallback current.
 
 **To update dates**: edit `rhel_minors` and/or `rhel_majors` in `lifecycle-config.yaml`. See the [field reference](#field-reference) above.
 

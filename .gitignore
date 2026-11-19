@@ -9,3 +9,8 @@ lifecycle.png
 index.html
 _lifecycle_png.html
 __pycache__/
+
+# Local credential files: never commit them.
+# No slash in the pattern: matches at any depth.
+client-id.txt
+client-secret.txt

@@ -101,12 +101,18 @@ python3 lifecycle-graph.py --product rhel --png --open
 | `--validate-phases` | off | Audit API `phase_map` coverage (exit 1 on gaps) |
 | `--output-dir DIR` | `.` | Output directory (`docs/` for GitHub Pages) |
 | `--skip-details` | off | Skip errata Details/Timeline pages (faster test runs) |
+| `--no-reuse-cache` | off | Fetch errata again even if `lifecycle-*-details.json` in the output directory was already fetched today (UTC). By default same-day data is reused |
 
 ## Outputs
 
 - **HTML** — interactive chart (hover tooltips on phase segments)
 - **SVG** — vector source, generated natively by the script
 - **PNG** — transparent background, card only; paste-safe in Google Docs / Slides
+- **Markdown** — `lifecycle-{product}.md` next to each HTML page (plus `lifecycle-operators.md` and `lifecycle-middleware.md` with `--product all`): one table per product with GA and the end date of each phase, ready to paste or fetch into static Markdown content. RHEL adds one table per major for its minors. EOL versions are left out unless `--include-eol` is set. Each file has a view page (`lifecycle-{product}-markdown.html`: source, copy button, raw link), reachable from the **Markdown** chip on each card and from the Chart / Details / Timeline toggle.
+
+```bash
+curl -s https://<pages-host>/lifecycle-ocp.md
+```
 
 ## Phase legend
 
@@ -130,6 +136,7 @@ python3 lifecycle-graph.py --product rhel --png --open
 
 EUS phases (Extended Update Support) only appear on even OCP/ODF releases (4.12, 4.14, …).  
 RHEL uses subscription phase names from the [errata policy](https://access.redhat.com/support/policy/updates/errata), not the lifecycle API. See [LIFECYCLE.md](LIFECYCLE.md#rhel).  
+RHEL minor GA dates are read at build time from the [RHEL release dates page](https://access.redhat.com/kb/red-hat-enterprise-linux-release-dates) (no API publishes them): a new minor or a corrected GA date shows up without a YAML edit. `rhel_minors` in `lifecycle-config.yaml` is the fallback when the page cannot be read.  
 Ceph uses a single "Support" tier ending at EOL, followed by optional ELS / ELS Term 2 add-on periods.
 
 ## Configuration

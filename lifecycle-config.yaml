@@ -34,7 +34,13 @@
 #   rolling-ga-eol → General availability / End of Life only
 
 # ── RHEL minor release dates ─────────────────────────────────────────────────
-# Source: https://access.redhat.com/support/policy/updates/errata
+# No API publishes RHEL minor dates. GA dates are read at build time from the
+# release dates page (rhel_release_dates_url, formerly access.redhat.com/articles/3078)
+# and merged over the block below: a new minor is added with dates derived from
+# the errata policy rules, a changed GA date replaces the one here, and every
+# std_end becomes the next minor's GA. This block is the fallback when the page
+# cannot be read, and holds dates the rules cannot derive (e.g. 8.10 eus_end).
+# Phase rules (which minors get EUS/ELC, how long): https://access.redhat.com/support/policy/updates/errata
 # Phase names (subscription model — not the lifecycle API phase names):
 #   Standard subscription — all minors (~6 months per minor)
 #   Premium subscription additional maintenance — even minors (EUS, 2 years)
@@ -46,9 +52,11 @@
 # elc_end:  end of ELC, Premium (GA + 6 years; even minors ≥ 9.2, 8.10, 10.2+)
 # elcp_end: end of Long Life add-on (last minor of each major only)
 
+rhel_release_dates_url: "https://access.redhat.com/kb/red-hat-enterprise-linux-release-dates"
+
 rhel_minors:
   "7":
-    "7.0":  { ga: "2014-06-10", std_end: "2015-03-05" }
+    "7.0":  { ga: "2014-06-09", std_end: "2015-03-05" }
     "7.1":  { ga: "2015-03-05", std_end: "2015-11-19" }
     "7.2":  { ga: "2015-11-19", std_end: "2016-11-03" }
     "7.3":  { ga: "2016-11-03", std_end: "2017-07-31" }
@@ -65,27 +73,33 @@ rhel_minors:
     "8.3":  { ga: "2020-11-03", std_end: "2021-05-18" }
     "8.4":  { ga: "2021-05-18", std_end: "2021-11-09", eus_end: "2023-05-31" }
     "8.5":  { ga: "2021-11-09", std_end: "2022-05-10" }
-    "8.6":  { ga: "2022-05-10", std_end: "2022-11-08", eus_end: "2024-05-31" }
-    "8.7":  { ga: "2022-11-08", std_end: "2023-05-16" }
+    "8.6":  { ga: "2022-05-10", std_end: "2022-11-09", eus_end: "2024-05-31" }
+    "8.7":  { ga: "2022-11-09", std_end: "2023-05-16" }
     "8.8":  { ga: "2023-05-16", std_end: "2023-11-14", eus_end: "2025-05-31" }
     "8.9":  { ga: "2023-11-14", std_end: "2024-05-22" }
     # 8.10: final minor; eus_end aligns with RHEL 8 Maintenance end; Long Life extends to 2033-05-31
     "8.10": { ga: "2024-05-22", std_end: "2029-05-31", eus_end: "2026-05-31", elc_end: "2030-05-22", elcp_end: "2033-05-31" }
   "9":
-    "9.0":  { ga: "2022-05-18", std_end: "2022-11-15" }
+    "9.0":  { ga: "2022-05-17", std_end: "2022-11-15" }
     "9.1":  { ga: "2022-11-15", std_end: "2023-05-10" }
     # ELC = GA + 6 years; even minors from 9.2 per Red Hat ELC policy
     "9.2":  { ga: "2023-05-10", std_end: "2023-11-07", eus_end: "2025-05-31", elc_end: "2029-05-10" }
     "9.3":  { ga: "2023-11-07", std_end: "2024-04-30" }
     "9.4":  { ga: "2024-04-30", std_end: "2024-11-12", eus_end: "2026-05-31", elc_end: "2030-04-30" }
-    "9.5":  { ga: "2024-11-12", std_end: "2025-04-29" }
-    "9.6":  { ga: "2025-04-29", std_end: "2025-11-04", eus_end: "2027-05-31", elc_end: "2031-04-29" }
-    "9.7":  { ga: "2025-11-04", std_end: "2026-05-19" }
-    # 9.8: future minor (projected ~May 2026); std_end = projected 9.9 GA; elc_end = GA + 6 years
+    "9.5":  { ga: "2024-11-12", std_end: "2025-05-20" }
+    "9.6":  { ga: "2025-05-20", std_end: "2025-11-11", eus_end: "2027-05-31", elc_end: "2031-04-29" }
+    "9.7":  { ga: "2025-11-11", std_end: "2026-05-19" }
     "9.8":  { ga: "2026-05-19", std_end: "2026-11-10", eus_end: "2028-05-31", elc_end: "2032-05-19" }
+    # 9.9: std_end = projected 9.10 GA (not yet published; minors ship in May and November)
+    "9.9":  { ga: "2026-11-10", std_end: "2027-05-18" }
   "10":
-    # 10.0: std_end = when 10.1 GAs (not yet published); EUS minors for RHEL 10 are 10.2, 10.4, 10.6, 10.8
-    "10.0": { ga: "2025-05-20" }
+    # EUS/ELC minors for RHEL 10 are 10.2, 10.4, 10.6, 10.8 (10.10 also ELC)
+    "10.0": { ga: "2025-05-20", std_end: "2025-11-11" }
+    "10.1": { ga: "2025-11-11", std_end: "2026-05-19" }
+    # 10.2: eus_end follows the 9.x pattern (May 31, two years after GA); elc_end = GA + 6 years
+    "10.2": { ga: "2026-05-19", std_end: "2026-11-10", eus_end: "2028-05-31", elc_end: "2032-05-19" }
+    # 10.3: std_end = projected 10.4 GA (not yet published)
+    "10.3": { ga: "2026-11-10", std_end: "2027-05-18" }
 
 # ── RHEL major release lifecycle (major-level view) ───────────────────────────
 # RHEL still bypasses the lifecycle API for minors (use_major_phases: true), but
@@ -168,7 +182,7 @@ products:
       features_search: "*red_hat_enterprise_linux*{minor}_release_notes*"
       release_notes_url: "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/{major}/html/{minor}_release_notes/"
     page_url: "https://access.redhat.com/support/policy/updates/errata"
-    info_html: "<b>Standard subscription</b> covers each minor release (~6 months). <b>Premium subscription additional maintenance</b> extends even minors by 2 years (EUS). <b>Extended Life Cycle, Premium subscription additional maintenance</b> (ELC) adds 6 years from GA on even minors from RHEL 9.2+, 8.10, and 10.2+. <b>Long Life add-on terms</b> extend the last minor of a major (8.10, 9.10, 10.10). RHEL 7 uses the legacy <b>Extended life cycle support (ELS) add-on</b> instead of ELC. Dates are from the <a href=\"https://access.redhat.com/support/policy/updates/errata\" target=\"_blank\">errata policy</a>, not the lifecycle API."
+    info_html: "<b>Standard subscription</b> covers each minor release (~6 months). <b>Premium subscription additional maintenance</b> extends even minors by 2 years (EUS). <b>Extended Life Cycle, Premium subscription additional maintenance</b> (ELC) adds 6 years from GA on even minors from RHEL 9.2+, 8.10, and 10.2+. <b>Long Life add-on terms</b> extend the last minor of a major (8.10, 9.10, 10.10). RHEL 7 uses the legacy <b>Extended life cycle support (ELS) add-on</b> instead of ELC. Phase rules are from the <a href=\"https://access.redhat.com/support/policy/updates/errata\" target=\"_blank\">errata policy</a> and minor GA dates are read from the <a href=\"https://access.redhat.com/kb/red-hat-enterprise-linux-release-dates\" target=\"_blank\">release dates page</a>, not the lifecycle API."
     version_strategy: rhel-major
     min_version: "7"
     has_minors: true

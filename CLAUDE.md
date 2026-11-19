@@ -62,6 +62,12 @@ Key functions:
 - `render_combined_html()` — assembles all charts + nav into `lifecycle.html`
 - `_generate_lifecycle_about(path)` — renders LIFECYCLE.md → `lifecycle-about.html` (stdlib Markdown converter)
 - `_generate_details_page(out_dir, key, cfg, versions)` — z-stream/errata Details page (see below)
+- `refresh_rhel_minors()` — reads the RHEL release dates page (`rhel_release_dates_url`) at build time and merges GA dates over `rhel_minors` (`apply_rhel_release_dates`): new minors added with policy-derived dates, changed GA replaced, `std_end` = next minor GA; YAML is the fallback
+- `render_markdown_table(versions)` / `render_markdown_doc()` — lifecycle dates as Markdown tables, written as `lifecycle-{key}.md` beside each HTML page (plus `lifecycle-operators.md` / `lifecycle-middleware.md`); built from the same `versions` dicts as the charts, EOL rows follow `--include-eol`
+
+## Optional add-ons
+
+Every `addon_*.py` next to `lifecycle-graph.py` is loaded at import (`_load_addons()`); a checkout without any builds the same site minus their sections. The interface (PHASES, PHASE_KEYS, JS, build, nav_button, section_html, write_pages) is documented above `_load_addons()`. Core code never names a specific add-on.
 
 ## Details pages (z-stream errata)
 
@@ -90,7 +96,7 @@ Card look & feel is standardized in `RELEASE_NOTE_TEMPLATE.md` — any new featu
 
 **RHEL special case**: RHEL package errata aren't tied to one minor release (a security fix ships to whatever minor you're on, not a discrete x.y.z build like OCP) — `errata_scope: major` groups errata by major (7/8/9/10) instead of the usual per-minor z-stream split, as a flat dated "unversioned" feed per major, and is capped to the last 12 months via a `portal_publication_date:[NOW-365DAYS TO NOW]` Solr range filter (all-time volume is 10k-20k+ advisories per major — verified against the live API). No delta filter (that's z-stream-only). `minors_from: rhel_minors` still sources the *feature-card* minor list from the `rhel_minors:` YAML block (majors ≥ 8) instead of chart versions.
 
-Data comes from the unauthenticated Hydra errata search (`access.redhat.com/hydra/rest/search/kcs`) at build time — no runtime fetches; the page works over `file://`. A sidecar `lifecycle-{key}-details.json` is written next to the HTML and serves as the fallback cache: if the live fetch fails, the page is rebuilt from the last committed JSON with a stale-data notice, and chart generation is never blocked. `--skip-details` skips these pages (and the card links) for faster test runs.
+Data comes from the unauthenticated Hydra errata search (`access.redhat.com/hydra/rest/search/kcs`) at build time — no runtime fetches; the page works over `file://`. A sidecar `lifecycle-{key}-details.json` is written next to the HTML and serves as the fallback cache: if the live fetch fails, the page is rebuilt from the last committed JSON with a stale-data notice, and chart generation is never blocked. `--skip-details` skips these pages (and the card links) for faster test runs. By default a sidecar JSON already fetched today (UTC) is reused without any fetch (`--no-reuse-cache` forces a fresh one): after changing an errata or feature parser, pass `--no-reuse-cache` or the same-day data hides the change.
 
 ## Version strategies (`version_strategy` in YAML)
 

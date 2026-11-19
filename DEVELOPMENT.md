@@ -113,7 +113,9 @@ link, both pages, and the JSON sidecar appear automatically.
 ### RHEL dates
 
 `rhel_majors` / `rhel_minors` YAML blocks; field meanings in CLAUDE.md. Dates
-must be quoted strings.
+must be quoted strings. Minor GA dates are also read at build time from the
+release dates page (`refresh_rhel_minors()`, see LIFECYCLE.md § RHEL), so a new
+minor needs no YAML edit; `rhel_minors` is the fallback. `rhel_majors` is manual.
 
 ## Testing
 
