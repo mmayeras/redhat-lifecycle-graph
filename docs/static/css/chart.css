@@ -411,8 +411,10 @@ html.pf-v6-theme-dark {
   position: absolute;
   top: var(--chart-top);
   bottom: 20px;
+  /* Must match the bar column of .chart-row exactly (label | bar | days):
+     bars and grid marks share the same percentages. */
   left: calc(var(--card-px) + var(--label-w));
-  right: calc(var(--card-px) + var(--days-col) + 8px);
+  right: calc(var(--card-px) + var(--days-col));
   pointer-events: none;
 }
 
