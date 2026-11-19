@@ -1,7 +1,7 @@
 {
  "product": "osp",
  "title": "OpenStack Platform",
- "generated": "2026-11-18T15:36:25Z",
+ "generated": "2026-11-19T15:39:14Z",
  "minors": [
   {
    "minor": "17.1",
@@ -2206,6 +2206,17 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:100496",
+     "synopsis": "Critical: Red Hat OpenStack Platform 16.2 (openstack-manila) security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100496",
+     "items": [
+      "manila: Public Manila Share Allows Cross-Project Access-Rule and Export-Metadata Writes (CVE-2026-71195)"
+     ]
+    },
     {
      "id": "RHSA-2026:95206",
      "synopsis": "Updated Red Hat OpenStack Platform 16.2 director Operator container images",
@@ -7618,6 +7629,18 @@
      ]
     },
     {
+     "id": "RHBA-2019:0928",
+     "synopsis": "python-django-horizon bug fix advisory",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2019-04-30",
+     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
+     "items": [
+      "OpenStack Dashboard",
+      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
+     ]
+    },
+    {
      "id": "RHBA-2019:0929",
      "synopsis": "openstack-cinder bug fix advisory",
      "kind": "bugfix",
@@ -7629,18 +7652,6 @@
       "Previously, when `destroy_empty_storage_group` was enabled and a storage group was destroyed after it was emptied, the VNX driver or storops cache was not updated and the driver did not recreate the storage group upon subsequent attachment. The\u2026",
       "Previously, when authenticating, a string match was performed on the `response-type` string. Performance with this mechanism was not consistent.",
       "The following issues with multi-attach have been fixed:"
-     ]
-    },
-    {
-     "id": "RHBA-2019:0928",
-     "synopsis": "python-django-horizon bug fix advisory",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2019-04-30",
-     "url": "https://access.redhat.com/errata/RHBA-2019:0928",
-     "items": [
-      "OpenStack Dashboard",
-      "Previously, the Launch Instance form did not allow users to create security key pairs with names that contain an underscore character."
      ]
     },
     {
@@ -8404,14 +8415,6 @@
      "url": "https://access.redhat.com/errata/RHBA-2018:2873"
     },
     {
-     "id": "RHBA-2018:2831",
-     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
-     "kind": "bugfix",
-     "severity": "None",
-     "date": "2018-09-27",
-     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
-    },
-    {
      "id": "RHSA-2018:2822",
      "synopsis": "Important: qemu-kvm-rhev security update",
      "kind": "security",
@@ -8421,6 +8424,14 @@
      "items": [
       "QEMU: slirp: heap buffer overflow while reassembling fragmented datagrams (CVE-2018-11806)"
      ]
+    },
+    {
+     "id": "RHBA-2018:2831",
+     "synopsis": "Red Hat OpenStack Platform 13.0 container image updates",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2018-09-27",
+     "url": "https://access.redhat.com/errata/RHBA-2018:2831"
     },
     {
      "id": "RHBA-2018:2728",
