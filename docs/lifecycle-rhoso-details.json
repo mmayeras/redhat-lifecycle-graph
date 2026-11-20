@@ -1,7 +1,7 @@
 {
  "product": "rhoso",
  "title": "OpenStack on OpenShift",
- "generated": "2026-11-19T15:39:15Z",
+ "generated": "2026-11-20T15:19:42Z",
  "minors": [
   {
    "minor": "18.0",

@@ -1,13 +1,58 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-11-19T15:37:42Z",
+ "generated": "2026-11-20T15:18:08Z",
  "minors": [
   {
    "minor": "2.7",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:100749",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100749"
+    },
+    {
+     "id": "RHBA-2026:100737",
+     "synopsis": "Red Hat Ansible Automation Platform 2.7 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100737",
+     "items": [
+      "Containers: RHSA-2026:99039"
+     ]
+    },
+    {
+     "id": "RHSA-2026:100716",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.7 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100716",
+     "items": [
+      "python-cryptography: python-cryptography: Duplicate self-signed intermediates can cause exponential path-building (CVE-2026-69249)",
+      "python-virtualenv: Arbitrary command execution via sequential placeholder substitution in activation templates (CVE-2026-113776)",
+      "python-virtualenv: Arbitrary command execution via unescaped prompt variables in zsh (CVE-2026-113726)",
+      "python-virtualenv: Arbitrary code execution via improperly quoted Fish activation scripts (CVE-2026-113732)",
+      "python-virtualenv: Arbitrary code execution via unescaped prompt in Windows activation script (CVE-2026-102937)",
+      "python-virtualenv: Arbitrary code execution via unverified downloaded seed wheels (CVE-2026-102930)",
+      "python-virtualenv: Arbitrary code execution via crafted paths in activation scripts (CVE-2026-102925)",
+      "python3.12-cryptography: python-cryptography: Duplicate self-signed intermediates can cause exponential path-building (CVE-2026-69249)",
+      "python3.12-urllib3: Denial of Service via unbounded memory allocation in chunk parser (CVE-2026-97689)",
+      "python3.12-urllib3: Traffic interception via HTTPS proxy TLS configuration override (CVE-2026-97687)",
+      "python3.12-virtualenv: Arbitrary command execution via sequential placeholder substitution in activation templates (CVE-2026-113776)",
+      "python3.12-virtualenv: Arbitrary command execution via unescaped prompt variables in zsh (CVE-2026-113726)",
+      "python3.12-virtualenv: Arbitrary code execution via improperly quoted Fish activation scripts (CVE-2026-113732)",
+      "python3.12-virtualenv: Arbitrary code execution via unescaped prompt in Windows activation script (CVE-2026-102937)",
+      "python3.12-virtualenv: Arbitrary code execution via unverified downloaded seed wheels (CVE-2026-102930)",
+      "python3.12-virtualenv: Arbitrary code execution via crafted paths in activation scripts (CVE-2026-102925)"
+     ]
+    },
     {
      "id": "RHSA-2026:99039",
      "synopsis": "Red Hat Ansible Automation Platform 2.7 Container Release Update",
@@ -497,6 +542,56 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:100765",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100765"
+    },
+    {
+     "id": "RHSA-2026:100715",
+     "synopsis": "Important: Red Hat Ansible Automation Platform 2.6 Product Security and Bug Fix Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100715",
+     "items": [
+      "automation-controller: urllib3: Denial of Service via unbounded memory allocation in chunk parser (CVE-2026-97689)",
+      "automation-controller: urllib3: Traffic interception via HTTPS proxy TLS configuration override (CVE-2026-97687)",
+      "automation-platform-ui: brace-expansion: Denial of Service via uncontrolled recursion in nested brace patterns (CVE-2026-102278)",
+      "python-virtualenv: Arbitrary command execution via sequential placeholder substitution in activation templates (CVE-2026-113776)",
+      "python-virtualenv: Arbitrary command execution via unescaped prompt variables in zsh (CVE-2026-113726)",
+      "python-virtualenv: Arbitrary code execution via improperly quoted Fish activation scripts (CVE-2026-113732)",
+      "python-virtualenv: Arbitrary code execution via unescaped prompt in Windows activation script (CVE-2026-102937)",
+      "python-virtualenv: Arbitrary code execution via unverified downloaded seed wheels (CVE-2026-102930)",
+      "python-virtualenv: Arbitrary code execution via crafted paths in activation scripts (CVE-2026-102925)",
+      "python3.12-djangorestframework: Unauthorized access via improper token revocation in TokenProxy (CVE-2026-114137)",
+      "python3.12-djangorestframework: Denial of Service via unbounded Accept header parsing (CVE-2026-114138)",
+      "python3.12-djangorestframework: Denial of Service via improper charset handling in JSON parser (CVE-2026-114136)",
+      "python3.12-drools-jpy-jar: jackson-core: Denial of Service via excessively long JSON property names (CVE-2026-68498)",
+      "python3.12-gitpython: arbitrary code execution via improper submodule path validation (CVE-2026-114145)",
+      "python3.12-gitpython: Denial of Service via regular expression backtracking in date parsing (CVE-2026-110856)",
+      "python3.12-gitpython: Arbitrary file read via argument injection in branch checkout (CVE-2026-110859)",
+      "python3.12-gitpython: Arbitrary code execution via unsafe URL protocol handling (CVE-2026-110857)",
+      "python3.12-pillow: Heap buffer overflow in ImagingJpegDecode (CVE-2026-112403)",
+      "python3.12-pillow: Heap buffer overflow in FlashPix (FPX) JPEG decoding leads to code execution (CVE-2026-112398)",
+      "python3.12-pillow: Heap buffer overflow in _tiffWriteProc when saving TIFF to BytesIO (CVE-2026-112393)"
+     ]
+    },
+    {
+     "id": "RHBA-2026:100705",
+     "synopsis": "Red Hat Ansible Automation Platform 2.6 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100705",
+     "items": [
+      "RPMs: RHSA-2026:99008",
+      "Containers: RHSA-2026:99073"
+     ]
+    },
     {
      "id": "RHSA-2026:99073",
      "synopsis": "Red Hat Ansible Automation Platform 2.6 Container Release Update",
@@ -1692,6 +1787,26 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:100743",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100743"
+    },
+    {
+     "id": "RHBA-2026:100738",
+     "synopsis": "Red Hat Ansible Automation Platform 2.5 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100738",
+     "items": [
+      "RPMs: RHSA-2026:99007",
+      "Containers: RHSA-2026:99080"
+     ]
+    },
     {
      "id": "RHSA-2026:99080",
      "synopsis": "Red Hat Ansible Automation Platform 2.5 Container Release Update",
@@ -4675,6 +4790,41 @@
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.4/html/release_notes/",
    "zstreams": [],
    "unversioned": [
+    {
+     "id": "RHSA-2026:100742",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100742"
+    },
+    {
+     "id": "RHSA-2026:100740",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-20",
+     "url": "https://access.redhat.com/errata/RHSA-2026:100740"
+    },
+    {
+     "id": "RHBA-2026:100713",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Product Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100713"
+    },
+    {
+     "id": "RHBA-2026:100704",
+     "synopsis": "Red Hat Ansible Automation Platform 2.4 Setup Bundle Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-19",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100704",
+     "items": [
+      "RPMs: RHSA-2026:99006"
+     ]
+    },
     {
      "id": "RHSA-2026:99079",
      "synopsis": "Red Hat Ansible Automation Platform 2.4 Container Release Update",
