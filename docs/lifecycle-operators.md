@@ -207,7 +207,7 @@
 
 | Version | GA | Full Support ends | Maintenance ends | Status |
 |---|---|---|---|---|
-| 1.24 | 2026-09-17 | 2026-12-31 | 2027-01-31 | Full Support |
+| 1.24 | 2026-09-17 | 2026-12-31 | 2027-03-31 | Full Support |
 | 1.23 | 2026-07-17 | 2026-10-31 | 2026-12-31 | Maintenance |
 
 ## OpenShift Serverless
@@ -381,4 +381,4 @@
 | 10.20 | 2025-10-22 | 2026-05-03 | 2027-04-21 | Maintenance |
 | 10.19 | 2025-07-17 | 2026-01-21 | 2026-12-17 | Maintenance |
 
-Generated 2026-11-20.
+Generated 2026-11-21.

@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-20T15:14:27Z",
+ "generated": "2026-11-21T14:29:47Z",
  "minors": [
   {
    "minor": "4.22",
@@ -1111,6 +1111,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:100981",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100981"
+    },
+    {
+     "id": "RHBA-2026:100980",
+     "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100980"
+    },
     {
      "id": "RHBA-2026:99679",
      "synopsis": "OpenShift Container Platform 4.22 dpdk-base extras update",
@@ -8745,6 +8761,22 @@
    ],
    "unversioned": [
     {
+     "id": "RHBA-2026:100983",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100983"
+    },
+    {
+     "id": "RHBA-2026:100982",
+     "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100982"
+    },
+    {
      "id": "RHBA-2026:98242",
      "synopsis": "OpenShift Container Platform 4.20 dpdk-base extras update",
      "kind": "bugfix",
@@ -14676,6 +14708,14 @@
      "date": "2026-11-06",
      "errata": [
       {
+       "id": "RHBA-2026:95104",
+       "synopsis": "OpenShift Container Platform 4.18.60 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95104"
+      },
+      {
        "id": "RHSA-2026:95104",
        "synopsis": "Critical: OpenShift Container Platform 4.18.60 bug fix update",
        "kind": "security",
@@ -14686,14 +14726,6 @@
         "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)",
         "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)"
        ]
-      },
-      {
-       "id": "RHBA-2026:95104",
-       "synopsis": "OpenShift Container Platform 4.18.60 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2026-11-09",
-       "url": "https://access.redhat.com/errata/RHBA-2026:95104"
       },
       {
        "id": "RHBA-2026:95107",
@@ -35620,14 +35652,6 @@
        "url": "https://access.redhat.com/errata/RHBA-2024:0643"
       },
       {
-       "id": "RHBA-2024:0645",
-       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2024-02-07",
-       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
-      },
-      {
        "id": "RHSA-2024:0645",
        "synopsis": "Moderate: OpenShift Container Platform 4.14.11 packages and security update",
        "kind": "security",
@@ -35637,6 +35661,14 @@
        "items": [
         "runc: file descriptor leak \"Leaky Vessels\" (CVE-2024-21626)"
        ]
+      },
+      {
+       "id": "RHBA-2024:0645",
+       "synopsis": "OpenShift Container Platform 4.14.11 packages and security update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2024-02-07",
+       "url": "https://access.redhat.com/errata/RHBA-2024:0645"
       },
       {
        "id": "RHSA-2024:0642",
@@ -36233,6 +36265,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:100908",
+     "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-21",
+     "url": "https://access.redhat.com/errata/RHBA-2026:100908"
+    },
     {
      "id": "RHBA-2026:99628",
      "synopsis": "OpenShift Container Platform 4.14 dpdk-base extras update",
