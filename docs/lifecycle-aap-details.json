@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-11-21T14:33:30Z",
+ "generated": "2026-11-22T14:29:24Z",
  "minors": [
   {
    "minor": "2.7",
@@ -8121,6 +8121,14 @@
    "zstreams": [],
    "unversioned": [
     {
+     "id": "RHBA-2026:101339",
+     "synopsis": "Ansible plug-ins for Red Hat Developer Hub Product Release Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-22",
+     "url": "https://access.redhat.com/errata/RHBA-2026:101339"
+    },
+    {
      "id": "RHBA-2026:95615",
      "synopsis": "Ansible automation portal (Technology Preview)",
      "kind": "bugfix",
@@ -10428,6 +10436,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:101340",
+     "synopsis": "Ansible plug-ins for Red Hat Developer Hub Product Release Update",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-22",
+     "url": "https://access.redhat.com/errata/RHSA-2026:101340"
+    },
     {
      "id": "RHBA-2026:95565",
      "synopsis": "Ansible automation portal (Technology Preview)",
