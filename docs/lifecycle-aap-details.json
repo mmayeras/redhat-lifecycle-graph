@@ -1,7 +1,7 @@
 {
  "product": "aap",
  "title": "AAP Lifecycle",
- "generated": "2026-11-22T14:29:24Z",
+ "generated": "2026-11-23T17:55:33Z",
  "minors": [
   {
    "minor": "2.7",
@@ -8121,6 +8121,22 @@
    "zstreams": [],
    "unversioned": [
     {
+     "id": "RHSA-2026:102584",
+     "synopsis": "Ansible automation portal (Technology Preview)",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:102584"
+    },
+    {
+     "id": "RHSA-2026:102205",
+     "synopsis": "Ansible automation portal Red Hat Enterprise Linux Images",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:102205"
+    },
+    {
      "id": "RHBA-2026:101339",
      "synopsis": "Ansible plug-ins for Red Hat Developer Hub Product Release Update",
      "kind": "bugfix",
@@ -10436,6 +10452,22 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:102284",
+     "synopsis": "Ansible automation portal (Technology Preview)",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-23",
+     "url": "https://access.redhat.com/errata/RHBA-2026:102284"
+    },
+    {
+     "id": "RHSA-2026:102227",
+     "synopsis": "Ansible automation portal Red Hat Enterprise Linux Images",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-23",
+     "url": "https://access.redhat.com/errata/RHSA-2026:102227"
+    },
     {
      "id": "RHSA-2026:101340",
      "synopsis": "Ansible plug-ins for Red Hat Developer Hub Product Release Update",
