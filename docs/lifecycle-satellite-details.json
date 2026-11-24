@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-11-23T17:57:39Z",
+ "generated": "2026-11-24T17:30:14Z",
  "minors": [
   {
    "minor": "6.19",
@@ -665,6 +665,18 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:102953",
+     "synopsis": "Satellite 6.18 Async Bugfix Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-24",
+     "url": "https://access.redhat.com/errata/RHBA-2026:102953",
+     "items": [
+      "Recurring cookie store unavailable: :hash, error: key not found: :hash in Satellite under bulk RHSM load",
+      "Satellite 6.18.11 is throwing 'unsupported hash type md5(in FIPS mode)' error"
+     ]
+    },
     {
      "id": "RHSA-2026:95657",
      "synopsis": "Critical: Satellite 6.18 security update",

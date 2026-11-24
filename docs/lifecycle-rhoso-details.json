@@ -1,12 +1,36 @@
 {
  "product": "rhoso",
  "title": "OpenStack on OpenShift",
- "generated": "2026-11-23T17:57:08Z",
+ "generated": "2026-11-24T17:29:40Z",
  "minors": [
   {
    "minor": "18.0",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openstack_services_on_openshift/18.0/html/release_notes/",
    "zstreams": [
+    {
+     "version": "18.0.24",
+     "date": "2026-11-24",
+     "errata": [
+      {
+       "id": "RHSA-2026:102936",
+       "synopsis": "Release of containers for RHOSO 18.0.24 security update",
+       "kind": "security",
+       "severity": "Important",
+       "date": "2026-11-24",
+       "url": "https://access.redhat.com/errata/RHSA-2026:102936",
+       "items": [
+        "golang: golang.org/x/net/html: Cross-Site Scripting via unexpected HTML tree rendering (CVE-2026-42502)",
+        "golang: net/http: Denial of Service via HTTP/2 trailer header memory exhaustion (CVE-2026-78659)",
+        "golang: net/http: HTTP response smuggling via malformed HTTP/2 framing headers (CVE-2026-78660)",
+        "golang: Root.Chmod can follow symlinks out of the root (CVE-2026-32282)",
+        "golang: Go crypto/x509: Certificate validation bypass due to incorrect DNS constraint application (CVE-2026-33810)",
+        "golang: Incorrect enforcement of email constraints in crypto/x509 (CVE-2026-27137)",
+        "openstack-network-exporter: Basic-auth uses plaintext password storage and non-constant-time comparison (CVE-2026-83535)",
+        "openstack-network-exporter: http.Server has no ReadHeaderTimeout / ReadTimeout (Slowloris) (CVE-2026-83536)"
+       ]
+      }
+     ]
+    },
     {
      "version": "18.0.22",
      "date": "2026-08-26",
