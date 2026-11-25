@@ -30,4 +30,4 @@
 |---|---|---|---|---|---|
 | 8.10 | 2024-05-22 | 2029-05-31 | 2030-05-22 | 2033-05-31 | Standard |
 
-Generated 2026-11-24. Source: <https://access.redhat.com/support/policy/updates/errata>
+Generated 2026-11-25. Source: <https://access.redhat.com/support/policy/updates/errata>
