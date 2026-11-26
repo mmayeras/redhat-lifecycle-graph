@@ -1,24 +1,30 @@
 {
  "product": "rhoai",
  "title": "RHOAI Lifecycle",
- "generated": "2026-11-25T17:06:29Z",
+ "generated": "2026-11-26T16:48:21Z",
  "minors": [
   {
    "minor": "3.5",
    "release_notes_url": "https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/3.5/html/release_notes/",
    "zstreams": [
     {
-     "version": "3.5.3",
-     "date": "2026-11-06",
+     "version": "3.5.4",
+     "date": "2026-11-24",
      "errata": [
       {
        "id": "RHSA-2026:103383",
-       "synopsis": "RHOAI 3.5.3 - Red Hat OpenShift AI",
+       "synopsis": "RHOAI 3.5.4 - Red Hat OpenShift AI",
        "kind": "security",
        "severity": "Critical",
        "date": "2026-11-24",
        "url": "https://access.redhat.com/errata/RHSA-2026:103383"
-      },
+      }
+     ]
+    },
+    {
+     "version": "3.5.3",
+     "date": "2026-11-06",
+     "errata": [
       {
        "id": "RHBA-2026:99803",
        "synopsis": "RHOAI 3.5.3 - Red Hat OpenShift AI",

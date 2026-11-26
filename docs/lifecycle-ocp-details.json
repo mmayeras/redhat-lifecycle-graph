@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-25T17:01:40Z",
+ "generated": "2026-11-26T16:42:54Z",
  "minors": [
   {
    "minor": "4.22",
@@ -26998,6 +26998,14 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:103542",
+     "synopsis": "DevWorkspace Operator 1.1.1 release.",
+     "kind": "security",
+     "severity": "Important",
+     "date": "2026-11-25",
+     "url": "https://access.redhat.com/errata/RHSA-2026:103542"
+    },
     {
      "id": "RHBA-2026:99705",
      "synopsis": "OpenShift Container Platform 4.16 latency tests extras update",
@@ -59782,20 +59790,20 @@
        "url": "https://access.redhat.com/errata/RHBA-2022:5034"
       },
       {
-       "id": "RHBA-2022:5033",
-       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2022-06-22",
-       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
-      },
-      {
        "id": "RHBA-2022:5032",
        "synopsis": "OpenShift Container Platform 4.8.44 bug fix update",
        "kind": "bugfix",
        "severity": "None",
        "date": "2022-06-22",
        "url": "https://access.redhat.com/errata/RHBA-2022:5032"
+      },
+      {
+       "id": "RHBA-2022:5033",
+       "synopsis": "OpenShift Container Platform 4.8.44 extras update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2022-06-22",
+       "url": "https://access.redhat.com/errata/RHBA-2022:5033"
       },
       {
        "id": "RHBA-2022:5031",

@@ -1,7 +1,7 @@
 {
  "product": "satellite",
  "title": "Red Hat Satellite",
- "generated": "2026-11-25T17:07:28Z",
+ "generated": "2026-11-26T16:49:26Z",
  "minors": [
   {
    "minor": "6.19",
@@ -222,6 +222,46 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHBA-2026:103816",
+     "synopsis": "Satellite 6.19 Update",
+     "kind": "bugfix",
+     "severity": "None",
+     "date": "2026-11-26",
+     "url": "https://access.redhat.com/errata/RHBA-2026:103816"
+    },
+    {
+     "id": "RHSA-2026:103535",
+     "synopsis": "Critical: Satellite 6.18 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-25",
+     "url": "https://access.redhat.com/errata/RHSA-2026:103535",
+     "items": [
+      "openvox-agent: ruby: Heap-based buffer overflow via string case conversion (CVE-2026-132825)",
+      "python3.12-aiohttp: aiohttp: Denial of Service via file descriptor exhaustion in multipart request processing (CVE-2026-111066)",
+      "python3.12-aiohttp: aiohttp: Denial of Service via memory exhaustion during WebSocket frame reassembly (CVE-2026-123817)",
+      "python3.12-aiohttp: aiohttp: Denial of Service via missing initial request timeout (CVE-2026-111064)",
+      "python3.12-cryptography: python-cryptography: Duplicate self-signed intermediates can cause exponential path-building (CVE-2026-69249)",
+      "python3.12-markdown: python-markdown: Denial of Service via inefficient inline link parsing (CVE-2019-25781)",
+      "python3.12-sqlparse: sqlparse: Arbitrary code execution via unescaped PHP output formatting (CVE-2026-112307)"
+     ]
+    },
+    {
+     "id": "RHSA-2026:103534",
+     "synopsis": "Critical: Satellite 6.19 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-25",
+     "url": "https://access.redhat.com/errata/RHSA-2026:103534",
+     "items": [
+      "openvox-agent: Fixes a heap-based buffer overflow in Ruby string case conversion (CVE-2026-132825).",
+      "python3.12-aiohttp: Prevents denial of service from excessive memory use while reassembling WebSocket frames; Adds initial request timeout handling to prevent denial of service from indefinitely idle connections; Limits file descriptor use during\u2026",
+      "python3.12-cryptography: Prevents excessive certificate path-building when chains contain duplicate self-signed certificates (CVE-2026-69249).",
+      "python3.12-markdown: Prevents denial of service from inefficient inline link parsing (CVE-2019-25781).",
+      "python3.12-sqlparse: Fixes PHP code injection through unescaped expressions in SQL-to-PHP formatting (CVE-2026-112307)."
+     ]
+    },
     {
      "id": "RHSA-2026:95652",
      "synopsis": "Critical: Satellite 6.19 security update",
@@ -665,6 +705,23 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:103535",
+     "synopsis": "Critical: Satellite 6.18 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-25",
+     "url": "https://access.redhat.com/errata/RHSA-2026:103535",
+     "items": [
+      "openvox-agent: ruby: Heap-based buffer overflow via string case conversion (CVE-2026-132825)",
+      "python3.12-aiohttp: aiohttp: Denial of Service via file descriptor exhaustion in multipart request processing (CVE-2026-111066)",
+      "python3.12-aiohttp: aiohttp: Denial of Service via memory exhaustion during WebSocket frame reassembly (CVE-2026-123817)",
+      "python3.12-aiohttp: aiohttp: Denial of Service via missing initial request timeout (CVE-2026-111064)",
+      "python3.12-cryptography: python-cryptography: Duplicate self-signed intermediates can cause exponential path-building (CVE-2026-69249)",
+      "python3.12-markdown: python-markdown: Denial of Service via inefficient inline link parsing (CVE-2019-25781)",
+      "python3.12-sqlparse: sqlparse: Arbitrary code execution via unescaped PHP output formatting (CVE-2026-112307)"
+     ]
+    },
     {
      "id": "RHBA-2026:102953",
      "synopsis": "Satellite 6.18 Async Bugfix Update",
@@ -1236,6 +1293,23 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:103536",
+     "synopsis": "Critical: Satellite 6.17 security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-25",
+     "url": "https://access.redhat.com/errata/RHSA-2026:103536",
+     "items": [
+      "openvox-agent: ruby: Heap-based buffer overflow via string case conversion (CVE-2026-132825)",
+      "python-aiohttp: Denial of Service via missing initial request timeout (CVE-2026-111064)",
+      "python-aiohttp: Denial of Service via file descriptor exhaustion in multipart request processing (CVE-2026-111066)",
+      "python-aiohttp: Denial of Service via memory exhaustion during WebSocket frame reassembly (CVE-2026-123817)",
+      "python-cryptography: Duplicate self-signed intermediates can cause exponential path-building (CVE-2026-69249)",
+      "python-markdown: Denial of Service via inefficient inline link parsing (CVE-2019-25781)",
+      "python-sqlparse: Arbitrary code execution via unescaped PHP output formatting (CVE-2026-112307)"
+     ]
+    },
     {
      "id": "RHSA-2026:95656",
      "synopsis": "Critical: Satellite 6.17 security update",
@@ -1938,6 +2012,23 @@
     }
    ],
    "unversioned": [
+    {
+     "id": "RHSA-2026:103537",
+     "synopsis": "Critical: Satellite 6.16 EUS security update",
+     "kind": "security",
+     "severity": "Critical",
+     "date": "2026-11-25",
+     "url": "https://access.redhat.com/errata/RHSA-2026:103537",
+     "items": [
+      "openvox-agent: ruby: Heap-based buffer overflow via string case conversion (CVE-2026-132825)",
+      "python-aiohttp: Denial of Service via missing initial request timeout (CVE-2026-111064)",
+      "python-aiohttp: Denial of Service via file descriptor exhaustion in multipart request processing (CVE-2026-111066)",
+      "python-aiohttp: Denial of Service via memory exhaustion during WebSocket frame reassembly (CVE-2026-123817)",
+      "python-cryptography: Duplicate self-signed intermediates can cause exponential path-building (CVE-2026-69249)",
+      "python-markdown: Denial of Service via inefficient inline link parsing (CVE-2019-25781)",
+      "python-sqlparse: Arbitrary code execution via unescaped PHP output formatting (CVE-2026-112307)"
+     ]
+    },
     {
      "id": "RHSA-2026:95655",
      "synopsis": "Critical: Satellite 6.16 EUS security update",

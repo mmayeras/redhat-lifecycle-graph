@@ -7,4 +7,4 @@
 | 6.17 | 2025-05-06 | 2025-11-30 | 2026-11-28 | - | Maintenance |
 | 6.16 | 2024-11-05 | 2025-05-31 | 2026-05-31 | 2027-05-31 | EUS-1 |
 
-Generated 2026-11-25. Source: <https://access.redhat.com/support/policy/updates/satellite>
+Generated 2026-11-26. Source: <https://access.redhat.com/support/policy/updates/satellite>
