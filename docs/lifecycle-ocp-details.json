@@ -1,7 +1,7 @@
 {
  "product": "ocp",
  "title": "OCP Lifecycle",
- "generated": "2026-11-27T16:28:23Z",
+ "generated": "2026-11-28T15:21:15Z",
  "minors": [
   {
    "minor": "4.22",
@@ -14788,6 +14788,14 @@
      "date": "2026-11-06",
      "errata": [
       {
+       "id": "RHBA-2026:95104",
+       "synopsis": "OpenShift Container Platform 4.18.60 bug fix update",
+       "kind": "bugfix",
+       "severity": "None",
+       "date": "2026-11-09",
+       "url": "https://access.redhat.com/errata/RHBA-2026:95104"
+      },
+      {
        "id": "RHSA-2026:95104",
        "synopsis": "Critical: OpenShift Container Platform 4.18.60 bug fix update",
        "kind": "security",
@@ -14798,14 +14806,6 @@
         "brotli: Out-of-Bounds Write in Google Brotli Decoder (CVE-2026-111497)",
         "kernel: ipv4: free inet_opt and ireq_opt after an RCU grace period (CVE-2026-98432)"
        ]
-      },
-      {
-       "id": "RHBA-2026:95104",
-       "synopsis": "OpenShift Container Platform 4.18.60 bug fix update",
-       "kind": "bugfix",
-       "severity": "None",
-       "date": "2026-11-09",
-       "url": "https://access.redhat.com/errata/RHBA-2026:95104"
       },
       {
        "id": "RHBA-2026:95107",
